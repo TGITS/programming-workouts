@@ -1,4 +1,4 @@
-package tgits.kata.triforce;
+package tgits.programming.workout.triforce;
 
 import org.junit.Assert;
 import org.junit.Test;
