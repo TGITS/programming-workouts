@@ -3,6 +3,8 @@ package tgits.kata.triforce;
 import org.junit.Assert;
 import org.junit.Test;
 
+import tgits.programming.workout.triforce.Triforce;
+
 public class TriforceTest 
 {
 	@Test

@@ -1,4 +1,4 @@
-package tgits.kata.triforce;
+package tgits.programming.workout.triforce;
 
 import java.util.ArrayList;
 import java.util.List;
