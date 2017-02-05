@@ -1,7 +1,6 @@
 # Created by https://www.gitignore.io/api/code-java,java,clojure,eclipse,maven,gradle
 
 ### Clojure ###
-pom.xml
 pom.xml.asc
 *.jar
 *.class
