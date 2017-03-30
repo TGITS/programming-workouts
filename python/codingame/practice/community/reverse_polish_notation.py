@@ -5,7 +5,7 @@ import math
 
 
 def is_int(s):
-    if s[0] in ('-', '+'):
+    if s[0] in ('-','+'):
         return s[1:].isdigit()
     return s.isdigit()
 
@@ -15,10 +15,7 @@ def add(stack):
     if len(stack) > 1:
         head = stack.pop()
         second = stack.pop()
-        if not is_int(head) or not is_int(second):
-            manage_error(stack)
-        else:
-            stack.append(str( int(second) + int(head)))
+        stack.append(str( int(second) + int(head)))
     else:
         manage_error(stack)
     print_stack_debug(stack)
@@ -29,10 +26,7 @@ def sub(stack):
     if len(stack) > 1:
         head = stack.pop()
         second = stack.pop()
-        if not is_int(head) or not is_int(second):
-            manage_error(stack)
-        else:
-            stack.append(str(int(second) - int(head)))
+        stack.append(str(int(second) - int(head)))
     else:
         manage_error(stack)
     print_stack_debug(stack)
@@ -43,10 +37,7 @@ def mul(stack):
     if len(stack) > 1:
         head = stack.pop()
         second = stack.pop()
-        if not is_int(head) or not is_int(second):
-            manage_error(stack)
-        else:
-            stack.append(str(int(second) * int(head)))
+        stack.append(str(int(second) * int(head)))
     else:
         manage_error(stack)
     print_stack_debug(stack)
@@ -57,13 +48,10 @@ def div(stack):
     if len(stack) > 1:
         head = stack.pop()
         second = stack.pop()
-        if not is_int(head) or not is_int(second):
-            manage_error(stack)
+        if int(head) != 0:
+            stack.append(str(int(second) // int(head)))
         else:
-            if int(head) != 0:
-                stack.append(str(int(second) // int(head)))
-            else:
-                manage_error(stack)
+            manage_error(stack)
     else:
        manage_error(stack)
     print_stack_debug(stack)
@@ -74,13 +62,10 @@ def mod(stack):
     if len(stack) > 1:
         head = stack.pop()
         second = stack.pop()
-        if not is_int(head) or not is_int(second):
-            manage_error(stack)
+        if int(head) != 0:
+            stack.append(str(int(second) % int(head)))
         else:
-            if int(head) != 0:
-                stack.append(str(int(second) % int(head)))
-            else:
-                manage_error(stack)
+            manage_error(stack)
     else:
         manage_error(stack)
     print_stack_debug(stack)
