@@ -10,46 +10,42 @@ def is_int(s):
     return s.isdigit()
 
 def add(stack):
-    length = len(stack)
     print_stack_debug(stack)
     if len(stack) > 1:
-        head = stack.pop()
-        second = stack.pop()
-        stack.append(str( int(second) + int(head)))
+        head = int(stack.pop())
+        second = int(stack.pop())
+        stack.append(str(second + head))
     else:
         manage_error(stack)
     print_stack_debug(stack)
 
 def sub(stack):
-    length = len(stack)
     print_stack_debug(stack)
     if len(stack) > 1:
-        head = stack.pop()
-        second = stack.pop()
-        stack.append(str(int(second) - int(head)))
+        head = int(stack.pop())
+        second = int(stack.pop())
+        stack.append(str(second - head))
     else:
         manage_error(stack)
     print_stack_debug(stack)
 
 def mul(stack):
-    length = len(stack)
     print_stack_debug(stack)
     if len(stack) > 1:
-        head = stack.pop()
-        second = stack.pop()
-        stack.append(str(int(second) * int(head)))
+        head = int(stack.pop())
+        second = int(stack.pop())
+        stack.append(str(second * head))
     else:
         manage_error(stack)
     print_stack_debug(stack)
 
 def div(stack):
-    length = len(stack)
     print_stack_debug(stack)
     if len(stack) > 1:
-        head = stack.pop()
-        second = stack.pop()
-        if int(head) != 0:
-            stack.append(str(int(second) // int(head)))
+        head = int(stack.pop())
+        second = int(stack.pop())
+        if head != 0:
+            stack.append(str(second // head))
         else:
             manage_error(stack)
     else:
@@ -57,13 +53,12 @@ def div(stack):
     print_stack_debug(stack)
 
 def mod(stack):
-    length = len(stack)
     print_stack_debug(stack)
     if len(stack) > 1:
-        head = stack.pop()
-        second = stack.pop()
-        if int(head) != 0:
-            stack.append(str(int(second) % int(head)))
+        head = int(stack.pop())
+        second = int(stack.pop())
+        if head != 0:
+            stack.append(str(second % head))
         else:
             manage_error(stack)
     else:
@@ -101,7 +96,6 @@ def swap(stack):
         manage_error(stack)
     print_stack_debug(stack)
 
-#Implémentation correcte à réaliser
 def rol(stack):
     if len(stack) > 3:
         stack.pop()
@@ -118,7 +112,7 @@ def rol(stack):
 
 def manage_error(stack):
     del stack[:]
-    stack.append(error_code)
+    stack.insert(0,error_code)
 
 def stack_to_str(stack):
     resultat = ""
@@ -140,14 +134,17 @@ error_code = "ERROR"
 
 n = int(input())
 if n>99:
+    print("Number of instructions {}".format(n), file=sys.stderr)
+    print("More instructions than the limit {}".format(n), file=sys.stderr)
     manage_error(stack)
 else:
     instructions = input().split()
     if len(instructions) != n :
+        print("The given number of instructions ({}) and the real number of instructions ({}) are different".format(n,len(instructions)), file=sys.stderr)
         manage_error(stack)
     else :
         for instruction in instructions:
-            print("Read instructions {}".format(instruction), file=sys.stderr)
+            print("Instruction : {}".format(instruction), file=sys.stderr)
             if is_int(instruction):
                 stack.append(instruction)
             else :
@@ -156,7 +153,7 @@ else:
                     op(stack)
                 else:
                     manage_error(stack)
-                if stack[-1] == error_code:
+                if len(stack) > 0 and stack[-1] == error_code:
                     break
 
 print_stack_debug(stack)
