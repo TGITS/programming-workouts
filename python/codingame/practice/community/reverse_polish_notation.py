@@ -126,35 +126,37 @@ def print_stack(stack):
 def print_stack_debug(stack):
     print("[DEBUG] Stack : {}".format(stack_to_str(stack)), file=sys.stderr)
 
-# Auto-generated code below aims at helping you parse
-# the standard input according to the problem statement.
 stack = []
 operations = { 'ADD' : add, 'SUB' : sub, 'MUL': mul, 'DIV' : div, 'MOD': mod,'POP': pop, 'DUP':dup, 'SWP': swap, 'ROL': rol}
 error_code = "ERROR"
 
-n = int(input())
-if n>99:
-    print("Number of instructions {}".format(n), file=sys.stderr)
-    print("More instructions than the limit {}".format(n), file=sys.stderr)
-    manage_error(stack)
-else:
-    instructions = input().split()
-    if len(instructions) != n :
-        print("The given number of instructions ({}) and the real number of instructions ({}) are different".format(n,len(instructions)), file=sys.stderr)
+input_value_1 = input()
+if input_value_1.isdigit():
+    n = int(input_value_1)
+    if n>99:
+        print("Number of instructions {}".format(n), file=sys.stderr)
+        print("More instructions than the limit {}".format(n), file=sys.stderr)
         manage_error(stack)
-    else :
-        for instruction in instructions:
-            print("Instruction : {}".format(instruction), file=sys.stderr)
-            if is_int(instruction):
-                stack.append(instruction)
-            else :
-                if instruction in operations:
-                    op = operations[instruction]
-                    op(stack)
-                else:
-                    manage_error(stack)
-                if len(stack) > 0 and stack[-1] == error_code:
-                    break
+    else:
+        instructions = input().split()
+        if len(instructions) != n :
+            print("The given number of instructions ({}) and the real number of instructions ({}) are different".format(n,len(instructions)), file=sys.stderr)
+            manage_error(stack)
+        else :
+            for instruction in instructions:
+                print("Instruction : {}".format(instruction), file=sys.stderr)
+                if is_int(instruction):
+                    stack.append(instruction)
+                else :
+                    if instruction in operations:
+                        op = operations[instruction]
+                        op(stack)
+                    else:
+                        manage_error(stack)
+                    if len(stack) > 0 and stack[-1] == error_code:
+                        break
+else:
+   manage_error(stack)
 
 print_stack_debug(stack)
 print_stack(stack)
