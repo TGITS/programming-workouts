@@ -1,6 +1,8 @@
 #https://www.codingame.com/ide/puzzle/reverse-polish-notation
+
 import sys
 import math
+
 
 def is_int(s):
     if s[0] in ('-','+'):
@@ -14,6 +16,8 @@ def add(stack):
         second = int(stack.pop())
         stack.append(str(second + head))
     else:
+        if len(stack) == 1:
+            stack.pop()
         manage_error(stack)
     print_stack_debug(stack)
 
@@ -24,6 +28,8 @@ def sub(stack):
         second = int(stack.pop())
         stack.append(str(second - head))
     else:
+        if len(stack) == 1:
+            stack.pop()
         manage_error(stack)
     print_stack_debug(stack)
 
@@ -34,6 +40,8 @@ def mul(stack):
         second = int(stack.pop())
         stack.append(str(second * head))
     else:
+        if len(stack) == 1:
+            stack.pop()
         manage_error(stack)
     print_stack_debug(stack)
 
@@ -47,7 +55,9 @@ def div(stack):
         else:
             manage_error(stack)
     else:
-       manage_error(stack)
+        if len(stack) == 1:
+            stack.pop()
+        manage_error(stack)
     print_stack_debug(stack)
 
 def mod(stack):
@@ -60,6 +70,8 @@ def mod(stack):
         else:
             manage_error(stack)
     else:
+        if len(stack) == 1:
+            stack.pop()
         manage_error(stack)
     print_stack_debug(stack)
 
@@ -109,8 +121,7 @@ def rol(stack):
     print_stack_debug(stack)
 
 def manage_error(stack):
-    del stack[:]
-    stack.insert(0,error_code)
+    stack.append(error_code)
 
 def stack_to_str(stack):
     resultat = ""
@@ -127,6 +138,7 @@ def print_stack_debug(stack):
 stack = []
 operations = { 'ADD' : add, 'SUB' : sub, 'MUL': mul, 'DIV' : div, 'MOD': mod,'POP': pop, 'DUP':dup, 'SWP': swap, 'ROL': rol}
 error_code = "ERROR"
+
 input_value_1 = input()
 if input_value_1.isdigit():
     n = int(input_value_1)
@@ -149,7 +161,7 @@ if input_value_1.isdigit():
                         op = operations[instruction]
                         op(stack)
                     else:
-                        manage_error(stack)
+                       manage_error(stack)
                     if len(stack) > 0 and stack[-1] == error_code:
                         break
 else:
