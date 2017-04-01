@@ -1,0 +1,6 @@
+[package]
+name = "the_descent"
+version = "0.1.0"
+authors = ["TGITS <christophe.vaudry@gmail.com>"]
+
+[dependencies]
