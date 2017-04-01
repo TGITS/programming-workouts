@@ -1,8 +1,6 @@
 #https://www.codingame.com/ide/puzzle/reverse-polish-notation
-
 import sys
 import math
-
 
 def is_int(s):
     if s[0] in ('-','+'):
@@ -129,7 +127,6 @@ def print_stack_debug(stack):
 stack = []
 operations = { 'ADD' : add, 'SUB' : sub, 'MUL': mul, 'DIV' : div, 'MOD': mod,'POP': pop, 'DUP':dup, 'SWP': swap, 'ROL': rol}
 error_code = "ERROR"
-
 input_value_1 = input()
 if input_value_1.isdigit():
     n = int(input_value_1)
