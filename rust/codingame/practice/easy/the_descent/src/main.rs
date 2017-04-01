@@ -22,17 +22,26 @@ macro_rules! parse_input {
  **/
 fn main() {
 
+    let mut mountains_height: Vec<i32> = Vec::new();
     // game loop
     loop {
+
         for i in 0..8 as usize {
             let mut input_line = String::new();
             io::stdin().read_line(&mut input_line).unwrap();
-            let mountain_h = parse_input!(input_line, i32); // represents the height of one mountain.
+            mountains_height.push(parse_input!(input_line, i32)); // represents the height of one mountain.
         }
-
+        let mut max_height = mountains_height[0];
+        let mut max_height_index = 0;
+        for i in 1..8 as usize {
+            if(mountains_height[i] > max_height) {
+                max_height = mountains_height[i];
+                max_height_index = i;
+            }
+        }
         // Write an action using println!("message...");
         // To debug: print_err!("Debug message...");
-
-        println!("4"); // The index of the mountain to fire on.
+        mountains_height.clear();
+        println!("{}", max_height_index); // The index of the mountain to fire on.
     }
 }
