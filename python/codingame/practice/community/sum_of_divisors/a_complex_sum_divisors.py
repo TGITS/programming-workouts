@@ -51,18 +51,31 @@ def prime_factors(n):
 
 n = int(input())
 
-pfs = prime_factors(n)
-print("List of prime factors of {} : {}".format(n, ', '.join(str(divisor) for divisor in pfs)), file=sys.stderr)
-largest_prime_factor = max(pfs)
-print("largest_prime_factor {}".format(largest_prime_factor), file=sys.stderr)
-pfs_dict= dict((x,pfs.count(x)) for x in set(pfs))
-pp=pprint.PrettyPrinter(stream=sys.stderr, compact=True)
-pp.pprint(pfs_dict)
+#pfs = prime_factors(n)
+#print("List of prime factors of {} : {}".format(n, ', '.join(str(divisor) for divisor in pfs)), file=sys.stderr)
+#largest_prime_factor = max(pfs)
+#print("largest_prime_factor {}".format(largest_prime_factor), file=sys.stderr)
+#pfs_dict= dict((x,pfs.count(x)) for x in set(pfs))
+#pp=pprint.PrettyPrinter(stream=sys.stderr, compact=True)
+#pp.pprint(pfs_dict)
 
-total_sum = n
+def caculate_sum_divisors(number):
+    """Calculate the sum of divisors of a positive integer with a formula based on the prime factors"""
+    prime_factors_list = prime_factors(number)
+    print("List of prime factors of {} : {}".format(n, ', '.join(str(divisor) for divisor in prime_factors_list)), file=sys.stderr)
+    prime_factors_dict= dict((x,prime_factors_list.count(x)) for x in set(prime_factors_list))
+    pp=pprint.PrettyPrinter(stream=sys.stderr, compact=True)
+    pp.pprint(prime_factors_dict)
+    product = 1
+    for key, value in prime_factors_dict.items():
+        product = product * (((key ** (value+1)) - 1)//(key - 1))
+    return product
+
+total_sum = 1
 
 if n>1:
     for i in range(2,n+1):
-        total_sum += sum_divisors(i)
+        #total_sum += sum_divisors(i)
+        total_sum += caculate_sum_divisors(i)
 
 print(total_sum)
