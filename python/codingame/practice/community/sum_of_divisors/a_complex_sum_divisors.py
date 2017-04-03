@@ -51,14 +51,6 @@ def prime_factors(n):
 
 n = int(input())
 
-#pfs = prime_factors(n)
-#print("List of prime factors of {} : {}".format(n, ', '.join(str(divisor) for divisor in pfs)), file=sys.stderr)
-#largest_prime_factor = max(pfs)
-#print("largest_prime_factor {}".format(largest_prime_factor), file=sys.stderr)
-#pfs_dict= dict((x,pfs.count(x)) for x in set(pfs))
-#pp=pprint.PrettyPrinter(stream=sys.stderr, compact=True)
-#pp.pprint(pfs_dict)
-
 def caculate_sum_divisors(number):
     """Calculate the sum of divisors of a positive integer with a formula based on the prime factors"""
     prime_factors_list = prime_factors(number)
