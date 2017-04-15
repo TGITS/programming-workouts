@@ -333,3 +333,5 @@ gradle-app.setting
 /bash/codingame/practice/easy/note_bash_horse_racing.txt
 
 # End of https://www.gitignore.io/api/java,python,ruby,lua,eclipse,clojure,scala,go,netbeans,gradle,maven
+*.iml
+.idea
