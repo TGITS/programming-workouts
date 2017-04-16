@@ -14,7 +14,11 @@ MINE = "MINE"
 MOVE = "MOVE "
 SLOWER = "SLOWER"
 WAIT = "WAIT"
+#Misc
+MAX_SPEED=1
 
+mine_timer = 4
+cannonball_timer = 1
 
 class Point:
     """Class representing a point or a position"""
@@ -26,12 +30,24 @@ class Point:
         """Calculate the distance between point a and b on a cartesian plane"""
         d = math.sqrt(float((b.x - self.x)**2) + float((b.y - self.y)**2))
 
+    def __str__(self):
+        return "(" + str(x) + "," + str(y) + ")"
+
+    def __repr__(self):
+        return "(" + str(x) + "," + str(y) + ")"
+
 
 class GameEntity:
     """Superclass of all the entities of the game, that are all characterize by a position and an id"""
     def __init__(self,entity_id,x,y):
         self.entity_id = entity_id
         self.position = Point(x, y)
+
+    def __str__(self):
+        return "" + str(entity_id) + "::" + str(x) + "::" + str(y) + "::"
+
+    def __repr__(self):
+        return"" + str(entity_id) + "::" + str(x) + "::" + str(y) + "::"
 
 
 class Barrel(GameEntity):
@@ -72,9 +88,16 @@ class Ship(GameEntity):
             barrelsByDistance[d] = b
 
         sorted_distances = sorted(barrelsByDistance.keys())
+        print("Les barrils de rhum triés par distance : {}".format(" , ".join([str(i) for i in sorted_distances])), file=sys.stderr)
+        #print("Les barrils de rhum triés paar distance : {}".format(" , ".join("::".join(_) for _ in barrelsByDistance.items())), file=sys.stderr)
         barrel_to_go = barrelsByDistance[sorted_distances[0]]
+        print("Le barril a essayé d'atteindre : {}".format(str(barrel_to_go)), file=sys.stderr)
+        print("La vitesse du bateau : {}".format(str(self.speed)), file=sys.stderr)
         if barrel_to_go != None:
-            return MOVE + str(barrel_to_go.position.x) + " " + str(barrel_to_go.position.y)
+            if self.speed < MAX_SPEED:
+                return MOVE + str(barrel_to_go.position.x) + " " + str(barrel_to_go.position.y)
+            else:
+                return MINE
         else:
             return WAIT
 
