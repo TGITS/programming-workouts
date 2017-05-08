@@ -18,10 +18,6 @@ fn to_temperature_with_absolute_value(t: i32) -> (i32, i32) {
     (t, t.abs())
 }
 
-/**
- * Auto-generated code below aims at helping you parse
- * the standard input according to the problem statement.
- **/
 fn main() {
     print_err!("Enter the numer of temperatures that will be input: ");
     let mut input_line = String::new();
@@ -38,14 +34,6 @@ fn main() {
             0
         }
         else {
-            //let vec: Vec<&str> = temps.split_whitespace().collect();
-
-            //for s in vec {
-            //    print_err!("Read temperature : {}", s);
-            //}
-
-            //let numbers: Vec<i32> = reader.read_line().unwrap().as_slice().split_whitespace().map(|s| s.parse().unwrap()).collect()
-            //let my_int: i32 = my_string.parse().unwrap();
             let temperatures: Vec<(i32,i32)> = temps.split_whitespace().map(|s| to_temperature_with_absolute_value(s.parse().unwrap())).collect();
             print_err!("(Temperature,Temperature in absolute value)");
             let mut min_abs:(i32,i32) = temperatures[0];
@@ -57,9 +45,6 @@ fn main() {
             }
 
             min_abs.0
-
-            // Write an action using println!("message...");
-            // To debug: print_err!("Debug message...");
         };
     println!("{}",result);
 }
