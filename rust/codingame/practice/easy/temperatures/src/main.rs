@@ -13,6 +13,11 @@ macro_rules! parse_input {
     ($x:expr, $t:ident) => ($x.trim().parse::<$t>().unwrap())
 }
 
+
+fn to_temperature_with_absolute_value(t: i32) -> (i32, i32) {
+    (t, t.abs())
+}
+
 /**
  * Auto-generated code below aims at helping you parse
  * the standard input according to the problem statement.
@@ -29,20 +34,32 @@ fn main() {
     let temps = input_line.trim_right().to_string(); // the n temperatures expressed as integers ranging from -273 to 5526
     print_err!("The line of temperatures input : {}", temps);
 
-    //let vec: Vec<&str> = temps.split_whitespace().collect();
+    let result:i32 = if n == 0 {
+            0
+        }
+        else {
+            //let vec: Vec<&str> = temps.split_whitespace().collect();
 
-    //for s in vec {
-    //    print_err!("Read temperature : {}", s);
-    //}
+            //for s in vec {
+            //    print_err!("Read temperature : {}", s);
+            //}
 
-    //let numbers: Vec<i32> = reader.read_line().unwrap().as_slice().split_whitespace().map(|s| s.parse().unwrap()).collect()
-    //let my_int: i32 = my_string.parse().unwrap();
-    let temperatures: Vec<i32> = temps.split_whitespace().map(|s| s.parse().unwrap()).collect();
-    for t in temperatures {
-        print_err!("Read temperature : {}", t);
-    }
-    // Write an action using println!("message...");
-    // To debug: print_err!("Debug message...");
+            //let numbers: Vec<i32> = reader.read_line().unwrap().as_slice().split_whitespace().map(|s| s.parse().unwrap()).collect()
+            //let my_int: i32 = my_string.parse().unwrap();
+            let temperatures: Vec<(i32,i32)> = temps.split_whitespace().map(|s| to_temperature_with_absolute_value(s.parse().unwrap())).collect();
+            print_err!("(Temperature,Temperature in absolute value)");
+            let mut min_abs:(i32,i32) = temperatures[0];
+            for t in temperatures {
+                print_err!("({},{})", t.0,t.1);
+                if t.1 < min_abs.1 || (t.1 == min_abs.1 && t.0 >= 0) {
+                    min_abs = t;
+                }
+            }
 
-    println!("result");
+            min_abs.0
+
+            // Write an action using println!("message...");
+            // To debug: print_err!("Debug message...");
+        };
+    println!("{}",result);
 }
