@@ -1,0 +1,6 @@
+[package]
+name = "split_string_examples"
+version = "0.1.0"
+authors = ["TGITS <thegeekintheshell@gmail.com>"]
+
+[dependencies]
