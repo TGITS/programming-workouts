@@ -1,0 +1,6 @@
+[package]
+name = "power_of_thor_p1"
+version = "0.1.0"
+authors = ["TGITS <thegeekintheshell@gmail.com>"]
+
+[dependencies]
