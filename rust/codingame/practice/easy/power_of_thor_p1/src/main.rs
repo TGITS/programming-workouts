@@ -1,4 +1,5 @@
 use std::io;
+use std::fmt;
 
 macro_rules! print_err {
     ($($arg:tt)*) => (
@@ -28,12 +29,12 @@ fn main() {
     let initial_tx = parse_input!(inputs[2], i32); // Thor's starting X position
     let initial_ty = parse_input!(inputs[3], i32); // Thor's starting Y position
 
-    let mut dx = initial_tx - light_x
-    let mut dy = initial_ty - light_y
+    let mut dx = initial_tx - light_x;
+    let mut dy = initial_ty - light_y;
 
-    let mut horizontal_move:String;
-    let mut vertical_move:String;
-    let mut complete_move:String;
+    let mut horizontal_move:&'static str;
+    let mut vertical_move:&'static str;
+    //let mut complete_move:String;
 
     // game loop
     loop {
@@ -41,34 +42,12 @@ fn main() {
         io::stdin().read_line(&mut input_line).unwrap();
         let remaining_turns = parse_input!(input_line, i32); // The remaining amount of turns Thor can move. Do not remove this line.
 
-        horizontal_move = if dx > 0 {
-                            dx = dx + 1;
-                            "W"
-                        }
-                        else if dx < 0 {
-                            dx = dx - 1;
-                            "E"
-                        }
-                        else {
-                            ""
-                        }
-                        
-        vertical_move = if dy > 0 {
-            dy = dy - 1;
-            "N"
-
-        } 
-        else if dy < 0 {
-            dy = dy + 1;
-            "S"
-        }
-        else {
-            ""
-        }
+        horizontal_move = if dx > 0 { dx = dx + 1; "W" } else if dx < 0 { dx = dx - 1; "E" } else {""};
+        vertical_move = if dy > 0 { dy = dy - 1; "N" } else if dy < 0 { dy = dy + 1; "S" } else {""};
         // Write an action using println!("message...");
         // To debug: print_err!("Debug message...");
-
+        //let formatted_answer = format!("{}{}",vertical_move,horizontal_move);
         // A single line providing the move to be made: N NE E SE S SW W or NW
-        println!(format!("{}{}",vertical_move,horizontal_move));
+        println!("{}",format!("{}{}",vertical_move,horizontal_move));
     }
 }
