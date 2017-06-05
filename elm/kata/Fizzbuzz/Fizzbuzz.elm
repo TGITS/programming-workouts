@@ -1,12 +1,16 @@
 module Fizzbuzz exposing (..)
 
-import Html exposing (..)
+import Html exposing (Html, button, div, text)
+
+numbers : List Int
+numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
+numbersToFizzbuzz : List String
+numbersToFizzbuzz = List.map fizzbuzz numbers
+numbersToString : String
+numbersToString = toString numbersToFizzbuzz
 
 main : Html msg
-
-main = 
---    div [] [ text toString List.map fizzbuzz numbers ]
-    div [] [ text "Hello World!" ]
+main = div [] [ text numbersToString ]
 
 fizzbuzz : Int -> String
 fizzbuzz number = 
@@ -20,6 +24,6 @@ fizzbuzz number =
                 "Fizz"
             else toString number
 
-numbers = [ 0 , 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10 , 11 , 12 , 13 , 14 , 15 , 16 , 17 , 18 , 19 , 20 , 21 , 22 , 23 , 24 , 25 ]
+
 
 

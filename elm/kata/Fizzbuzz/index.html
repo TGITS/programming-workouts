@@ -7768,6 +7768,15 @@ var _elm_lang$html$Html$details = _elm_lang$html$Html$node('details');
 var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
 var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
+var _user$project$Fizzbuzz$fizzbuzz = function (number) {
+	return _elm_lang$core$Native_Utils.eq(
+		A2(_elm_lang$core$Basics_ops['%'], number, 15),
+		0) ? 'FizzBuzz' : (_elm_lang$core$Native_Utils.eq(
+		A2(_elm_lang$core$Basics_ops['%'], number, 5),
+		0) ? 'Buzz' : (_elm_lang$core$Native_Utils.eq(
+		A2(_elm_lang$core$Basics_ops['%'], number, 3),
+		0) ? 'Fizz' : _elm_lang$core$Basics$toString(number)));
+};
 var _user$project$Fizzbuzz$numbers = {
 	ctor: '::',
 	_0: 0,
@@ -7873,22 +7882,15 @@ var _user$project$Fizzbuzz$numbers = {
 		}
 	}
 };
-var _user$project$Fizzbuzz$fizzbuzz = function (number) {
-	return _elm_lang$core$Native_Utils.eq(
-		A2(_elm_lang$core$Basics_ops['%'], number, 15),
-		0) ? 'FizzBuzz' : (_elm_lang$core$Native_Utils.eq(
-		A2(_elm_lang$core$Basics_ops['%'], number, 5),
-		0) ? 'Buzz' : (_elm_lang$core$Native_Utils.eq(
-		A2(_elm_lang$core$Basics_ops['%'], number, 3),
-		0) ? 'Fizz' : _elm_lang$core$Basics$toString(number)));
-};
+var _user$project$Fizzbuzz$numbersToFizzbuzz = A2(_elm_lang$core$List$map, _user$project$Fizzbuzz$fizzbuzz, _user$project$Fizzbuzz$numbers);
+var _user$project$Fizzbuzz$numbersToString = _elm_lang$core$Basics$toString(_user$project$Fizzbuzz$numbersToFizzbuzz);
 var _user$project$Fizzbuzz$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProgram(
 	A2(
 		_elm_lang$html$Html$div,
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html$text('Hello World!'),
+			_0: _elm_lang$html$Html$text(_user$project$Fizzbuzz$numbersToString),
 			_1: {ctor: '[]'}
 		}));
 var Elm = {};
