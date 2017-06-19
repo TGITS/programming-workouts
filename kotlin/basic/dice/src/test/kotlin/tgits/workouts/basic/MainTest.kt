@@ -1,4 +1,4 @@
-package com.example
+package tgits.workouts.basic
 
 import org.testng.annotations.Test
 

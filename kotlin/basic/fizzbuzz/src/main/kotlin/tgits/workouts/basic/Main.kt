@@ -1,4 +1,4 @@
-package com.example
+package tgits.workouts.basic
 
 fun main(args: Array<String>): Unit {
     println("\n\nAnd now your average FizzBuzz for the numbers between 1 and 30\n\n")

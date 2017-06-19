@@ -4,7 +4,7 @@ import com.beust.kobalt.plugin.application.*
 import com.beust.kobalt.plugin.kotlin.*
 
 val p = project {
-    name = "fizzbuzz"
+    name = "dice"
     group = "tgits.workouts.basic"
     artifactId = name
     version = "0.1"
