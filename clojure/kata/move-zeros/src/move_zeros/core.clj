@@ -14,7 +14,7 @@
   (map #(Integer/parseInt %) sequenceOfStrings))
 
 ; example usage with leiningen : lein run 1 2 0 0 0 0 3 4 5
-; expected result : (1 2 3 4 5 0 0 0 0
+; expected result : (1 2 3 4 5 0 0 0 0)
 (defn -main
   "You must provide several strings that represent integers - the zeros are moves to the back"
   [& args]
