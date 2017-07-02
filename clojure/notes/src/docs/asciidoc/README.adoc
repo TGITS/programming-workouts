@@ -1,0 +1,41 @@
+README
+======
+Christophe Vaudry <thegeekintheshell@gmail.com>
+v1.0, 02-07-2017
+
+:numbered!:
+[abstract]
+Résumé
+------
+Ce document est le README pour la génération des documents présents dans ce répertoire qui correspondent à des notes prises 
+lors de mon apprentissage de Clojure.
+
+:numbered:
+
+Génération de la documentation avec AsciiDoctor
+-----------------------------------------------
+
+Ce fichier README et les différentes notes sus Clojure sont écrites en *AsciiDoc*. AsciiDoctor est utilisé pour générer la documentation 
+en HTML à partir d'une source en *AsciiDoc*. Afin de générer les pages HTML à partir des fichiers AsciiDoc, il serait possible d'utiliser 
+directement AsciiDoctor qui est un programme Ruby. Néanmoins en m'inspirant très fortement de ce que mon ex-collègue @riduidel 
+(Nicolas si tu me lis :-) a fait, l'appel à AsciiDoctor a été effectué depuis Maven avec le plugin idoine. En bref, tout est dans le POM :-).
+
+Pour générer à la fois les notes et les slides :
+
+[source]
+----
+mvn clean
+mvn install package -Pgenerate-asciidoc-for-doc
+mvn install package -Pgenerate-asciidoc-for-pres
+----
+
+Compléments d'informations
+-------------------------
+Le AsciiDoc est un format texte : il reste complètement lisible et exploitable pour une lecture en directe même sans la génération avec l'outil "*asciidoc*"
+
+Pour plus d'information voir le site d'asciidoc (http://www.methods.co.nz/asciidoc/) et celui d'AsciiDoctor (http://asciidoctor.org/).
+
+Pour le plugin Maven d'AsciiDoctor voir :
+
+* https://github.com/asciidoctor/asciidoctor-maven-plugin
+* http://asciidoctor.org/docs/asciidoctor-maven-plugin/

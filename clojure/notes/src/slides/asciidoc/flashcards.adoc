@@ -1,0 +1,26 @@
+= Clojure Flashcards 
+
+== Fundamental principles of Clojure
+
+=== Differences between Code & Data Structures in Clojure
+
+* What are the differences between Code & Data Structures in Clojure ?
+
+=== No special syntax for code in Clojure 
+
+* Clojure has no special syntax for code
+** Code is composed of data structures
+** This is true for normal functions but also for special forms and macros
+
+== Leiningen
+
+=== How to create a new application project with Leiningen ?
+
+=== Creation of a new application project with Leiningen
+
+* To create a new application (say ```my-app```) project with leiningen :
+
+[source]
+----
+lein new app my-app
+----

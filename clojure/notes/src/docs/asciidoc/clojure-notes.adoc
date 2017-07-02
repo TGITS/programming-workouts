@@ -1,0 +1,70 @@
+Clojure Workouts - A Developper Journey Book 
+============================================
+Christophe Vaudry <thegeekintheshell@gmail.com>
+v1.0, 02-07-2017
+
+:numbered!:
+[abstract]
+Résumé
+------
+Ensemble de notes prises lors de l'apprentissage de Clojure et de la pratique d'exercices divers
+
+:numbered:
+
+== Convertir une _string_ en _keyword_ == 
+
+Utiliser la fonction *keyword* pour convertir une _string_ en _keyword_.
+
+Pour convertir l'ensemble des clés de type _string_ d'un tableau associatif en _keyword_, il est possible d'utilsier la fonction *keywordize-keys de la bibliothèque *clojure.walk*
+
+[source,clojure]
+----
+(use 'clojure.walk)
+(keywordize-keys {"name" "Terieur", "forname" "Alain"})
+;=> {:name "Terieur", :forname "Alain"}
+----
+
+== Convertir un _keyword_ en _string_ == 
+
+Utiliser la fonction *name* : _Returns the name String of a string, symbol or keyword_.
+
+Pour obtenir la partie namespace d'un _keyword_, il est possible d'utiliser la fonction *namespace*.
+
+== Convertir une séquence de _string_ en une string ==
+
+Utiliser la fonction *join* de *clojure.string* :
+
+[source,clojure]
+----
+(require '[clojure.string :as str] )
+(assert (= "titi,tata,toto" (str/join ["titi," "tata," "toto"])))
+----
+
+Utiliser les fonctions *apply* et *str* :
+
+[source,clojure]
+----
+(assert (= "titi,tata,toto" (apply str ["titi," "tata," "toto"])))
+----
+
+Utiliser les fonctions *reduce* et *str* :
+
+[source,clojure]
+----
+(assert (= "titi,tata,toto" (reduce str ["titi," "tata," "toto"])))
+(assert (= "titi,tata,toto" (reduce str '("titi," "tata," "toto")))
+----
+
+== Références ==
+
+===  keyword & string ===
+
+* How to convert a clojure keyword into a string?
+** http://stackoverflow.com/questions/3719363/how-to-convert-a-clojure-keyword-into-a-string
+* Convert hash-maps key strings to keywords?
+** http://stackoverflow.com/questions/9406156/clojure-convert-hash-maps-key-strings-to-keywords
+
+=== string & sequence ===
+
+* How can I convert a LazySeq of Characters to a String in Clojure?
+** http://stackoverflow.com/questions/1687807/how-can-i-convert-a-lazyseq-of-characters-to-a-string-in-clojure
