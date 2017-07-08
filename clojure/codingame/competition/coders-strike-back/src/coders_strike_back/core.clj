@@ -7,7 +7,7 @@
 ;; norme du vecteur Norme = ||(x, y) || = sqrt(x*x+y*y)
 (defn norm [x y] (Math/sqrt (+ (* x x) (* y y))))
 ;;distance between 2 points
-(defn distance [x1 y1 x2 y2] (Math/sqrt (+ (Math/pow (- x2 x1) 2) (Math/pow (- y2 y1) 2))))
+(defn distance [x1 y1 x2 y2] (Integer/valueOf (Math/round (Math/sqrt (+ (Math/pow (- x2 x1) 2) (Math/pow (- y2 y1) 2))))))
 ;; Conversion degrés en radians :
 ;; rad  = degrés * M_PI / 180
 (defn convert-degree-to-radian [degree]
@@ -28,24 +28,28 @@
 (defn compute-y [next-checkpoint-y] next-checkpoint-y)
 
 (def boost-used? (atom false))
-(def turn-counter (atom 0))
+(def game-loop-counter (atom 0))
 
 ;;Compute BOOST, SHIELD or boost value between 0 and 100
-(defn compute-action [next-checkpoint-x next-checkpoint-y next-checkpoint-distance next-checkpoint-angle opponent-x opponent-y boost-used? turn-counter]
-      (if (and (not @boost-used?) (> @turn-counter 3) (< (Math/abs next-checkpoint-angle) 10) (> next-checkpoint-distance 4000))
+(defn compute-action [next-checkpoint-x next-checkpoint-y next-checkpoint-distance next-checkpoint-angle opponent-x opponent-y boost-used? game-loop-counter]
+      (if (and (not @boost-used?) (> @game-loop-counter 3) (< (Math/abs next-checkpoint-angle) 10) (> next-checkpoint-distance 4000))
           (do (reset! boost-used? true)
               "BOOST")
           (compute-boost next-checkpoint-distance next-checkpoint-angle)))
 
 (defn -main [& args]
       (while true
-             (let [x (read) y (read) nextCheckpointX (read) nextCheckpointY (read) nextCheckpointDist (read) nextCheckpointAngle (read) opponentX (read) opponentY (read)]
+             (let [x (read) y (read)
+                   nextCheckpointX (read) nextCheckpointY (read)
+                   nextCheckpointDist (read) nextCheckpointAngle (read)
+                   opponentX (read) opponentY (read)
+                   opponent-distance (distance (Integer/valueOf x) (Integer/valueOf y) (Integer/valueOf opponentX) (Integer/valueOf opponentY)) ]
                   ; nextCheckpointX: x position of the next check point
                   ; nextCheckpointY: y position of the next check point
                   ; nextCheckpointDist: distance to the next checkpoint
                   ; nextCheckpointAngle: angle between your pod orientation and the direction of the next checkpoint
 
-                  (swap! turn-counter inc-atom)
+                  (swap! game-loop-counter inc-atom)
 
                   ; (binding [*out* *err*]
                   ;   (println "Debug messages..."))
@@ -54,7 +58,11 @@
                     (println (str "Given next check point distance : " nextCheckpointDist))
                     (println (str "Calculated next check point distance : " (distance x y opponentX opponentY)))
                     (println (str "Pod angle with checkpoint : " nextCheckpointAngle))
-                    (println (str "Turn : " @turn-counter)))
+                    (println (str "Game loop counter : " @game-loop-counter))
+                    (println (str "Pod Position : (" x "," y ")" ))
+                    (println (str "Opponent pod Position : (" opponentX "," opponentY ")" ))
+                    (println (str "Opponent distance : " opponent-distance))
+                    )
 
                   ; You have to output the target position
                   ; followed by the power (0 <= thrust <= 100)
@@ -67,5 +75,5 @@
                            (Integer/valueOf nextCheckpointX) (Integer/valueOf nextCheckpointY)
                            (Integer/valueOf nextCheckpointDist) (Integer/valueOf nextCheckpointAngle)
                            (Integer/valueOf opponentX) (Integer/valueOf opponentY)
-                           boost-used? turn-counter))
+                           boost-used? game-loop-counter))
                   (println ""))))
