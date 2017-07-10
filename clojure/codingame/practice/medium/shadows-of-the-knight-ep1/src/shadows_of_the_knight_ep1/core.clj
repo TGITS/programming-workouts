@@ -4,30 +4,70 @@
 ; Auto-generated code below aims at helping you parse
 ; the standard input according to the problem statement.
 
-(defn compute-middle [start end]
-  (quot (- end start) 2))
+(defn difference [current-value to-substract]
+  (Math/abs(- current-value to-substract)))
 
-(defn compute-jump-coord [width height current-x current-y bomb-dir]
+(defn compute-middle [value]
+  (quot value 2))
+
+(defn move-forward [curr-pos delta max-val]
+  (min max-val (+ curr-pos delta)))
+
+
+(defn compute-jump-coord [width height current-x current-y min-x min-y max-x max-y bomb-dir]
+  (let [direction (str bomb-dir)]
   (cond
-    (= "UR" bomb-dir) (do
-                        (reset! current-x (compute-middle (min (inc @current-x) (dec width)) (max (inc @current-x) (dec width))))
-                        (reset! current-y (compute-middle (min (dec @current-y) 0) (max (dec @current-y) 0))))
-    (= "R"  bomb-dir) (reset! current-x (compute-middle (min (inc @current-x) (dec width)) (max (inc @current-x) (dec width))))
-    (= "DR" bomb-dir) (do
-                        (reset! current-x (compute-middle (min (inc @current-x) (dec width)) (max (inc @current-x) (dec width))))
-                        (reset! current-y (compute-middle (min (inc @current-y) (dec height)) (max (inc @current-y) (dec height)))))
-    (= "D"  bomb-dir) (reset! current-y (compute-middle (min (inc @current-y) (dec height)) (max (inc @current-y) (dec height))))
-    (= "DL" bomb-dir) (do
-                        (reset! current-x (compute-middle (min (dec @current-x) 0) (max (dec @current-x) 0)))
-                        (reset! current-y (compute-middle (min (inc @current-y) (dec height)) (max (inc @current-y) (dec height)))))
-    (= "L"  bomb-dir) (reset! current-x (compute-middle (min (dec @current-x) 0) (max (dec @current-x) 0)))
-    (= "UL" bomb-dir) (do
-                        (reset! current-x (compute-middle (min (dec @current-x) 0) (max (dec @current-x) 0)))
-                        (reset! current-y (compute-middle (min (dec @current-y) 0) (max (dec @current-y) 0))))
-    (= "U"  bomb-dir) (reset! current-y (compute-middle (min (dec @current-y) 0) (max (dec @current-y) 0)))))
+    (= "UR" direction) (do
+                          (reset! min-x (inc @current-x))
+                          (reset! max-y (dec @current-y))
+                          (reset! width (- @max-x @min-x))
+                          (reset! height (- @max-y @min-y))
+                          (reset! current-x (+ @min-x (compute-middle @width)))
+                          (reset! current-y (- @max-y (compute-middle @height ))))
+    (= "R"  direction) (do
+                          (reset! min-x (inc @current-x))
+                          (reset! width (- @max-x @min-x))
+                          (reset! current-x (+ @min-x (compute-middle @width) )))
+    (= "DR" direction) (do
+                          (reset! min-x (inc @current-x))
+                          (reset! min-y (inc @current-y))
+                          (reset! width (- @max-x @min-x))
+                          (reset! height (- @max-y @min-y))
+                          (reset! current-x (+ @min-x (compute-middle @width)))
+                          (reset! current-y (+ @min-y (compute-middle @height))))
+    (= "D"  direction) (do
+                          (reset! min-y (inc @current-y))
+                          (reset! height (- @max-y @min-y))
+                          (reset! current-y (+ @min-y (compute-middle @height))))
+    (= "DL" direction) (do
+                          (reset! max-x (dec @current-x))
+                          (reset! min-y (inc @current-y))
+                          (reset! width (- @max-x @min-x))
+                          (reset! height (- @max-y @min-y))
+                          (reset! current-x (- @max-x (compute-middle @width)))
+                          (reset! current-y (+ @min-y (compute-middle @height))))
+    (= "L"  direction) (do
+                          (reset! max-x (dec @current-x))
+                          (reset! width (- @max-x @min-x))
+                          (reset! current-x (- @max-x (compute-middle @width))))
+    (= "UL" direction) (do
+                          (reset! max-x (dec @current-x))
+                          (reset! max-y (dec @current-y))
+                          (reset! width (- @max-x @min-x))
+                          (reset! height (- @max-y @min-y))
+                          (reset! current-x (- @max-x (compute-middle @width)))
+                          (reset! current-y (- @max-y (compute-middle @height ))))
+    (= "U"  direction) (do
+                          (reset! max-y (dec @current-y))
+                          (reset! height (- @max-y @min-y))
+                          (reset! current-y (- @max-y (compute-middle @height )))))))
 
 (defn -main [& args]
-  (let [W (read) H (read) N (read) X0 (read) Y0 (read) current-x (atom X0) current-y (atom Y0)]
+  (let [W (read) H (read) N (read) X0 (read) Y0 (read)
+        current-width (atom (Integer/valueOf W)) current-height (atom (Integer/valueOf H))
+        current-x (atom (Integer/valueOf X0)) current-y (atom (Integer/valueOf Y0))
+        min-x (atom 0) min-y (atom 0)
+        max-x (atom (dec @current-width)) max-y (atom(dec @current-height))]
     ; W: width of the building.
     ; H: height of the building.
     ; N: maximum number of turns before game over.
@@ -37,7 +77,10 @@
 
         ; (binding [*out* *err*]
         ;   (println "Debug messages..."))
+        (binding [*out* *err*]
+           (println (str "width : " @current-width " height : " @current-height " current-x : " @current-x " current-y : " @current-y)))
         (compute-jump-coord
-          (Integer/valueOf W) (Integer/valueOf H) current-x current-y bombDir)
+          current-width current-height current-x current-y min-x min-y max-x max-y bombDir)
         ; the location of the next window Batman should jump to.
         (println (str @current-x " " @current-y))))))
+
