@@ -43,7 +43,7 @@
                    nextCheckpointX (read) nextCheckpointY (read)
                    nextCheckpointDist (read) nextCheckpointAngle (read)
                    opponentX (read) opponentY (read)
-                   opponent-distance (distance (Integer/valueOf x) (Integer/valueOf y) (Integer/valueOf opponentX) (Integer/valueOf opponentY)) ]
+                   opponent-distance (distance (Integer/valueOf x) (Integer/valueOf y) (Integer/valueOf opponentX) (Integer/valueOf opponentY))]
                   ; nextCheckpointX: x position of the next check point
                   ; nextCheckpointY: y position of the next check point
                   ; nextCheckpointDist: distance to the next checkpoint
@@ -54,15 +54,15 @@
                   ; (binding [*out* *err*]
                   ;   (println "Debug messages..."))
                   (binding [*out* *err*]
-                    (println (str "Has the boost be used ? : " @boost-used? ))
+                    (println (str "Has the boost be used ? : " @boost-used?))
                     (println (str "Given next check point distance : " nextCheckpointDist))
                     (println (str "Calculated next check point distance : " (distance x y opponentX opponentY)))
                     (println (str "Pod angle with checkpoint : " nextCheckpointAngle))
                     (println (str "Game loop counter : " @game-loop-counter))
-                    (println (str "Pod Position : (" x "," y ")" ))
-                    (println (str "Opponent pod Position : (" opponentX "," opponentY ")" ))
-                    (println (str "Opponent distance : " opponent-distance))
-                    )
+                    (println (str "Pod Position : (" x "," y ")"))
+                    (println (str "Opponent pod Position : (" opponentX "," opponentY ")"))
+                    (println (str "Opponent distance : " opponent-distance)))
+                    
 
                   ; You have to output the target position
                   ; followed by the power (0 <= thrust <= 100)
