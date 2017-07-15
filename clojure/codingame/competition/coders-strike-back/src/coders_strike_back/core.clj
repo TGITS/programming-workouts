@@ -37,11 +37,9 @@
   (cond
     (> (Math/abs next-checkpoint-angle) 90) "0"
     (and (< next-checkpoint-distance 1000) (> (Math/abs next-checkpoint-angle) 30)) "0"
-    ;;(and (< next-checkpoint-distance 1000) (< (Math/abs next-checkpoint-angle) 30)) "50"
-    (< (Math/abs next-checkpoint-angle) 30) "100"
-    (> next-checkpoint-distance 4000) "100"
+    ; (< (Math/abs next-checkpoint-angle) 30) "100"
+    ; (> next-checkpoint-distance 4000) "100"
     true "100"))
-    ;(str (Integer/valueOf (Math/round (* 100 (Math/abs (Math/cos (convert-degree-to-radian next-checkpoint-angle)))))))))
 
 (defn compute-x [x next-checkpoint-x next-checkpoint-angle next-checkpoint-distance] 
   (if (> next-checkpoint-distance 1000)
@@ -86,18 +84,18 @@
 
                   ; (binding [*out* *err*]
                   ;   (println "Debug messages..."))
-                  (binding [*out* *err*]
-                    (println (str "Has the boost been used ? : " @boost-used?))
-                    (println (str "Next check point distance coordinates : (" nextCheckpointX "," nextCheckpointY ")"))
-                    (println (str "Given next check point distance : " nextCheckpointDist))
-                    (println (str "Calculated next check point distance : " (distance x y nextCheckpointX nextCheckpointY)))
-                    (println (str "Pod angle with checkpoint : " nextCheckpointAngle))
-                    (println (str "Calculated Pod angle with checkpoint : " (angle-between-2-points x y nextCheckpointX nextCheckpointY)))
-                    (println (str "Pod Position : (" x "," y ")"))
-                    (println (str "Opponent pod Position : (" opponentX "," opponentY ")"))
-                    (println (str "Opponent distance : " opponent-distance))
-                    (println (str "Calculated Pod angle with opponent : " (angle-between-2-points x y opponentX opponentY)))
-                    (println (str "Game loop counter : " @game-loop-counter)))
+                  ; (binding [*out* *err*]
+                  ;   (println (str "Has the boost been used ? : " @boost-used?))
+                  ;   (println (str "Next check point distance coordinates : (" nextCheckpointX "," nextCheckpointY ")"))
+                  ;   (println (str "Given next check point distance : " nextCheckpointDist))
+                  ;   (println (str "Calculated next check point distance : " (distance x y nextCheckpointX nextCheckpointY)))
+                  ;   (println (str "Pod angle with checkpoint : " nextCheckpointAngle))
+                  ;   (println (str "Calculated Pod angle with checkpoint : " (angle-between-2-points x y nextCheckpointX nextCheckpointY)))
+                  ;   (println (str "Pod Position : (" x "," y ")"))
+                  ;   (println (str "Opponent pod Position : (" opponentX "," opponentY ")"))
+                  ;   (println (str "Opponent distance : " opponent-distance))
+                  ;   (println (str "Calculated Pod angle with opponent : " (angle-between-2-points x y opponentX opponentY)))
+                  ;   (println (str "Game loop counter : " @game-loop-counter)))
                     
 
                   ; You have to output the target position
