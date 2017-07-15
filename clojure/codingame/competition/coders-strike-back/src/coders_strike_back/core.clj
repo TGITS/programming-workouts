@@ -40,7 +40,8 @@
     ;;(and (< next-checkpoint-distance 1000) (< (Math/abs next-checkpoint-angle) 30)) "50"
     (< (Math/abs next-checkpoint-angle) 30) "100"
     (> next-checkpoint-distance 4000) "100"
-    true (str (Integer/valueOf (Math/round (* 100 (Math/abs (Math/cos (convert-degree-to-radian next-checkpoint-angle)))))))))
+    true "100"))
+    ;(str (Integer/valueOf (Math/round (* 100 (Math/abs (Math/cos (convert-degree-to-radian next-checkpoint-angle)))))))))
 
 (defn compute-x [x next-checkpoint-x next-checkpoint-angle next-checkpoint-distance] 
   (if (> next-checkpoint-distance 1000)
