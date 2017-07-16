@@ -1,7 +1,11 @@
 (ns coders-strike-back.core
   (:gen-class))
 
-(def checkpoint-core-size 100)
+(def checkpoint-core-size 50)
+(def max-loop-before-boost 3)
+(def max-loop-before-shield 10)
+(def pod-radius 400)
+(def checkpoint-radius 600)
 
 (defn inc-atom [curr-val] (inc curr-val))
 (defn dec-atom [curr-val] (dec curr-val))
@@ -32,11 +36,12 @@
 (defn after [val1 val2] (if (> (- val2 val1) 0) true false))
 (defn before [val1 val2] (if (< (- val2 val1) 0) true false))
 
-;;Compute a boost value between 0 and 100
-(defn compute-boost [next-checkpoint-distance next-checkpoint-angle]
+;;Compute a thrust value between 0 and 100
+(defn compute-thrust [next-checkpoint-distance next-checkpoint-angle]
   (cond
     (> (Math/abs next-checkpoint-angle) 90) "0"
-    (and (< next-checkpoint-distance 1000) (> (Math/abs next-checkpoint-angle) 30)) "0"
+    (and (< next-checkpoint-distance 1000) (> (Math/abs next-checkpoint-angle) 25)) "0"
+    ; (and (< next-checkpoint-distance 1000) (< (Math/abs next-checkpoint-angle) 30)) "50"
     ; (< (Math/abs next-checkpoint-angle) 30) "100"
     ; (> next-checkpoint-distance 4000) "100"
     true "100"))
@@ -62,11 +67,15 @@
 (def game-loop-counter (atom 0))
 
 ;;Compute BOOST, SHIELD or boost value between 0 and 100
-(defn compute-action [next-checkpoint-x next-checkpoint-y next-checkpoint-distance next-checkpoint-angle opponent-x opponent-y boost-used? game-loop-counter]
-      (if (and (not @boost-used?) (> @game-loop-counter 3) (< (Math/abs next-checkpoint-angle) 10) (> next-checkpoint-distance 4000))
-          (do (reset! boost-used? true)
-              "BOOST")
-          (compute-boost next-checkpoint-distance next-checkpoint-angle)))
+(defn compute-action [next-checkpoint-x next-checkpoint-y next-checkpoint-distance next-checkpoint-angle opponent-x opponent-y x y boost-used? game-loop-counter]
+      (cond 
+       (and 
+        (not @boost-used?) 
+        (> @game-loop-counter max-loop-before-boost) 
+        (< (Math/abs next-checkpoint-angle) 10) 
+        (> next-checkpoint-distance 4000)) (do (reset! boost-used? true) "BOOST")
+       ;(and (> @game-loop-counter max-loop-before-shield) (<= (distance x y opponent-x opponent-y) (+ (* 2 pod-radius) 50))) "SHIELD"    
+       true (compute-thrust next-checkpoint-distance next-checkpoint-angle)))
 
 (defn -main [& args]
       (while true
@@ -109,5 +118,6 @@
                            nextCheckpointX nextCheckpointY
                            nextCheckpointDist nextCheckpointAngle
                            opponentX opponentY
+                           x y 
                            boost-used? game-loop-counter)))
         (println "")))
