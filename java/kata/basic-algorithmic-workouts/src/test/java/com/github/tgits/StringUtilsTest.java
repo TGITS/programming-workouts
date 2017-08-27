@@ -14,8 +14,8 @@ import org.junit.Test;
 public class StringUtilsTest {
 
 	@Test
-	public void test() {
-		String[] noDuplicateCharsStrings = {"abcdefghijkmnopqrstuvwxyz","1234567890","abc123"};
+	public void testNoDuplicate() {
+		String[] noDuplicateCharsStrings = {"", "1","abcdefghijkmnopqrstuvwxyz","1234567890","abc123"};
 		String[] duplicateCharsStrings = {"111111","abcdefgha","abcdefabcdef"};
 		
 		for(String s:noDuplicateCharsStrings){
@@ -27,4 +27,31 @@ public class StringUtilsTest {
 		}
 	}
 
+	@Test
+	public void testNoDuplicateRec() {
+		String[] noDuplicateCharsStrings = {"", "1","abcdefghijkmnopqrstuvwxyz","1234567890","abc123"};
+		String[] duplicateCharsStrings = {"111111","abcdefgha","abcdefabcdef"};
+		
+		for(String s:noDuplicateCharsStrings){
+			assertTrue(StringUtils.noDuplicateRec(s));
+		}
+		
+		for(String s:duplicateCharsStrings){
+			assertFalse(StringUtils.noDuplicateRec(s));
+		}
+	}
+	
+	@Test
+	public void testRecognizer() {
+		String[] correctSentences = {"{}[]()", "{[()]}","{[()]}{}[]()"};
+		String[] incorrectSentences = {"{}([)]","{[()]}{}[](","{[()]}{}[])"};
+		
+		for(String s:correctSentences){
+			assertTrue(StringUtils.openCloseSentenceRecognizer(s));
+		}
+		
+		for(String s:incorrectSentences){
+			assertFalse(StringUtils.openCloseSentenceRecognizer(s));
+		}
+	}
 }
