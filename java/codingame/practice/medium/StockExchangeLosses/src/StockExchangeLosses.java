@@ -18,40 +18,22 @@ class Solution {
 		
 		System.err.println("Values : " + String.join(";", Stream.of(values).map(i -> Integer.toString(i)).collect(Collectors.joining(" , "))));
 		
-		int minGap = 0;
-		int indexMin = indexMinFromEnd(values);
-		System.err.println("Index Min : " + indexMin);
-		if(indexMin > 0) {
-			int indexMaxBeforeIndexMin = indexMaxBeforeLimitIndex(values,indexMin);
-			System.err.println("Index Max : " + indexMaxBeforeIndexMin);
-			minGap = values[indexMin] - values[indexMaxBeforeIndexMin];
-		}
-		System.err.println("Gap : " + minGap);
-		System.out.println(minGap);
-	}
-	
-	private static int indexMinFromEnd(Integer[] array){
-		int maxSize = array.length-1;
-		int min = array[maxSize];
-		int index = maxSize;
-		for(int i=maxSize; i >= 0 ; i--){
-			if(min > array[i]){
-				min = array[i];
-				index = i;
+		List<Integer> gaps = new ArrayList<>();
+		
+		for(int i=0; i < values.length - 1; i++){
+			for (int j = i+1; j < values.length; j++){
+				if(values[j]<values[i]) {
+					gaps.add(values[i] - values[j]);
+				}
 			}
 		}
-		return index;
+		int gap = 0;
+		if(!gaps.isEmpty()) {
+			gap = -Collections.max(gaps);
+		}
+		
+		System.err.println("Gap : " + gap);
+		System.out.println(gap);
 	}
 	
-	private static int indexMaxBeforeLimitIndex(Integer[] array, int limitIndex){
-		int max = array[0];
-		int index = 0;
-		for(int i=1; i < limitIndex ;i++) {
-			if(max < array[i]) {
-				max = array[i];
-				index = i;
-			}
-		}
-		return index;
-	}
 }
