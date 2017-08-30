@@ -17,28 +17,41 @@ class Solution {
 		in.close();
 		
 		System.err.println("Values : " + String.join(";", Stream.of(values).map(i -> Integer.toString(i)).collect(Collectors.joining(" , "))));
-
-		int iCurrent = 0;
-		int iNext = 1;
-		int current = 0;
-		int next = 0;
+		
 		int minGap = 0;
-		int currentGap = 0;
-		while (iNext < values.length) {
-		    current = values[iCurrent];
-		    next = values[iNext];
-			if (next < current) {
-				currentGap += (next - current);
-				if (currentGap < minGap) {
-					minGap = currentGap;
-				}
-			} else {
-				currentGap = 0;
-			}
-			iCurrent++;
-			iNext++;
+		int indexMin = indexMinFromEnd(values);
+		System.err.println("Index Min : " + indexMin);
+		if(indexMin > 0) {
+			int indexMaxBeforeIndexMin = indexMaxBeforeLimitIndex(values,indexMin);
+			System.err.println("Index Max : " + indexMaxBeforeIndexMin);
+			minGap = values[indexMin] - values[indexMaxBeforeIndexMin];
 		}
-
+		System.err.println("Gap : " + minGap);
 		System.out.println(minGap);
+	}
+	
+	private static int indexMinFromEnd(Integer[] array){
+		int maxSize = array.length-1;
+		int min = array[maxSize];
+		int index = maxSize;
+		for(int i=maxSize; i >= 0 ; i--){
+			if(min > array[i]){
+				min = array[i];
+				index = i;
+			}
+		}
+		return index;
+	}
+	
+	private static int indexMaxBeforeLimitIndex(Integer[] array, int limitIndex){
+		int max = array[0];
+		int index = 0;
+		for(int i=1; i < limitIndex ;i++) {
+			if(max < array[i]) {
+				max = array[i];
+				index = i;
+			}
+		}
+		return index;
 	}
 }
