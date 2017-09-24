@@ -1,0 +1,11 @@
+= Binary Search Tree
+
+== Some links and resources
+
+=== Wikipedia
+
+* https://en.wikipedia.org/wiki/Binary_search_tree
+
+=== Books
+
+* _Intoduction à l'algorithmique_ de _Thomas Cormen_, _Charles Leiserson_ et _Ronald Rivest_
