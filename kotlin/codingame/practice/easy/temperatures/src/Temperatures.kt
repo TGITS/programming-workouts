@@ -1,9 +1,5 @@
 import java.util.*
 
-/**
- * Auto-generated code below aims at helping you parse
- * the standard input according to the problem statement.
- **/
 fun main(args: Array<String>) {
     val input = Scanner(System.`in`)
     val n = input.nextInt() // the number of temperatures to analyse
@@ -12,12 +8,10 @@ fun main(args: Array<String>) {
         for (i in 0 until n) {
             initialValues.add(input.nextInt()) // a temperature expressed as an integer ranging from -273 to 5526
         }
-
-        val temperatures = initialValues.map { it -> Pair(it, Math.abs(it)) }.sortedWith(compareBy<Pair<Int, Int>> { it.second }.thenByDescending { it.first })
-        System.err.println(temperatures.joinToString(","));
-        temperatures[0].first.toString()
+        initialValues.map { it -> Pair(it, Math.abs(it)) }.minWith(compareBy<Pair<Int, Int>> { it.second }.thenByDescending { it.first })?.first.toString()
     } else {
         "0"
     }
-    println(result)
+    System.err.println("result : $result");
+    println("$result")
 }
