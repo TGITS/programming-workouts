@@ -7,6 +7,22 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class App {
 
+    public static String fizzbuzz(int num){
+        if(num % 15 == 0){
+            return "FizzBuzz";
+        }
+
+        if(num % 5 == 0) {
+            return "Buzz";
+        }
+
+        if(num % 3 == 0) {
+            return "Fizz";
+        }
+
+        return Integer.toString(num);
+    }
+
     public static void main(String[] args) throws InterruptedException{
         System.out.println("Reactive Hello World");
         Observable.just("Hello RxJava and Reactive Programming with Observable").subscribe(System.out::println);
@@ -37,5 +53,8 @@ public class App {
         System.out.println("Processing numbers in parallel with parallel");
         Flowable.range(1,10).parallel().runOn(Schedulers.computation()).map(x -> x * x * x * x)
                 .sequential().blockingSubscribe(System.out::println);
+        System.out.println("=============");
+        System.out.println("In premier FizzBuzz qui ne fera pas le buzz");
+        Flowable.range(1,30).map(App::fizzbuzz).subscribe(System.out::println);
     }
 }
