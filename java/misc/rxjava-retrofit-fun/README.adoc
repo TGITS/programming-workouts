@@ -1,0 +1,4 @@
+= README
+
+La petite application est issue du chapitre 5 livre _Reactive Java Programming_ de _Andrea Maglie_ chez _APRESS_.
+L'objectif est un objectif de pratique et de mise en oeuvre du chapitre 5 (_Networking with RxJava and Retrofit_).
