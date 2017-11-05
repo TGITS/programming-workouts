@@ -1,7 +1,7 @@
 (ns Player
   (:gen-class))
 
-(def checkpoint-core-size 100)
+(def checkpoint-core-size 0)
 
 (defn inc-atom [curr-val] (inc curr-val))
 (defn dec-atom [curr-val] (dec curr-val))
@@ -36,10 +36,11 @@
 (defn compute-boost [next-checkpoint-distance next-checkpoint-angle]
   (cond
     (> (Math/abs next-checkpoint-angle) 90) "0"
-    (< next-checkpoint-distance 600) "0"
-    (and (< next-checkpoint-distance 1000) (> (Math/abs next-checkpoint-angle) 30)) "0"
-    (< next-checkpoint-distance 1000) "20"
-    (> (Math/abs next-checkpoint-angle) 60) "80"
+    ;(< next-checkpoint-distance 600) "0"
+    (< next-checkpoint-distance 800) "0"
+    (and (< next-checkpoint-distance 1200) (> (Math/abs next-checkpoint-angle) 45)) "0"
+    (and (< next-checkpoint-distance 1500) (> (Math/abs next-checkpoint-angle) 60)) "50"
+    ;(< next-checkpoint-distance 1000) "0"
     ; (< (Math/abs next-checkpoint-angle) 30) "100"
     ; (> next-checkpoint-distance 4000) "100"
     true "100"))
@@ -56,7 +57,8 @@
     next-checkpoint-x))
 
 (defn compute-y [y next-checkpoint-y next-checkpoint-angle next-checkpoint-distance] 
-  (if (cond
+  (if (> next-checkpoint-distance 1000) 
+     (cond
         (and (>= next-checkpoint-angle 0)  (<= next-checkpoint-angle 180)) (convert-to-int (- next-checkpoint-y (* checkpoint-core-size (Math/sin next-checkpoint-angle))))
         (and (< next-checkpoint-angle 0) (>= next-checkpoint-angle -180)) (convert-to-int (+ next-checkpoint-y (* checkpoint-core-size (Math/sin next-checkpoint-angle))))) 
    next-checkpoint-y))
