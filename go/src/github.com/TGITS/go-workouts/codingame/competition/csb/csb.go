@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"math"
 	"math/cmplx"
-	"os"
 	"strconv"
 )
 
@@ -71,14 +70,14 @@ func main() {
 
 		// fmt.Fprintln(os.Stderr, "Debug messages...")
 		// fmt.Fprintf(os.Stderr, "Turn number : %d\n", turns)
-		fmt.Fprintf(os.Stderr, "Pod coordinates : %.1f\n", pod)
+		//fmt.Fprintf(os.Stderr, "Pod coordinates : %.1f\n", pod)
 		// fmt.Fprintf(os.Stderr, "Opponent pod coordinates : %.1f\n", opponentPod)
-		fmt.Fprintf(os.Stderr, "Checkpoint coordinates : %.1f\n", checkpoint)
-		fmt.Fprintf(os.Stderr, "Angle in degrees between pod and next checkpoint : %d\n", nextCheckpointAngle)
+		//fmt.Fprintf(os.Stderr, "Checkpoint coordinates : %.1f\n", checkpoint)
+		//fmt.Fprintf(os.Stderr, "Angle in degrees between pod and next checkpoint : %d\n", nextCheckpointAngle)
 		// fmt.Fprintf(os.Stderr, "List of checkpoints : %v\n", checkpoints)
 		// fmt.Fprintf(os.Stderr, "Number of checkpoints : %v\n", len(checkpoints))
 		// fmt.Fprintf(os.Stderr, "Boost use ? : %t\n", *boostUsed)
-		fmt.Fprintf(os.Stderr, "Distance from pod to next checkpoint : %d\n", nextCheckpointDist)
+		//fmt.Fprintf(os.Stderr, "Distance from pod to next checkpoint : %d\n", nextCheckpointDist)
 		// fmt.Fprintf(os.Stderr, "Calculated distance between pod and checkpoint : %f\n", cmplx.Abs(checkpoint-pod))
 		// fmt.Fprintf(os.Stderr, "Calculated distance between opponent pod and checkpoint : %f\n", cmplx.Abs(checkpoint-opponentPod))
 		// fmt.Fprintf(os.Stderr, "Calculated distance between pod and opponent pod : %f\n", cmplx.Abs(opponentPod-pod))
