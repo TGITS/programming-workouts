@@ -36,7 +36,10 @@
 (defn compute-boost [next-checkpoint-distance next-checkpoint-angle]
   (cond
     (> (Math/abs next-checkpoint-angle) 90) "0"
+    (< next-checkpoint-distance 600) "0"
     (and (< next-checkpoint-distance 1000) (> (Math/abs next-checkpoint-angle) 30)) "0"
+    (< next-checkpoint-distance 1000) "20"
+    (> (Math/abs next-checkpoint-angle) 60) "80"
     ; (< (Math/abs next-checkpoint-angle) 30) "100"
     ; (> next-checkpoint-distance 4000) "100"
     true "100"))
