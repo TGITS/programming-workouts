@@ -43,8 +43,8 @@
     (>= (Math/abs next-checkpoint-angle) 90) "0"
     (> (Math/abs next-checkpoint-angle) 72) "20"
     (> (Math/abs next-checkpoint-angle) 54) "40"
-    (> (Math/abs next-checkpoint-angle) 36) "80"
-    (> (Math/abs next-checkpoint-angle) 18) "100"
+    (> (Math/abs next-checkpoint-angle) 36) "60"
+    (> (Math/abs next-checkpoint-angle) 18) "80"
     (<= (Math/abs next-checkpoint-angle) 18) "100"
     true "100"))
 
