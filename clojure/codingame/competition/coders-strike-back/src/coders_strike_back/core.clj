@@ -30,13 +30,34 @@
 (defn after [val1 val2] (if (> (- val2 val1) 0) true false))
 (defn before [val1 val2] (if (< (- val2 val1) 0) true false))
 
+(def max-shield-usage (atom 3))
+(def last-shield-usage (atom 0))
+(def boost-used? (atom false))
+(def game-loop-counter (atom 0))
+(def last-boost-value (atom "0"))
+
 ;;Compute a boost value between 0 and 100
 (defn compute-boost [next-checkpoint-distance next-checkpoint-angle]
   (cond
-    (> (Math/abs next-checkpoint-angle) 90) "0"
-    (and (< next-checkpoint-distance 1000) (> (Math/abs next-checkpoint-angle) 30)) "0"
-    (and (< next-checkpoint-distance 1200) (> (Math/abs next-checkpoint-angle) 30)) "20"
-    (and (< next-checkpoint-distance 1500) (> (Math/abs next-checkpoint-angle) 30)) "40"
+    (>= (Math/abs next-checkpoint-angle) 90) "0"
+    (< next-checkpoint-distance 600) "0"
+    (> (Math/abs next-checkpoint-angle) 72) "20"
+    (> (Math/abs next-checkpoint-angle) 54) "40"
+    (> (Math/abs next-checkpoint-angle) 36) "80"
+    (> (Math/abs next-checkpoint-angle) 18) "100"
+    (<= (Math/abs next-checkpoint-angle) 18) "100"
+    ;(and (< next-checkpoint-distance 1000) (> (Math/abs next-checkpoint-angle) 30)) "0"
+    ;(and (< next-checkpoint-distance 1200) (> (Math/abs next-checkpoint-angle) 30)) "20"
+    ;(and (< next-checkpoint-distance 1500) (> (Math/abs next-checkpoint-angle) 30)) "40"
+    ;(and (< next-checkpoint-distance 2000) (> (Math/abs next-checkpoint-angle) 30)) "40"
+    ;(and (> next-checkpoint-distance 2000) (> (Math/abs next-checkpoint-angle) 60)) "20"
+    ;(and (> next-checkpoint-distance 2000) (> (Math/abs next-checkpoint-angle) 45)) "40"
+    ;(> (Math/abs next-checkpoint-angle) 60) "60"
+    ;(< next-checkpoint-distance 1000) "20"
+    ;(and (> next-checkpoint-distance 2000) (> (Math/abs next-checkpoint-angle) 30)) "60"
+    ;(and (> next-checkpoint-distance 2000) (> (Math/abs next-checkpoint-angle) 15)) "80"
+    ;(and (> next-checkpoint-distance 2000) (> (Math/abs next-checkpoint-angle) 45)) "80"
+    ;(and (> next-checkpoint-distance 2000) (> (Math/abs next-checkpoint-angle) 30)) "90"
     ;(< next-checkpoint-distance 799) "0"
     ;(< 800 next-checkpoint-distance 1000) "20"
     ;(< 1001 next-checkpoint-distance 1200) "40"
@@ -48,18 +69,23 @@
     ; (> next-checkpoint-distance 4000) "100"
     true "100"))
 
-(def max-shield-usage (atom 3))
-(def last-shield-usage (atom 0))
-(def boost-used? (atom false))
-(def game-loop-counter (atom 0))
+(defn- use-boost? [next-checkpoint-distance next-checkpoint-angle boost-used? game-loop-counter last-shield-usage last-boost-value]
+  (and
+    (not @boost-used?)
+    (> @game-loop-counter 3)
+    (< (Math/abs next-checkpoint-angle) 10)
+    (> next-checkpoint-distance 4000)
+    (and (not (= @last-boost-value "SHIELD")) (not (= @last-boost-value "BOOST")) (= @last-shield-usage 0)(= (Integer/parseInt @last-boost-value) 100))))
+
+(defn- use-shield? [x y opponent-x opponent-y boost-used? game-loop-counter max-shield-usage last-shield-usage last-boost-value]
+  (and (= @last-shield-usage 0) (> @game-loop-counter 10) (> @max-shield-usage 0) (< (distance opponent-x opponent-y x y) 700)))
 
 ;;Compute BOOST, SHIELD or boost value between 0 and 100
-(defn compute-action [next-checkpoint-x next-checkpoint-y next-checkpoint-distance next-checkpoint-angle x y opponent-x opponent-y boost-used? game-loop-counter]
+(defn compute-action [next-checkpoint-x next-checkpoint-y next-checkpoint-distance next-checkpoint-angle x y opponent-x opponent-y boost-used? game-loop-counter max-shield-usage last-shield-usage last-boost-value]
   (cond
-    (and (not @boost-used?) (> @game-loop-counter 3) (< (Math/abs next-checkpoint-angle) 10) (> next-checkpoint-distance 4000)) (do (reset! boost-used? true) "BOOST")
-    (and (= @last-shield-usage 0) (> @game-loop-counter 10) (> @max-shield-usage 0) (< (distance opponent-x opponent-y x y) 1000)) (do (reset! last-shield-usage 3) (swap! max-shield-usage dec-atom) "SHIELD")
+    (use-boost? next-checkpoint-distance next-checkpoint-angle boost-used? game-loop-counter last-shield-usage last-boost-value) (do (reset! boost-used? true) "BOOST")
+    (use-shield? x y opponent-x opponent-y boost-used? game-loop-counter max-shield-usage last-shield-usage last-boost-value) (do (reset! last-shield-usage 3) (swap! max-shield-usage dec-atom) "SHIELD")
     true (compute-boost next-checkpoint-distance next-checkpoint-angle)))
-
 
 (defn -main [& args]
   (while true
@@ -74,24 +100,27 @@
       ; nextCheckpointAngle: angle between your pod orientation and the direction of the next checkpoint
 
       (swap! game-loop-counter inc-atom)
-      (if (> @last-shield-usage 0) (swap! last-shield-usage dec-atom))
+      (if (> @last-shield-usage 0)
+        (swap! last-shield-usage dec-atom))
 
       ; (binding [*out* *err*]
       ;   (println "Debug messages..."))
-      ; (binding [*out* *err*]
-      ;   (println (str "Has the boost been used ? : " @boost-used?))
-      ;   (println (str "Next check point distance coordinates : (" nextCheckpointX "," nextCheckpointY ")"))
-      ;   (println (str "Given next check point distance : " nextCheckpointDist))
-      ;   (println (str "Calculated next check point distance : " (distance x y nextCheckpointX nextCheckpointY)))
-      ;   (println (str "Pod angle with checkpoint : " nextCheckpointAngle))
-      ;   (println (str "Calculated Pod angle with checkpoint : " (angle-between-2-points x y nextCheckpointX nextCheckpointY)))
-      ;   (println (str "Pod Position : (" x "," y ")"))
-      ;   (println (str "Opponent pod Position : (" opponentX "," opponentY ")"))
-      ;   (println (str "Opponent distance : " opponent-distance))
-      ;   (println (str "Calculated Pod angle with opponent : " (angle-between-2-points x y opponentX opponentY)))
-      ;   (println (str "Max Shield Usage : " @max-shield-usage))
-      ;   (println (str "Last Shield Usage : " @last-shield-usage))
-      ;   (println (str "Game loop counter : " @game-loop-counter))))
+      ;(binding [*out* *err*]
+      ;  (println (str "Has the boost been used ? : " @boost-used?))
+      ;  (println (str "Next check point distance coordinates : (" nextCheckpointX "," nextCheckpointY ")"))
+      ;  (println (str "Given next check point distance : " nextCheckpointDist))
+      ;  (println (str "Calculated next check point distance : " (distance x y nextCheckpointX nextCheckpointY)))
+      ;  (println (str "Pod angle with checkpoint : " nextCheckpointAngle))
+      ;  (println (str "Calculated Pod angle with checkpoint : " (angle-between-2-points x y nextCheckpointX nextCheckpointY)))
+      ;  (println (str "Pod Position : (" x "," y ")"))
+      ;  (println (str "Opponent pod Position : (" opponentX "," opponentY ")"))
+      ;  (println (str "Opponent distance : " opponent-distance))
+      ;  (println (str "Calculated Pod angle with opponent : " (angle-between-2-points x y opponentX opponentY)))
+      ;  (println (str "Max Shield Usage : " @max-shield-usage))
+      ;  (println (str "Last Shield Usage : " @last-shield-usage))
+      ;  (println (str "Game loop counter : " @game-loop-counter))
+      ;  (println (str "Last boost value : " @last-boost-value)))
+
 
 
       ; You have to output the target position
@@ -101,10 +130,15 @@
       (print " ")
       (print nextCheckpointY)
       (print " ")
-      (print (compute-action
-               nextCheckpointX nextCheckpointY
-               nextCheckpointDist nextCheckpointAngle
-               x y
-               opponentX opponentY
-               boost-used? game-loop-counter)))
+      (reset! last-boost-value (compute-action
+                                 nextCheckpointX nextCheckpointY
+                                 nextCheckpointDist nextCheckpointAngle
+                                 x y
+                                 opponentX opponentY
+                                 boost-used?
+                                 game-loop-counter
+                                 max-shield-usage
+                                 last-shield-usage
+                                 last-boost-value))
+      (print @last-boost-value))
     (println "")))
