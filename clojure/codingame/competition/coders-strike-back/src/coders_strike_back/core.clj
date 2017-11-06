@@ -30,7 +30,7 @@
 (defn after [val1 val2] (if (> (- val2 val1) 0) true false))
 (defn before [val1 val2] (if (< (- val2 val1) 0) true false))
 
-(def max-shield-usage (atom 3))
+(def max-shield-usage (atom 5))
 (def last-shield-usage (atom 0))
 (def boost-used? (atom false))
 (def game-loop-counter (atom 0))
@@ -39,43 +39,22 @@
 ;;Compute a boost value between 0 and 100
 (defn compute-boost [next-checkpoint-distance next-checkpoint-angle]
   (cond
+    ;(< next-checkpoint-distance 600) "0"
     (>= (Math/abs next-checkpoint-angle) 90) "0"
-    (< next-checkpoint-distance 600) "0"
     (> (Math/abs next-checkpoint-angle) 72) "20"
     (> (Math/abs next-checkpoint-angle) 54) "40"
     (> (Math/abs next-checkpoint-angle) 36) "80"
     (> (Math/abs next-checkpoint-angle) 18) "100"
     (<= (Math/abs next-checkpoint-angle) 18) "100"
-    ;(and (< next-checkpoint-distance 1000) (> (Math/abs next-checkpoint-angle) 30)) "0"
-    ;(and (< next-checkpoint-distance 1200) (> (Math/abs next-checkpoint-angle) 30)) "20"
-    ;(and (< next-checkpoint-distance 1500) (> (Math/abs next-checkpoint-angle) 30)) "40"
-    ;(and (< next-checkpoint-distance 2000) (> (Math/abs next-checkpoint-angle) 30)) "40"
-    ;(and (> next-checkpoint-distance 2000) (> (Math/abs next-checkpoint-angle) 60)) "20"
-    ;(and (> next-checkpoint-distance 2000) (> (Math/abs next-checkpoint-angle) 45)) "40"
-    ;(> (Math/abs next-checkpoint-angle) 60) "60"
-    ;(< next-checkpoint-distance 1000) "20"
-    ;(and (> next-checkpoint-distance 2000) (> (Math/abs next-checkpoint-angle) 30)) "60"
-    ;(and (> next-checkpoint-distance 2000) (> (Math/abs next-checkpoint-angle) 15)) "80"
-    ;(and (> next-checkpoint-distance 2000) (> (Math/abs next-checkpoint-angle) 45)) "80"
-    ;(and (> next-checkpoint-distance 2000) (> (Math/abs next-checkpoint-angle) 30)) "90"
-    ;(< next-checkpoint-distance 799) "0"
-    ;(< 800 next-checkpoint-distance 1000) "20"
-    ;(< 1001 next-checkpoint-distance 1200) "40"
-    ;(< 1201 next-checkpoint-distance 1400) "60"
-    ;(and (< next-checkpoint-distance 1200) (> (Math/abs next-checkpoint-angle) 45)) "0"
-    ;(and (< next-checkpoint-distance 1500) (> (Math/abs next-checkpoint-angle) 60)) "50"
-    ;(< next-checkpoint-distance 1000) "0"
-    ; (< (Math/abs next-checkpoint-angle) 30) "100"
-    ; (> next-checkpoint-distance 4000) "100"
     true "100"))
 
 (defn- use-boost? [next-checkpoint-distance next-checkpoint-angle boost-used? game-loop-counter last-shield-usage last-boost-value]
   (and
     (not @boost-used?)
-    (> @game-loop-counter 3)
+    ;(> @game-loop-counter 3)
     (< (Math/abs next-checkpoint-angle) 10)
     (> next-checkpoint-distance 4000)
-    (and (not (= @last-boost-value "SHIELD")) (not (= @last-boost-value "BOOST")) (= @last-shield-usage 0)(= (Integer/parseInt @last-boost-value) 100))))
+    (and (not (= @last-boost-value "SHIELD")) (not (= @last-boost-value "BOOST")) (= @last-shield-usage 0) (= (Integer/parseInt @last-boost-value) 100))))
 
 (defn- use-shield? [x y opponent-x opponent-y boost-used? game-loop-counter max-shield-usage last-shield-usage last-boost-value]
   (and (= @last-shield-usage 0) (> @game-loop-counter 10) (> @max-shield-usage 0) (< (distance opponent-x opponent-y x y) 700)))
