@@ -30,28 +30,30 @@
 (defn after [val1 val2] (if (> (- val2 val1) 0) true false))
 (defn before [val1 val2] (if (< (- val2 val1) 0) true false))
 
-(def max-shield-usage (atom 5))
-(def last-shield-usage (atom 0))
-(def boost-used? (atom false))
-(def game-loop-counter (atom 0))
-(def last-boost-value (atom "0"))
+(defn compute-boost-from-angle [next-checkpoint-angle]
+  (str (convert-to-int (* (Math/sin (convert-degree-to-radian (Math/abs next-checkpoint-angle))) 100))))
+
+;(def max-shield-usage (atom 5))
+;(def last-shield-usage (atom 0))
+;(def boost-used? (atom false))
+;(def game-loop-counter (atom 0))
+;(def last-boost-value (atom "0"))
 
 ;;Compute a boost value between 0 and 100
 (defn compute-boost [next-checkpoint-distance next-checkpoint-angle]
   (cond
-    ;(< next-checkpoint-distance 600) "0"
     (>= (Math/abs next-checkpoint-angle) 90) "0"
-    (> (Math/abs next-checkpoint-angle) 72) "20"
-    (> (Math/abs next-checkpoint-angle) 54) "40"
-    (> (Math/abs next-checkpoint-angle) 36) "60"
-    (> (Math/abs next-checkpoint-angle) 18) "80"
+    ;(> (Math/abs next-checkpoint-angle) 72) "20"
+    ;(> (Math/abs next-checkpoint-angle) 54) "40"
+    ;(> (Math/abs next-checkpoint-angle) 36) "60"
+    ;(> (Math/abs next-checkpoint-angle) 18) "80"
     (<= (Math/abs next-checkpoint-angle) 18) "100"
-    true "100"))
+    ;true "100"))
+    true (compute-boost-from-angle next-checkpoint-angle)))
 
 (defn- use-boost? [next-checkpoint-distance next-checkpoint-angle boost-used? game-loop-counter last-shield-usage last-boost-value]
   (and
     (not @boost-used?)
-    ;(> @game-loop-counter 3)
     (< (Math/abs next-checkpoint-angle) 10)
     (> next-checkpoint-distance 4000)
     (and (not (= @last-boost-value "SHIELD")) (not (= @last-boost-value "BOOST")) (= @last-shield-usage 0) (= (Integer/parseInt @last-boost-value) 100))))
@@ -67,49 +69,55 @@
     true (compute-boost next-checkpoint-distance next-checkpoint-angle)))
 
 (defn -main [& args]
-  (while true
-    (let [x (read) y (read)
-          nextCheckpointX (read) nextCheckpointY (read)
-          nextCheckpointDist (read) nextCheckpointAngle (read)
-          opponentX (read) opponentY (read)
-          opponent-distance (distance x y opponentX opponentY)]
+  (let [max-shield-usage (atom 5)
+        last-shield-usage (atom 0)
+        boost-used? (atom false)
+        game-loop-counter (atom 0)
+        last-boost-value (atom "0")]
+    (while true
+      (let [x (read) y (read)
+            nextCheckpointX (read) nextCheckpointY (read)
+            nextCheckpointDist (read) nextCheckpointAngle (read)
+            opponentX (read) opponentY (read)
+            opponent-distance (distance x y opponentX opponentY)]
       ; nextCheckpointX: x position of the next check point
       ; nextCheckpointY: y position of the next check point
       ; nextCheckpointDist: distance to the next checkpoint
       ; nextCheckpointAngle: angle between your pod orientation and the direction of the next checkpoint
 
-      (swap! game-loop-counter inc-atom)
-      (if (> @last-shield-usage 0)
-        (swap! last-shield-usage dec-atom))
+        (swap! game-loop-counter inc-atom)
+        (if (> @last-shield-usage 0)
+          (swap! last-shield-usage dec-atom))
 
-      ; (binding [*out* *err*]
-      ;   (println "Debug messages..."))
-      ;(binding [*out* *err*]
-      ;  (println (str "Has the boost been used ? : " @boost-used?))
-      ;  (println (str "Next check point distance coordinates : (" nextCheckpointX "," nextCheckpointY ")"))
-      ;  (println (str "Given next check point distance : " nextCheckpointDist))
-      ;  (println (str "Calculated next check point distance : " (distance x y nextCheckpointX nextCheckpointY)))
-      ;  (println (str "Pod angle with checkpoint : " nextCheckpointAngle))
-      ;  (println (str "Calculated Pod angle with checkpoint : " (angle-between-2-points x y nextCheckpointX nextCheckpointY)))
-      ;  (println (str "Pod Position : (" x "," y ")"))
-      ;  (println (str "Opponent pod Position : (" opponentX "," opponentY ")"))
-      ;  (println (str "Opponent distance : " opponent-distance))
-      ;  (println (str "Calculated Pod angle with opponent : " (angle-between-2-points x y opponentX opponentY)))
-      ;  (println (str "Max Shield Usage : " @max-shield-usage))
-      ;  (println (str "Last Shield Usage : " @last-shield-usage))
-      ;  (println (str "Game loop counter : " @game-loop-counter))
-      ;  (println (str "Last boost value : " @last-boost-value)))
+        ; (binding [*out* *err*]
+        ;   (println "Debug messages..."))
+        ;(binding [*out* *err*]
+        ;  (println (str "Has the boost been used ? : " @boost-used?))
+        ;  (println (str "Next check point distance coordinates : (" nextCheckpointX "," nextCheckpointY ")"))
+        ;  (println (str "Given next check point distance : " nextCheckpointDist))
+        ;  (println (str "Calculated next check point distance : " (distance x y nextCheckpointX nextCheckpointY)))
+        ;  (println (str "Pod angle with checkpoint : " nextCheckpointAngle))
+        ;  (println (str "Calculated Pod angle with checkpoint : " (angle-between-2-points x y nextCheckpointX nextCheckpointY)))
+        ;  (println (str "Pod Position : (" x "," y ")"))
+        ;  (println (str "Opponent pod Position : (" opponentX "," opponentY ")"))
+        ;  (println (str "Opponent distance : " opponent-distance))
+        ;  (println (str "Calculated Pod angle with opponent : " (angle-between-2-points x y opponentX opponentY)))
+        ;  (println (str "Max Shield Usage : " @max-shield-usage))
+        ;  (println (str "Last Shield Usage : " @last-shield-usage))
+        ;  (println (str "Game loop counter : " @game-loop-counter))
+        ;  (println (str "Last boost value : " @last-boost-value)))
 
 
 
-      ; You have to output the target position
-      ; followed by the power (0 <= thrust <= 100)
-      ; i.e.: "x y thrust"
-      (print nextCheckpointX)
-      (print " ")
-      (print nextCheckpointY)
-      (print " ")
-      (reset! last-boost-value (compute-action
+        ; You have to output the target position
+        ; followed by the power (0 <= thrust <= 100)
+        ; i.e.: "x y thrust"
+        (print nextCheckpointX)
+        (print " ")
+        (print nextCheckpointY)
+        (print " ")
+        (reset! last-boost-value
+                (compute-action
                                  nextCheckpointX nextCheckpointY
                                  nextCheckpointDist nextCheckpointAngle
                                  x y
@@ -119,5 +127,5 @@
                                  max-shield-usage
                                  last-shield-usage
                                  last-boost-value))
-      (print @last-boost-value))
-    (println "")))
+        (print @last-boost-value))
+      (println ""))))
