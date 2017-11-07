@@ -1,4 +1,4 @@
-(ns coders-strike-back.core-test
+(ns coders-strike-back.Player-test
   (:require [clojure.test :refer :all]
             [coders-strike-back.core :refer :all]))
 

@@ -1,4 +1,4 @@
-(ns Player
+(ns coders-strike-back.Player
   (:gen-class))
 
 (defn inc-atom [curr-val] (inc curr-val))
@@ -43,7 +43,7 @@
 (defn use-boost? [next-checkpoint-distance next-checkpoint-angle boost-used? game-loop-counter last-shield-usage last-boost-value]
   (and
     (not @boost-used?)
-    (< (Math/abs next-checkpoint-angle) 10)
+    (< (Math/abs next-checkpoint-angle) 18)
     (> next-checkpoint-distance 4000)
     (and (not (= @last-boost-value "SHIELD")) (not (= @last-boost-value "BOOST")) (= @last-shield-usage 0) (= (Integer/parseInt @last-boost-value) 100))))
 
