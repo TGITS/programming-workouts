@@ -41,17 +41,12 @@
 (defn adjustment-from-angle [next-checkpoint-angle]
   (* checkpoint-core-size (convert-to-int (Math/signum (Math/cos next-checkpoint-angle)))))
 
-
 (defn compute-x-y [x y next-checkpoint-x next-checkpoint-y next-checkpoint-angle next-checkpoint-distance]
   (cond
     (and (< x next-checkpoint-x) (< y next-checkpoint-y)) (str (- next-checkpoint-x checkpoint-core-size) " " (- next-checkpoint-y checkpoint-core-size))
     (and (> x next-checkpoint-x) (< y next-checkpoint-y)) (str (+ next-checkpoint-x checkpoint-core-size) " " (- next-checkpoint-y checkpoint-core-size))
     (and (> x next-checkpoint-x) (> y next-checkpoint-y)) (str (+ next-checkpoint-x checkpoint-core-size) " " (+ next-checkpoint-y checkpoint-core-size))
     (and (< x next-checkpoint-x) (> y next-checkpoint-y)) (str (- next-checkpoint-x checkpoint-core-size) " " (+ next-checkpoint-y checkpoint-core-size))
-    ;(and (< x next-checkpoint-x) (< y next-checkpoint-y)) (str (- next-checkpoint-x (adjustment-from-angle next-checkpoint-angle)) " " (- next-checkpoint-y (adjustment-from-angle next-checkpoint-angle)))
-    ;(and (> x next-checkpoint-x) (< y next-checkpoint-y)) (str (+ next-checkpoint-x (adjustment-from-angle next-checkpoint-angle)) " " (- next-checkpoint-y (adjustment-from-angle next-checkpoint-angle)))
-    ;(and (> x next-checkpoint-x) (> y next-checkpoint-y)) (str (+ next-checkpoint-x (adjustment-from-angle next-checkpoint-angle)) " " (+ next-checkpoint-y (adjustment-from-angle next-checkpoint-angle)))
-    ;(and (< x next-checkpoint-x) (> y next-checkpoint-y)) (str (- next-checkpoint-x (adjustment-from-angle next-checkpoint-angle)) " " (+ next-checkpoint-y (adjustment-from-angle next-checkpoint-angle)))
     true (str next-checkpoint-x " " next-checkpoint-y)))
 
 (defn compute-boost-from-angle [next-checkpoint-angle]
@@ -60,6 +55,7 @@
 ;;Compute a boost value between 0 and 100
 (defn compute-boost [next-checkpoint-distance next-checkpoint-angle]
   (cond
+    (> (Math/abs next-checkpoint-angle) 90) "0"
     (<= next-checkpoint-distance 1000) "40"
     (<= (Math/abs next-checkpoint-angle) 18) "100"
     true (compute-boost-from-angle (Math/abs next-checkpoint-angle))))
