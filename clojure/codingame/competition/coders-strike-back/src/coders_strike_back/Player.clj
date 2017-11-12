@@ -8,10 +8,12 @@
 (defn inc-atom [curr-val] (inc curr-val))
 (defn dec-atom [curr-val] (dec curr-val))
 
-;; norme du vecteur Norme = ||(x, y) || = sqrt(x*x+y*y)
-(defn norm [x y] (Math/sqrt (+ (* x x) (* y y))))
-;;distance between 2 points
-(defn distance [x1 y1 x2 y2] (Integer/valueOf (Math/round (Math/sqrt (+ (Math/pow (- x2 x1) 2) (Math/pow (- y2 y1) 2))))))
+(defn sgn [val]
+  (cond
+    (< val 0) -1
+    (> val 0) 1
+    (= val 0) 0))
+
 ;; Conversion degrés en radians :
 ;; rad  = degrés * M_PI / 180
 (defn convert-degree-to-radian [degree]
@@ -26,30 +28,53 @@
 (defn convert-to-int [float-value]
   (Integer/valueOf (Math/round float-value)))
 
-(defn after [val1 val2] (if (> (- val2 val1) 0) true false))
-(defn before [val1 val2] (if (< (- val2 val1) 0) true false))
-
-(defn compute-x [x next-checkpoint-x next-checkpoint-angle next-checkpoint-distance]
-  (if (> next-checkpoint-distance 1000)
-    (cond
-      (and (>= next-checkpoint-angle -90) (<= next-checkpoint-angle 90) (before next-checkpoint-x x))
-      (convert-to-int (+ next-checkpoint-x (* checkpoint-core-size (Math/cos (convert-degree-to-radian next-checkpoint-angle)))))
-      (and (>= next-checkpoint-angle -90) (<= next-checkpoint-angle 90) (after next-checkpoint-x x))
-      (convert-to-int (- next-checkpoint-x (* checkpoint-core-size (Math/cos (convert-degree-to-radian next-checkpoint-angle)))))
-      (or (<= -180 next-checkpoint-angle -90 ) (>= 180 next-checkpoint-angle 90))
-      (convert-to-int (- next-checkpoint-x (* checkpoint-core-size (Math/cos (convert-degree-to-radian next-checkpoint-angle))))))
-    next-checkpoint-x))
-
-(defn compute-y [y next-checkpoint-y next-checkpoint-angle next-checkpoint-distance]
-  (if (cond
-        (and (>= next-checkpoint-angle 0)  (<= next-checkpoint-angle 180)) (convert-to-int (- next-checkpoint-y (* checkpoint-core-size (Math/sin (convert-degree-to-radian next-checkpoint-angle)))))
-        (and (< next-checkpoint-angle 0) (>= next-checkpoint-angle -180)) (convert-to-int (+ next-checkpoint-y (* checkpoint-core-size (Math/sin (convert-degree-to-radian next-checkpoint-angle))))))
-    next-checkpoint-y))
+;; norme du vecteur Norme = ||(x, y) || = sqrt(x*x+y*y)
+(defn norm [x y] (Math/sqrt (+ (* x x) (* y y))))
+;;distance between 2 points
+(defn distance [x1 y1 x2 y2] (convert-to-int (Math/sqrt (+ (Math/pow (- x2 x1) 2) (Math/pow (- y2 y1) 2)))))
 
 ;;Angle entre 2 points (x1,y1) et (x2,y2)
 (defn angle-between-2-points [x1 y1 x2 y2]
   (let [d (distance x1 y1 x2 y2) dx (/ (- x2 x1) d) dy (/ (- y2 y1) d) angle (convert-radian-to-degree (Math/acos dx))]
     (if (< dy 0) (- 360.0 angle) angle)))
+
+(defn after [val1 val2] (if (> (- val2 val1) 0) true false))
+(defn before [val1 val2] (if (< (- val2 val1) 0) true false))
+
+;(defn compute-x [x next-checkpoint-x next-checkpoint-angle next-checkpoint-distance]
+;  (if (> next-checkpoint-distance 1000)
+;    (cond
+;      (and (>= next-checkpoint-angle -90) (<= next-checkpoint-angle 90) (before next-checkpoint-x x))
+;      (convert-to-int (+ next-checkpoint-x (* checkpoint-core-size (Math/cos (convert-degree-to-radian next-checkpoint-angle)))))
+;      (and (>= next-checkpoint-angle -90) (<= next-checkpoint-angle 90) (after next-checkpoint-x x))
+;      (convert-to-int (- next-checkpoint-x (* checkpoint-core-size (Math/cos (convert-degree-to-radian next-checkpoint-angle)))))
+;      (or (<= -180 next-checkpoint-angle -90 ) (>= 180 next-checkpoint-angle 90))
+;      (convert-to-int (- next-checkpoint-x (* checkpoint-core-size (Math/cos (convert-degree-to-radian next-checkpoint-angle)))))
+;      true next-checkpoint-x)
+;    next-checkpoint-x))
+;
+;(defn compute-y [y next-checkpoint-y next-checkpoint-angle next-checkpoint-distance]
+;  (if (cond
+;        (and (>= next-checkpoint-angle 0)  (<= next-checkpoint-angle 180)) (convert-to-int (- next-checkpoint-y (* checkpoint-core-size (Math/sin (convert-degree-to-radian next-checkpoint-angle)))))
+;        (and (< next-checkpoint-angle 0) (>= next-checkpoint-angle -180)) (convert-to-int (+ next-checkpoint-y (* checkpoint-core-size (Math/sin (convert-degree-to-radian next-checkpoint-angle)))))
+;        true next-checkpoint-y)
+;    next-checkpoint-y))
+
+(defn compute-x [x next-checkpoint-x next-checkpoint-angle next-checkpoint-distance]
+  (if (> (Math/abs next-checkpoint-angle) 10)
+    (cond
+      (before next-checkpoint-x x) (+ next-checkpoint-x checkpoint-core-size)
+      (after next-checkpoint-x x) (- next-checkpoint-x checkpoint-core-size)
+      true next-checkpoint-x)
+    next-checkpoint-x))
+
+(defn compute-y [y next-checkpoint-y next-checkpoint-angle next-checkpoint-distance]
+  (if (> (Math/abs next-checkpoint-angle) 10)
+    (cond
+      (>= (sgn next-checkpoint-angle) 0) (+ next-checkpoint-y checkpoint-core-size)
+      (< (sgn next-checkpoint-angle) 0) (- next-checkpoint-y checkpoint-core-size)
+      true next-checkpoint-y)
+    next-checkpoint-y))
 
 (defn compute-boost-from-angle [next-checkpoint-angle]
   (str (convert-to-int (* (Math/sin (convert-degree-to-radian (Math/abs next-checkpoint-angle))) 100))))
@@ -68,7 +93,6 @@
     (not @boost-used?)
     (< (Math/abs next-checkpoint-angle) 18)
     (> next-checkpoint-distance 4000)
-    ;(and (not (= @last-boost-value "SHIELD")) (not (= @last-boost-value "BOOST")) (= @last-shield-usage 0) (= (Integer/parseInt @last-boost-value) 100))))
     (and (not (= @last-boost-value "SHIELD")) (not (= @last-boost-value "BOOST")) (= @last-shield-usage 0))))
 
 (defn use-shield? [x y opponent-x opponent-y boost-used? game-loop-counter max-shield-usage last-shield-usage last-boost-value]
@@ -110,11 +134,11 @@
           (println (str "Given next check point distance : " nextCheckpointDist))
           (println (str "Calculated next check point distance : " (distance x y nextCheckpointX nextCheckpointY)))
           (println (str "Pod angle with checkpoint : " nextCheckpointAngle))
-          (println (str "Calculated Pod angle with checkpoint : " (angle-between-2-points x y nextCheckpointX nextCheckpointY)))
+          ;(println (str "Calculated Pod angle with checkpoint : " (angle-between-2-points x y nextCheckpointX nextCheckpointY)))
           (println (str "Pod Position : (" x "," y ")"))
           (println (str "Opponent pod Position : (" opponentX "," opponentY ")"))
           (println (str "Opponent distance : " opponent-distance))
-          (println (str "Calculated Pod angle with opponent : " (angle-between-2-points x y opponentX opponentY)))
+          ;(println (str "Calculated Pod angle with opponent : " (angle-between-2-points x y opponentX opponentY)))
           (println (str "Max Shield Usage : " @max-shield-usage))
           (println (str "Last Shield Usage : " @last-shield-usage))
           (println (str "Game loop counter : " @game-loop-counter))
