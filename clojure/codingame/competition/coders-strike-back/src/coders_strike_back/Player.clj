@@ -1,7 +1,7 @@
 (ns Player
   (:gen-class))
 
-(def checkpoint-core-size 100)
+(def checkpoint-core-size 300)
 (def delay-between-shield-use 10)
 (def min-distance-to-activate-shield 950)
 
@@ -38,24 +38,32 @@
   (let [d (distance x1 y1 x2 y2) dx (/ (- x2 x1) d) dy (/ (- y2 y1) d) angle (convert-radian-to-degree (Math/acos dx))]
     (if (< dy 0) (- 360.0 angle) angle)))
 
-(defn after [val1 val2] (if (> (- val2 val1) 0) true false))
-(defn before [val1 val2] (if (< (- val2 val1) 0) true false))
+(defn after [val1 val2] (if (< (- val2 val1) 0) true false))
+(defn before [val1 val2] (if (> (- val2 val1) 0) true false))
 
 (defn compute-x [x next-checkpoint-x next-checkpoint-angle next-checkpoint-distance]
-  (if (> (Math/abs next-checkpoint-angle) 10)
+  (if (> next-checkpoint-distance 800)
     (cond
-      (before next-checkpoint-x x) (+ next-checkpoint-x checkpoint-core-size)
-      (after next-checkpoint-x x) (- next-checkpoint-x checkpoint-core-size)
+      (> next-checkpoint-x x) (- next-checkpoint-x checkpoint-core-size)
+      (< next-checkpoint-x x) (+ next-checkpoint-x checkpoint-core-size)
       true next-checkpoint-x)
     next-checkpoint-x))
 
 (defn compute-y [y next-checkpoint-y next-checkpoint-angle next-checkpoint-distance]
-  (if (> (Math/abs next-checkpoint-angle) 10)
+  (if (> next-checkpoint-distance 800)
     (cond
-      (>= (sgn next-checkpoint-angle) 0) (+ next-checkpoint-y checkpoint-core-size)
-      (< (sgn next-checkpoint-angle) 0) (- next-checkpoint-y checkpoint-core-size)
+      (> next-checkpoint-y y) (- next-checkpoint-y checkpoint-core-size)
+      (< next-checkpoint-y y) (+ next-checkpoint-y checkpoint-core-size)
       true next-checkpoint-y)
     next-checkpoint-y))
+
+(defn compute-x-y [x y next-checkpoint-x next-checkpoint-y next-checkpoint-angle next-checkpoint-distance]
+  (cond
+    (and (< x next-checkpoint-x) (< y next-checkpoint-y)) (str (- next-checkpoint-x checkpoint-core-size) " " (- next-checkpoint-y checkpoint-core-size))
+    (and (> x next-checkpoint-x) (< y next-checkpoint-y)) (str (+ next-checkpoint-x checkpoint-core-size) " " (- next-checkpoint-y checkpoint-core-size))
+    (and (> x next-checkpoint-x) (> y next-checkpoint-y)) (str (+ next-checkpoint-x checkpoint-core-size) " " (+ next-checkpoint-y checkpoint-core-size))
+    (and (< x next-checkpoint-x) (> y next-checkpoint-y)) (str (- next-checkpoint-x checkpoint-core-size) " " (+ next-checkpoint-y checkpoint-core-size))
+    true (str next-checkpoint-x " " next-checkpoint-y)))
 
 (defn compute-boost-from-angle [next-checkpoint-angle]
   (str (convert-to-int (* (Math/sin (convert-degree-to-radian (Math/abs next-checkpoint-angle))) 100))))
@@ -130,9 +138,10 @@
         ; You have to output the target position
         ; followed by the power (0 <= thrust <= 100)
         ; i.e.: "x y thrust"
-        (print (compute-x x nextCheckpointX nextCheckpointAngle nextCheckpointDist))
-        (print " ")
-        (print (compute-y y nextCheckpointY nextCheckpointAngle nextCheckpointDist))
+        ;(print (compute-x x nextCheckpointX nextCheckpointAngle nextCheckpointDist))
+        ;(print " ")
+        ;(print (compute-y y nextCheckpointY nextCheckpointAngle nextCheckpointDist))
+        (print (compute-x-y x y nextCheckpointX nextCheckpointY nextCheckpointAngle nextCheckpointDist))
         (print " ")
         (reset! last-boost-value
                 (compute-action
