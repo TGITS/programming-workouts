@@ -1,6 +1,9 @@
 (ns Player
   (:gen-class))
 
+(def checkpoint-core-size 100)
+(def delay-between-shield-use 10)
+
 (defn inc-atom [curr-val] (inc curr-val))
 (defn dec-atom [curr-val] (dec curr-val))
 
@@ -22,13 +25,30 @@
 (defn convert-to-int [float-value]
   (Integer/valueOf (Math/round float-value)))
 
+(defn after [val1 val2] (if (> (- val2 val1) 0) true false))
+(defn before [val1 val2] (if (< (- val2 val1) 0) true false))
+
+(defn compute-x [x next-checkpoint-x next-checkpoint-angle next-checkpoint-distance]
+  (if (> next-checkpoint-distance 1000)
+    (cond
+      (and (>= next-checkpoint-angle -90) (<= next-checkpoint-angle 90) (before next-checkpoint-x x))
+      (convert-to-int (+ next-checkpoint-x (* checkpoint-core-size (Math/cos next-checkpoint-angle))))
+      (and (>= next-checkpoint-angle -90) (<= next-checkpoint-angle 90) (after next-checkpoint-x x))
+      (convert-to-int (- next-checkpoint-x (* checkpoint-core-size (Math/cos next-checkpoint-angle))))
+      (or (<= -180 next-checkpoint-angle -90 ) (>= 180 next-checkpoint-angle 90))
+      (convert-to-int (- next-checkpoint-x (* checkpoint-core-size (Math/cos next-checkpoint-angle)))))
+    next-checkpoint-x))
+
+(defn compute-y [y next-checkpoint-y next-checkpoint-angle next-checkpoint-distance]
+  (if (cond
+        (and (>= next-checkpoint-angle 0)  (<= next-checkpoint-angle 180)) (convert-to-int (- next-checkpoint-y (* checkpoint-core-size (Math/sin next-checkpoint-angle))))
+        (and (< next-checkpoint-angle 0) (>= next-checkpoint-angle -180)) (convert-to-int (+ next-checkpoint-y (* checkpoint-core-size (Math/sin next-checkpoint-angle)))))
+    next-checkpoint-y))
+
 ;;Angle entre 2 points (x1,y1) et (x2,y2)
 (defn angle-between-2-points [x1 y1 x2 y2]
   (let [d (distance x1 y1 x2 y2) dx (/ (- x2 x1) d) dy (/ (- y2 y1) d) angle (convert-radian-to-degree (Math/acos dx))]
     (if (< dy 0) (- 360.0 angle) angle)))
-
-(defn after [val1 val2] (if (> (- val2 val1) 0) true false))
-(defn before [val1 val2] (if (< (- val2 val1) 0) true false))
 
 (defn compute-boost-from-angle [next-checkpoint-angle]
   (str (convert-to-int (* (Math/sin (convert-degree-to-radian (Math/abs next-checkpoint-angle))) 100))))
@@ -50,13 +70,13 @@
     (and (not (= @last-boost-value "SHIELD")) (not (= @last-boost-value "BOOST")) (= @last-shield-usage 0))))
 
 (defn use-shield? [x y opponent-x opponent-y boost-used? game-loop-counter max-shield-usage last-shield-usage last-boost-value]
-  (and (= @last-shield-usage 0) (> @game-loop-counter 10) (> @max-shield-usage 0) (< (distance opponent-x opponent-y x y) 700)))
+  (and (= @last-shield-usage 0) (> @game-loop-counter 10) (> @max-shield-usage 0) (< (distance opponent-x opponent-y x y) 1000)))
 
 ;;Compute BOOST, SHIELD or boost value between 0 and 100
 (defn compute-action [next-checkpoint-x next-checkpoint-y next-checkpoint-distance next-checkpoint-angle x y opponent-x opponent-y boost-used? game-loop-counter max-shield-usage last-shield-usage last-boost-value]
   (cond
     (use-boost? next-checkpoint-distance next-checkpoint-angle boost-used? game-loop-counter last-shield-usage last-boost-value) (do (reset! boost-used? true) "BOOST")
-    (use-shield? x y opponent-x opponent-y boost-used? game-loop-counter max-shield-usage last-shield-usage last-boost-value) (do (reset! last-shield-usage 3) (swap! max-shield-usage dec-atom) "SHIELD")
+    (use-shield? x y opponent-x opponent-y boost-used? game-loop-counter max-shield-usage last-shield-usage last-boost-value) (do (reset! last-shield-usage delay-between-shield-use) (swap! max-shield-usage dec-atom) "SHIELD")
     true (compute-boost next-checkpoint-distance next-checkpoint-angle)))
 
 (defn -main [& args]
@@ -103,9 +123,9 @@
         ; You have to output the target position
         ; followed by the power (0 <= thrust <= 100)
         ; i.e.: "x y thrust"
-        (print nextCheckpointX)
+        (print (compute-x x nextCheckpointX nextCheckpointAngle nextCheckpointDist))
         (print " ")
-        (print nextCheckpointY)
+        (print (compute-y y nextCheckpointY nextCheckpointAngle nextCheckpointDist))
         (print " ")
         (reset! last-boost-value
                 (compute-action
