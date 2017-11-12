@@ -38,6 +38,10 @@
   (let [d (distance x1 y1 x2 y2) dx (/ (- x2 x1) d) dy (/ (- y2 y1) d) angle (convert-radian-to-degree (Math/acos dx))]
     (if (< dy 0) (- 360.0 angle) angle)))
 
+(defn adjustement-from-angle [value next-checkpoint-angle]
+  (+ value (* checkpoint-core-size (convert-to-int (Math/signum (Math/cos next-checkpoint-angle))))))
+
+
 (defn compute-x-y [x y next-checkpoint-x next-checkpoint-y next-checkpoint-angle next-checkpoint-distance]
   (cond
     (and (< x next-checkpoint-x) (< y next-checkpoint-y)) (str (- next-checkpoint-x checkpoint-core-size) " " (- next-checkpoint-y checkpoint-core-size))
@@ -52,9 +56,7 @@
 ;;Compute a boost value between 0 and 100
 (defn compute-boost [next-checkpoint-distance next-checkpoint-angle]
   (cond
-    ;(>= (Math/abs next-checkpoint-angle) 90) "40"
     (<= next-checkpoint-distance 1000) "40"
-    ;(<= next-checkpoint-distance 800) "20"
     (<= (Math/abs next-checkpoint-angle) 36) "100"
     true (compute-boost-from-angle (Math/abs next-checkpoint-angle))))
 
