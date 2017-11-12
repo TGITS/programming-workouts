@@ -1,4 +1,4 @@
-(ns coders-strike-back.Player
+(ns Player
   (:gen-class))
 
 (defn inc-atom [curr-val] (inc curr-val))
@@ -37,6 +37,7 @@
 (defn compute-boost [next-checkpoint-distance next-checkpoint-angle]
   (cond
     (>= (Math/abs next-checkpoint-angle) 90) "0"
+    (<= next-checkpoint-distance 800) (compute-boost-from-angle next-checkpoint-angle)
     (<= (Math/abs next-checkpoint-angle) 18) "100"
     true (compute-boost-from-angle next-checkpoint-angle)))
 
@@ -69,10 +70,10 @@
             nextCheckpointDist (read) nextCheckpointAngle (read)
             opponentX (read) opponentY (read)
             opponent-distance (distance x y opponentX opponentY)]
-      ; nextCheckpointX: x position of the next check point
-      ; nextCheckpointY: y position of the next check point
-      ; nextCheckpointDist: distance to the next checkpoint
-      ; nextCheckpointAngle: angle between your pod orientation and the direction of the next checkpoint
+        ; nextCheckpointX: x position of the next check point
+        ; nextCheckpointY: y position of the next check point
+        ; nextCheckpointDist: distance to the next checkpoint
+        ; nextCheckpointAngle: angle between your pod orientation and the direction of the next checkpoint
 
         (swap! game-loop-counter inc-atom)
         (if (> @last-shield-usage 0)
@@ -107,14 +108,14 @@
         (print " ")
         (reset! last-boost-value
                 (compute-action
-                                 nextCheckpointX nextCheckpointY
-                                 nextCheckpointDist nextCheckpointAngle
-                                 x y
-                                 opponentX opponentY
-                                 boost-used?
-                                 game-loop-counter
-                                 max-shield-usage
-                                 last-shield-usage
-                                 last-boost-value))
+                  nextCheckpointX nextCheckpointY
+                  nextCheckpointDist nextCheckpointAngle
+                  x y
+                  opponentX opponentY
+                  boost-used?
+                  game-loop-counter
+                  max-shield-usage
+                  last-shield-usage
+                  last-boost-value))
         (print @last-boost-value))
       (println ""))))
