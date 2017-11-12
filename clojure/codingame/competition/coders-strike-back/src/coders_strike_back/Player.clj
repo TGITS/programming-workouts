@@ -1,7 +1,7 @@
 (ns Player
   (:gen-class))
 
-(def checkpoint-core-size 300)
+(def checkpoint-core-size 200)
 (def delay-between-shield-use 10)
 (def min-distance-to-activate-shield 950)
 
@@ -38,8 +38,8 @@
   (let [d (distance x1 y1 x2 y2) dx (/ (- x2 x1) d) dy (/ (- y2 y1) d) angle (convert-radian-to-degree (Math/acos dx))]
     (if (< dy 0) (- 360.0 angle) angle)))
 
-(defn adjustement-from-angle [value next-checkpoint-angle]
-  (+ value (* checkpoint-core-size (convert-to-int (Math/signum (Math/cos next-checkpoint-angle))))))
+(defn adjustment-from-angle [next-checkpoint-angle]
+  (* checkpoint-core-size (convert-to-int (Math/signum (Math/cos next-checkpoint-angle)))))
 
 
 (defn compute-x-y [x y next-checkpoint-x next-checkpoint-y next-checkpoint-angle next-checkpoint-distance]
@@ -48,6 +48,10 @@
     (and (> x next-checkpoint-x) (< y next-checkpoint-y)) (str (+ next-checkpoint-x checkpoint-core-size) " " (- next-checkpoint-y checkpoint-core-size))
     (and (> x next-checkpoint-x) (> y next-checkpoint-y)) (str (+ next-checkpoint-x checkpoint-core-size) " " (+ next-checkpoint-y checkpoint-core-size))
     (and (< x next-checkpoint-x) (> y next-checkpoint-y)) (str (- next-checkpoint-x checkpoint-core-size) " " (+ next-checkpoint-y checkpoint-core-size))
+    ;(and (< x next-checkpoint-x) (< y next-checkpoint-y)) (str (- next-checkpoint-x (adjustment-from-angle next-checkpoint-angle)) " " (- next-checkpoint-y (adjustment-from-angle next-checkpoint-angle)))
+    ;(and (> x next-checkpoint-x) (< y next-checkpoint-y)) (str (+ next-checkpoint-x (adjustment-from-angle next-checkpoint-angle)) " " (- next-checkpoint-y (adjustment-from-angle next-checkpoint-angle)))
+    ;(and (> x next-checkpoint-x) (> y next-checkpoint-y)) (str (+ next-checkpoint-x (adjustment-from-angle next-checkpoint-angle)) " " (+ next-checkpoint-y (adjustment-from-angle next-checkpoint-angle)))
+    ;(and (< x next-checkpoint-x) (> y next-checkpoint-y)) (str (- next-checkpoint-x (adjustment-from-angle next-checkpoint-angle)) " " (+ next-checkpoint-y (adjustment-from-angle next-checkpoint-angle)))
     true (str next-checkpoint-x " " next-checkpoint-y)))
 
 (defn compute-boost-from-angle [next-checkpoint-angle]
@@ -57,7 +61,7 @@
 (defn compute-boost [next-checkpoint-distance next-checkpoint-angle]
   (cond
     (<= next-checkpoint-distance 1000) "40"
-    (<= (Math/abs next-checkpoint-angle) 36) "100"
+    (<= (Math/abs next-checkpoint-angle) 18) "100"
     true (compute-boost-from-angle (Math/abs next-checkpoint-angle))))
 
 (defn use-boost? [next-checkpoint-distance next-checkpoint-angle boost-used? game-loop-counter last-shield-usage last-boost-value]
