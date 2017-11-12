@@ -41,25 +41,6 @@
 (defn after [val1 val2] (if (> (- val2 val1) 0) true false))
 (defn before [val1 val2] (if (< (- val2 val1) 0) true false))
 
-;(defn compute-x [x next-checkpoint-x next-checkpoint-angle next-checkpoint-distance]
-;  (if (> next-checkpoint-distance 1000)
-;    (cond
-;      (and (>= next-checkpoint-angle -90) (<= next-checkpoint-angle 90) (before next-checkpoint-x x))
-;      (convert-to-int (+ next-checkpoint-x (* checkpoint-core-size (Math/cos (convert-degree-to-radian next-checkpoint-angle)))))
-;      (and (>= next-checkpoint-angle -90) (<= next-checkpoint-angle 90) (after next-checkpoint-x x))
-;      (convert-to-int (- next-checkpoint-x (* checkpoint-core-size (Math/cos (convert-degree-to-radian next-checkpoint-angle)))))
-;      (or (<= -180 next-checkpoint-angle -90 ) (>= 180 next-checkpoint-angle 90))
-;      (convert-to-int (- next-checkpoint-x (* checkpoint-core-size (Math/cos (convert-degree-to-radian next-checkpoint-angle)))))
-;      true next-checkpoint-x)
-;    next-checkpoint-x))
-;
-;(defn compute-y [y next-checkpoint-y next-checkpoint-angle next-checkpoint-distance]
-;  (if (cond
-;        (and (>= next-checkpoint-angle 0)  (<= next-checkpoint-angle 180)) (convert-to-int (- next-checkpoint-y (* checkpoint-core-size (Math/sin (convert-degree-to-radian next-checkpoint-angle)))))
-;        (and (< next-checkpoint-angle 0) (>= next-checkpoint-angle -180)) (convert-to-int (+ next-checkpoint-y (* checkpoint-core-size (Math/sin (convert-degree-to-radian next-checkpoint-angle)))))
-;        true next-checkpoint-y)
-;    next-checkpoint-y))
-
 (defn compute-x [x next-checkpoint-x next-checkpoint-angle next-checkpoint-distance]
   (if (> (Math/abs next-checkpoint-angle) 10)
     (cond
@@ -82,10 +63,10 @@
 ;;Compute a boost value between 0 and 100
 (defn compute-boost [next-checkpoint-distance next-checkpoint-angle]
   (cond
-    ;(>= (Math/abs next-checkpoint-angle) 90) "0"
+    (>= (Math/abs next-checkpoint-angle) 90) "40"
     (<= next-checkpoint-distance 1000) "40"
     (<= next-checkpoint-distance 800) "20"
-    (<= (Math/abs next-checkpoint-angle) 18) "100"
+    (<= (Math/abs next-checkpoint-angle) 36) "100"
     true (compute-boost-from-angle (Math/abs next-checkpoint-angle))))
 
 (defn use-boost? [next-checkpoint-distance next-checkpoint-angle boost-used? game-loop-counter last-shield-usage last-boost-value]
@@ -128,21 +109,21 @@
 
         ; (binding [*out* *err*]
         ;   (println "Debug messages..."))
-        (binding [*out* *err*]
-          (println (str "Has the boost been used ? : " @boost-used?))
-          (println (str "Next check point distance coordinates : (" nextCheckpointX "," nextCheckpointY ")"))
-          (println (str "Given next check point distance : " nextCheckpointDist))
-          (println (str "Calculated next check point distance : " (distance x y nextCheckpointX nextCheckpointY)))
-          (println (str "Pod angle with checkpoint : " nextCheckpointAngle))
-          ;(println (str "Calculated Pod angle with checkpoint : " (angle-between-2-points x y nextCheckpointX nextCheckpointY)))
-          (println (str "Pod Position : (" x "," y ")"))
-          (println (str "Opponent pod Position : (" opponentX "," opponentY ")"))
-          (println (str "Opponent distance : " opponent-distance))
-          ;(println (str "Calculated Pod angle with opponent : " (angle-between-2-points x y opponentX opponentY)))
-          (println (str "Max Shield Usage : " @max-shield-usage))
-          (println (str "Last Shield Usage : " @last-shield-usage))
-          (println (str "Game loop counter : " @game-loop-counter))
-          (println (str "Last boost value : " @last-boost-value)))
+        ;(binding [*out* *err*]
+        ;  (println (str "Has the boost been used ? : " @boost-used?))
+        ;  (println (str "Next check point distance coordinates : (" nextCheckpointX "," nextCheckpointY ")"))
+        ;  (println (str "Given next check point distance : " nextCheckpointDist))
+        ;  (println (str "Calculated next check point distance : " (distance x y nextCheckpointX nextCheckpointY)))
+        ;  (println (str "Pod angle with checkpoint : " nextCheckpointAngle))
+        ;  ;(println (str "Calculated Pod angle with checkpoint : " (angle-between-2-points x y nextCheckpointX nextCheckpointY)))
+        ;  (println (str "Pod Position : (" x "," y ")"))
+        ;  (println (str "Opponent pod Position : (" opponentX "," opponentY ")"))
+        ;  (println (str "Opponent distance : " opponent-distance))
+        ;  ;(println (str "Calculated Pod angle with opponent : " (angle-between-2-points x y opponentX opponentY)))
+        ;  (println (str "Max Shield Usage : " @max-shield-usage))
+        ;  (println (str "Last Shield Usage : " @last-shield-usage))
+        ;  (println (str "Game loop counter : " @game-loop-counter))
+        ;  (println (str "Last boost value : " @last-boost-value)))
 
 
 
