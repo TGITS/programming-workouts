@@ -36,17 +36,18 @@
 ;;Compute a boost value between 0 and 100
 (defn compute-boost [next-checkpoint-distance next-checkpoint-angle]
   (cond
-    (>= (Math/abs next-checkpoint-angle) 90) "0"
-    (<= next-checkpoint-distance 800) (compute-boost-from-angle next-checkpoint-angle)
+    ;(>= (Math/abs next-checkpoint-angle) 90) "0"
+    (<= next-checkpoint-distance 1000) "40"
     (<= (Math/abs next-checkpoint-angle) 18) "100"
-    true (compute-boost-from-angle next-checkpoint-angle)))
+    true (compute-boost-from-angle (Math/abs next-checkpoint-angle))))
 
 (defn use-boost? [next-checkpoint-distance next-checkpoint-angle boost-used? game-loop-counter last-shield-usage last-boost-value]
   (and
     (not @boost-used?)
     (< (Math/abs next-checkpoint-angle) 18)
     (> next-checkpoint-distance 4000)
-    (and (not (= @last-boost-value "SHIELD")) (not (= @last-boost-value "BOOST")) (= @last-shield-usage 0) (= (Integer/parseInt @last-boost-value) 100))))
+    ;(and (not (= @last-boost-value "SHIELD")) (not (= @last-boost-value "BOOST")) (= @last-shield-usage 0) (= (Integer/parseInt @last-boost-value) 100))))
+    (and (not (= @last-boost-value "SHIELD")) (not (= @last-boost-value "BOOST")) (= @last-shield-usage 0))))
 
 (defn use-shield? [x y opponent-x opponent-y boost-used? game-loop-counter max-shield-usage last-shield-usage last-boost-value]
   (and (= @last-shield-usage 0) (> @game-loop-counter 10) (> @max-shield-usage 0) (< (distance opponent-x opponent-y x y) 700)))
