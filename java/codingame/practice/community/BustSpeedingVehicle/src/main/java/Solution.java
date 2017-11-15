@@ -4,7 +4,6 @@
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 /**
@@ -12,6 +11,13 @@ import java.util.Scanner;
  * the standard input according to the problem statement.
  **/
 class Solution {
+
+    public static boolean aboveAverageSpeed(long speedLimit, long distance, long delay) {
+        double speedLimitInKmPerSecond = speedLimit / 3600.0;
+        double average = (double) distance / (double) delay;
+        System.err.println("Computed average speed : " + Double.toString(average) + " versus speed limit in km/s : " + Double.toString(speedLimitInKmPerSecond));
+        return average > speedLimitInKmPerSecond;
+    }
 
     public static void main(String args[]) {
         Scanner in = new Scanner(System.in);
@@ -24,122 +30,41 @@ class Solution {
         String[] rows = new String[N];
         String licencePlate = null;
         String[] elements = null;
-        Recording currentRecording = null;
+        String currentLicencePlate = null;
+        Long currentDistance = null;
+        Long currentTimestamp = null;
         List<Result> results = new ArrayList<>();
 
         for (int i = 0; i < N; i++) {
             rows[i] = in.nextLine();
             elements = rows[i].split(" ");
-            if (currentRecording == null) {
-                System.err.println("New Recording : ");
-                currentRecording = new Recording(elements[0]);
-                CameraCapture cc = new CameraCapture(elements[1], elements[2]);
-                currentRecording.add(cc);
-                System.err.println("New Licence plate " + currentRecording.getLicencePlate());
-            } else {
-                if (currentRecording.sameLicencePlate(elements[0])) {
-                    CameraCapture cc = new CameraCapture(elements[1], elements[2]);
-                    currentRecording.add(cc);
-                    System.err.println("New Recording for " + currentRecording.getLicencePlate() + " " + elements[0]);
-                } else {
-                    Recording newRecording = new Recording(elements[0]);
-                    CameraCapture cc = new CameraCapture(elements[1], elements[2]);
-                    newRecording.add(cc);
-                    System.err.println("Computing average speed for " + currentRecording.getLicencePlate());
-                    Optional<Result> result = currentRecording.computeSpeedLimitExcess(maxAuthorizedSpeed);
-                    if(result.isPresent()){
-                        System.err.println("Adding excess speed limit for " + currentRecording.getLicencePlate());
-                        results.add(result.get());
-                    }
-                    currentRecording = newRecording;
-                    System.err.println("New Licence plate " + currentRecording.getLicencePlate());
+
+            if (currentLicencePlate != null && currentLicencePlate.equals(elements[0])) {
+                Long newDistance = Long.parseLong(elements[1]);
+                Long newTimestamp = Long.parseLong(elements[2]);
+                if (aboveAverageSpeed(maxAuthorizedSpeed, newDistance - currentDistance, newTimestamp - currentTimestamp)) {
+                    results.add(new Result(newDistance, currentLicencePlate));
                 }
+                currentDistance = newDistance;
+                currentTimestamp = newTimestamp;
+            } else {
+                currentLicencePlate = elements[0];
+                currentDistance = Long.parseLong(elements[1]);
+                currentTimestamp = Long.parseLong(elements[2]);
+                System.err.println("New Licence plate " + currentLicencePlate);
             }
-            System.err.println(rows[i] + " : " + elements[0] + " , " + elements[1] + " , " + elements[2]);
-        }
-        if(currentRecording != null) {
-            System.err.println("Computing average speed for " + currentRecording.getLicencePlate());
-            Optional<Result> result = currentRecording.computeSpeedLimitExcess(maxAuthorizedSpeed);
-            if(result.isPresent()){
-                System.err.println("Adding excess speed limit for " + currentRecording.getLicencePlate());
-                results.add(result.get());
-            }
+            System.err.println(rows[i]);
         }
 
         // Write an action using System.out.println()
         // To debug: System.err.println("Debug messages...");
-        if(results.isEmpty()) {
+        if (results.isEmpty()) {
             System.out.println("OK");
-        }
-        else {
-            for(Result result:results){
+        } else {
+            for (Result result : results) {
                 System.out.println(result.toString());
             }
         }
-    }
-}
-
-class CameraCapture {
-    private long distance;
-    private long timestamp;
-
-    public CameraCapture(String distance, String timestamp) {
-        this.distance = Integer.parseInt(distance);
-        this.timestamp = Long.parseLong(timestamp);
-    }
-
-    public long getDistance() {
-        return this.distance;
-    }
-
-    public long getTimestamp() {
-        return this.timestamp;
-    }
-}
-
-class Recording {
-    private final List<CameraCapture> captures = new ArrayList<>();
-    private final String licencePlate;
-    private Result result = null;
-
-    public Recording(String licencePlate) {
-        this.licencePlate = licencePlate;
-    }
-
-    public void add(CameraCapture cc) {
-        captures.add(cc);
-    }
-
-    public String getLicencePlate() {
-        return licencePlate;
-    }
-
-    public Optional<Result> computeSpeedLimitExcess(long maxAuthorizedSpeed) {
-        if (captures.size() >= 2) {
-            //CameraCapture firstCapture = captures.get(0);
-            for (int i = 1; i < captures.size(); i++) {
-                CameraCapture firstCapture = captures.get(i-1);
-                CameraCapture secondCapture = captures.get(i);
-                if (maxAuthorizedSpeed <= averageSpeed(secondCapture.getDistance() - firstCapture.getDistance(), secondCapture.getTimestamp() - firstCapture.getTimestamp())) {
-                    return Optional.of(new Result(secondCapture.getDistance(), this.licencePlate));
-                }
-            }
-            return Optional.empty();
-        }
-        return Optional.empty();
-    }
-
-    private long averageSpeed(long distance, long delay) {
-        long average = Math.round((double)distance / ((double)delay / (double)3600));
-        System.err.println("Computed average speed : " + Long.toString(average));
-        return average;
-    }
-
-    public boolean sameLicencePlate(String licencePlate) {
-        if (licencePlate == null || this.licencePlate == null) {
-            return false;
-        }
-        return this.licencePlate.equals(licencePlate);
     }
 }
 
