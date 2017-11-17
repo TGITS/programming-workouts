@@ -142,7 +142,7 @@ class RoomType7 implements RoomType {
 
     @Override
     public String computeOutputPositionFromInputPosition(String position) {
-        if ("TOP".equals(position) || "LEFT".equals(position)) {
+        if ("TOP".equals(position) || "RIGHT".equals(position)) {
             return "BOTTOM";
         }
 
@@ -166,7 +166,7 @@ class RoomType9 implements RoomType {
 
     @Override
     public String computeOutputPositionFromInputPosition(String position) {
-        if ("TOP".equals(position) || "RIGHT".equals(position)) {
+        if ("TOP".equals(position) || "LEFT".equals(position)) {
             return "BOTTOM";
         }
 
@@ -310,7 +310,6 @@ class Board {
     }
 
     public String computeOutputPosition(int x, int y, String position){
-        StringBuilder sb = new StringBuilder();
         RoomType type = grid[y][x];
         String outputPosition = type.computeOutputPositionFromInputPosition(position);
         Coordinate coordinate = computeOutputCoordinate(x,y, outputPosition);
@@ -321,8 +320,6 @@ class Board {
     }
 
     private Coordinate computeOutputCoordinate(int x, int y, String position){
-        final Coordinate coordinate ;
-
         switch(position){
             case "BOTTOM":
                 return new Coordinate(x, y + 1);
