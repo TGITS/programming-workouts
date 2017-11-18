@@ -29,11 +29,16 @@
   "Test whether 'my-unit' is 'in' the 'other-unit'"
   (< (distance (:x my-unit) (:y my-unit) (:x other-unit) (:y other-unit)) (:radius other-unit)))
 
+(defn near [my-unit other-unit]
+  "Test whether 'my-unit' is 'near' an 'other-unit'"
+  (< (distance (:x my-unit) (:y my-unit) (:x other-unit) (:y other-unit)) (+ (:radius other-unit) (:radius my-unit))))
+
 (defn compute-reaper-action [my-reaper next-wreck]
   (cond
     (nil? next-wreck) "WAIT"
     (in my-reaper next-wreck) "WAIT"
-    true (str (:x next-wreck) " " (:y next-wreck) " 200")))
+    (near my-reaper next-wreck) (str (:x next-wreck) " " (:y next-wreck) " 150")
+    true (str (:x next-wreck) " " (:y next-wreck) " 300")))
 
 (defn compute-destroyer-action [my-destroyer next-tanker]
   (cond
