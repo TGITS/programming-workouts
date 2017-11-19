@@ -34,26 +34,31 @@
   (< (distance (:x my-unit) (:y my-unit) (:x other-unit) (:y other-unit)) (+ (:radius other-unit) (:radius my-unit))))
 
 (defn compute-reaper-action [my-reaper wrecks-with-water tankers]
-  (let [next-wreck (first (sort-by #(distance (:x my-reaper) (:y my-reaper) (:x %) (:y %)) wrecks-with-water))
+  (let [nearest-wreck (first (sort-by #(distance (:x my-reaper) (:y my-reaper) (:x %) (:y %)) wrecks-with-water))
+        fullest-wreck (first (sort-by :extra > wrecks-with-water))
         tankers-sorted-by-distance (sort-by #(distance (:x my-reaper) (:y my-reaper) (:x %) (:y %)) tankers)
-        next-tanker (first tankers-sorted-by-distance)]
+        tankers-sorted-by-water (sort-by :extra > tankers)
+        nearest-tanker (first tankers-sorted-by-distance)
+        fullest-tanker (first tankers-sorted-by-water)]
     (cond
-      (and (nil? next-wreck) (nil? next-tanker)) "WAIT"
-      (and (nil? next-wreck) (not (nil? next-tanker))) (str (:x next-tanker) " " (:y next-tanker) " 150")
-      (in my-reaper next-wreck) "WAIT"
-      (near my-reaper next-wreck) (str (:x next-wreck) " " (:y next-wreck) " 200")
-      true (str (:x next-wreck) " " (:y next-wreck) " 300"))))
+      (and (nil? nearest-wreck) (nil? fullest-wreck) (empty? tankers)) "WAIT"
+      (and (nil? nearest-wreck) (nil? fullest-wreck) (not (empty? tankers))) (str (:x fullest-tanker) " " (:y fullest-tanker) " 300")
+      (or (in my-reaper nearest-wreck)(in my-reaper fullest-wreck)) "WAIT"
+      (near my-reaper fullest-wreck)(str (:x fullest-wreck) " " (:y fullest-wreck) " 150")
+      (near my-reaper nearest-wreck)(str (:x nearest-wreck) " " (:y nearest-wreck) " 150")
+      true (str (:x fullest-wreck) " " (:y fullest-wreck) " 300"))))
 
 (defn compute-destroyer-action [my-destroyer tankers enemy-reapers my-rage]
   (let [nearest-enemy-reaper (first (sort-by #(distance (:x my-destroyer) (:y my-destroyer) (:x %) (:y %)) enemy-reapers))
         tankers-sorted-by-distance (sort-by #(distance (:x my-destroyer) (:y my-destroyer) (:x %) (:y %)) tankers)
-        next-tanker (first tankers-sorted-by-distance)
-        last-tankers (last tankers-sorted-by-distance)]
+        tankers-sorted-by-water (sort-by :extra > tankers)
+        next-tanker (first tankers-sorted-by-water)
+        last-tanker (last tankers-sorted-by-distance)]
     (cond
-      (nil? next-tanker) (str (:x nearest-enemy-reaper) " " (:y nearest-enemy-reaper) " 300")
-      (in my-destroyer next-tanker) (str (:x next-tanker) " " (:y next-tanker) " 0")
-      (and (near my-destroyer next-tanker) (> my-rage 200)) (str "SKILL " (:x last-tankers) " " (:y last-tankers))
-      (> my-rage 150) (str "SKILL " (:x last-tankers) " " (:y last-tankers))
+      (and (nil? next-tanker) (nil? last-tanker)) (str (:x nearest-enemy-reaper) " " (:y nearest-enemy-reaper) " 300")
+      ;;(in my-destroyer next-tanker) (str (:x next-tanker) " " (:y next-tanker) " 0")
+      ;;(and (not (near my-destroyer next-tanker)) (> my-rage 250)) (str "SKILL " (:x next-tanker) " " (:y next-tanker))
+      ;;(> my-rage 200) (str "SKILL " (:x last-tanker) " " (:y last-tanker))
       true (str (:x next-tanker) " " (:y next-tanker) " 300"))))
 
 (defn compute-doof-action [my-doof enemy-reapers my-rage]
