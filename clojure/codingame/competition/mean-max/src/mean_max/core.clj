@@ -9,8 +9,8 @@
 
 (require '[clojure.string :as string])
 
-;;unitType 0 (Reaper), 1 (Destroyer), 3 (Tanker), 4 (Wreck)
-(def unit-types [:reaper :destroyer :placeholder :tanker :wreck])
+;;unitType 0 (Reaper), 1 (Destroyer), 2 (Doof), 3 (Tanker), 4 (Wreck)
+(def unit-types [:reaper :destroyer :doof :tanker :wreck])
 
 (defrecord Unit
   [unit-id unit-type player-id mass radius x y vx vy extra extra2])
@@ -40,11 +40,19 @@
     (near my-reaper next-wreck) (str (:x next-wreck) " " (:y next-wreck) " 150")
     true (str (:x next-wreck) " " (:y next-wreck) " 300")))
 
-(defn compute-destroyer-action [my-destroyer next-tanker]
+(defn compute-destroyer-action [my-destroyer next-tanker my-rage tankers]
   (cond
     (nil? next-tanker) "WAIT"
     (in my-destroyer next-tanker) (str (:x next-tanker) " " (:y next-tanker) " 0")
+    (and (or (in my-destroyer next-tanker) (near my-destroyer next-tanker)) (> my-rage 200)) (str "SKILL " (:x (last tankers)) " " (:y (last tankers)))
+    (> my-rage 150) (str "SKILL " (:x next-tanker) " " (:y next-tanker))
     true (str (:x next-tanker) " " (:y next-tanker) " 300")))
+
+(defn compute-doof-action [my-doof enemy-reapers my-rage]
+  (let [nearest-enemy-reaper (first (sort-by #(distance (:x my-doof) (:y my-doof) (:x %) (:y %)) enemy-reapers))]
+    (cond
+      (>= my-rage 300) "WAIT"
+      true (str (:x nearest-enemy-reaper) " " (:y nearest-enemy-reaper) " 300"))))
 
 (defn -main [& args]
   (while true
@@ -65,17 +73,21 @@
                 unit (Unit. unit-id unit-type player-id mass radius x y vx vy extra extra2)]
             (swap! units conj unit)
             (recur (dec i)))))
-      (let [wrecks (filter #(= (:unit-type %) :wreck) @units)
-            wrecks-with-water (filter #(> (:extra %) 0) wrecks)
-            tankers (filter #(= (:unit-type %) :tanker) @units)
-            reapers (filter #(= (:unit-type %) :reaper) @units)
+      (let [reapers (filter #(= (:unit-type %) :reaper) @units)
             destroyers (filter #(= (:unit-type %) :destroyer) @units)
+            doofs (filter #(= (:unit-type %) :doof) @units)
+            tankers (filter #(= (:unit-type %) :tanker) @units)
+            wrecks (filter #(= (:unit-type %) :wreck) @units)
+            wrecks-with-water (filter #(> (:extra %) 0) wrecks)
             enemy-reapers (filter #(not= (:player-id %) 0) reapers)
             enemy-destroyers (filter #(not= (:player-id %) 0) destroyers)
+            enemy-doofs (filter #(not= (:player-id %) 0) doofs)
             my-reaper (first (filter #(= (:player-id %) 0) reapers))
             my-destroyer (first (filter #(= (:player-id %) 0) destroyers))
+            my-doof (first (filter #(= (:player-id %) 0) doofs))
             next-wreck (first (sort-by #(distance (:x my-reaper) (:y my-reaper) (:x %) (:y %)) wrecks-with-water))
-            next-tanker (first (sort-by #(distance (:x my-destroyer) (:y my-destroyer) (:x %) (:y %)) tankers))]
+            tankers-sorted-by-distance (sort-by #(distance (:x my-destroyer) (:y my-destroyer) (:x %) (:y %)) tankers)
+            next-tanker (first tankers-sorted-by-distance)]
         (binding [*out* *err*] (println "wrecks : " (string/join " " (map #(into {} %) wrecks)))
                                (println "wrecks with water: " (string/join " " (map #(into {} %) wrecks-with-water)))
                                (println "tankers : " (string/join " " (map #(into {} %) tankers)))
@@ -84,12 +96,13 @@
                                (println "enemy reapers: " (string/join " " (map #(into {} %) enemy-reapers)))
                                (println "enemy destroyers: " (string/join " " (map #(into {} %) enemy-destroyers)))
                                (println "my reaper : " (string/join " " my-reaper))
-                               (println "my-destroyer : " (string/join " " my-destroyer))
-                               (println "next-wreck : " (string/join " " next-wreck))
-                               (println "next-tanker : " (string/join " " next-tanker)))
+                               (println "my destroyer : " (string/join " " my-destroyer))
+                               (println "my doof : " (string/join " " my-doof))
+                               (println "next wreck : " (string/join " " next-wreck))
+                               (println "next tanker : " (string/join " " next-tanker)))
         (println (compute-reaper-action my-reaper next-wreck))
-        (println (compute-destroyer-action my-destroyer next-tanker))
-        (println "WAIT")))))
+        (println (compute-destroyer-action my-destroyer next-tanker my-rage tankers-sorted-by-distance))
+        (println (compute-doof-action my-doof enemy-reapers my-rage))))))
 
       ; (binding [*out* *err*]
       ;   (println "Debug messages..."))
