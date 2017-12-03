@@ -3,8 +3,6 @@
  */
 package tgits.temperatures.model;
 
-import lombok.Data;
-import lombok.NonNull;
 import tgits.temperatures.utils.BigDecimalUtilities;
 
 import java.math.BigDecimal;
@@ -12,12 +10,9 @@ import java.math.BigDecimal;
 /**
  * @author cvaudry
  */
-@Data
 public class Temperature {
 
-    @NonNull
     private final BigDecimal value;
-    @NonNull
     private final TemperatureUnit unit;
 
     public Temperature(String value, TemperatureUnit unit) {
@@ -25,6 +20,31 @@ public class Temperature {
         this.value = BigDecimalUtilities.createBigDecimal(value);
     }
 
+    public BigDecimal getValue() {
+        return value;
+    }
+
+    public TemperatureUnit getUnit() {
+        return unit;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Temperature that = (Temperature) o;
+
+        if (!value.equals(that.value)) return false;
+        return unit == that.unit;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = value.hashCode();
+        result = 31 * result + unit.hashCode();
+        return result;
+    }
 }
 
 
