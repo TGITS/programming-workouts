@@ -1,0 +1,14 @@
+= Scala Flashcards 
+
+== Fundamental principles of Scala
+
+== SBT
+
+=== How to check SBT version ?
+
+=== To check SBT version just write the following
+
+[source]
+---
+sbt sbtVersion
+---

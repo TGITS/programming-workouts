@@ -1,0 +1,26 @@
+Scala Workouts - A Developper Journey Book 
+==========================================
+Christophe Vaudry <thegeekintheshell@gmail.com>
+v1.0, 02-07-2017
+
+:numbered!:
+[abstract]
+Résumé
+------
+Ensemble de notes prises lors de l'apprentissage de Scala et de la pratique d'exercices divers
+
+:numbered:
+
+== Créer un projet basique en Scala avec SBT == 
+
+* `cd`dans un répertoire vide
+* Exécuter la commande  `sbt new scala/hello-world.g8` 
+** Cela va récupérer le _template_ *hello-world* de GitHub. 
+** Cela va également créer un répertoire `target`
+
+== Scala et Java 9
+
+* Gros problèmes pour faire fonctionner SBT 1.0.4  et scala 2.12 avec Java 9
+** Erreurs de téléchargement de dépendances et `build` SBT en erreur.
+
+ 
