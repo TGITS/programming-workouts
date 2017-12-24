@@ -1,0 +1,11 @@
+docker run -d -p 2181:2181 \
+ -p 60010:60010 -p 60000:60000 \
+ -p 60020:60020 -p 60030:60030 \
+ -p 8080:8080 -p 8085:8085 \
+ -p 9090:9090 -p 9095:9095 \
+ --name hbase -h hbase \
+ sixeyed/hbase-succinctly
+ 
+docker run -d -p 2181:2181 -p 60010:60010 -p 60000:60000 -p 60020:60020 -p 60030:60030 -p 8080:8080 -p 8085:8085 -p 9190:9090 -p 9195:9095 --name hbase -h hbase sixeyed/hbase-succinctly
+
+docker exec -it hbase hbase shell
