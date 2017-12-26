@@ -20,20 +20,38 @@ object Solution extends App {
           (accumulator, current) => {
             Console.err.println("accumulator : " + accumulator)
             Console.err.println("current : " + current.mkString(";"))
-            accumulator + ((current(0) match {
-              case "0" => "1"
-              case "00" => "0"
-              case _ => ""
-            }) * current(1).length)
+            if (accumulator.equals("INVALID")) {
+              "INVALID"
+            } else {
+              val value = current(0) match {
+                case "0" => "1"
+                case "00" => "0"
+                case _ => "INVALID"
+              }
+              if (value.equals("INVALID")) {
+                "INVALID"
+              }
+              else {
+                accumulator + value * current(1).length
+              }
+            }
           }
         }
         Console.err.println("binarySequence : " + binarySequence.mkString(""))
-        binarySequence.sliding(7, 7).map(it => Integer.parseInt(it, 2).toChar.toString).mkString("")
+        if (!binarySequence.equals("INVALID")) {
+          if (binarySequence.length >= 7) {
+          binarySequence.sliding(7, 7).map(it => Integer.parseInt(it, 2).toChar.toString).mkString("")
+          }
+          else {
+            "INVALID"
+          }
+        } else {
+          "INVALID"
+        }
       } else {
         "INVALID"
       }
     }
-
     case _ => "INVALID"
   }
 
