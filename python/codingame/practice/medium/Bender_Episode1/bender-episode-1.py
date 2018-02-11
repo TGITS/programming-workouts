@@ -137,7 +137,7 @@ class Bender:
         self.direction = "SOUTH"
         self.direction_priorities = ["SOUTH", "EAST", "NORTH", "WEST"]
         self.next_direction_index = 1
-        self.selected_direction_index = self.direction_priorities.index(direction)
+        self.selected_direction_index = self.direction_priorities.index(self.direction)
         self.in_breaker_mode = False
         self.dead = False
         self.moves = []
@@ -202,9 +202,14 @@ class Bender:
 
     def __compute_next_move(self):
         """Compute the next moves and position of Bender. The list contains only the value 'LOOP' if bender cannot attain the suicide booth"""
+        print("Entering __compute_next_move", file=sys.stderr)
         current_direction = self.direction
         next_position = self.__next_position()
         next_cell = self.city_map.cell_at(next_position)
+        print("current direction : {}".format(str(current_direction)), file=sys.stderr)
+        print("next position : {}".format(str(next_position)), file=sys.stderr)
+        print("next cell : {}".format(str(next_cell)), file=sys.stderr)
+
         if next_cell.is_suicide_booth():
             self.__reset_times_blocked()
             self.__update_coordinate(next_position)
@@ -262,16 +267,24 @@ class Bender:
             next_cell.break_obstacle()
             self.__reset_times_blocked()
             return self.__compute_next_move()
+
+        print("You have forgotten something!", file=sys.stderr)
         
     def get_computed_moves(self):
         """Print the list of computed moves"""
+        print("Entering get_computed_moves", file=sys.stderr)
         moves = []
         max_iterations = self.city_map.get_number_of_cells() * 2
         number_iterations = 0
-        while not self.__is_dead and number_iterations < max_iterations :
+        print("number_iterations : {}".format(str(number_iterations)), file=sys.stderr)
+        print("max_iterations : {}".format(str(max_iterations)), file=sys.stderr)
+        print("not self.__is_dead() : {}".format(str(not self.__is_dead())), file=sys.stderr)
+        while not self.__is_dead() and number_iterations < max_iterations :
             moves.append(self.__compute_next_move())
             number_iterations += 1
 
+        print("About to exit get_computed_moves", file=sys.stderr)
+        print("Moves : {}".format(" ".join(moves)), file=sys.stderr)
         if number_iterations >= max_iterations or "LOOP" in moves :
             return "LOOP"
         else:
@@ -304,7 +317,7 @@ for i in range(l):
 
 futurama = CityMap(l, c, city_map, start_cell, teleporters)
 print(str(futurama), file=sys.stderr)
-bender = Bender(start_cell.coordinate, city_map)
+bender = Bender(start_cell.coordinate, futurama)
 print(str(bender), file=sys.stderr)
 print(str(start_cell), file=sys.stderr)
 result = bender.get_computed_moves()
