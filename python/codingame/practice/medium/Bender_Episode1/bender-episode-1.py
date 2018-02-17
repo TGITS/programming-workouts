@@ -10,20 +10,21 @@ import math
 # What are the abstractions needed to express the problem ?
 
 class Coordinate:
-    """Class to represent a Coordinate x,y. We can add two coordinates."""
+    """Class to represent a Coordinate in the grid. We can add two coordinates. 
+    The r attribute represents the row and c the column"""
 
-    def __init__(self, x, y):
-        """Initialisation of the class Coordinate which needs an 'x' and a 'y' coordinate"""
-        self.x = x
-        self.y = y
+    def __init__(self, r, c):
+        """Initialisation of the class Coordinate which needs an 'r' and a 'c' coordinate"""
+        self.r = r
+        self.c = c
 
     def __str__(self):
         """String representation of a Coordinate"""
-        return "({0},{1})".format(self.x, self.y)
+        return "({0},{1})".format(self.r, self.c)
 
     def __add__(self, other_coordinate):
         """Addition of 2 coordinates - Return a new object"""
-        return Coordinate(self.x + other_coordinate.x, self.y + other_coordinate.y)
+        return Coordinate(self.r + other_coordinate.r, self.c + other_coordinate.c)
 
 class Cell:
     """The class Cell is a class that represent an element of the map."""
@@ -88,7 +89,7 @@ class Cell:
 
     def __str__(self):
         """String representation of a Cell"""
-        return "{0} at {1}".format(self.content, str(self.coordinate))
+        return "'{0}' at {1}".format(self.content, str(self.coordinate))
 
 class CityMap:
     """The class CityMap represent the map of the city in which Bender is moving."""
@@ -104,7 +105,7 @@ class CityMap:
 
     def cell_at(self, coordinate):
         """Return the cell which is at the coordinate given in parameter"""
-        return self.map[coordinate.x][coordinate.y]
+        return self.map[coordinate.r][coordinate.c]
 
     def get_other_teleporter(self, teleporter):
         """Return the other teleporter"""
@@ -136,7 +137,7 @@ class Bender:
         self.city_map = city_map
         self.direction = "SOUTH"
         self.direction_priorities = ["SOUTH", "EAST", "NORTH", "WEST"]
-        self.next_direction_index = 1
+        self.next_direction_index = 0
         self.selected_direction_index = self.direction_priorities.index(self.direction)
         self.in_breaker_mode = False
         self.dead = False
@@ -155,7 +156,12 @@ class Bender:
 
     def __change_direction(self):
         """To change the direction of Bender - The next direction in the possible direction is taken"""
+        print("self.next_direction_index before the update : {}".format(str(self.next_direction_index)), file=sys.stderr)
         self.next_direction_index = (self.next_direction_index + 1) % 4
+        print("self.next_direction_index after update : {}".format(str(self.next_direction_index)), file=sys.stderr)
+        print("self.direction before the update : {}".format(self.direction), file=sys.stderr)
+        self.direction = self.direction_priorities[self.next_direction_index]
+        print("self.direction after the update : {}".format(self.direction), file=sys.stderr)
 
     def __update_coordinate(self,coordinate):
         """Private method to update the coordinate of a bender object"""
@@ -209,6 +215,11 @@ class Bender:
         print("current direction : {}".format(str(current_direction)), file=sys.stderr)
         print("next position : {}".format(str(next_position)), file=sys.stderr)
         print("next cell : {}".format(str(next_cell)), file=sys.stderr)
+
+        if next_cell.is_start():
+            self.__reset_times_blocked()
+            self.__update_coordinate(next_position)
+            return current_direction
 
         if next_cell.is_suicide_booth():
             self.__reset_times_blocked()
@@ -274,7 +285,7 @@ class Bender:
         """Print the list of computed moves"""
         print("Entering get_computed_moves", file=sys.stderr)
         moves = []
-        max_iterations = self.city_map.get_number_of_cells() * 2
+        max_iterations = self.city_map.get_number_of_cells() * 100
         number_iterations = 0
         print("number_iterations : {}".format(str(number_iterations)), file=sys.stderr)
         print("max_iterations : {}".format(str(max_iterations)), file=sys.stderr)
@@ -285,10 +296,11 @@ class Bender:
 
         print("About to exit get_computed_moves", file=sys.stderr)
         print("Moves : {}".format(" ".join(moves)), file=sys.stderr)
-        if number_iterations >= max_iterations or "LOOP" in moves :
+        #if number_iterations >= max_iterations or "LOOP" in moves :
+        if "LOOP" in moves :
             return "LOOP"
         else:
-           return " ".join(moves)
+           return "\n".join(moves)
 
     def __str__(self):
         """The String value of a Bender object"""
@@ -307,7 +319,7 @@ for i in range(l):
     row = list(input())
     row_of_cells = []
     for j in range(c):
-        current_cell = Cell(Coordinate(j,i),row[j])
+        current_cell = Cell(Coordinate(i,j),row[j])
         row_of_cells.append(current_cell)
         if current_cell.is_start():
             start_cell = current_cell

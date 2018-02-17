@@ -1,0 +1,5 @@
+class PureFunction {
+	public boolean isEven(int n) { return n % 2 == 0;}
+}
+PureFunction pf = new PureFunction();
+System.out.println("2 is even : " + pf.isEven(2));

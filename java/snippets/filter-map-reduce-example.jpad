@@ -1,0 +1,9 @@
+int sumOfEvenPower = Stream.of(7, 8, 5, 2, 4, 1, 6, 9, 3)
+    .filter(n -> n%2 ==0)
+    .sorted((a, b) -> a - b)
+    .map(n -> n*n)
+    .peek(n -> System.out.print(n + " " ))
+    .reduce(0,(a, b) -> a + b);
+System.out.println();
+System.out.println(sumOfEvenPower);
+   
