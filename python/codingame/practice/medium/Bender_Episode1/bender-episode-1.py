@@ -1,14 +1,6 @@
 import sys
 import math
 
-# Créer une classe pour représenter la ville/le plan
-# Création des objets de cette classe à partir d'une liste de liste ?
-# Il faut une fonction pour trouver les coordonnées du point de départ
-# Créer une classe Case représentant une case du plan ?
-# Créer une classe pour représenter Bender/l'automate
-
-# What are the abstractions needed to express the problem ?
-
 class Coordinate:
     """Class to represent a Coordinate in the grid. We can add two coordinates. 
     The r attribute represents the row and c the column"""
@@ -25,6 +17,21 @@ class Coordinate:
     def __add__(self, other_coordinate):
         """Addition of 2 coordinates - Return a new object"""
         return Coordinate(self.r + other_coordinate.r, self.c + other_coordinate.c)
+
+    def __eq__(self,other):
+        """Override of the equality for coordinate object"""
+        if isinstance(other, self.__class__):
+            return self.r == other.r and self.c == other.c
+        return False
+
+    def __ne__(self,other):
+        """Override of the != for coordinate object"""
+        return self.r != other.r or self.c != other.c
+
+    def __hash__(self):
+        """Override of the hash for this object"""
+        return hash(self.r + self.c) # Not a very good hash for performance purpose
+
 
 class Cell:
     """The class Cell is a class that represent an element of the map."""
@@ -91,6 +98,20 @@ class Cell:
         """String representation of a Cell"""
         return "'{0}' at {1}".format(self.content, str(self.coordinate))
 
+    def __eq__(self,other):
+        """Override of the equality for cell object"""
+        if isinstance(other, self.__class__):
+            return self.coordinate == other.coordinate and self.content == other.content
+        return False
+
+    def __ne__(self,other):
+        """Override of the != for coordinate object"""
+        return self.coordinate != other.coordinate or self.content != other.content
+
+    def __hash__(self):
+        """Override of the hash for this object"""
+        return hash(self.content) + hash(self.coordinate) # Not a very good hash for performance purpose
+    
 class CityMap:
     """The class CityMap represent the map of the city in which Bender is moving."""
 
@@ -129,7 +150,7 @@ class CityMap:
         return str
 
 class Move:
-    """A class that represent a move of Bender"""
+    """A class that represents a move of Bender"""
 
     def __init__(self,next_cell,direction,bender_state):
         self.next_cell = next_cell
@@ -139,6 +160,20 @@ class Move:
     def __str__(self):
         """String representation of a Move"""
         return "{0} {1} {2}".format(self.next_cell, self.direction, self.bender_state)
+    
+    def __eq__(self,other):
+        """Override of the equality for cell object"""
+        if isinstance(other, self.__class__):
+            return self.next_cell == other.next_cell and self.direction == other.direction and self.bender_state == other.bender_state
+        return False
+
+    def __ne__(self,other):
+        """Override of the != for coordinate object"""
+        return self.next_cell != other.next_cell or self.direction != other.direction or self.bender_state != other.bender_state
+
+    def __hash__(self):
+        """Override of the hash for this object"""
+        return hash(self.next_cell) + hash(self.direction) + hash(self.bender_state) # Not a very good hash for performance purpose
 
 class Bender:
     """The class Bender represent the robot of the type of bender"""
@@ -171,20 +206,19 @@ class Bender:
     
     def get_state(self):
         """Output in a string representation the state of Bender : DEAD, NORMAL, BREAKER"""
-        if self.__is_dead():
+        if self.is_dead():
             return "DEAD"
         if self.__is_in_breaker_mode():
             return "BREAKER"
-        if self.is__looping()
+        if self.is_looping():
             return "LOOP"
         return "NORMAL"
 
     def update_history(self, next_cell, direction):
         """Update the Bender's history of moves"""
-        move = Move(next_cell,direction, self.get_state())
-        if move not in history:
-            self.history.append(move)
-        else:
+        move = Move(next_cell, direction, self.get_state())
+        self.history.append(move)
+        if self.history.count(move) > 3:
             self.__trap()
 
     def is_looping(self):
@@ -237,19 +271,15 @@ class Bender:
     def __commit_suicide(self):
         self.dead = True
 
-    def __is_dead(self):
+    def is_dead(self):
         """Return true if Bender is Dead"""
         return self.dead
 
     def __compute_next_move(self):
         """Compute the next moves and position of Bender. The list contains only the value 'LOOP' if bender cannot attain the suicide booth"""
-        #print("Entering __compute_next_move", file=sys.stderr)
         current_direction = self.direction
         next_position = self.__next_position()
         next_cell = self.city_map.cell_at(next_position)
-        #print("current direction : {}".format(str(current_direction)), file=sys.stderr)
-        #print("next position : {}".format(str(next_position)), file=sys.stderr)
-        #print("next cell : {}".format(str(next_cell)), file=sys.stderr)
 
         if not next_cell.is_obstacle():
             self.__reset_direction_index()
@@ -305,28 +335,22 @@ class Bender:
         
     def get_computed_moves(self):
         """Print the list of computed moves"""
-        #print("Entering get_computed_moves", file=sys.stderr)
         moves = []
-        
-        while not self.__is_dead() :
+        while not self.is_dead() and not self.is_looping() :
             move = self.__compute_next_move()
             if move != None:
                 moves.append(move)
 
-        #print("About to exit get_computed_moves", file=sys.stderr)
         print("Moves : {}".format(" ".join(moves)), file=sys.stderr)
-        #if number_iterations >= max_iterations or "LOOP" in moves :
-        if "LOOP" in moves :
+        if self.is_looping():
+            print("Bender trapped in a LOOP", file=sys.stderr)
             return "LOOP"
         else:
-           return "\n".join(moves)
-
+            return "\n".join(moves)
+        
     def __str__(self):
         """The String value of a Bender object"""
         return "Position : {0} - Direction : {1}".format(self.coordinate,self.direction)
-
-# Auto-generated code below aims at helping you parse
-# the standard input according to the problem statement.
 
 l, c = [int(i) for i in input().split()]
 city_map = []
@@ -352,9 +376,4 @@ bender = Bender(start_cell.coordinate, futurama)
 print(str(bender), file=sys.stderr)
 print(str(start_cell), file=sys.stderr)
 result = bender.get_computed_moves()
-#print(result, file=sys.stderr)
 print(result)
-# Write an action using print
-# To debug: print("Debug messages...", file=sys.stderr)
-
-#print("answer")
