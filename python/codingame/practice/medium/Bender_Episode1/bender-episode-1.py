@@ -128,6 +128,18 @@ class CityMap:
             str += "\n"
         return str
 
+class Move:
+    """A class that represent a move of Bender"""
+
+    def __init__(self,next_cell,direction,bender_state):
+        self.next_cell = next_cell
+        self.direction = direction
+        self.bender_state = bender_state
+
+    def __str__(self):
+        """String representation of a Move"""
+        return "{0} {1} {2}".format(self.next_cell, self.direction, self.bender_state)
+
 class Bender:
     """The class Bender represent the robot of the type of bender"""
 
@@ -141,7 +153,8 @@ class Bender:
         self.selected_direction_index = self.direction_priorities.index(self.direction)
         self.in_breaker_mode = False
         self.dead = False
-        self.moves = []
+        self.trap = False
+        self.history = []
         self.direction_to_coordinate_mapping = { 
             "SOUTH" : Coordinate(1,0),
             "NORTH" : Coordinate(-1,0),
@@ -156,6 +169,28 @@ class Bender:
         }
         self.times_blocked = 0
     
+    def get_state(self):
+        """Output in a string representation the state of Bender : DEAD, NORMAL, BREAKER"""
+        if self.__is_dead():
+            return "DEAD"
+        if self.__is_in_breaker_mode():
+            return "BREAKER"
+        if self.is__looping()
+            return "LOOP"
+        return "NORMAL"
+
+    def update_history(self, next_cell, direction):
+        """Update the Bender's history of moves"""
+        move = Move(next_cell,direction, self.get_state())
+        if move not in history:
+            self.history.append(move)
+        else:
+            self.__trap()
+
+    def is_looping(self):
+        """Return true if Bender is in a Loop"""
+        return self.trap
+
     def __update_direction(self, direction):
         """Private method to update the direction of Bender"""
         self.direction = self.letter_to_direction[direction]
@@ -195,6 +230,10 @@ class Bender:
         """Return true if Bender is in Normal mode"""
         return not self.in_breaker_mode   
 
+    def __trap(self):
+        """Update the status of Bender when he is trapped in a loop"""
+        self.trap = True
+
     def __commit_suicide(self):
         self.dead = True
 
@@ -208,9 +247,9 @@ class Bender:
         current_direction = self.direction
         next_position = self.__next_position()
         next_cell = self.city_map.cell_at(next_position)
-        print("current direction : {}".format(str(current_direction)), file=sys.stderr)
-        print("next position : {}".format(str(next_position)), file=sys.stderr)
-        print("next cell : {}".format(str(next_cell)), file=sys.stderr)
+        #print("current direction : {}".format(str(current_direction)), file=sys.stderr)
+        #print("next position : {}".format(str(next_position)), file=sys.stderr)
+        #print("next cell : {}".format(str(next_cell)), file=sys.stderr)
 
         if not next_cell.is_obstacle():
             self.__reset_direction_index()
@@ -218,25 +257,30 @@ class Bender:
         if next_cell.is_suicide_booth():
             self.__update_coordinate(next_position)
             self.__commit_suicide()
+            self.update_history(next_cell, current_direction)
             return current_direction
 
         if next_cell.is_start() or next_cell.is_blank():
             self.__update_coordinate(next_position)
+            self.update_history(next_cell, current_direction)
             return current_direction
 
         if next_cell.is_beer():
             self.__toogle_breaker_mode()
             self.__update_coordinate(next_position)
+            self.update_history(next_cell, current_direction)
             return current_direction
 
         if next_cell.is_inverter():
             self.__reverse_direction_priorities()
             self.__update_coordinate(next_position)
+            self.update_history(next_cell, current_direction)
             return current_direction   
 
         if next_cell.is_teleporter():
             current_cell = self.city_map.get_other_teleporter(next_cell)
             self.__update_coordinate(current_cell.get_coordinate())
+            self.update_history(current_cell, current_direction)
             return current_direction
 
         if next_cell.is_unbreakable_obstacle():
@@ -246,6 +290,7 @@ class Bender:
         if next_cell.is_path_modifier():
             self.__update_direction(next_cell.get_content())
             self.__update_coordinate(next_position)
+            self.update_history(next_cell, current_direction)
             return current_direction
 
         if self.__is_in_normal_mode() and next_cell.is_breakable_obstacle():
