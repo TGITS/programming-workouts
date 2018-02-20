@@ -1,0 +1,27 @@
+Bender
+
+Input test 3
+
+8 8
+########
+#     $#
+#      #
+#      #
+#  @   #
+#      #
+#      #
+########
+
+
+Expected Output
+
+SOUTH
+SOUTH
+EAST
+EAST
+EAST
+NORTH
+NORTH
+NORTH
+NORTH
+NORTH

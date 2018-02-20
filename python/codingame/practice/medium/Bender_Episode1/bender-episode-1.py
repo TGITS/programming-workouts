@@ -143,25 +143,34 @@ class Bender:
         self.dead = False
         self.moves = []
         self.direction_to_coordinate_mapping = { 
-            "SOUTH" : Coordinate(0,1),
-            "NORTH" : Coordinate(0,-1),
-            "EAST"  : Coordinate(1,0),
-            "WEST"  : Coordinate(-1,0)
+            "SOUTH" : Coordinate(1,0),
+            "NORTH" : Coordinate(-1,0),
+            "EAST"  : Coordinate(0,1),
+            "WEST"  : Coordinate(0,-1)
+        }
+        self.letter_to_direction = { 
+            "S":"SOUTH",
+            "N":"NORTH",
+            "E":"EAST",
+            "W":"WEST"
         }
         self.times_blocked = 0
     
     def __update_direction(self, direction):
         """Private method to update the direction of Bender"""
-        self.direction = direction
+        self.direction = self.letter_to_direction[direction]
 
     def __change_direction(self):
         """To change the direction of Bender - The next direction in the possible direction is taken"""
-        print("self.next_direction_index before the update : {}".format(str(self.next_direction_index)), file=sys.stderr)
-        self.next_direction_index = (self.next_direction_index + 1) % 4
-        print("self.next_direction_index after update : {}".format(str(self.next_direction_index)), file=sys.stderr)
-        print("self.direction before the update : {}".format(self.direction), file=sys.stderr)
+        #print("self.next_direction_index before the update : {}".format(str(self.next_direction_index)), file=sys.stderr)
+        if self.direction == "SOUTH":
+           self.next_direction_index = (self.next_direction_index + 1) % 4
+        else:
+           self.next_direction_index = (self.next_direction_index) % 4 
+        #print("self.next_direction_index after update : {}".format(str(self.next_direction_index)), file=sys.stderr)
+        #print("self.direction before the update : {}".format(self.direction), file=sys.stderr)
         self.direction = self.direction_priorities[self.next_direction_index]
-        print("self.direction after the update : {}".format(self.direction), file=sys.stderr)
+        #print("self.direction after the update : {}".format(self.direction), file=sys.stderr)
 
     def __update_coordinate(self,coordinate):
         """Private method to update the coordinate of a bender object"""
@@ -203,12 +212,16 @@ class Bender:
         """Reset the value of times_blocked to 0"""
         self.times_blocked = 0
 
+    def __reset_direction_index(self):
+        """Reset the next_direction_index"""
+        self.next_direction_index = 0
+
     def __is_blocked(self):
         """Return true if Bender is blocked, this is if the times_blocked is greater than 4"""    
 
     def __compute_next_move(self):
         """Compute the next moves and position of Bender. The list contains only the value 'LOOP' if bender cannot attain the suicide booth"""
-        print("Entering __compute_next_move", file=sys.stderr)
+        #print("Entering __compute_next_move", file=sys.stderr)
         current_direction = self.direction
         next_position = self.__next_position()
         next_cell = self.city_map.cell_at(next_position)
@@ -216,10 +229,8 @@ class Bender:
         print("next position : {}".format(str(next_position)), file=sys.stderr)
         print("next cell : {}".format(str(next_cell)), file=sys.stderr)
 
-        if next_cell.is_start():
-            self.__reset_times_blocked()
-            self.__update_coordinate(next_position)
-            return current_direction
+        if not next_cell.is_obstacle():
+            self.__reset_direction_index()
 
         if next_cell.is_suicide_booth():
             self.__reset_times_blocked()
@@ -227,7 +238,7 @@ class Bender:
             self.__commit_suicide()
             return current_direction
 
-        if next_cell.is_blank():
+        if next_cell.is_start() or next_cell.is_blank():
             self.__reset_times_blocked()
             self.__update_coordinate(next_position)
             return current_direction
@@ -253,7 +264,7 @@ class Bender:
         if next_cell.is_unbreakable_obstacle():
             self.__change_direction()
             self.__inc_times_blocked()
-            return self.__compute_next_move()  
+            return None  
 
         if next_cell.is_unbreakable_obstacle() and self.__is_blocked():
             return "LOOP"    
@@ -272,29 +283,31 @@ class Bender:
             if next_cell.is_breakable_obstacle():
                self.__change_direction()
                self.__inc_times_blocked()
-               return self.__compute_next_move()   
+               return None   
             
         if self.__is_in_breaker_mode() and next_cell.is_breakable_obstacle():
             next_cell.break_obstacle()
             self.__reset_times_blocked()
-            return self.__compute_next_move()
+            return None
 
         print("You have forgotten something!", file=sys.stderr)
         
     def get_computed_moves(self):
         """Print the list of computed moves"""
-        print("Entering get_computed_moves", file=sys.stderr)
+        #print("Entering get_computed_moves", file=sys.stderr)
         moves = []
         max_iterations = self.city_map.get_number_of_cells() * 100
         number_iterations = 0
-        print("number_iterations : {}".format(str(number_iterations)), file=sys.stderr)
-        print("max_iterations : {}".format(str(max_iterations)), file=sys.stderr)
-        print("not self.__is_dead() : {}".format(str(not self.__is_dead())), file=sys.stderr)
+        #print("number_iterations : {}".format(str(number_iterations)), file=sys.stderr)
+        #print("max_iterations : {}".format(str(max_iterations)), file=sys.stderr)
+        #print("not self.__is_dead() : {}".format(str(not self.__is_dead())), file=sys.stderr)
         while not self.__is_dead() and number_iterations < max_iterations :
-            moves.append(self.__compute_next_move())
+            move = self.__compute_next_move()
+            if move != None:
+                moves.append(move)
             number_iterations += 1
 
-        print("About to exit get_computed_moves", file=sys.stderr)
+        #print("About to exit get_computed_moves", file=sys.stderr)
         print("Moves : {}".format(" ".join(moves)), file=sys.stderr)
         #if number_iterations >= max_iterations or "LOOP" in moves :
         if "LOOP" in moves :
@@ -333,7 +346,7 @@ bender = Bender(start_cell.coordinate, futurama)
 print(str(bender), file=sys.stderr)
 print(str(start_cell), file=sys.stderr)
 result = bender.get_computed_moves()
-print(result, file=sys.stderr)
+#print(result, file=sys.stderr)
 print(result)
 # Write an action using print
 # To debug: print("Debug messages...", file=sys.stderr)
