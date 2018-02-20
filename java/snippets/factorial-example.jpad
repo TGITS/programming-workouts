@@ -1,0 +1,27 @@
+class Factorial {
+	public int iterative(int n) { 
+		int factorial = 1;
+		if (n > 1) {
+			for(int i = 1; i <=n; i++) {
+				factorial = factorial * i;
+			}
+		}
+		return factorial;
+	}
+
+	public int recursive(int n) {
+		if (n <= 1) {
+			return 1;
+		}
+		return n * recursive(n-1);
+	}
+
+	public int tailCall(int n, int accu) {
+		if (n <= 1) {
+			return accu;
+		}
+		return tailCall(n-1, accu*n);
+	}
+}
+Factorial fact = new Factorial();
+System.out.println(fact.iterative(5) + " " + fact.recursive(5) + " " + fact.tailCall(5,1));
