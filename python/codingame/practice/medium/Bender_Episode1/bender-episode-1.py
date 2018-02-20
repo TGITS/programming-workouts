@@ -161,16 +161,14 @@ class Bender:
         self.direction = self.letter_to_direction[direction]
 
     def __change_direction(self):
-        """To change the direction of Bender - The next direction in the possible direction is taken"""
-        #print("self.next_direction_index before the update : {}".format(str(self.next_direction_index)), file=sys.stderr)
-        if self.direction == "SOUTH":
+        """To change the direction of Bender - The next direction in the possible directions is taken"""
+        if self.direction == self.direction_priorities[self.next_direction_index]:
            self.next_direction_index = (self.next_direction_index + 1) % 4
-        else:
-           self.next_direction_index = (self.next_direction_index) % 4 
-        #print("self.next_direction_index after update : {}".format(str(self.next_direction_index)), file=sys.stderr)
-        #print("self.direction before the update : {}".format(self.direction), file=sys.stderr)
         self.direction = self.direction_priorities[self.next_direction_index]
-        #print("self.direction after the update : {}".format(self.direction), file=sys.stderr)
+    
+    def __reset_direction_index(self):
+        """Reset the next_direction_index"""
+        self.next_direction_index = 0  
 
     def __update_coordinate(self,coordinate):
         """Private method to update the coordinate of a bender object"""
@@ -203,21 +201,6 @@ class Bender:
     def __is_dead(self):
         """Return true if Bender is Dead"""
         return self.dead
-    
-    def __inc_times_blocked(self):
-        """Increment the number of times Bender has been blocked"""
-        self.times_blocked += 1
-
-    def __reset_times_blocked(self):
-        """Reset the value of times_blocked to 0"""
-        self.times_blocked = 0
-
-    def __reset_direction_index(self):
-        """Reset the next_direction_index"""
-        self.next_direction_index = 0
-
-    def __is_blocked(self):
-        """Return true if Bender is blocked, this is if the times_blocked is greater than 4"""    
 
     def __compute_next_move(self):
         """Compute the next moves and position of Bender. The list contains only the value 'LOOP' if bender cannot attain the suicide booth"""
@@ -233,61 +216,44 @@ class Bender:
             self.__reset_direction_index()
 
         if next_cell.is_suicide_booth():
-            self.__reset_times_blocked()
             self.__update_coordinate(next_position)
             self.__commit_suicide()
             return current_direction
 
         if next_cell.is_start() or next_cell.is_blank():
-            self.__reset_times_blocked()
             self.__update_coordinate(next_position)
             return current_direction
 
         if next_cell.is_beer():
-            self.__reset_times_blocked()
             self.__toogle_breaker_mode()
             self.__update_coordinate(next_position)
             return current_direction
 
         if next_cell.is_inverter():
             self.__reverse_direction_priorities()
-            self.__reset_times_blocked()
             self.__update_coordinate(next_position)
             return current_direction   
 
         if next_cell.is_teleporter():
-            self.__reset_times_blocked()
-            current_cell = self.city_map.get_other_teleporter()
-            self.__update_coordinate(current_cell.get_position())
+            current_cell = self.city_map.get_other_teleporter(next_cell)
+            self.__update_coordinate(current_cell.get_coordinate())
             return current_direction
 
         if next_cell.is_unbreakable_obstacle():
             self.__change_direction()
-            self.__inc_times_blocked()
             return None  
-
-        if next_cell.is_unbreakable_obstacle() and self.__is_blocked():
-            return "LOOP"    
 
         if next_cell.is_path_modifier():
             self.__update_direction(next_cell.get_content())
-            self.__reset_times_blocked()
             self.__update_coordinate(next_position)
             return current_direction
 
-        if self.__is_in_normal_mode():
-            #Obstacle in normal mode Bender change direction and will try to move in another cell
-            if next_cell.is_breakable_obstacle() and self.__is_blocked():
-               return "LOOP"
-
-            if next_cell.is_breakable_obstacle():
-               self.__change_direction()
-               self.__inc_times_blocked()
-               return None   
+        if self.__is_in_normal_mode() and next_cell.is_breakable_obstacle():
+            self.__change_direction()
+            return None   
             
         if self.__is_in_breaker_mode() and next_cell.is_breakable_obstacle():
             next_cell.break_obstacle()
-            self.__reset_times_blocked()
             return None
 
         print("You have forgotten something!", file=sys.stderr)
@@ -296,16 +262,11 @@ class Bender:
         """Print the list of computed moves"""
         #print("Entering get_computed_moves", file=sys.stderr)
         moves = []
-        max_iterations = self.city_map.get_number_of_cells() * 100
-        number_iterations = 0
-        #print("number_iterations : {}".format(str(number_iterations)), file=sys.stderr)
-        #print("max_iterations : {}".format(str(max_iterations)), file=sys.stderr)
-        #print("not self.__is_dead() : {}".format(str(not self.__is_dead())), file=sys.stderr)
-        while not self.__is_dead() and number_iterations < max_iterations :
+        
+        while not self.__is_dead() :
             move = self.__compute_next_move()
             if move != None:
                 moves.append(move)
-            number_iterations += 1
 
         #print("About to exit get_computed_moves", file=sys.stderr)
         print("Moves : {}".format(" ".join(moves)), file=sys.stderr)
