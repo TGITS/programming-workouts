@@ -1,0 +1,108 @@
+Season 1 (2011)
+season, season_year, number_overall, number_in_season,title,director, co_director_1, co_director_2, writer,co_writer_1, co_writer_2, original_air_date, number_us_viewers
+1,2011,1,1 	"Winter Is Coming" 	Tim Van Patten 	David Benioff & D. B. Weiss 	April 17, 2011 	2.22[3]
+1,2011,2,2 	"The Kingsroad" 	Tim Van Patten 	David Benioff & D. B. Weiss 	April 24,2011 	2.20[4]
+1,2011,3,3 	"Lord Snow" 	Brian Kirk 	David Benioff & D. B. Weiss 	May 1, 2011 	2.44[5]
+1,2011,4,4 	"Cripples, Bastards, and Broken Things" 	Brian Kirk 	Bryan Cogman 	May 1,2011 	2.45[6]
+1,2011,5,5 	"The Wolf and the Lion" 	Brian Kirk 	David Benioff & D. B. Weiss 	May 15,2011 	2.58[7]
+1,2011,6,6 	"A Golden Crown" 	Daniel Minahan 	Story by: David Benioff & D. B. Weiss
+Teleplay by: Jane Espenson and David Benioff & D. B. Weiss 	May 22, 2011 	2.44[8]
+1,2011,7,7 	"You Win or You Die" 	Daniel Minahan 	David Benioff & D. B. Weiss 	May 29,2011 	2.40[9]
+1,2011,8,8 	"The Pointy End" 	Daniel Minahan 	George R. R. Martin 	June 05, 2011 	2.72[10]
+1,2011,9,9 	"Baelor" 	Alan Taylor 	David Benioff & D. B. Weiss 	June 12, 2011 	2.66[11]
+1,2011,10,10 	"Fire and Blood" 	Alan Taylor 	David Benioff & D. B. Weiss 	June 19, 2011 	3.04[12]
+
+Season 2 (2012)
+
+    Main article: Game of Thrones - Season 2
+
+No. overall 	No. in season 	Title 	Directed by 	Written by 	Original air date 	U.S. viewers
+(million)
+11 	1 	"The North Remembers" 	Alan Taylor 	David Benioff & D. B. Weiss 	1 April 2012 	3.86[13]
+12 	2 	"Nightlands" 	Alan Taylor 	David Benioff & D. B. Weiss 	8 April 2012 	3.76[14]
+13 	3 	"What Is Dead May Never Die" 	Alik Sakharov 	Bryan Cogman 	15 April 2012 	3.77[15]
+14 	4 	"Garden of Bones" 	David Petrarca 	Vanessa Taylor 	22 April 2012 	3.65[16]
+15 	5 	"The Ghost of Harrenhal" 	David Petrarca 	David Benioff & D. B. Weiss 	29 April 2012 	3.90[17]
+16 	6 	"The Old Gods and the New" 	David Nutter 	Vanessa Taylor 	6 May 2012 	3.88[18]
+17 	7 	"A Man Without Honor" 	David Nutter 	David Benioff & D.B. Weiss 	13 May 2012 	3.69[19]
+18 	8 	"The Prince of Winterfell" 	Alan Taylor 	David Benioff & D.B. Weiss 	20 May 2012 	3.86[20]
+19 	9 	"Blackwater" 	Neil Marshall 	George R. R. Martin 	27 May 2012 	3.38[21]
+20 	10 	"Valar Morghulis" 	Alan Taylor 	David Benioff & D. B. Weiss 	3 June 2012 	4.20[22]
+Season 3 (2013)
+
+    Main article: Game of Thrones - Season 3
+
+No. overall 	No. in season 	Title 	Directed by 	Written by 	Original air date 	U.S. viewers
+(million)
+21 	1 	"Valar Dohaeris" 	Daniel Minahan 	David Benioff & D.B. Weiss 	March 31, 2013 	4.37[23]
+22 	2 	"Dark Wings, Dark Words" 	Daniel Minahan 	Vanessa Taylor 	April 7, 2013 	4.27[24]
+23 	3 	"Walk of Punishment" 	David Benioff & D.B. Weiss 	David Benioff & D.B. Weiss 	April 14, 2013 	4.72[25]
+24 	4 	"And Now His Watch Is Ended" 	Alex Graves 	David Benioff & D.B. Weiss 	April 21, 2013 	4.87[26]
+25 	5 	"Kissed by Fire" 	Alex Graves 	Bryan Cogman 	April 28, 2013 	5.35[27]
+26 	6 	"The Climb" 	Alik Sakharov 	David Benioff & D.B. Weiss 	May 5, 2013 	5.50[28]
+27 	7 	"The Bear and the Maiden Fair" 	Michelle MacLaren 	George R. R. Martin 	May 12, 2013 	4.84[29]
+28 	8 	"Second Sons" 	Michelle MacLaren 	David Benioff & D.B. Weiss 	May 19, 2013 	5.13[30]
+29 	9 	"The Rains of Castamere" 	David Nutter 	David Benioff & D.B. Weiss 	June 2, 2013 	5.22[31]
+30 	10 	"Mhysa" 	David Nutter 	David Benioff & D.B. Weiss 	June 9, 2013 	5.39[32]
+Season 4 (2014)
+
+    Main article: Game of Thrones - Season 4
+
+No. overall 	No. in season 	Title 	Directed by 	Written by 	Original air date 	U.S. viewers
+(million)
+31 	1 	"Two Swords" 	D.B. Weiss 	David Benioff & D.B. Weiss 	April 6, 2014 	6.64[33]
+32 	2 	"The Lion and the Rose" 	Alex Graves 	George R.R. Martin 	April 13, 2014 	6.31[34]
+33 	3 	"Breaker of Chains" 	Alex Graves 	David Benioff & D.B. Weiss 	April 20, 2014 	6.59[35]
+34 	4 	"Oathkeeper" 	Michelle McLaren 	Bryan Cogman 	April 27, 2014 	6.95[36]
+35 	5 	"First of His Name" 	Michelle McLaren 	David Benioff & D.B. Weiss 	May 4, 2014 	7.16[37]
+36 	6 	"The Laws of Gods and Men" 	Alik Sakharov 	Bryan Cogman 	May 11, 2014 	6.40[38]
+37 	7 	"Mockingbird" 	Alik Sakharov 	David Benioff & D.B. Weiss 	May 18, 2014 	7.20[39]
+38 	8 	"The Mountain and the Viper" 	Alex Graves 	David Benioff & D.B. Weiss 	June 1, 2014 	7.17[40]
+39 	9 	"The Watchers on the Wall" 	Neil Marshall 	David Benioff & D.B. Weiss 	June 8, 2014 	6.95[41]
+40 	10 	"The Children" 	Alex Graves 	David Benioff & D.B. Weiss 	June 15, 2014 	7.09[42]
+Season 5 (2015)
+
+    Main article: Game of Thrones - Season 5
+
+No. overall 	No. in season 	Title 	Directed by 	Written by 	Original air date 	U.S. viewers
+(million)
+41 	1 	"The Wars to Come" 	Michael Slovis 	David Benioff & D.B. Weiss 	April 12, 2015 	8.00[43]
+42 	2 	"The House of Black and White" 	Michael Slovis 	David Benioff & D.B. Weiss 	April 19, 2015 	6.81[44]
+43 	3 	"High Sparrow" 	Mark Mylod 	David Benioff & D.B. Weiss 	April 26, 2015 	6.71[45]
+44 	4 	"Sons of the Harpy" 	Mark Mylod 	Dave Hill 	May 4, 2015 	6.82[46]
+45 	5 	"Kill the Boy" 	Jeremy Podeswa 	Bryan Cogman 	May 10, 2015 	6.56[47]
+46 	6 	"Unbowed, Unbent, Unbroken" 	Jeremy Podeswa 	Bryan Cogman 	May 17, 2015 	6.24[48]
+47 	7 	"The Gift" 	Miguel Sapochnik 	David Benioff & D.B. Weiss 	May 24, 2015 	5.40[49]
+48 	8 	"Hardhome" 	Miguel Sapochnik 	David Benioff & D.B. Weiss 	May 31, 2015 	7.01[50]
+49 	9 	"The Dance of Dragons" 	David Nutter 	David Benioff & D.B. Weiss 	June 7, 2015 	7.14[51]
+50 	10 	"Mother's Mercy" 	David Nutter 	David Benioff & D.B. Weiss 	June 14, 2015 	8.11[52]
+Season 6 (2016)
+
+    Main article: Game of Thrones - Season 6
+
+No. overall 	No. in season 	Title 	Directed by[53] 	Written by 	Original air date 	U.S. viewers
+(million)
+51 	1 	"The Red Woman"[54] 	Jeremy Podeswa 	David Benioff & D.B. Weiss 	April 24, 2016 	7.94[55]
+52 	2 	"Home"[2] 	Jeremy Podeswa 	Dave Hill 	May 1, 2016 	7.29[56]
+53 	3 	"Oathbreaker"[2] 	Daniel Sackheim 	David Benioff & D. B. Weiss 	May 8, 2016 	7.28[57]
+54 	4 	"Book of the Stranger"[58] 	Daniel Sackheim 	David Benioff & D. B. Weiss 	May 15, 2016 	7.82[59]
+55 	5 	"The Door"[58][60] 	Jack Bender 	David Benioff & D. B. Weiss 	May 22, 2016 	7,89[61]
+56 	6 	"Blood of my Blood"[58][62] 	Jack Bender 	Bryan Cogman 	May 29, 2016 	6.71[63]
+57 	7 	"The Broken Man"[58][64] 	Mark Mylod 	Bryan Cogman 	June 5, 2016 	7.80[65]
+58 	8 	No One[66] 	Mark Mylod 	David Benioff & D. B. Weiss[67] 	June 12, 2016 	7.60[68]
+59 	9 	Battle of the Bastards 	Miguel Sapochnik 	David Benioff & D. B. Weiss 	June 19, 2016 	7.66[69]
+60 	10 	The Winds of Winter 	Miguel Sapochnik 	David Benioff & D. B. Weiss 	June 26, 2016 	8.89[70]
+Season 7 (2017)
+
+    Main article: Game of Thrones - Season 7
+
+Game of Thrones was renewed for a seventh season in April, 2016.[71] The season premiered on July 16, 2017.
+No. overall 	No. in season 	Title 	Directed by 	Written by 	Original air date 	U.S. viewers
+(million)
+61 	1 	"Dragonstone"[72] 	Jeremy Podeswa 	David Benioff & D.B. Weiss 	July 16, 2017 	10.11[73]
+62 	2 	"Stormborn"[72] 	Mark Mylod 	Bryan Cogman 	July 23, 2017 	9.27[74]
+63 	3 	"The Queen's Justice"[72] 	Mark Mylod 	David Benioff & D. B. Weiss 	July 30, 2017 	9.25[75]
+64 	4 	"The Spoils of War"[76] 	Matt Shakman[77] 	David Benioff & D. B. Weiss 	August 6, 2017 	10.17[78]
+65 	5 	"Eastwatch"[79] 	Matt Shakman[77] 	Dave Hill 	August 13, 2017 	10.72[80]
+66 	6 	"Beyond the Wall" 	Alan Taylor[77] 	David Benioff & D. B. Weiss 	August 20, 2017 	10.24[81]
+67 	7 	"The Dragon and the Wolf" 	Jeremy Podeswa[77] 	David Benioff & D. B. Weiss 	August 27, 2017 	12.1[82]
