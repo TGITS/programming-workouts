@@ -1,5 +1,6 @@
 {
     "name": "A Game of Throne",
+    "data_source" : "http://awoiaf.westeros.org/index.php/List_of_Game_of_Thrones_episodes",
     "seasons": [
         {
             "season": "1",
@@ -143,6 +144,148 @@
                     ],
                     "original_air_date": "June 19, 2011",
                     "number_us_viewers": "3.04"
+                }
+            ]
+        },
+        {
+            "season": "2",
+            "year": "2012",
+            "episodes": [
+                {
+                    "number_overall": "11",
+                    "number_in_season": "1",
+                    "title": "The North Remembers",
+                    "directors": [
+                        "Alan Taylor"
+                    ],
+                    "writers": [
+                        "David Benioff",
+                        "D. B. Weiss"
+                    ],
+                    "original_air_date": "1 April 2012",
+                    "number_us_viewers": "3.86"
+                },
+                {
+                    "number_overall": "12",
+                    "number_in_season": "2",
+                    "title": "Nightlands",
+                    "directors": [
+                        "Alan Taylor"
+                    ],
+                    "writers": [
+                        "David Benioff",
+                        "D. B. Weiss"
+                    ],
+                    "original_air_date": "8 April 2012",
+                    "number_us_viewers": "3.76"
+                },
+                {
+                    "number_overall": "13",
+                    "number_in_season": "3",
+                    "title": "What Is Dead May Never Die",
+                    "directors": [
+                        "Alik Sakharov"
+                    ],
+                    "writers": [
+                        "Bryan Cogman"
+                    ],
+                    "original_air_date": "15 April 2012",
+                    "number_us_viewers": "3.77"
+                },
+                {
+                    "number_overall": "14",
+                    "number_in_season": "4",
+                    "title": "Garden of Bones",
+                    "directors": [
+                        "David Petrarca"
+                    ],
+                    "writers": [
+                        "Vanessa Taylor"
+                    ],
+                    "original_air_date": "22 April 2012",
+                    "number_us_viewers": "3.65"
+                },
+                {
+                    "number_overall": "15",
+                    "number_in_season": "5",
+                    "title": "The Ghost of Harrenhal",
+                    "directors": [
+                        "David Petrarca"
+                    ],
+                    "writers": [
+                        "David Benioff",
+                        "D. B. Weiss"
+                    ],
+                    "original_air_date": "29 April 2012",
+                    "number_us_viewers": "3.90"
+                },
+                {
+                    "number_overall": "16",
+                    "number_in_season": "6",
+                    "title": "The Old Gods and the New",
+                    "directors": [
+                        "David Nutter"
+                    ],
+                    "writers": [
+                        "Vanessa Taylor"
+                    ],
+                    "original_air_date": "6 May 2012",
+                    "number_us_viewers": "3.88"
+                },
+                {
+                    "number_overall": "17",
+                    "number_in_season": "7",
+                    "title": "A Man Without Honor",
+                    "directors": [
+                        "David Nutter"
+                    ],
+                    "writers": [
+                        "David Benioff",
+                        "D.B. Weiss"
+                    ],
+                    "original_air_date": "13 May 2012",
+                    "number_us_viewers": "3.69"
+                },
+                {
+                    "number_overall": "18",
+                    "number_in_season": "8",
+                    "title": "The Prince of Winterfell",
+                    "directors": [
+                        "Alan Taylor"
+                    ],
+                    "writers": [
+                        "David Benioff",
+                        "D.B. Weiss"
+                    ],
+                    "original_air_date": "20 May 2012",
+                    "number_us_viewers": "3.86"
+                },
+                {
+                    "number_overall": "19",
+                    "number_in_season": "9",
+                    "title": "Blackwater",
+                    "directors": [
+                        "Neil Marshall"
+                    ],
+                    "writers": [
+                        "George R. R. Martin"
+                    ],
+                    "original_air_date": "27 May 2012",
+                    "number_us_viewers": "3.38"
+                },
+                {
+                    "number_overall": "20",
+                    "number_in_season": "10",
+                    "title": "Valar Morghulis",
+                    "directors": [
+                        "Alan Taylor"
+                    ],
+                    "writers": [
+                        "David Benioff",
+                        "D. B. Weiss"
+                    ],
+                    "original_air_date": "3 June 2012",
+                    "number_us_viewers": "4.20"
                 }
             ]
         }
