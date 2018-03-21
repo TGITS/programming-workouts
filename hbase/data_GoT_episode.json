@@ -289,5 +289,133 @@
                 }
             ]
         }
-    ]
+        {
+            "season": "3",
+            "year": "2013",
+            "episodes": [
+                {
+                    "number_overall": "21",
+                    "number_in_season": "1",
+                    "title": "Valar Dohaeris",
+                    "directors": [
+                        "Daniel Minahan"
+                    ],
+                    "writers": [
+                        "David Benioff",
+                        "D. B. Weiss"
+                    ],
+                    "original_air_date": "March 31, 2013",
+                    "number_us_viewers": "4.37"
+                },
+                {
+                    "number_overall": "22",
+                    "number_in_season": "2",
+                    "title": "Dark Wings, Dark Words",
+                    "directors": [
+                        "Daniel Minahan"
+                    ],
+                    "writers": [
+                        "Vanessa Taylor"
+                    ],
+                    "original_air_date": "April 7, 2013",
+                    "number_us_viewers": "4.27"
+                },
+                {
+                    "number_overall": "23",
+                    "number_in_season": "3",
+                    "title": "Walk of Punishment",
+                    "directors": [
+                        "David Benioff","D.B. Weiss"
+                    ],
+                    "writers": [
+                        "David Benioff","D.B. Weiss"],
+                    "original_air_date": "April 14, 2013",
+                    "number_us_viewers": "4.72"
+                },
+                {
+                    "number_overall": "24",
+                    "number_in_season": "4",
+                    "title": "And Now His Watch Is Ended",
+                    "directors": [
+                        "Alex Graves"
+                    ],
+                    "writers": [
+                        "David Benioff","D.B. Weiss"],
+                        "original_air_date": "April 21, 2013",
+                    "number_us_viewers": "4.87"
+                },
+                {
+                    "number_overall": "25",
+                    "number_in_season": "5",
+                    "title": "Kissed by Fire",
+                    "directors": [
+                        "Alex Graves"
+                    ],
+                    "writers": [
+                        "Bryan Cogman"],
+                        "original_air_date": "April 28, 2013",
+                    "number_us_viewers": "5.35"
+                },
+                {
+                    "number_overall": "26",
+                    "number_in_season": "6",
+                    "title": "The Climb",
+                    "directors": [
+                        "Alik Sakharov"
+                    ],
+                    "writers": [
+                        "David Benioff","D.B. Weiss"],
+                        "original_air_date": "May 5, 2013",
+                    "number_us_viewers": "5.50"
+{
+                    "number_overall": "27",
+                    "number_in_season": "7",
+                    "title": "The Bear and the Maiden Fair",
+                    "directors": [
+                        "Michelle MacLaren"
+                    ],
+                    "writers": [
+                        "George R. R. Martin"],
+                        "original_air_date": "May 12, 2013",
+                    "number_us_viewers": "4.84"
+                },
+{
+                    "number_overall": "28",
+                    "number_in_season": "8",
+                    "title":"Second Sons",
+                    "directors": [
+                        "Michelle MacLaren"
+                    ],
+                    "writers": [
+                        "David Benioff","D.B. Weiss"],
+                        "original_air_date": "May 19, 2013",
+                    "number_us_viewers": "5.13"
+                },
+{
+                    "number_overall": "29",
+                    "number_in_season": "9",
+                    "title":"The Rains of Castamere",
+                    "directors": [
+                        "David Nutter"
+                    ],
+                    "writers": [
+                        "David Benioff","D.B. Weiss"],
+                        "original_air_date": "June 2, 2013",
+                    "number_us_viewers": "5.22"
+                },
+{
+                    "number_overall": "30",
+                    "number_in_season": "10",
+                    "title":"Mhysa",
+                    "directors": [
+                        "David Nutter"
+                    ],
+                    "writers": [
+                        "David Benioff","D.B. Weiss"],
+                        "original_air_date": "June 9, 2013",
+                    "number_us_viewers": "5.39"
+                }
+            ]
+            }
+        ]
 }
