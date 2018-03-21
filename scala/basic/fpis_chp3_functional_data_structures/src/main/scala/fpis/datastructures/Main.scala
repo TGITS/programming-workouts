@@ -21,10 +21,16 @@ object Main {
       case _ => 101
     }
     println(x)
+
+    //Testing tail
     println(List.tail(ex1))
     println(List.tail(ex2))
     println(List.tail(ex3))
     println(List.tail(ex4))
+
+    //Testing setHead
+    println(List.setHead(ex1, "e"))
+    println(List.setHead(ex4, "e"))
 
 
 
