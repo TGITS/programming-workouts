@@ -32,8 +32,6 @@ object Main {
     println(List.setHead(ex1, "e"))
     println(List.setHead(ex4, "e"))
 
-
-
   }
 
 }
