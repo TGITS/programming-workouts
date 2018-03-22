@@ -162,7 +162,7 @@
                         "David Benioff",
                         "D. B. Weiss"
                     ],
-                    "original_air_date": "1 April 2012",
+                    "original_air_date": "April 1, 2012",
                     "number_us_viewers": "3.86"
                 },
                 {
@@ -176,7 +176,7 @@
                         "David Benioff",
                         "D. B. Weiss"
                     ],
-                    "original_air_date": "8 April 2012",
+                    "original_air_date": "April 8, 2012",
                     "number_us_viewers": "3.76"
                 },
                 {
@@ -189,7 +189,7 @@
                     "writers": [
                         "Bryan Cogman"
                     ],
-                    "original_air_date": "15 April 2012",
+                    "original_air_date": "April 15 ,2012",
                     "number_us_viewers": "3.77"
                 },
                 {
@@ -202,7 +202,7 @@
                     "writers": [
                         "Vanessa Taylor"
                     ],
-                    "original_air_date": "22 April 2012",
+                    "original_air_date": "April 22, 012",
                     "number_us_viewers": "3.65"
                 },
                 {
@@ -216,7 +216,7 @@
                         "David Benioff",
                         "D. B. Weiss"
                     ],
-                    "original_air_date": "29 April 2012",
+                    "original_air_date": "April 29, 2012",
                     "number_us_viewers": "3.90"
                 },
                 {
@@ -229,7 +229,7 @@
                     "writers": [
                         "Vanessa Taylor"
                     ],
-                    "original_air_date": "6 May 2012",
+                    "original_air_date": "May 6, 2012",
                     "number_us_viewers": "3.88"
                 },
                 {
@@ -243,7 +243,7 @@
                         "David Benioff",
                         "D.B. Weiss"
                     ],
-                    "original_air_date": "13 May 2012",
+                    "original_air_date": "May 13, 2012",
                     "number_us_viewers": "3.69"
                 },
                 {
@@ -257,7 +257,7 @@
                         "David Benioff",
                         "D.B. Weiss"
                     ],
-                    "original_air_date": "20 May 2012",
+                    "original_air_date": "May 20, 2012",
                     "number_us_viewers": "3.86"
                 },
                 {
@@ -270,7 +270,7 @@
                     "writers": [
                         "George R. R. Martin"
                     ],
-                    "original_air_date": "27 May 2012",
+                    "original_air_date": "May 27, 2012",
                     "number_us_viewers": "3.38"
                 },
                 {
@@ -284,7 +284,7 @@
                         "David Benioff",
                         "D. B. Weiss"
                     ],
-                    "original_air_date": "3 June 2012",
+                    "original_air_date": "June 3, 2012",
                     "number_us_viewers": "4.20"
                 }
             ]
@@ -859,6 +859,108 @@
                     ],
                     "original_air_date": "June 26, 2016",
                     "number_us_viewers": "8.89"
+                }
+            ]
+        },
+        {
+            "season": "7",
+            "year": "2017",
+            "episodes": [
+                {
+                    "number_overall": "61",
+                    "number_in_season": "1",
+                    "title": "Dragonstone",
+                    "directors": [
+                        "Jeremy Podeswa"
+                    ],
+                    "writers": [
+                        "David Benioff",
+                        "D. B. Weiss"
+                    ],
+                    "original_air_date": "July 16, 2017",
+                    "number_us_viewers": "10.11"
+                },
+                {
+                    "number_overall": "62",
+                    "number_in_season": "2",
+                    "title": "Stormborn",
+                    "directors": [
+                        "Mark Mylod"
+                    ],
+                    "writers": [
+                        "Bryan Cogmans"
+                    ],
+                    "original_air_date": "July 23, 2017",
+                    "number_us_viewers": "9.27"
+                },
+                {
+                    "number_overall": "63",
+                    "number_in_season": "3",
+                    "title": "The Queen's Justice",
+                    "directors": [
+                        "Mark Mylod"
+                    ],
+                    "writers": [
+                        "David Benioff",
+                        "D. B. Weisss"
+                    ],
+                    "original_air_date": "July 30, 2017",
+                    "number_us_viewers": "9.25"
+                },
+                {
+                    "number_overall": "64",
+                    "number_in_season": "4",
+                    "title": "The Spoils of War",
+                    "directors": [
+                        "Matt Shakman"
+                    ],
+                    "writers": [
+                        "David Benioff",
+                        "D. B. Weisss"
+                    ],
+                    "original_air_date": "August 6, 2017",
+                    "number_us_viewers": "10.17"
+                },
+                {
+                    "number_overall": "65",
+                    "number_in_season": "5",
+                    "title": "Eastwatch",
+                    "directors": [
+                        "Matt Shakman"
+                    ],
+                    "writers": [
+                        "Dave Hills"
+                    ],
+                    "original_air_date": "August 13, 2017",
+                    "number_us_viewers": "10.72"
+                },
+                {
+                    "number_overall": "66",
+                    "number_in_season": "6",
+                    "title": "Beyond the Wall",
+                    "directors": [
+                        "Alan Taylor"
+                    ],
+                    "writers": [
+                        "David Benioff",
+                        "D. B. Weisss"
+                    ],
+                    "original_air_date": "August 20, 2017",
+                    "number_us_viewers": "10.24"
+                },
+                {
+                    "number_overall": "67",
+                    "number_in_season": "7",
+                    "title": "The Dragon and the Wolf",
+                    "directors": [
+                        "Jeremy Podeswa"
+                    ],
+                    "writers": [
+                        "David Benioff",
+                        "D. B. Weisss"
+                    ],
+                    "original_air_date": "August 27, 2017",
+                    "number_us_viewers": "12.1"
                 }
             ]
         }
