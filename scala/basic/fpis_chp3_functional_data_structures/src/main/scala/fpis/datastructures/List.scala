@@ -86,19 +86,28 @@ object List {
    * Can product, implemented using foldRight, immediately halt the recursion and return 0.0 if it encounters a 0.0?
    * Why or why not? Consider how any short-circuiting might work if you call foldRight with a large list.
    */
+  def foldRight[A, B](as: List[A], z: B)(f: (A, B) => B): B = {
+    as match {
+      case Nil => z
+      case Cons(x, xs) => f(x, foldRight(xs, z)(f))
+    }
+  }
+
+  def sumWithFoldRight(ints: List[Int]): Int = foldRight(ints, 0)(_ + _)
+
+  def productWithFoldRight(ds: List[Double]): Double = foldRight(ds, 1.0)(_ * _)
 
   /* Exercise 3.8
    * See what happens when you pass Nil and Cons themselves to foldRight, like this:
    * foldRight(List(1,2,3), Nil:List[Int])(Cons(_,_)).
    * What do you think this says about the relationship between foldRight and the data constructors of List?
    */
+  //See the corresponding test in ListSpec.scala for this exercise
 
   /* Exercise 3.9
    * Compute the length of a list using foldRight.
    * */
-  //  def length[A](as: List[A]): Int = {
-  //
-  //  }
+  def length[A](as: List[A]): Int = foldRight[A, Int](as, 0)((_, b) => b + 1)
 
   /* Exercise 3.10
    * Our implementation of foldRight is not tail-recursive and will result in a StackOverflowError
