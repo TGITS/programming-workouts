@@ -32,6 +32,19 @@ object Main {
     println(List.setHead(ex1, "e"))
     println(List.setHead(ex4, "e"))
 
+    val strings = List("a", "b", "c", "d", "e")
+    val constant = "123"
+
+    println("List.foldLeft(strings,constant)((b,a) => a ++ b) : " ++ List.foldLeft(strings,constant)((b,a) => a ++ b))
+    println("List.foldLeftWithFoldRight(strings,constant)((b,a) => a ++ b) : " ++ List.foldLeftWithFoldRight(strings,constant)((b,a) => a ++ b))
+    println("List.foldRight(strings,constant)((a,b) => a ++ b) : " ++ List.foldRight(strings,constant)((a,b) => a ++ b))
+    println("List.foldRightWithFoldLeft(strings,constant)((a,b) => a ++ b) : " ++ List.foldRightWithFoldLeft(strings,constant)((a,b) => a ++ b))
+
+    val list1 = List("a", "b", "c", "d", "e")
+    val list2 = List("1", "2", "3", "4", "5")
+
+    println(List.appendViaFoldRight(list1,list2))
+    println(List.appendViaFoldLeft(list1,list2))
   }
 
 }
