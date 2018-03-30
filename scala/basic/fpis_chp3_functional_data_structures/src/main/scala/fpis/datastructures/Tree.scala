@@ -8,6 +8,8 @@ case class Branch[A](left: Tree[A], right: Tree[A]) extends Tree[A]
 
 object Tree {
 
+  /* Correction on https://github.com/fpinscala/fpinscala/blob/master/answers/src/main/scala/fpinscala/datastructures/Tree.scala */
+
   /* Exercise 3.25
    * Write a function size that counts the number of nodes (leaves and branches) in a tree.
    * */
@@ -16,11 +18,14 @@ object Tree {
     case Branch(l, r) => 1 + size(l) + size(r)
   }
 
-
   /* Exercise 3.26
    * Write a function maximum that returns the maximum element in a Tree[Int]. (Note:
    * In Scala, you can use x.max(y) or x max y to compute the maximum of two integers x and y.)
    * */
+  def maximum(t:Tree[Int]): Int = t match {
+    case Leaf(v) => v
+    case Branch(l,r) => maximum(l) max maximum(r)
+  }
 
   /* Exercise 3.27
    * Write a function depth that returns the maximum path length from the root of a tree to any leaf.
