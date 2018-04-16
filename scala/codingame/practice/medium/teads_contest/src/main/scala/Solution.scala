@@ -1,4 +1,4 @@
-import scala.collection.mutable.{ArrayBuffer, ListBuffer, Queue}
+import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 import scala.io.StdIn
 
 /**
@@ -15,13 +15,14 @@ object Solution extends App {
     edges += Edge(id1, id2) += Edge(id2, id1)
   }
 
-  Console.err.println(edges)
+  //Console.err.println(edges)
 
-  val nodesSet = edges.flatMap(e => List(e.source, e.destination)).toSet
   val edgesSet = edges.toSet
-  val graph = Graph(Node.constructNodesList(nodesSet, edgesSet), edgesSet.toList)
+  val nodesSet = edgesSet.flatMap(e => List(e.source, e.destination))
 
-  Console.err.println(graph)
+  val graph = Graph(Node.constructNodesList(nodesSet, edgesSet), edgesSet)
+
+  //Console.err.println(graph)
 
   // Write an action using println
   // To debug: Console.err.println("Debug messages...")
@@ -32,64 +33,46 @@ object Solution extends App {
 
 case class Edge(source: Int, destination: Int)
 
-case class Node(content: Int, adjacency: List[Int], var marked: Boolean, val circle: ListBuffer[List[Int]])
+case class Node(content: Int, adjacency: Set[Int])
 
-case class Graph(nodes: List[Node], edges: List[Edge]) {
-  var bfsdByNodes = ArrayBuffer[Int]()
-
+case class Graph(nodes: Set[Node], edges: Set[Edge]) {
   def numberOfNodes: Int = nodes.size
 
   def getNodeFromId(id: Int): Node = {
     this.nodes.filter(_.content == id).head
   }
-
-  def resetNodesToUnmarked(): Unit = {
-    this.nodes.foreach(_.marked = false)
-  }
 }
 
 object Node {
-  def constructNodesList(nodes: Set[Int], edges: Set[Edge]): List[Node] = {
-    val temporaryList = ListBuffer[Node]()
-    for (n <- nodes) {
-      temporaryList += Node(n, edges.filter(e => e.source == n).map(e => e.destination).toList, false, ListBuffer())
-    }
-    temporaryList.toList
+  def constructNodesList(nodes: Set[Int], edges: Set[Edge]): Set[Node] = {
+    nodes.map(n => Node(n, edges.filter(e => e.source == n).map(e => e.destination)))
   }
 }
 
 object Graph {
-  def breadthFirstSearch(graph: Graph, initialNode: Node): List[Node] = {
-    val nodes = Queue[Node]()
-    var currentNode: Node = null
-    val traversedNodes = ListBuffer[Node]()
-    nodes.enqueue(initialNode)
-    initialNode.marked = true
-    while (!nodes.isEmpty) {
-      currentNode = nodes.dequeue()
-      traversedNodes += currentNode
-      initialNode.circle += currentNode.adjacency
-      currentNode.adjacency.map(graph.getNodeFromId(_)).foreach(n => {
-        if (n.marked == false) {
-          nodes.enqueue(n)
-          n.marked = true
-        }
-      })
-    }
-    traversedNodes.toList
-  }
-
   def computeAdjacencySets(graph: Graph, node: Node): List[Set[Node]] = {
     val result = ListBuffer[Set[Node]]()
-    var currentSet = node.adjacency.map(graph.getNodeFromId(_)).toSet
+    var currentSet = node.adjacency.map(graph.getNodeFromId(_))
     while (!currentSet.isEmpty) {
       result += currentSet
-      currentSet = currentSet.flatMap(n => n.adjacency.map(graph.getNodeFromId(_)).toSet) -- (result.reduce(_ ++ _) + node)
+      currentSet = currentSet.flatMap(n => n.adjacency.map(graph.getNodeFromId(_))) -- (result.reduce(_ ++ _) + node)
     }
     result.toList
   }
 
+  def computeAdjacencyReach(graph: Graph, node: Node): Int = {
+    var setsOfAllNode = Set[Node](node)
+    var number = 0
+    var currentSet = node.adjacency.map(graph.getNodeFromId(_))
+    while (!currentSet.isEmpty) {
+      setsOfAllNode ++= currentSet
+      number += 1
+      currentSet = currentSet.flatMap(n => n.adjacency.map(graph.getNodeFromId(_))) -- setsOfAllNode
+    }
+    number
+  }
+
   def computeMinimalTime(graph: Graph): Int = {
-    graph.nodes.map(computeAdjacencySets(graph, _)).map(_.size).min
+    graph.nodes.map(computeAdjacencyReach(graph, _)).min
   }
 }
