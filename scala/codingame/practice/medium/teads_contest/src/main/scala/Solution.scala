@@ -1,4 +1,4 @@
-import scala.collection.mutable.{ArrayBuffer, ListBuffer}
+import scala.collection.mutable.{Set,Map}
 import scala.io.StdIn
 
 /**
@@ -7,20 +7,19 @@ import scala.io.StdIn
   **/
 object Solution extends App {
   val n = StdIn.readInt // the number of adjacency relations
-  val edges = ArrayBuffer[Edge]()
+  val edges = Set[Edge]()
+  val nodes = Set[Int]()
   for (i <- 0 until n) {
     // xi: the ID of a person which is adjacent to yi
     // yi: the ID of a person which is adjacent to xi
     val Array(id1, id2) = for (id <- StdIn.readLine split " ") yield id.toInt
     edges += Edge(id1, id2) += Edge(id2, id1)
+    nodes += id1 += id2
   }
 
   //Console.err.println(edges)
 
-  val edgesSet = edges.toSet
-  val nodesSet = edgesSet.flatMap(e => List(e.source, e.destination))
-
-  val graph = Graph(Node.constructNodesList(nodesSet, edgesSet), edgesSet)
+  val graph = Graph(Node.constructNodesList(nodes, edges), edges)
 
   //Console.err.println(graph)
 
@@ -36,10 +35,12 @@ case class Edge(source: Int, destination: Int)
 case class Node(content: Int, adjacency: Set[Int])
 
 case class Graph(nodes: Set[Node], edges: Set[Edge]) {
-  def numberOfNodes: Int = nodes.size
-
+  val cache:Map[Int,Node] = Map[Int,Node]()
   def getNodeFromId(id: Int): Node = {
-    this.nodes.filter(_.content == id).head
+    if(!cache.contains(id)) {
+      cache.put(id,this.nodes.filter(_.content == id).head)
+    }
+    cache(id)
   }
 }
 
@@ -50,16 +51,6 @@ object Node {
 }
 
 object Graph {
-  def computeAdjacencySets(graph: Graph, node: Node): List[Set[Node]] = {
-    val result = ListBuffer[Set[Node]]()
-    var currentSet = node.adjacency.map(graph.getNodeFromId(_))
-    while (!currentSet.isEmpty) {
-      result += currentSet
-      currentSet = currentSet.flatMap(n => n.adjacency.map(graph.getNodeFromId(_))) -- (result.reduce(_ ++ _) + node)
-    }
-    result.toList
-  }
-
   def computeAdjacencyReach(graph: Graph, node: Node): Int = {
     var setsOfAllNode = Set[Node](node)
     var number = 0
