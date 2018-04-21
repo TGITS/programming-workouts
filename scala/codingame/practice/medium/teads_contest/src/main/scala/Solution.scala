@@ -1,5 +1,5 @@
 import scala.collection.mutable
-import scala.collection.mutable.{ArrayBuffer, HashMap, Map, Set}
+import scala.collection.mutable.Set
 import scala.io.StdIn
 
 /**
@@ -8,12 +8,12 @@ import scala.io.StdIn
   **/
 object Solution extends App {
   val n = StdIn.readInt // the number of adjacency relations
-  val graph = Graph(n)
+  val graph = new Graph(n)
   for (i <- 0 until n) {
     // xi: the ID of a person which is adjacent to yi
     // yi: the ID of a person which is adjacent to xi
     val Array(id1, id2) = for (id <- StdIn.readLine split " ") yield id.toInt
-    graph.addEdges(id1,id2)
+    graph.addEdges(id1, id2)
   }
 
   //Console.err.println(graph)
@@ -25,44 +25,50 @@ object Solution extends App {
   println(graph.computeMinimalTime().toString)
 }
 
-case class Graph(adjacencyRelations:Int) {
+class Graph(val adjacencyRelations: Int) {
 
-  private val nodes = Set[Int]()
-  private val nodesById:mutable.LongMap[Set[Int]] = new mutable.LongMap[Set[Int]](adjacencyRelations+1)
-  def addEdges(source:Int,destination:Int):Unit = {
-    def addOrUpdateNode(source:Int,destination:Int):Unit = {
-      if(!nodesById.contains(source)) {
-        nodesById += (source.toLong -> Set[Int](destination))
-      }
-      else {
-        nodesById.getOrNull(source) += destination
-      }
+  private val nodesById: mutable.OpenHashMap[Int, Set[Int]] = new mutable.OpenHashMap[Int, Set[Int]](adjacencyRelations + 50)
+
+  def addEdges(source: Int, destination: Int): Unit = {
+    def addOrUpdateNode(source: Int, destination: Int): Unit = {
+      nodesById.getOrElseUpdate(source, Set[Int]()) += destination
     }
 
-    addOrUpdateNode(source,destination)
+    addOrUpdateNode(source, destination)
     addOrUpdateNode(destination, source)
-    nodes += source += destination
-    //addNodes(source)
-    //addNodes(destination)
   }
 
-//  def addNodes(n:Int):Unit = {
-//    if(!nodes.contains(n)) nodes += n
-//  }
-
-  def computeAdjacencyReach(n:Int): Int = {
+  def computeAdjacencyReach(n: Int): Int = {
     val setOfAllNodes = Set[Int](n)
     var number = 0
-    var currentSet = nodesById.get(n).get
-    while (!currentSet.isEmpty) {
-      setOfAllNodes ++= currentSet
-      number += 1
-      currentSet = currentSet.flatMap(n => this.nodesById.get(n).get) -- setOfAllNodes
+    var currentSet = nodesById.getOrElse(n, Set.empty[Int])
+    if ((!currentSet.isEmpty) || (currentSet.size > 1)) {
+      while (!currentSet.isEmpty) {
+        setOfAllNodes ++= currentSet
+        number += 1
+        currentSet = currentSet.flatMap(n => this.nodesById.getOrElse(n, Set.empty[Int])) -- setOfAllNodes
+      }
+      number
+    } else {
+      Int.MaxValue
     }
-    number
   }
 
   def computeMinimalTime(): Int = {
-    this.nodes.map(computeAdjacencyReach(_)).min
+    //this.nodesById.keySet.map(computeAdjacencyReach(_)).min
+    var min = Int.MaxValue
+    //    nodesById.keySet.foreach( n => {
+    //      val temp = computeAdjacencyReach(n)
+    //      if(temp < min) {
+    //        min = temp
+    //      }
+    //    })
+    for (n <- nodesById.keySet) {
+      val temp = computeAdjacencyReach(n)
+      if (temp < min) {
+        min = temp
+      }
+    }
+    min
   }
 }
