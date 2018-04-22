@@ -8,6 +8,8 @@ import scala.io.StdIn
   **/
 object Solution extends App {
   val n = StdIn.readInt // the number of adjacency relations
+  val time0 = System.currentTimeMillis()
+  //Console.err.println(time0)
   val graph = new Graph(n)
   for (i <- 0 until n) {
     // xi: the ID of a person which is adjacent to yi
@@ -15,14 +17,20 @@ object Solution extends App {
     val Array(id1, id2) = for (id <- StdIn.readLine split " ") yield id.toInt
     graph.addEdges(id1, id2)
   }
-
+  val time1 = System.currentTimeMillis()
+  //Console.err.println(time1)
+  Console.err.println(time1 - time0)
   //Console.err.println(graph)
 
   // Write an action using println
   // To debug: Console.err.println("Debug messages...")
 
   // The minimal amount of steps required to completely propagate the advertisement
-  println(graph.computeMinimalTime().toString)
+  val result = graph.computeMinimalTime()
+  val time2 = System.currentTimeMillis()
+  //Console.err.println(time2)
+  Console.err.println(time2 - time1)
+  println(result.toString)
 }
 
 class Graph(val adjacencyRelations: Int) {
@@ -31,9 +39,8 @@ class Graph(val adjacencyRelations: Int) {
 
   def addEdges(source: Int, destination: Int): Unit = {
     def addOrUpdateNode(source: Int, destination: Int): Unit = {
-      nodesById.getOrElseUpdate(source, Set[Int]()) += destination
+      nodesById.getOrElseUpdate(source, Set.empty[Int]) += destination
     }
-
     addOrUpdateNode(source, destination)
     addOrUpdateNode(destination, source)
   }
@@ -57,12 +64,6 @@ class Graph(val adjacencyRelations: Int) {
   def computeMinimalTime(): Int = {
     //this.nodesById.keySet.map(computeAdjacencyReach(_)).min
     var min = Int.MaxValue
-    //    nodesById.keySet.foreach( n => {
-    //      val temp = computeAdjacencyReach(n)
-    //      if(temp < min) {
-    //        min = temp
-    //      }
-    //    })
     for (n <- nodesById.keySet) {
       val temp = computeAdjacencyReach(n)
       if (temp < min) {
