@@ -1,5 +1,6 @@
 import scala.collection.mutable
-import scala.collection.mutable.Set
+//import scala.collection.mutable.Set
+import scala.collection.immutable.Set
 import scala.io.StdIn
 
 /**
@@ -39,37 +40,58 @@ class Graph(val adjacencyRelations: Int) {
 
   def addEdges(source: Int, destination: Int): Unit = {
     def addOrUpdateNode(source: Int, destination: Int): Unit = {
-      nodesById.getOrElseUpdate(source, Set.empty[Int]) += destination
+      val adjacencySet = nodesById.get(source)
+      if (adjacencySet == None) {
+        nodesById.put(source, Set[Int](destination))
+      } else {
+        nodesById.put(source, adjacencySet.get + destination)
+      }
     }
+
     addOrUpdateNode(source, destination)
     addOrUpdateNode(destination, source)
   }
 
-  def computeAdjacencyReach(n: Int): Int = {
-    val setOfAllNodes = Set[Int](n)
-    var number = 0
-    var currentSet = nodesById.getOrElse(n, Set.empty[Int])
-    if ((!currentSet.isEmpty) || (currentSet.size > 1)) {
-      while (!currentSet.isEmpty) {
-        setOfAllNodes ++= currentSet
-        number += 1
-        currentSet = currentSet.flatMap(n => this.nodesById.getOrElse(n, Set.empty[Int])) -- setOfAllNodes
+  //  def computeAdjacencyReach(n: Int): Int = {
+  //    val setOfAllNodes = Set[Int](n)
+  //    var number = 0
+  //    var currentSet = nodesById.getOrElse(n, Set.empty[Int])
+  //    if ((!currentSet.isEmpty) || (currentSet.size > 1)) {
+  //      while (!currentSet.isEmpty) {
+  //        setOfAllNodes ++= currentSet
+  //        number += 1
+  //        currentSet = currentSet.flatMap(n => this.nodesById.getOrElse(n, Set.empty[Int])) -- setOfAllNodes
+  //      }
+  //      number
+  //    } else {
+  //      Int.MaxValue
+  //    }
+  //  }
+
+  def computeAdjacencyReachRec(n: Int): Int = {
+    @annotation.tailrec
+    def compute(n: Int, alreadyVisitedNodes: Set[Int], currentSetToProcess: Set[Int]): Int = {
+      if (currentSetToProcess.isEmpty) {
+        n
       }
-      number
-    } else {
-      Int.MaxValue
+      else {
+        compute(n + 1, alreadyVisitedNodes ++ currentSetToProcess, currentSetToProcess.flatMap(n => this.nodesById.getOrElse(n, Set.empty[Int])) -- (alreadyVisitedNodes ++ currentSetToProcess))
+      }
     }
+
+    compute(0, Set[Int](n), nodesById.getOrElse(n, Set.empty[Int]))
   }
 
   def computeMinimalTime(): Int = {
-    //this.nodesById.keySet.map(computeAdjacencyReach(_)).min
-    var min = Int.MaxValue
-    for (n <- nodesById.keySet) {
-      val temp = computeAdjacencyReach(n)
-      if (temp < min) {
-        min = temp
-      }
-    }
-    min
+    //this.nodesById.keySet.par.map(computeAdjacencyReachRec(_)).min
+    this.nodesById.keySet.map(computeAdjacencyReachRec(_)).min
+    //    var min = Int.MaxValue
+    //    for (n <- nodesById.keySet) {
+    //      val temp = computeAdjacencyReach(n)
+    //      if (temp < min) {
+    //        min = temp
+    //      }
+    //    }
+    //    min
   }
 }
