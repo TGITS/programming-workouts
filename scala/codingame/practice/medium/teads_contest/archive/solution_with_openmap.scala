@@ -1,5 +1,6 @@
-import scala.collection.mutable.{MultiMap, OpenHashMap, Set}
-//import scala.collection.immutable.Set
+import scala.collection.mutable
+//import scala.collection.mutable.Set
+import scala.collection.immutable.Set
 import scala.io.StdIn
 
 /**
@@ -35,11 +36,23 @@ object Solution extends App {
 
 class Graph(val adjacencyRelations: Int) {
 
-  private val nodesById = new OpenHashMap[Int, Set[Int]](adjacencyRelations + 50) with MultiMap[Int, Int]
+  private val nodesById: mutable.OpenHashMap[Int, Set[Int]] = new mutable.OpenHashMap[Int, Set[Int]](adjacencyRelations + 50)
+  //private val nodesById: Array[Set[Int]] = new Array[Set[Int]](adjacencyRelations + 3)
+  //private var nodes: Set[Int] = Set.empty[Int]
 
   def addEdges(source: Int, destination: Int): Unit = {
-    nodesById.addBinding(source, destination)
-    nodesById.addBinding(destination, source)
+    def addOrUpdateNode(source: Int, destination: Int): Unit = {
+      val adjacencySet = nodesById.get(source)
+      if (adjacencySet == None) {
+        nodesById.put(source,Set[Int](destination))
+      } else {
+        nodesById.put(source,adjacencySet.get + destination)
+      }
+    }
+
+    addOrUpdateNode(source, destination)
+    addOrUpdateNode(destination, source)
+    //nodes = nodes + source + destination
   }
 
   def computeAdjacencyReachRec(n: Int): Int = {
@@ -49,15 +62,14 @@ class Graph(val adjacencyRelations: Int) {
         n
       }
       else {
-        val temp = alreadyVisitedNodes ++ currentSetToProcess
-        compute(n + 1, temp, currentSetToProcess.flatMap(n => this.nodesById.getOrElse(n, Set.empty[Int])) -- temp)
+        compute(n + 1, alreadyVisitedNodes ++ currentSetToProcess, currentSetToProcess.flatMap(n => this.nodesById.get(n).get) -- (alreadyVisitedNodes ++ currentSetToProcess))
       }
     }
-
     compute(0, Set[Int](n), nodesById(n))
   }
 
   def computeMinimalTime(): Int = {
-    this.nodesById.retain((_, v) => v.size > 1).keySet.map(computeAdjacencyReachRec(_)).min
+    this.nodesById.keySet.par.map(computeAdjacencyReachRec(_)).min
+    //(for(n <- nodes if (nodesById(n) != null)) yield (computeAdjacencyReachRec(n))).min
   }
 }
