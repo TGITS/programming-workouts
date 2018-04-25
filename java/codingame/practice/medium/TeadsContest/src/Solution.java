@@ -1,7 +1,4 @@
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Auto-generated code below aims at helping you parse
@@ -79,6 +76,28 @@ class Node {
 }
 
 class Graph {
+
+    class GraphWorker implements Runnable {
+
+        final private int start;
+        final private int end;
+        private int min;
+
+        public GraphWorker(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+
+        @Override
+        public void run() {
+            min = Graph.this.computeMinimalTime(start, end);
+        }
+
+        public int getMin() {
+            return this.min;
+        }
+    }
+
     private Node[] nodes;
 
     public Graph(int numberOfNodes) {
@@ -114,9 +133,52 @@ class Graph {
     }
 
     public int computeMinimalTime() {
-        Node node = null;
+        int numberOfNodes = nodes.length;
+        if (numberOfNodes < 40) {
+            return computeMinimalTime(0, numberOfNodes);
+        } else {
+            int steps = numberOfNodes < 100 ? 10 : 20;
+            int division = numberOfNodes / steps;
+            int remainder = numberOfNodes % steps;
+            int start = 0;
+            GraphWorker[] graphWorkers = new GraphWorker[steps];
+            Thread[] threads = new Thread[steps];
+            int[] results = new int[steps];
+            for (int i = 0; i < steps; i++) {
+                System.err.println("Creating thread n°" + i);
+                if (i == steps - 1) {
+                    graphWorkers[i] = new GraphWorker(start, start + division + remainder);
+                } else {
+                    graphWorkers[i] = new GraphWorker(start, start + division);
+                }
+                start += division;
+                threads[i] = new Thread(graphWorkers[i]);
+                System.err.println("Starting thread n°" + i);
+                threads[i].start();
+            }
+
+            for (int i = 0; i < steps; i++) {
+                System.err.println("Joining on thread n°" + i);
+                try {
+                    threads[i].join();
+                } catch (InterruptedException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+
+            System.err.println("Collecting the result");
+            for (int i = 0; i < steps; i++) {
+                results[i] = graphWorkers[i].getMin();
+            }
+            System.err.println("Returning the result");
+            return Arrays.stream(results).min().getAsInt();
+        }
+    }
+
+    public int computeMinimalTime(int start, int end) {
+        Node node;
         int result = Integer.MAX_VALUE;
-        for (int i = 0; i < nodes.length; i++) {
+        for (int i = start; i < end; i++) {
             node = nodes[i];
             if (node != null && node.adjacencySetSize() > 1) {
                 int value = computeAdjacencyReach(node);
