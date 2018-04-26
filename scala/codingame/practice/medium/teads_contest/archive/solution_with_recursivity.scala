@@ -9,6 +9,7 @@ import scala.io.StdIn
 object Solution extends App {
   val n = StdIn.readInt // the number of adjacency relations
   val time0 = System.currentTimeMillis()
+  //Console.err.println(time0)
   val graph = new Graph(n)
   for (i <- 0 until n) {
     // xi: the ID of a person which is adjacent to yi
@@ -17,20 +18,22 @@ object Solution extends App {
     graph.addEdges(id1, id2)
   }
   val time1 = System.currentTimeMillis()
+  //Console.err.println(time1)
   Console.err.println(time1 - time0)
+  //Console.err.println(graph)
 
   // Write an action using println
   // To debug: Console.err.println("Debug messages...")
 
   // The minimal amount of steps required to completely propagate the advertisement
-  // val result = graph.computeMinimalTime()
-  val result = graph.erodeTheGraph()
+  val result = graph.computeMinimalTime()
   val time2 = System.currentTimeMillis()
+  //Console.err.println(time2)
   Console.err.println(time2 - time1)
   println(result.toString)
 }
 
-case class Graph(val adjacencyRelations: Int) {
+class Graph(val adjacencyRelations: Int) {
 
   private val nodesById = new OpenHashMap[Int, Set[Int]](adjacencyRelations + 50) with MultiMap[Int, Int]
 
@@ -56,35 +59,5 @@ case class Graph(val adjacencyRelations: Int) {
 
   def computeMinimalTime(): Int = {
     this.nodesById.retain((_, v) => v.size > 1).keySet.map(computeAdjacencyReachRec(_)).min
-  }
-
-  def erodeTheGraph(): Int = {
-    var result = 0;
-    var toDelete:Set[Int] = null
-    var temp:Set[Int] = null
-    while (!nodesById.isEmpty) {
-      toDelete = findLeafs()
-      for (n <- nodesById.keySet) {
-        temp = nodesById.get(n).getOrElse(Set.empty[Int]) -- toDelete
-        if (temp.isEmpty) {
-          nodesById.remove(n)
-        } else {
-          nodesById.put(n, temp)
-        }
-      }
-      result += 1
-    }
-    result
-  }
-
-  def findLeafs(): Set[Int] = {
-    val leafs: Set[Int] = Set.empty[Int]
-    for ((k, v) <- nodesById) {
-      if (v.size == 1) {
-        leafs += k
-        nodesById.remove(k)
-      }
-    }
-    leafs
   }
 }
