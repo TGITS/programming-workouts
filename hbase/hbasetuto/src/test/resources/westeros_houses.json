@@ -1,0 +1,76 @@
+{
+  "title": "Westeros Noble Houses",
+  "houses": [
+    {
+      "name": "Stark",
+      "main_seat": "Winterfell",
+      "ancestral_seat": "Winterfell",
+      "sigil": "A Gray Direwolf",
+      "family_words": "Winter is coming"
+    },
+    {
+      "name": "Lannister",
+      "main_seat": "Casterly Rock",
+      "ancestral_seat": "Casterly Rock",
+      "sigil": "A Golden Lion",
+      "family_words": "Hear me roar !"
+    },
+    {
+      "name": "Baratheon",
+      "main_seat": "King's Landing",
+      "ancestral_seat": "Storm's End",
+      "secondary_seat": "Dragonstone",
+      "sigil": "A Crowned Black Stag",
+      "family_words": "Our is the fury !"
+    },
+    {
+      "name": "Greyjoy",
+      "main_seat": "Pyke",
+      "ancestral_seat": "Pyke",
+      "sigil": "A Golden Kraken",
+      "family_words": "We do not sow"
+    },
+    {
+      "name": "Arryn of the Eyrie",
+      "main_seat": "The Eyrie",
+      "ancestral_seat": "The Eyrie",
+      "sigil": "Moon and Falcon",
+      "family_words": "As high as Honor"
+    },
+    {
+      "name": "Targaryen",
+      "ancestral_seat": "Dragonstone",
+      "sigil": "Three-Headed Dragon",
+      "family_words": "Fire and Blood"
+    },
+    {
+      "name": "Arryn of Gulltown",
+      "main_seat",
+      "Gulltown"
+    },
+    {
+      "name": "Tully",
+      "main_seat": "Riverun",
+      "ancestral_seat": "Riverun",
+      "sigil": "A leaping silver trout on a field of blue and mud red",
+      "family_words": "Family, Duty, Honor",
+      "region": "Riverlands"
+    },
+    {
+      "name": "Tyrell",
+      "main_seat": "Highgarden",
+      "ancestral_seat": "Highgarden",
+      "sigil": "A golden rose, on a green field",
+      "family_words": "Growing Strong",
+      "region": "Reach"
+    },
+    {
+      "name": "Martell",
+      "main_seat": "Old Palace within Sunspear",
+      "ancestral_seat": "Old Palace within Sunspear",
+      "sigil": "A gold spear piercing a red sun on an orange field",
+      "family_words": "Unbowed, Unbent, Unbroken",
+      "region": "Dorne"
+    }
+  ]
+}
