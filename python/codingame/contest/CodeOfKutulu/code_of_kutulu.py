@@ -1,9 +1,9 @@
 import sys
 import math
-from abc import ABC
 
 # Survive the wrath of Kutulu
 # Coded fearlessly by JohnnyYuge & nmahoude (ok we might have been a bit scared by the old god...but don't say anything)
+
 
 class Cell:
     '''Class representing a cell of the map
@@ -12,7 +12,7 @@ class Cell:
        - the character '.' represents an empty cell 
     '''
 
-    def __init__(self,representation, x, y):
+    def __init__(self, representation, x, y):
         '''representation is the character representation of the cell
            x and y represent the coordinate of the cell in the table'''
         self._representation = representation
@@ -23,7 +23,28 @@ class Cell:
         return self._representation
 
     def __repr__(self):
-        return "Cell({0}, {1}, {2})".format(self._representation, self._x, self._y)
+        return "Cell({0}, {1}, {2})".format(self._representation, self._x,
+                                            self._y)
+
+    @property
+    def x(self):
+        return self._x
+
+    @x.setter
+    def x(self, x):
+        self._x = x
+
+    @property
+    def y(self):
+        return self._y
+
+    @y.setter
+    def y(self, y):
+        self._y = y
+
+    @property
+    def representation(self):
+        return self._representation
 
     def is_wall(self):
         return self._representation == '#'
@@ -36,7 +57,8 @@ class Cell:
 
     def coordinate(self):
         '''Returns a tuple of the coordinate x and y of the cell'''
-        return self._x,self._y
+        return self._x, self._y
+
 
 class Map:
     '''The Class Map represent the Map of the game Code of Kutulu.
@@ -51,10 +73,10 @@ class Map:
         for y, line in enumerate(lines):
             temp = []
             for x, character in enumerate(line):
-                temp.append(Cell(character,x,y))
+                temp.append(Cell(character, x, y))
             self._table.append(temp)
-            
-    def get_cell(self,x,y):
+
+    def get_cell(self, x, y):
         return self._table[y][x]
 
     def __str__(self):
@@ -64,13 +86,15 @@ class Map:
                 display += str(char)
             display += "\n"
         return display
-    
+
     def __repr__(self):
-        return "Map({0}, {1}, {2})".format(self._width, self._height, [ "".join(line) for line in self._table])
-                
-class Entity(ABC):
+        return "Map({0}, {1}, {2})".format(
+            self._width, self._height, ["".join(line) for line in self._table])
+
+
+class Entity:
     '''An abstract class that represent an entity of the game'''
-    
+
     def __init__(self, type, id, x, y, *args):
         super().__init__()
         self._type = type
@@ -78,37 +102,134 @@ class Entity(ABC):
         self._x = x
         self._y = y
 
-    def coordinate(self):
-        return self._x, self._y
+    def __str__(self):
+        return "type:{0} id:{1} x:{2} y:{3}".format(self._type, self._id,
+                                                    self._x, self._y)
 
-    def distance(self,other_entity):
+    def __repr__(self):
+        return "Entity(type='{0}',id={1},x={2}, y={3})".format(
+            self._type, self._id, self._x, self._y)
+
+    #Equality on the id for the entities
+    def __eq__(self, other):
+        return self._id == other._id
+
+    def __neq__(self, other):
+        return self._id != other._id
+
+    def __lt__(self, other):
+        return self._id < other._id
+
+    def __gt__(self, other):
+        return self._id > other._id
+
+    @property
+    def id(self):
+        return self._id
+
+    @property
+    def type(self):
+        return self._type
+
+    @property
+    def x(self):
+        return self._x
+
+    @x.setter
+    def x(self, x):
+        self._x = x
+
+    @property
+    def y(self):
+        return self._y
+
+    @y.setter
+    def y(self, y):
+        self._y = y
+
+    def coordinate(self):
+        return self.x, self.y
+
+    def distance(self, other_entity):
         '''Taxicab distance between the entity and an other entity'''
         return abs(self._x - other_entity._x) + abs(self._y - other_entity._y)
-       
-    def __str__(self):
-        return "type:{0} id:{1} x:{2} y:{3}".format(self._type,self._id,self._x,self._y)
+
+    def is_explorer(self):
+        return "EXPLORER" == self.type
+
+    def is_wanderer(self):
+        return "WANDERER" == self.type
+
+    def compute_environment(self, entities):
+        pass
+
 
 class Explorer(Entity):
     '''Class representing an explorer'''
-    
-    def __init__(self,type, id, x, y, *args):
+
+    def __init__(self, type, id, x, y, *args):
         super().__init__(type, id, x, y)
         self._sanity = args[0]
 
     def __str__(self):
         return str(super()) + " sanity:{}".format(self._sanity)
 
+    def __repr__(self):
+        return "Entity('{0}',{1},{2},{3},{4})".format(
+            self._type, self._id, self._x, self._y, self._sanity)
+
+    @property
+    def sanity(self):
+        return self._sanity
+
+    @sanity.setter
+    def sanity(self, sanity):
+        self._sanity = sanity
+
+
 class Wanderer(Entity):
     '''Class representing a wanderer'''
-    
+
     def __init__(self, type, id, x, y, *args):
         super().__init__(type, id, x, y)
-        self._time = args[0]
+        self._lifetime = args[0]
         self._state = args[1]
-        self._target_id = args[2]
+        #id of the target of the wanderer
+        self._target = args[2]
 
     def __str__(self):
-        return str(super()) + " time:{0} state:{1} target:{2}".format(self._time, self._state, self._target_id)
+        return str(super()) + " lifetime:{0} state:{1} target:{2}".format(
+            self._lifetime, self._state, self._target)
+
+    def __repr__(self):
+        return "Entity('{0}',{1},{2},{3},{4},{5},{6})".format(
+            self._type, self._id, self._x, self._y, self._lifetime,
+            self._state, self._target)
+
+    @property
+    def lifetime(self):
+        return self._lifetime
+
+    @lifetime.setter
+    def time(self, time):
+        self._lifetime = time
+
+    @property
+    def state(self):
+        return self._state
+
+    @state.setter
+    def state(self, state):
+        self._state = state
+
+    @property
+    def target(self):
+        return self._lifetime
+
+    @target.setter
+    def target(self, target):
+        self._target = target
+
 
 width = int(input())
 height = int(input())
@@ -116,17 +237,20 @@ lines = []
 for i in range(height):
     lines.append(input())
 
-map = Map(width,height,lines)
+map = Map(width, height, lines)
 
 # sanity_loss_lonely: how much sanity you lose every turn when alone, always 3 until wood 1
 # sanity_loss_group: how much sanity you lose every turn when near another player, always 1 until wood 1
 # wanderer_spawn_time: how many turns the wanderer take to spawn, always 3 until wood 1
 # wanderer_life_time: how many turns the wanderer is on map after spawning, always 40 until wood 1
-sanity_loss_lonely, sanity_loss_group, wanderer_spawn_time, wanderer_life_time = [int(i) for i in input().split()]
+sanity_loss_lonely, sanity_loss_group, wanderer_spawn_time, wanderer_life_time = [
+    int(i) for i in input().split()
+]
 
 # game loop
 while True:
-    entity_count = int(input())  # the first given entity corresponds to your explorer
+    entity_count = int(
+        input())  # the first given entity corresponds to your explorer
     for i in range(entity_count):
         entity_type, id, x, y, param_0, param_1, param_2 = input().split()
         id = int(id)
@@ -142,13 +266,21 @@ while True:
         elif entity_type == "EXPLORER":
             other_explorers.append(Explorer(entity_type, id, x, y, param_0))
         else:
-            wanderers.append(Wanderer(entity_type, id, x, y, param_0, param_1, param_2))
-            
+            wanderers.append(
+                Wanderer(entity_type, id, x, y, param_0, param_1, param_2))
+
     print("{}".format(str(map)), file=sys.stderr)
     print("My explorer : {}".format(str(my_explorer)), file=sys.stderr)
-    print("Other exporers : {}".format(" ".join([str(e) for e in other_explorers])), file=sys.stderr) 
-    print("Wanderers : {}".format(" ".join([str(w) for w in wanderers])), file=sys.stderr)      
-        
+    print(
+        "Other exporers : {}".format(" ".join(
+            [str(e) for e in other_explorers])),
+        file=sys.stderr)
+    print(
+        "Wanderers : {}".format(" ".join([str(w) for w in wanderers])),
+        file=sys.stderr)
+
+    entities = other_explorers + wanderers
+    entities.append(my_explorer)
     # Write an action using print
     # To debug: print("Debug messages...", file=sys.stderr)
 
