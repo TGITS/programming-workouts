@@ -93,7 +93,9 @@ class Map:
 
 
 class Entity:
-    '''An abstract class that represent an entity of the game'''
+    '''An abstract class that represent an entity of the game.
+       An entity can be an explorer or a wanderer
+    '''
 
     def __init__(self, type, id, x, y, *args):
         super().__init__()
@@ -160,8 +162,27 @@ class Entity:
     def is_wanderer(self):
         return "WANDERER" == self.type
 
-    def compute_environment(self, entities):
-        pass
+    def compute_other_entities_sorted_by_distances(self, entities):
+        if entities:
+            return None
+        else:
+            return sorted(entities,key=lambda e:self.distance(e))
+
+    def compute_action(self, explorers, wanderers):
+        explorers_sorted_by_distance = self.compute_other_entities_sorted_by_distances(explorers)
+        wanderers_which_target_me = [wanderer for wanderer in wanderers if wanderers and explorers_sorted_by_distance and (wanderer.target == self.id or wanderer.target == explorers_sorted_by_distance[0].id)]
+        wanderers_target = [wanderer.target for wanderer in wanderers]
+        explorers_not_targeted = [explorer for explorer in explorers if explorers and wanderers_target and explorer.id not in wanderers_target]
+        if not wanderers_which_target_me:  
+            if explorers_sorted_by_distance: 
+                return "MOVE {0} {1}".format(explorers_sorted_by_distance[0].x, explorers_sorted_by_distance[0].y)
+            else:
+                return "WAIT"
+        else:
+            if explorers_not_targeted:
+                return "MOVE {0} {1}".format(explorers_not_targeted.x, explorers_not_targeted.y)
+            else:
+                return "WAIT"
 
 
 class Explorer(Entity):
@@ -172,7 +193,7 @@ class Explorer(Entity):
         self._sanity = args[0]
 
     def __str__(self):
-        return str(super()) + " sanity:{}".format(self._sanity)
+        return super().__str__() + " sanity:{}".format(self._sanity)
 
     def __repr__(self):
         return "Entity('{0}',{1},{2},{3},{4})".format(
@@ -198,7 +219,7 @@ class Wanderer(Entity):
         self._target = args[2]
 
     def __str__(self):
-        return str(super()) + " lifetime:{0} state:{1} target:{2}".format(
+        return super().__str__() + " lifetime:{0} state:{1} target:{2}".format(
             self._lifetime, self._state, self._target)
 
     def __repr__(self):
@@ -224,7 +245,7 @@ class Wanderer(Entity):
 
     @property
     def target(self):
-        return self._lifetime
+        return self._target
 
     @target.setter
     def target(self, target):
@@ -249,8 +270,10 @@ sanity_loss_lonely, sanity_loss_group, wanderer_spawn_time, wanderer_life_time =
 
 # game loop
 while True:
-    entity_count = int(
-        input())  # the first given entity corresponds to your explorer
+    # the first given entity corresponds to your explorer
+    entity_count = int(input())  
+    other_explorers = []
+    wanderers = []
     for i in range(entity_count):
         entity_type, id, x, y, param_0, param_1, param_2 = input().split()
         id = int(id)
@@ -259,8 +282,6 @@ while True:
         param_0 = int(param_0)
         param_1 = int(param_1)
         param_2 = int(param_2)
-        other_explorers = []
-        wanderers = []
         if i == 0:
             my_explorer = Explorer(entity_type, id, x, y, param_0)
         elif entity_type == "EXPLORER":
@@ -269,20 +290,21 @@ while True:
             wanderers.append(
                 Wanderer(entity_type, id, x, y, param_0, param_1, param_2))
 
-    print("{}".format(str(map)), file=sys.stderr)
+    #print("{}".format(str(map)), file=sys.stderr)
     print("My explorer : {}".format(str(my_explorer)), file=sys.stderr)
     print(
-        "Other exporers : {}".format(" ".join(
+        "Other explorers : {}".format(" ".join(
             [str(e) for e in other_explorers])),
         file=sys.stderr)
     print(
         "Wanderers : {}".format(" ".join([str(w) for w in wanderers])),
         file=sys.stderr)
 
-    entities = other_explorers + wanderers
-    entities.append(my_explorer)
+    #entities = other_explorers + wanderers
+    #entities.append(my_explorer)
     # Write an action using print
     # To debug: print("Debug messages...", file=sys.stderr)
 
     # MOVE <x> <y> | WAIT
-    print("WAIT")
+    #print("WAIT")
+    print(my_explorer.compute_action(other_explorers,wanderers))
