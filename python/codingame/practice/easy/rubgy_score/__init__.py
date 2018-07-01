@@ -1,0 +1,1 @@
+all=["rugby_score"]
