@@ -63,9 +63,6 @@ class Decomposition:
 def decompose(score):
     # print("Initial score {}".format(score), file=sys.stderr)
     decompositions = _decompose(score, factors, [], None)
-    # print("Global decompositions {}".format(decompositions), file=sys.stderr)
-    # valid_decompositions = {decomposition for decomposition in decompositions if decomposition.sum()==score}
-    # print("Valid decompositions {}".format(valid_decompositions), file=sys.stderr)
     return sorted(list(decompositions))       
 
 def _decompose(score, possible_values, decompositions,current_value):
@@ -73,11 +70,6 @@ def _decompose(score, possible_values, decompositions,current_value):
     if score == 0:
         #On a fini, cela signifie que la lise de decompositions est ok
         return decompositions
-
-    # if score < min(possible_values):
-    #     #Cela signifie que je suis sur une branche qui n'aboutira pas à une décomposition correcte
-    #     #il faut que je backtracke
-    #     return []
 
     #Si on arrive là c'est qu'on est dans le cas général
     #Est-ce que j'ai une liste vide de decompositions ou est-ce que j'ai déjà des décompositions à traiter
@@ -87,59 +79,33 @@ def _decompose(score, possible_values, decompositions,current_value):
             new_score = score - value
             if new_score == 0:
                 for decomposition in decompositions:   
-                        # print("while decompositions", file=sys.stderr)
                         current_decomposition = copy.deepcopy(decomposition)
-                        # print("decomposition : {}".format(decomposition), file=sys.stderr)
                         current_decomposition.add(value)
-                        # print("decomposition.add({}) : {}".format(value, decomposition), file=sys.stderr)
-                        # new_decompositions.append(decomposition)
                         new_decompositions += _decompose(new_score, possible_values, [current_decomposition], value)
             elif new_score > 0:
                 new_possible_values = possible_values_by_factor[value]
                 min_value = min(new_possible_values)
-                # print("new_score={}, new_possible_values={}, min_value={}".format(new_score, new_possible_values, min_value), file=sys.stderr)
-                #on ne va pas sur une branche où cela ne pourra pas aboutir à la valeur 0
+                # on ne va pas sur une branche où cela ne pourra pas aboutir à la valeur 0
                 if new_score >= min_value:
-                    # print("if new_score(={}) >= min_value(={})".format(new_score, min_value), file=sys.stderr)
                     for decomposition in decompositions:   
-                        # print("while decompositions", file=sys.stderr)
                         current_decomposition = copy.deepcopy(decomposition)
-                        # print("decomposition : {}".format(decomposition), file=sys.stderr)
                         current_decomposition.add(value)
-                        # print("decomposition.add({}) : {}".format(value, decomposition), file=sys.stderr)
                         new_decompositions += _decompose(new_score, new_possible_values, [current_decomposition], value)
-                # elif new_score < min_value and current_value is not None:
-                #     while decompositions:   
-                #         # print("while decompositions", file=sys.stderr)
-                #         decomposition = decompositions.pop()
-                #         # print("decomposition : {}".format(decomposition), file=sys.stderr)
-                #         decomposition.substract(current_value)
-                #         # print("decomposition.add({}) : {}".format(value, decomposition), file=sys.stderr)
-                #         new_decompositions.append(decomposition)
     else :
         for value in possible_values:
             new_score = score - value
             if new_score == 0:
                 decomposition = Decomposition()
                 decomposition.add(value)
-                # print("decomposition.add({}) : {}".format(value, decomposition), file=sys.stderr)
-                # new_decompositions.append(decomposition)
                 new_decompositions += _decompose(new_score, possible_values, [decomposition], value)
             elif new_score > 0:
                 new_possible_values = possible_values_by_factor[value]
                 min_value = min(new_possible_values)
-                # print("new_score={}, new_possible_values={}, min_value={}".format(new_score, new_possible_values, min_value), file=sys.stderr)
-                #on ne va pas sur une branche où cela ne pourra pas aboutir à la valeur 0
                 if new_score >= min_value:
-                    # print("if new_score(={}) >= min_value(={})".format(new_score, min_value), file=sys.stderr)
                     decomposition = Decomposition()
                     decomposition.add(value)
                     new_decompositions += _decompose(new_score, new_possible_values, [decomposition], value)
-                # else:
-                #     decomposition = Decomposition()
-                #     new_decompositions += _decompose(score, new_possible_values, [decomposition], value)
 
-    # print("new_decompositions : {}".format(new_decompositions), file=sys.stderr)
     return new_decompositions
 
 if __name__ == "__main__":

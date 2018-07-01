@@ -1,6 +1,7 @@
 import unittest
 import sys
-from rugby_score import *
+from rugby_score import Decomposition
+from rugby_score import decompose
 
 class TestRugbyScore(unittest.TestCase):
 
