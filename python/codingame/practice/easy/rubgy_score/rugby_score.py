@@ -1,5 +1,6 @@
 import sys
 import math
+import copy
 
 factors = [7, 5, 3]
 possible_values_by_factor = {7 : [7, 5, 3], 5 : [5, 3], 3 : [3]}
@@ -85,14 +86,14 @@ def _decompose(score, possible_values, decompositions,current_value):
         for value in possible_values:
             new_score = score - value
             if new_score == 0:
-                while decompositions:   
+                for decomposition in decompositions:   
                         # print("while decompositions", file=sys.stderr)
-                        decomposition = decompositions.pop()
+                        current_decomposition = copy.deepcopy(decomposition)
                         # print("decomposition : {}".format(decomposition), file=sys.stderr)
-                        decomposition.add(value)
+                        current_decomposition.add(value)
                         # print("decomposition.add({}) : {}".format(value, decomposition), file=sys.stderr)
                         # new_decompositions.append(decomposition)
-                        new_decompositions += _decompose(new_score, possible_values, [decomposition], value)
+                        new_decompositions += _decompose(new_score, possible_values, [current_decomposition], value)
             elif new_score > 0:
                 new_possible_values = possible_values_by_factor[value]
                 min_value = min(new_possible_values)
@@ -100,13 +101,13 @@ def _decompose(score, possible_values, decompositions,current_value):
                 #on ne va pas sur une branche où cela ne pourra pas aboutir à la valeur 0
                 if new_score >= min_value:
                     # print("if new_score(={}) >= min_value(={})".format(new_score, min_value), file=sys.stderr)
-                    while decompositions:   
+                    for decomposition in decompositions:   
                         # print("while decompositions", file=sys.stderr)
-                        decomposition = decompositions.pop()
+                        current_decomposition = copy.deepcopy(decomposition)
                         # print("decomposition : {}".format(decomposition), file=sys.stderr)
-                        decomposition.add(value)
+                        current_decomposition.add(value)
                         # print("decomposition.add({}) : {}".format(value, decomposition), file=sys.stderr)
-                        new_decompositions += _decompose(new_score, new_possible_values, [decomposition], value)
+                        new_decompositions += _decompose(new_score, new_possible_values, [current_decomposition], value)
                 # elif new_score < min_value and current_value is not None:
                 #     while decompositions:   
                 #         # print("while decompositions", file=sys.stderr)
