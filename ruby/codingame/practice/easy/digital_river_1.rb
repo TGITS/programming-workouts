@@ -16,38 +16,34 @@
 # Write an action using puts
 # To debug: STDERR.puts "Debug messages..."
 
-smallest_river = [] 
-smallest_river << (@r_1 < @r_2 ? @r_1 : @r_2)
-largest_river = [] 
-largest_river << (@r_1 >= @r_2 ? @r_1 : @r_2)
+river_1 = [@r_1] 
+river_2 = [@r_2] 
 
-STDERR.puts "Smallest river " + smallest_river.to_s
-STDERR.puts "Largest river " + largest_river.to_s
+STDERR.puts "First river " + river_1.to_s
+STDERR.puts "Second river " + river_2.to_s
 
 def compute_next_river_item!(river)
-    
-    last_element = river[-1]
-    river << last_element + last_element.to_s.scan(/\w/).map{|s| s.to_i}.sum
-    if river.size > 2
-        
+    # We take and remove the first element of the list
+    current_number = river.shift
+    # We calculate the next_number
+    next_number = current_number + current_number.to_s.scan(/\w/).map{|s| s.to_i}.sum
+    # We put the new calculated element at the head of the list 
+    river.unshift(next_number)
+end
+
+STDERR.puts "river_1: " + river_1.to_s
+    STDERR.puts "river_2: " + river_2.to_s
+
+while river_1[0] != river_2[0] do
+    STDERR.puts "river_1: " + river_1.to_s
+    STDERR.puts "river_2: " + river_2.to_s
+    if river_1[0] < river_2[0]
+        compute_next_river_item!(river_1)
+    elsif river_1[0] > river_2[0]
+        compute_next_river_item!(river_2)
+    else
+        next
     end
 end
 
-#STDERR.puts "smallest_river[-1] <  largest_river[-1] : " + smallest_river[-1].to_s + " <= "  + largest_river[-1].to_s
-while smallest_river[-1] <  largest_river[-1] do
-    compute_next_river_item!(smallest_river)
-    #STDERR.puts "smallest_river : " + smallest_river.to_s
-    #STDERR.puts "smallest_river[-1] : " + smallest_river[-1].to_s
-    #STDERR.puts "largest_river[-1]: " + largest_river[-1].to_s
-end
-
-while smallest_river[-1] != largest_river[-1] do
-    compute_next_river_item!(smallest_river)
-    compute_next_river_item!(largest_river)
-    #STDERR.puts "smallest_river : " + smallest_river.to_s
-    #STDERR.puts "smallest_river[-1] : " + smallest_river[-1].to_s
-    #STDERR.puts "largest_river : " + largest_river.to_s
-    #STDERR.puts "largest_river[-1]: " + largest_river[-1].to_s
-end
-
-puts smallest_river[-1].to_s
+puts river_1[0].to_s
