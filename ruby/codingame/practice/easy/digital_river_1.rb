@@ -32,7 +32,7 @@ def compute_next_river_item!(river)
 end
 
 STDERR.puts "river_1: " + river_1.to_s
-    STDERR.puts "river_2: " + river_2.to_s
+STDERR.puts "river_2: " + river_2.to_s
 
 while river_1[0] != river_2[0] do
     STDERR.puts "river_1: " + river_1.to_s
