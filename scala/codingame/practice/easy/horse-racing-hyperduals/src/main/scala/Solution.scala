@@ -6,13 +6,13 @@ import scala.util._
  * the standard input according to the problem statement.
  **/
 object Solution extends App {
-    val n = readInt
+    val n = scala.io.StdIn.readInt
     //for(i <- 0 until n) {
     //    val pi = readInt
     //}
     var vector: Vector[HorseStrength] = Vector()
     for(i <- 0 until n) {
-        val Array(v, e) = for(i <- readLine split " ") yield i.toInt
+        val Array(v, e) = for(i <- scala.io.StdIn.readLine split " ") yield i.toInt
         vector = vector :+ HorseStrength(v,e)
     }
     Console.err.println(vector.mkString(" "))
