@@ -1,0 +1,1 @@
+all=["carmichael_number"]

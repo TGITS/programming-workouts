@@ -27,9 +27,9 @@ def is_carmichael_number?(n)
     # prime_division(n) returns:
     # [[p_1, e_1], [p_2, e_2], ...., [p_n, e_n]].
     # Prime.prime_division(12) #=> [[2,2], [3,1]]
-    fs = Prime.prime_division(n)
-    if fs.size > 1
-        return fs.all?{|x| x[1] == 1 && (n - 1) % (x[0] - 1) == 0} ? true : false
+    factors = Prime.prime_division(n)
+    if factors.size > 1
+        return factors.all?{|x| x[1] == 1 && (n - 1) % (x[0] - 1) == 0} ? true : false
     else
         return false
     end

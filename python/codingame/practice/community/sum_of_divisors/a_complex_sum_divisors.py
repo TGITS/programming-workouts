@@ -51,7 +51,7 @@ def prime_factors(n):
 
 n = int(input())
 
-def caculate_sum_divisors(number):
+def calculate_sum_divisors(number):
     """Calculate the sum of divisors of a positive integer with a formula based on the prime factors"""
     prime_factors_list = prime_factors(number)
     print("List of prime factors of {} : {}".format(n, ', '.join(str(divisor) for divisor in prime_factors_list)), file=sys.stderr)
@@ -68,6 +68,6 @@ total_sum = 1
 if n>1:
     for i in range(2,n+1):
         #total_sum += sum_divisors(i)
-        total_sum += caculate_sum_divisors(i)
+        total_sum += calculate_sum_divisors(i)
 
 print(total_sum)
