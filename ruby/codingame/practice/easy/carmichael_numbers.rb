@@ -1,3 +1,5 @@
+require "prime"
+
 # You might know Fermat’s small theorem:
 # If n is prime, then for any integer a, we have a^n ≡ a mod n, 
 # that means that a^n and a have the same   r in the euclidian division by n.
@@ -12,89 +14,32 @@
 # YES if n is a Carmichael number, or NO if it’s not.
 
 
-# Auto-generated code below aims at helping you parse
-# the standard input according to the problem statement.
-
-def is_prime?(n)
-    i = 2
-    while i < Math.sqrt(n).ceil do 
-        if n % i == 0
-            return false
-        end
-        i += 1
-    end
-    return true
-end
-
-def pgcd(a,b)
-    r = a % b
-    
-    while r != 0 do
-        a = b
-        b = r
-        r = a % b
-    end
-
-    return r
-end
-
-A006931 = [561,41041,825265,321197185,5394826801,
-    232250619601,9746347772161,1436697831295441,
-    60977817398996785,7156857700403137441,
-    1791562810662585767521,87674969936234821377601,
-    6553130926752006031481761,
-    1590231231043178376951698401]
-
-A074379 = [41041,62745,63973,75361,101101,126217,172081,
-    188461,278545,340561,449065,552721,656601,658801,
-    670033,748657,838201,852841,997633,1033669,
-    1082809,1569457,1773289,2100901,2113921,2433601,
-    2455921]
-
-A002997 = [561,1105,1729,2465,2821,6601,8911,10585,15841,
-    29341,41041,46657,52633,62745,63973,75361,101101,
-    115921,126217,162401,172081,188461,252601,278545,
-    294409,314821,334153,340561,399001,410041,449065,
-    488881,512461]
 
 def is_carmichael_number?(n)
     # Informations complémentaires trouvées trouvé sur Wikipedia (https://fr.wikipedia.org/wiki/Nombre_de_Carmichael)
-    # Tout nombre de Carmichael est impair et ne peux pas être un nombre premier 
-    if is_prime?(n) || n % 2 == 0
-        return false
-    elsif A002997.include?(n) || A006931.include?(n) || A074379.include?(n)
-        return true
-    # else
-    #     # testing if a^n and a have the same remainder in the euclidian division by n
-    #     # this is (a**n) % n == (a % n)
-    #     # pour tout entier a premier avec n, n est un diviseur de a^(n-1) - 1
-    #     # a premier avec n, signifie que le pgcd de n et de a est 1
-    #     a = 2
-    #     n_minus_one = n-1
-    #     while a < n do
-    #         # Test n et a premier entre eux
-    #         if pgcd(n,a) == 1
-    #             # Est-ce que n est un diviseur de a^(n-1) - 1
-    #             # Si ce n'est pas le cas, nous n'avons pas un nombre de Carmichael
-    #             if  (a**(n_minus_one) - 1) % n != 0
-    #                 return false
-    #             end
-    #         end
-    #         a += 1
-    #     end
-    #     #If we arrive here, we have a Carmichael number
-    #     return true
-    # end
-    else 
+    # En utilisant judicieusement le module "prime" de Ruby et en s'appuyant sur le Théorème de Korselt 1899 qui dit :
+    # Un entier positif composé n est un nombre de Carmichael si et seulement si aucun carré de nombre premier ne divise n 
+    # (on dit que n est sans facteur carré) et pour chaque diviseur premier p de n, le nombre p − 1 divise n − 1. 
+    # De plus, un tel n divise tous les a^n – a (même pour a non premier à n).
+
+    # For an arbitrary integer:
+    # n = p_1**e_1 * p_2**e_2 * .... * p_n**e_n,
+    # prime_division(n) returns:
+    # [[p_1, e_1], [p_2, e_2], ...., [p_n, e_n]].
+    # Prime.prime_division(12) #=> [[2,2], [3,1]]
+    fs = Prime.prime_division(n)
+    if fs.size > 1
+        return fs.all?{|x| x[1] == 1 && (n - 1) % (x[0] - 1) == 0} ? true : false
+    else
         return false
     end
 end
 
-@n = gets.to_i
+n = gets.to_i
 
 # Write an action using puts
 # To debug: STDERR.puts "Debug messages..."
 
-answer = is_carmichael_number?(@n) ? "YES" : "NO"
+answer = is_carmichael_number?(n) ? "YES" : "NO"
 
 puts answer
