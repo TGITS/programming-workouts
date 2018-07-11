@@ -45,12 +45,20 @@ def is_carmichael_number?(n)
         # testing if a^n and a have the same remainder in the euclidian division by n
         # this is (a**n) % n == (a % n)
         # Tout nombre de Carmichael est impair et ne peux pas être un nombre premier 
-        (3...n).step(2).each do |a|
-            r1 = (a ** n) % n
-            r2 = a % n
-            if  r1 != r2
-                return false
+        # Autre test possible (trouvé sur Wikipedia) : https://fr.wikipedia.org/wiki/Nombre_de_Carmichael
+        # pour tout entier a premier avec n, n est un diviseur de a^(n-1) - 1
+        # a premier avec n, signifie que le pgcd de n et de a est 1
+        a = 3
+        while a < n do
+            # Test n et a premier entre eux
+            if pgcd(n,a) == 1
+                # Est-ce que n est un diviseur de a^(n-1) - 1
+                # Si ce n'est pas le cas, nous n'avons pas un nombre de Carmichael
+                if  (a **(n-1) - 1) % n != 0
+                    return false
+                end
             end
+            a += 2
         end
     end
     #If we arrive here, we have a carmichael number
