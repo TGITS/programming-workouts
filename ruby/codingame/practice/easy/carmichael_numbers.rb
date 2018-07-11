@@ -50,13 +50,8 @@ def is_carmichael_number?(n)
         # a premier avec n, signifie que le pgcd de n et de a est 1
         a = 3
         while a < n do
-            # Test n et a premier entre eux
-            if pgcd(n,a) == 1
-                # Est-ce que n est un diviseur de a^(n-1) - 1
-                # Si ce n'est pas le cas, nous n'avons pas un nombre de Carmichael
-                if  (a **(n-1) - 1) % n != 0
-                    return false
-                end
+            if (a**n) % n != (a % n)
+                return false
             end
             a += 2
         end
