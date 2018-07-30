@@ -1,0 +1,13 @@
+{([]){}()} => true
+
+{([{S}]]6K[()]} => false
+
+{C{}[{[a]}RqhL]{y2}} => true
+
+W12{}{}L{} => true
+
+h{Pn{GT{h}(c))} => false
+
+{[{iHTSc}]}p(R)m(){q({}) => false
+
+][ => false
