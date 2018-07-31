@@ -17,7 +17,7 @@
 # Dans un premier temps il nous faut donc la liste des facteurs premiers d'un nombre
 # Puis dans cette liste j'ai besoin de trouver chaque facteur unique
 # Pour chaque facteur unique il faut que je détermine combien de fois il est présent.
-# Ces informations me permettront d'appliquer la formule. Je pourrais ainsi calculer pour chaque nombre
+# Ces informations me permettront d'appliquer la formule. Je pourrais ainsi calculer la somme pour chaque nombre
 # mais j'ai l'impression que c'est bien compliqué cette affaire... pas sûr que je n'explose pas toujours le temps
 # Je me demande si le "trick" n'est pas ailleurs
 
