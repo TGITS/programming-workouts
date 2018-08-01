@@ -1,0 +1,8 @@
+SNOW Jon
+TARGARYEN    Daenerys
+Lannister   JAIME
+Lannister   Cersei
+Lannister  Tyrion
+STARK               SANSA
+STARK   ARYA
+STARK           Brandon
