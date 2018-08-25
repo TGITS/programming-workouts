@@ -1,0 +1,1719 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="VilleMTP_MTP_Defibrillateurs" id="VilleMTP_MTP_Defibrillateurs">
+	<SimpleField name="Id" type="int"></SimpleField>
+	<SimpleField name="Numero" type="float"></SimpleField>
+	<SimpleField name="Nom" type="string"></SimpleField>
+	<SimpleField name="Adresse" type="string"></SimpleField>
+	<SimpleField name="Tel" type="string"></SimpleField>
+</Schema>
+<Folder><name>VilleMTP_MTP_Defibrillateurs</name>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">1</SimpleData>
+		<SimpleData name="Numero">1.00000000000</SimpleData>
+		<SimpleData name="Nom">Maison de la Pr�vention Sant�</SimpleData>
+		<SimpleData name="Adresse">6 rue Maguelone             340000 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 02 21 60</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.879522633610812,43.607128533921653</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">2</SimpleData>
+		<SimpleData name="Numero">2.00000000000</SimpleData>
+		<SimpleData name="Nom">H�tel de Ville</SimpleData>
+		<SimpleData name="Adresse">1 place Georges Fr�che  34267 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 34 44 93</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.896522391978778,43.598729945284809</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">3</SimpleData>
+		<SimpleData name="Numero">3.00000000000</SimpleData>
+		<SimpleData name="Nom">Zoo de Lunaret</SimpleData>
+		<SimpleData name="Adresse">50 avenue Agropolis  
+34090 Mtp</SimpleData>
+		<SimpleData name="Tel">04 67 54 45 23</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.873880311411337,43.639587277885333</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">4</SimpleData>
+		<SimpleData name="Numero">4.00000000000</SimpleData>
+		<SimpleData name="Nom">Centre municipal Garosud</SimpleData>
+		<SimpleData name="Adresse">34000 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 34 74 62</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.858592219294967,43.572573205668213</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">14</SimpleData>
+		<SimpleData name="Numero">14.00000000000</SimpleData>
+		<SimpleData name="Nom">Service surveillance voie publique (ASVP)</SimpleData>
+		<SimpleData name="Adresse">8 Avenue Louis Blanc</SimpleData>
+		<SimpleData name="Tel">04 99 58 80 31-32</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.879648142759081,43.61449712086862</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">16</SimpleData>
+		<SimpleData name="Numero">16.00000000000</SimpleData>
+		<SimpleData name="Nom">Poste de police Ecusson Centre ville</SimpleData>
+		<SimpleData name="Adresse">19 bis Rue durand     34000 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 34 70 89</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.878607492700565,43.605017477020724</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">17</SimpleData>
+		<SimpleData name="Numero">17.00000000000</SimpleData>
+		<SimpleData name="Nom">Unit� Service Fourri�re</SimpleData>
+		<SimpleData name="Adresse">1945 avenue de toulouse</SimpleData>
+		<SimpleData name="Tel">
+04 67 06 10 51</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.853960827601005,43.587382537173532</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">18</SimpleData>
+		<SimpleData name="Numero">18.00000000000</SimpleData>
+		<SimpleData name="Nom">Poste de police Hotel de ville</SimpleData>
+		<SimpleData name="Adresse">789 chemin de moulares</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.893990561777456,43.598857987972316</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">20</SimpleData>
+		<SimpleData name="Numero">20.00000000000</SimpleData>
+		<SimpleData name="Nom">Palais des sports Pierre-de-Coubertin</SimpleData>
+		<SimpleData name="Adresse">Avenue de Naples
+34000 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 03 02 24</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.813886723891888,43.638296452490458</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">21</SimpleData>
+		<SimpleData name="Numero">21.00000000000</SimpleData>
+		<SimpleData name="Nom">Gymnase Fran�ois Spinosi</SimpleData>
+		<SimpleData name="Adresse">Rue de la Cavalade
+34000 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 15 90 35</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.917715603799292,43.59897401595277</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">22</SimpleData>
+		<SimpleData name="Numero">22.00000000000</SimpleData>
+		<SimpleData name="Nom">Plateau sportif de Grammont
+Terrain 9, 10, 11</SimpleData>
+		<SimpleData name="Adresse">Avenue Albert Einstein
+34000 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 64 29 43</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.935283626753694,43.614140050141451</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">23</SimpleData>
+		<SimpleData name="Numero">23.00000000000</SimpleData>
+		<SimpleData name="Nom">Maison de la D�mocratie</SimpleData>
+		<SimpleData name="Adresse">16, rue de la R�publique
+ 34 Mtp</SimpleData>
+		<SimpleData name="Tel">04 67 34 88 00</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.879082313711276,43.605322134558904</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">24</SimpleData>
+		<SimpleData name="Numero">24.00000000000</SimpleData>
+		<SimpleData name="Nom">Gymnase Albert Batteux</SimpleData>
+		<SimpleData name="Adresse">150 rue Fran�ois-Joseph-Gossec 34000 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 03 02 24</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.856856959584427,43.574076052157125</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">25</SimpleData>
+		<SimpleData name="Numero">25.00000000000</SimpleData>
+		<SimpleData name="Nom">Gymnase Bernard-Jouanique</SimpleData>
+		<SimpleData name="Adresse">Rue Jaques-Dalcroze 
+34080 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 54 63 99
+</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.847137193832721,43.620965793261107</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">26</SimpleData>
+		<SimpleData name="Numero">26.00000000000</SimpleData>
+		<SimpleData name="Nom">Stade Municipal Sabath�</SimpleData>
+		<SimpleData name="Adresse">Impasse Saint-Cl�ophas 34000 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 47 10 22</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.870694610251922,43.597990951572612</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">27</SimpleData>
+		<SimpleData name="Numero">27.00000000000</SimpleData>
+		<SimpleData name="Nom">Salle de Sports Alain Achille</SimpleData>
+		<SimpleData name="Adresse">1 place Marcel-Godechot 
+34000 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 15 90 35</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.869292083327093,43.618650017265374</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">28</SimpleData>
+		<SimpleData name="Numero">28.00000000000</SimpleData>
+		<SimpleData name="Nom">Gymnase Alain Le Hetet</SimpleData>
+		<SimpleData name="Adresse">237 route de Vaugui�res 34  Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 65 39 69</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.906239090833529,43.605648111005664</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">29</SimpleData>
+		<SimpleData name="Numero">29.00000000000</SimpleData>
+		<SimpleData name="Nom">Maison pour tous   
+Albert Dubout</SimpleData>
+		<SimpleData name="Adresse">1071 avenue de la Justice de Castelnau 
+34090 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 02 68 58</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.882499435627679,43.626452626979109</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">30</SimpleData>
+		<SimpleData name="Numero">30.00000000000</SimpleData>
+		<SimpleData name="Nom">Maison pour tous 
+Albert Camus</SimpleData>
+		<SimpleData name="Adresse">118 all�e Maurice-Bonafos 
+34080 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 27 3341</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.869991525587313,43.596863655952653</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">31</SimpleData>
+		<SimpleData name="Numero">31.00000000000</SimpleData>
+		<SimpleData name="Nom">Mairie annexe de proximit� Mosson</SimpleData>
+		<SimpleData name="Adresse">111 place de Tipasa 
+Mas de la Paillade 34080 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 75 19 10
+</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.816446672266877,43.628035269741581</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">32</SimpleData>
+		<SimpleData name="Numero">32.00000000000</SimpleData>
+		<SimpleData name="Nom">Maison pour tous 
+Fran�ois Villon</SimpleData>
+		<SimpleData name="Adresse">Rue des Araucarias  34080 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 45 04 57
+</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.83953523127499,43.615351686635023</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">33</SimpleData>
+		<SimpleData name="Numero">33.00000000000</SimpleData>
+		<SimpleData name="Nom">Maison pour tous  
+M�lina Mercouri</SimpleData>
+		<SimpleData name="Adresse">842 rue de la Vieille Poste 
+34 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 99 92 23 80</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.908222131868373,43.613453872209028</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">35</SimpleData>
+		<SimpleData name="Numero">35.00000000000</SimpleData>
+		<SimpleData name="Nom">Cimeti�re Saint-lazare</SimpleData>
+		<SimpleData name="Adresse">2 rond-point du Souvenir Fran�ais                      34000 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 75 34 46
+</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.936135535709019,43.615436034194197</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">36</SimpleData>
+		<SimpleData name="Numero">36.00000000000</SimpleData>
+		<SimpleData name="Nom">Cimeti�re Saint-Etienne</SimpleData>
+		<SimpleData name="Adresse">Avenue Albert Einstein
+34000 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 99 52 87 35
+</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.889955871373943,43.626009015057619</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">37</SimpleData>
+		<SimpleData name="Numero">37.00000000000</SimpleData>
+		<SimpleData name="Nom">Piscine PITOT</SimpleData>
+		<SimpleData name="Adresse">40 All�e J.RAYMOND
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 52 58 89</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.870303933900968,43.61238256789597</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">38</SimpleData>
+		<SimpleData name="Numero">38.00000000000</SimpleData>
+		<SimpleData name="Nom">Piscine A. NAKACHE</SimpleData>
+		<SimpleData name="Adresse">237 route de Vaugui�res
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 22 57 05</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.906299163444855,43.606408790576715</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">39</SimpleData>
+		<SimpleData name="Numero">39.00000000000</SimpleData>
+		<SimpleData name="Nom">Piscine J. TARIS</SimpleData>
+		<SimpleData name="Adresse">67 rue L.Michel
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 79 03 11</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.90104518912562,43.620526942525238</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">41</SimpleData>
+		<SimpleData name="Numero">41.00000000000</SimpleData>
+		<SimpleData name="Nom">Piscine J. VIVES</SimpleData>
+		<SimpleData name="Adresse">1933 AVENUE DE Maurin
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 27 74 79</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.872582563662819,43.587835730483164</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">40</SimpleData>
+		<SimpleData name="Numero">40.00000000000</SimpleData>
+		<SimpleData name="Nom">Piscine M. SPILLIART</SimpleData>
+		<SimpleData name="Adresse">154 Rue C.DESMOULINS
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 42 00 92</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.843142607926645,43.598245758060102</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">42</SimpleData>
+		<SimpleData name="Numero">42.00000000000</SimpleData>
+		<SimpleData name="Nom">Piscine S. BERLIOUX</SimpleData>
+		<SimpleData name="Adresse">551 rue M�tairie de Saysset
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 65 38 71</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.895232456263027,43.590433377424056</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">43</SimpleData>
+		<SimpleData name="Numero">43.00000000000</SimpleData>
+		<SimpleData name="Nom">Piscine NEPTUNE</SimpleData>
+		<SimpleData name="Adresse">Avenue de Heidelberg
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 75 34 93</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.893081188613975,43.607445467572731</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">44</SimpleData>
+		<SimpleData name="Numero">44.00000000000</SimpleData>
+		<SimpleData name="Nom">Piscine OLYMPIQUE ANTIGONE</SimpleData>
+		<SimpleData name="Adresse">195 avenue J.CARTIER
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 15 63 04</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.814868748026981,43.620374847712341</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">45</SimpleData>
+		<SimpleData name="Numero">45.00000000000</SimpleData>
+		<SimpleData name="Nom">STADE DE LA MOSSON</SimpleData>
+		<SimpleData name="Adresse">Avenue de Heidelberg
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 75 74 16</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.813165552133287,43.621873416652306</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">46</SimpleData>
+		<SimpleData name="Numero">46.00000000000</SimpleData>
+		<SimpleData name="Nom">STADE Y. DU MANOIR</SimpleData>
+		<SimpleData name="Adresse">Avenue de la Vanni�re
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 13 60 00</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.850039523121908,43.593606577110542</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">47</SimpleData>
+		<SimpleData name="Numero">47.00000000000</SimpleData>
+		<SimpleData name="Nom">PALAIS DES SPORTS R.BOUGNOL</SimpleData>
+		<SimpleData name="Adresse">1000, avenue du Val de Montferrand
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 52 76 14</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.874315549278101,43.638043313433279</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">48</SimpleData>
+		<SimpleData name="Numero">48.00000000000</SimpleData>
+		<SimpleData name="Nom">PATINOIRE VEGAPOLIS</SimpleData>
+		<SimpleData name="Adresse">Place de France
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 99 522 600</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.914890595713041,43.602921063959073</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">49</SimpleData>
+		<SimpleData name="Numero">49.00000000000</SimpleData>
+		<SimpleData name="Nom">CAP OMEGA</SimpleData>
+		<SimpleData name="Adresse">Rond point Benjamin Franklin
+ MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">
+04 67 59 30 01</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.914277061213456,43.618609351241879</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">50</SimpleData>
+		<SimpleData name="Numero">50.00000000000</SimpleData>
+		<SimpleData name="Nom">S.F.M.A.</SimpleData>
+		<SimpleData name="Adresse">Avenue Albert EINSTEIN
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">
+04 67 22 83 78</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.935738702542082,43.615604373802199</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">51</SimpleData>
+		<SimpleData name="Numero">51.00000000000</SimpleData>
+		<SimpleData name="Nom">MUSEE FABRE</SimpleData>
+		<SimpleData name="Adresse">13, rue Montpelli�ret
+34000�Montpellier</SimpleData>
+		<SimpleData name="Tel">
+04 67 14 83 00</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.880152028605286,43.6117202928098</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">52</SimpleData>
+		<SimpleData name="Numero">52.00000000000</SimpleData>
+		<SimpleData name="Nom">MEDIATHEQUE E.ZOLA</SimpleData>
+		<SimpleData name="Adresse">218 Bd de l'A�roport International 34000 Montpellier</SimpleData>
+		<SimpleData name="Tel">
+04 67 34 87 00</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.893156956289405,43.608483819375394</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">53</SimpleData>
+		<SimpleData name="Numero">53.00000000000</SimpleData>
+		<SimpleData name="Nom">DOMAINE DE LA PROVIDENCE</SimpleData>
+		<SimpleData name="Adresse">1784 Avenue de TOULOUSE
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">
+04 99 64 25 80</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.853893414331364,43.588630540689813</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">54</SimpleData>
+		<SimpleData name="Numero">54.00000000000</SimpleData>
+		<SimpleData name="Nom">RDC PAVILLON JUNON</SimpleData>
+		<SimpleData name="Adresse">50 Place Zeus
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">
+04 67 13 69 27</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.890832441402382,43.608166074867263</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">55</SimpleData>
+		<SimpleData name="Numero">55.00000000000</SimpleData>
+		<SimpleData name="Nom">RDC PAVILLON ZEUS</SimpleData>
+		<SimpleData name="Adresse">50 Place Zeus
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">
+04 67 13 69 27</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.890816964300998,43.607867051881335</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">58</SimpleData>
+		<SimpleData name="Numero">58.00000000000</SimpleData>
+		<SimpleData name="Nom">PAVILLON ZEUS (Salle Marianne)</SimpleData>
+		<SimpleData name="Adresse">50 Place Zeus
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">
+04 67 13 69 27</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.890666214134972,43.607752169580039</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">56</SimpleData>
+		<SimpleData name="Numero">56.00000000000</SimpleData>
+		<SimpleData name="Nom">E.S.B.A.M.A.</SimpleData>
+		<SimpleData name="Adresse">130 , RUE YEHUDI 
+ MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">
+04 99 58 32 87</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.884380642947182,43.616943657134563</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">57</SimpleData>
+		<SimpleData name="Numero">57.00000000000</SimpleData>
+		<SimpleData name="Nom">MONTPELLIER DANCE</SimpleData>
+		<SimpleData name="Adresse">18 Rue Sainte Ursule
+MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">
+04 67 60 83 60</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.878368498309776,43.613990803141384</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">59</SimpleData>
+		<SimpleData name="Numero">59.00000000000</SimpleData>
+		<SimpleData name="Nom">CRR</SimpleData>
+		<SimpleData name="Adresse">14 Rue Eug�ne Lisbonne
+34000 Montpellier</SimpleData>
+		<SimpleData name="Tel">
+04 67 66 88 46</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.874096661782748,43.61043389474596</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">60</SimpleData>
+		<SimpleData name="Numero">60.00000000000</SimpleData>
+		<SimpleData name="Nom">TAM</SimpleData>
+		<SimpleData name="Adresse">Parking com�die centre ville</SimpleData>
+		<SimpleData name="Tel">04 67 07 63 79</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.88022104344318,43.60894398891643</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">61</SimpleData>
+		<SimpleData name="Numero">61.00000000000</SimpleData>
+		<SimpleData name="Nom">TAM</SimpleData>
+		<SimpleData name="Adresse">Parking Corum</SimpleData>
+		<SimpleData name="Tel">04 67 07 63 79</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.882387037433949,43.614027181228792</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">62</SimpleData>
+		<SimpleData name="Numero">62.00000000000</SimpleData>
+		<SimpleData name="Nom">CCAS                                             (Banque d'Acceuil)</SimpleData>
+		<SimpleData name="Adresse">125 place  Thermidor               34000  MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 99  52 77 53              06 14 09 40 21</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.899274435032565,43.602024111481335</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">65</SimpleData>
+		<SimpleData name="Numero">65.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�                   Montpellier 1                        UFR d'Economie                                        (1er �tage, � c�t� des bureaux de l'administration)</SimpleData>
+		<SimpleData name="Adresse">Avenue Raymond Dugrand                                     CS 79606                        34960 MONTPELLIER               Cedex 2</SimpleData>
+		<SimpleData name="Tel">04 34 43 24 44</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.899565301269586,43.603724871672938</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">66</SimpleData>
+		<SimpleData name="Numero">66.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�                   Montpellier 1                        UFR AES                                   (1er �tage, en face de la salle des professeurs)</SimpleData>
+		<SimpleData name="Adresse">Espace Richter  Avenue Raymond Dugrand               CS 59640                        34960 MONTPELLIER               Cedex 2</SimpleData>
+		<SimpleData name="Tel">04 34 43 23 33</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.899916434901884,43.603103822523245</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">64</SimpleData>
+		<SimpleData name="Numero">64.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�                   Montpellier 1                        ISEM IPAG                                     (Loge)</SimpleData>
+		<SimpleData name="Adresse">Espace Richter B�t b Vend�miaire                       CS 19519                               34960 MONTPELLIER Cedex 2</SimpleData>
+		<SimpleData name="Tel">ISEM :                 04 34 43 20 00 IPAG :                04 67 15 85 46</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.899045237366292,43.604258343094337</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">63</SimpleData>
+		<SimpleData name="Numero">63.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�                   Montpellier 1                        Services Mutualis�s Richter                                      PC Securit�</SimpleData>
+		<SimpleData name="Adresse">Espace Richter B�t E, BIU, MdE, Rue  Vend�miaire                       CS 19519                               34960 MONTPELLIER Cedex 2</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.89848334164306,43.604178698864544</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">67</SimpleData>
+		<SimpleData name="Numero">67.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�                   Montpellier 1                        UFR Droit                                  (accueil b�timent1)</SimpleData>
+		<SimpleData name="Adresse">39 rue de l'universit�              34060 Montpellier       Cedex 2</SimpleData>
+		<SimpleData name="Tel">04 67 61 54 00</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.877173456780882,43.614058225359642</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">68</SimpleData>
+		<SimpleData name="Numero">68.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�                   Montpellier 1                        UFR Droit                                  (accueil b�timent2)</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.876335188404924,43.613860933346402</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">69</SimpleData>
+		<SimpleData name="Numero">69.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�                   Montpellier 1                        UFR M�decine                                  (Loge b�timent Historique)</SimpleData>
+		<SimpleData name="Adresse">2 rue Ecole de M�decine   CS 59001                       34060 MONTPELLIER      Cedex 2</SimpleData>
+		<SimpleData name="Tel">04 67 60 10 00</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.873549132875259,43.612951860070915</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">70</SimpleData>
+		<SimpleData name="Numero">70.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�                   Montpellier 1                        UFR M�decine                                  (Loge Institut biologie)</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.87409700190792,43.615068812732567</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">71</SimpleData>
+		<SimpleData name="Numero">71.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�                   Montpellier 1                        UFR Odontologie                                 (Hall Premier Etage B�t A)</SimpleData>
+		<SimpleData name="Adresse">545, avenue du Professeur J.L Viala               34193 MONTPELLIER      Cedex 5</SimpleData>
+		<SimpleData name="Tel">04 67 10 44 70</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.82353507060247,43.636249726733269</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">72</SimpleData>
+		<SimpleData name="Numero">72.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�                   Montpellier 1                        UFR Pharmacie                                 (LogeB�t A)</SimpleData>
+		<SimpleData name="Adresse">15, avenue Charles Flahault                                 BP 14491                       34093 MONTPELLIER          Cedex 5</SimpleData>
+		<SimpleData name="Tel">04 67 54 80 00</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.861898684568853,43.623236092212707</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">73</SimpleData>
+		<SimpleData name="Numero">73.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�                   Montpellier 1                        UFR Pharmacie                                 (Galerie � c�t� de la pharmacie exp�rimentale)</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.860340214574444,43.622049609456269</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">74</SimpleData>
+		<SimpleData name="Numero">74.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�                   Montpellier 1                        UFR Staps                                 (B�timent A)</SimpleData>
+		<SimpleData name="Adresse">700, avenue du Pic    Saint-Loup                    34090 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 41 57 00</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.853865045154221,43.640831368514867</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">75</SimpleData>
+		<SimpleData name="Numero">75.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�                   Montpellier 1                        UFR Staps                                 (P1)</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.848757825142704,43.639327895892791</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">76</SimpleData>
+		<SimpleData name="Numero">76.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�                   Montpellier 1                        UFR Staps                                 (Palais des Sports)</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.848723461747885,43.640197075974498</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">77</SimpleData>
+		<SimpleData name="Numero">77.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�              Montpellier 2                        PC Securite</SimpleData>
+		<SimpleData name="Tel">04 67 14 31 11</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.860809255351803,43.632047888442578</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">79</SimpleData>
+		<SimpleData name="Numero">79.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�              Montpellier 2                    Secr�tariat IAE</SimpleData>
+		<SimpleData name="Adresse">place Eug�ne Bataillon
+34095 MONTPELLIER CEDEX 5
+
+
+</SimpleData>
+		<SimpleData name="Tel">04 67 14 31 11</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.86173924183003,43.63243109829871</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">78</SimpleData>
+		<SimpleData name="Numero">78.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�              Montpellier 2               Couloir  de la pr�sidence 1er �tage</SimpleData>
+		<SimpleData name="Tel">04 67 14 31 11</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.864036371331739,43.632095519807017</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">80</SimpleData>
+		<SimpleData name="Numero">80.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�              Montpellier 2                    Laboratoire AREVA</SimpleData>
+		<SimpleData name="Tel">04 67 14 31 11</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.867191282582122,43.634035495876589</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">81</SimpleData>
+		<SimpleData name="Numero">81.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�              Montpellier 2                    SCOPPS</SimpleData>
+		<SimpleData name="Tel">04 67 14 31 11</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.866519380609745,43.632942351266699</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">82</SimpleData>
+		<SimpleData name="Numero">82.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�              Montpellier 2                    Laboratoire L2C</SimpleData>
+		<SimpleData name="Tel">04 67 14 31 11</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.865000721759243,43.632527251317221</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">86</SimpleData>
+		<SimpleData name="Numero">86.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�              Montpellier 2                          Centre Sportif Universitaire     Piscine</SimpleData>
+		<SimpleData name="Tel">04 67 14 31 11</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.863722654477818,43.634770769920038</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">85</SimpleData>
+		<SimpleData name="Numero">85.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�              Montpellier 2                          Centre Sportif Universitaire     Gymnase</SimpleData>
+		<SimpleData name="Adresse">Rue Emile Jeanbreau</SimpleData>
+		<SimpleData name="Tel">04 67 14 31 11</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.864119757317436,43.634431102341928</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">84</SimpleData>
+		<SimpleData name="Numero">84.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit�              Montpellier 2                    HALL IEM</SimpleData>
+		<SimpleData name="Tel">04 67 14 31 11</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.866216017006485,43.635013484093108</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">88</SimpleData>
+		<SimpleData name="Numero">88.00000000000</SimpleData>
+		<SimpleData name="Nom">Universite paul valery montpellier 3                   Loge Entr�e</SimpleData>
+		<SimpleData name="Adresse">Av. Val de montferrand                    34199 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 14 55 23</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.869872940898335,43.631099642099478</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">89</SimpleData>
+		<SimpleData name="Numero">89.00000000000</SimpleData>
+		<SimpleData name="Nom">Universite paul valery   montpellier  batiment Marc Bloch</SimpleData>
+		<SimpleData name="Adresse">Route de mende                          34199 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 14 55 23</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.8691457630511,43.632740375089561</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">90</SimpleData>
+		<SimpleData name="Numero">90.00000000000</SimpleData>
+		<SimpleData name="Nom">Universit� Paul Val�ry  montpellier 3                         Site Saint Charles                     Loge Entr�e</SimpleData>
+		<SimpleData name="Adresse">Rue du Professeur      Henri Serre                   34080 MONTPELLIER           Arr�t tram &quot; albert 1er&quot;</SimpleData>
+		<SimpleData name="Tel">04 67 14 55 23</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.873785748016717,43.616562474014543</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">91</SimpleData>
+		<SimpleData name="Numero">91.00000000000</SimpleData>
+		<SimpleData name="Nom">Montpellier Ecole National Sup�rieure de Chimie</SimpleData>
+		<SimpleData name="Adresse">8, rue de l'�cole Normale       34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 14 72 83</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.867592223127092,43.620839683123144</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">92</SimpleData>
+		<SimpleData name="Numero">92.00000000000</SimpleData>
+		<SimpleData name="Nom">Montpellier Ecole National Sup�rieure de Chimie                                    (Laboratoire)</SimpleData>
+		<SimpleData name="Adresse">104, rue de la gal�ra                  34090 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 14 72 83</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.837383232984115,43.637176153796645</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">93</SimpleData>
+		<SimpleData name="Numero">93.00000000000</SimpleData>
+		<SimpleData name="Nom">Montpellier Ecole National Sup�rieure de Chimie</SimpleData>
+		<SimpleData name="Adresse">220 - 276 rue de la gal�ra      34090 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 14 72 83</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.838285343236106,43.637571081709254</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">94</SimpleData>
+		<SimpleData name="Numero">94.00000000000</SimpleData>
+		<SimpleData name="Nom">CROUS de MONTPELLIER            Restaurants Universitaires         Boutonnet</SimpleData>
+		<SimpleData name="Adresse">2, Rue Emile Duploy� 34090 MONTPELLIER Cedex 01</SimpleData>
+		<SimpleData name="Tel">04 67 63 52 06</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.869407805154179,43.623475677226011</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">95</SimpleData>
+		<SimpleData name="Numero">95.00000000000</SimpleData>
+		<SimpleData name="Nom">CROUS de MONTPELLIER            Restaurants Universitaires                     Triolet</SimpleData>
+		<SimpleData name="Adresse">1061, av. Prof. Joseph Anglada                       34090 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 63 50 16</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.860181252704857,43.63119126136688</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">96</SimpleData>
+		<SimpleData name="Numero">96.00000000000</SimpleData>
+		<SimpleData name="Nom">CROUS de MONTPELLIER            Restaurants Universitaires                    Vert-Bois</SimpleData>
+		<SimpleData name="Adresse">205, rue de la Ch�naie
+34090 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 63 66 45</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.87086361964786,43.634828981045466</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">98</SimpleData>
+		<SimpleData name="Numero">98.00000000000</SimpleData>
+		<SimpleData name="Nom">CROUS de MONTPELLIER            Services Centraux</SimpleData>
+		<SimpleData name="Adresse">2, rue Monteil            34033 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 41 50 08</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.870011357972677,43.622449166238987</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">97</SimpleData>
+		<SimpleData name="Numero">97.00000000000</SimpleData>
+		<SimpleData name="Nom">CROUS de MONTPELLIER            Restaurants Universitaires                    Richter</SimpleData>
+		<SimpleData name="Adresse">80, rue Brumaire- 34000 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 15 84 47</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.899227942280404,43.602893866327456</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">99</SimpleData>
+		<SimpleData name="Numero">99.00000000000</SimpleData>
+		<SimpleData name="Nom">CREPS</SimpleData>
+		<SimpleData name="Adresse">2 Avenue Charles Flahault                                34090 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.866180039179915,43.61911230891495</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">100</SimpleData>
+		<SimpleData name="Numero">100.00000000000</SimpleData>
+		<SimpleData name="Nom">Maison des sports (Sport Et Psychologie) H�rault Sport</SimpleData>
+		<SimpleData name="Adresse">200 avenue du P�re Soulas                            34090 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 54 82 29</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.865833232683773,43.61834239052245</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">101</SimpleData>
+		<SimpleData name="Numero">101.00000000000</SimpleData>
+		<SimpleData name="Nom">H�rault Sport</SimpleData>
+		<SimpleData name="Adresse">747 avenue des apothicaires Parc Eurom�decine�          �34090 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 67 54 82 29</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.835598836620668,43.641664640240577</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">103</SimpleData>
+		<SimpleData name="Numero">103.00000000000</SimpleData>
+		<SimpleData name="Nom">Lyc�e Fr�d�ric Bazille</SimpleData>
+		<SimpleData name="Adresse">3224 route de Mende                    34093 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 63 89 87</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.863901058410198,43.646018038568741</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">104</SimpleData>
+		<SimpleData name="Numero">104.00000000000</SimpleData>
+		<SimpleData name="Nom">Lyc�e Jean Mermoz</SimpleData>
+		<SimpleData name="Adresse">717 avenue Jean Mermoz                             34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 20 60  00</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.890805473145915,43.610863473280943</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">106</SimpleData>
+		<SimpleData name="Numero">106.00000000000</SimpleData>
+		<SimpleData name="Nom">Lyc�e L�onard de Vinci</SimpleData>
+		<SimpleData name="Adresse">Rue du Professeur Blayac                                 34085 MONTPELLIER cedex 4</SimpleData>
+		<SimpleData name="Tel">04 67 10 40 10</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.823132095560043,43.627180979540128</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">105</SimpleData>
+		<SimpleData name="Numero">105.00000000000</SimpleData>
+		<SimpleData name="Nom">Lyc�e Jules Ferry</SimpleData>
+		<SimpleData name="Adresse">270 avenue de la colline           34070 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 10 74 01</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.842267310256449,43.605252863540763</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">107</SimpleData>
+		<SimpleData name="Numero">107.00000000000</SimpleData>
+		<SimpleData name="Nom">Caisse Primaire d'Assurance Maladie</SimpleData>
+		<SimpleData name="Adresse">29 cours Gambetta                   34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 99 52 54 49</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.871109159295172,43.606519609940129</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">108</SimpleData>
+		<SimpleData name="Numero">108.00000000000</SimpleData>
+		<SimpleData name="Nom">Caisse Primaire d'Assurance Maladie</SimpleData>
+		<SimpleData name="Adresse">90 all�e Almicare Calvetti                          34000 Montpellier</SimpleData>
+		<SimpleData name="Tel">04 99 52 54 49</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.821269531676311,43.632201882903807</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">109</SimpleData>
+		<SimpleData name="Numero">109.00000000000</SimpleData>
+		<SimpleData name="Nom">Caisse d'assurance retraite et de la Sant� au travail</SimpleData>
+		<SimpleData name="Adresse">29 cours Gambetta                   34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 12 94 72</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.870643430570439,43.606884762624162</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">110</SimpleData>
+		<SimpleData name="Numero">110.00000000000</SimpleData>
+		<SimpleData name="Nom">Caisse d'assurance retraite et de la Sant� au travail</SimpleData>
+		<SimpleData name="Adresse">Century 2 , 101 place pierre Duhem                                    le millenaire                           34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 12 94 72</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.914655495731823,43.606897850086817</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">111</SimpleData>
+		<SimpleData name="Numero">111.00000000000</SimpleData>
+		<SimpleData name="Nom">Pr�fecture de l'H�rault</SimpleData>
+		<SimpleData name="Adresse">34 Place des Martyrs de la r�sistance                               34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 61 60 45</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.876756796681316,43.611496039958631</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">113</SimpleData>
+		<SimpleData name="Numero">113.00000000000</SimpleData>
+		<SimpleData name="Nom">Cour d'appel</SimpleData>
+		<SimpleData name="Adresse">1 rue Foch                               34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 34 08 81 92</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.872820717345226,43.611284897099516</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">112</SimpleData>
+		<SimpleData name="Numero">112.00000000000</SimpleData>
+		<SimpleData name="Nom">Tribunal de grande instance</SimpleData>
+		<SimpleData name="Adresse">Place Pierre Flotte                         34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 12 61 09</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.869147940177861,43.610200606326849</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">115</SimpleData>
+		<SimpleData name="Numero">115.00000000000</SimpleData>
+		<SimpleData name="Nom">Gare Sncf de Montpellier St Roch</SimpleData>
+		<SimpleData name="Adresse">1, Place Auguste Gibert                         34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">06 25 91 00 28</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.880845029252129,43.604752385262728</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">114</SimpleData>
+		<SimpleData name="Numero">114.00000000000</SimpleData>
+		<SimpleData name="Nom">Hotel de Police de Montpellier</SimpleData>
+		<SimpleData name="Adresse">206 avenue du Comt� de Melgueil                             34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 99 13 50 00</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.891616332676615,43.603513899767918</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">116</SimpleData>
+		<SimpleData name="Numero">116.00000000000</SimpleData>
+		<SimpleData name="Nom">Pharmacie de L'Europe</SimpleData>
+		<SimpleData name="Adresse">2600 avenue de l'europe   34080 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 75 16 37</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.82007583943156,43.64187586057696</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">117</SimpleData>
+		<SimpleData name="Numero">117.00000000000</SimpleData>
+		<SimpleData name="Nom">Pharmacie de l'ovalie</SimpleData>
+		<SimpleData name="Adresse">2750 Boulevard Paul Valery                                                34070 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 27 71 72</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.849641807696657,43.595038397809596</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">118</SimpleData>
+		<SimpleData name="Numero">118.00000000000</SimpleData>
+		<SimpleData name="Nom">Pharmacie Ravoire</SimpleData>
+		<SimpleData name="Adresse">33, Rue du Faubourg Saint JAUMES                       34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 63 38 84</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.869830302647843,43.614755351054676</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">119</SimpleData>
+		<SimpleData name="Numero">119.00000000000</SimpleData>
+		<SimpleData name="Nom">Citroen montpellier</SimpleData>
+		<SimpleData name="Adresse">730 Avenue des pres d'arenes                        34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 12 67 01</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.882997323331729,43.590656785604828</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">120</SimpleData>
+		<SimpleData name="Numero">120.00000000000</SimpleData>
+		<SimpleData name="Nom">Grand Garage de l'H�rault Peugeot Montpellier             (commerce)</SimpleData>
+		<SimpleData name="Adresse">905 rue de l'industrie           34007 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 06 25 02                 04 67 06 25 25</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.881185764929569,43.582959152970446</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">121</SimpleData>
+		<SimpleData name="Numero">121.00000000000</SimpleData>
+		<SimpleData name="Nom">Grand Garage de l'H�rault Peugeot Montpellier             (atelier)</SimpleData>
+		<SimpleData name="Adresse">905 rue de l'industrie           34007 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 06 25 02                 04 67 06 25 25</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.881463304544024,43.583566808993332</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">122</SimpleData>
+		<SimpleData name="Numero">122.00000000000</SimpleData>
+		<SimpleData name="Nom">Centre commercial Polygone                                   PC S�curit�                        (es1 montpellier)</SimpleData>
+		<SimpleData name="Adresse">1 rue des Pertuisanes                        34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 99 41 60</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.88578382216929,43.608322148618782</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">123</SimpleData>
+		<SimpleData name="Numero">123.00000000000</SimpleData>
+		<SimpleData name="Nom">Fnac Montpellier</SimpleData>
+		<SimpleData name="Adresse">Centre cial Le Polygone   1 rue des Pertuisanes                        34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 34 09 06 55</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.885670115186481,43.608533047056206</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">124</SimpleData>
+		<SimpleData name="Numero">124.00000000000</SimpleData>
+		<SimpleData name="Nom">Galeries La Fayette</SimpleData>
+		<SimpleData name="Adresse">Centre cial Le Polygone   1 rue des Pertuisanes      BP 3521                        34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 64 83 00</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.88553285006611,43.608109223125254</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">125</SimpleData>
+		<SimpleData name="Numero">125.00000000000</SimpleData>
+		<SimpleData name="Nom">G�ant casino                    Pr�s d'Ar�nes                    (Pc S�curit�)</SimpleData>
+		<SimpleData name="Adresse">504 Avenue du mas              d'argelliers                          34070 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 86 43 69</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.888085233429464,43.586264441134951</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">126</SimpleData>
+		<SimpleData name="Numero">126.00000000000</SimpleData>
+		<SimpleData name="Nom">G�ant casino                    Celleneuve                           (Pc S�curit�)</SimpleData>
+		<SimpleData name="Adresse">129 bis avenue de Lod�ve                           34070 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 86 43 69              04 99  77 34 00</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.839920520151881,43.612522427503386</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">127</SimpleData>
+		<SimpleData name="Numero">127.00000000000</SimpleData>
+		<SimpleData name="Nom">Centre Commercial Odysseum</SimpleData>
+		<SimpleData name="Adresse">2 place de Lisbonne         34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 13 50 55</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.920461061790759,43.604526033133396</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">128</SimpleData>
+		<SimpleData name="Numero">128.00000000000</SimpleData>
+		<SimpleData name="Nom">Magasin IKEA</SimpleData>
+		<SimpleData name="Adresse">Odysseum                              34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.924383299236909,43.604147781714673</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">129</SimpleData>
+		<SimpleData name="Numero">129.00000000000</SimpleData>
+		<SimpleData name="Nom">Chronopost</SimpleData>
+		<SimpleData name="Adresse">1129  Rue de la castelle            34070 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 99 11 03                    06 69 58 35 62</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.868854618934719,43.577230331978079</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">130</SimpleData>
+		<SimpleData name="Numero">130.00000000000</SimpleData>
+		<SimpleData name="Nom">DELL</SimpleData>
+		<SimpleData name="Adresse">1 rond-point Benjamin Franklin                               34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">06 58 57 85 24</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.911693601479729,43.618422886403074</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">131</SimpleData>
+		<SimpleData name="Numero">131.00000000000</SimpleData>
+		<SimpleData name="Nom">France 3 Sud Montpellier</SimpleData>
+		<SimpleData name="Adresse">10 all�e John Napier             34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 20 30 40</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.909214597808025,43.614565866122149</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">132</SimpleData>
+		<SimpleData name="Numero">132.00000000000</SimpleData>
+		<SimpleData name="Nom">France Telecom</SimpleData>
+		<SimpleData name="Adresse">245 rue de la Gal�ra                     34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 14 66 66</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.837043019554525,43.638417572050059</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">133</SimpleData>
+		<SimpleData name="Numero">133.00000000000</SimpleData>
+		<SimpleData name="Nom">Sanofi Aventis</SimpleData>
+		<SimpleData name="Adresse">371 rue professeur Blayac                             34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 99 77 78 79</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.829435697608503,43.62342834309365</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">134</SimpleData>
+		<SimpleData name="Numero">134.00000000000</SimpleData>
+		<SimpleData name="Nom">Veolia Eau</SimpleData>
+		<SimpleData name="Adresse">765 rue Henri Becquerel      BP41246                                      34965 MONTPELLIER CEDEX 2</SimpleData>
+		<SimpleData name="Tel">04 67 20 73 73                               06 20 69 33 70</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.915172782104117,43.612096722738904</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">135</SimpleData>
+		<SimpleData name="Numero">135.00000000000</SimpleData>
+		<SimpleData name="Nom">Banque de France</SimpleData>
+		<SimpleData name="Adresse">98 avenue de Lod�ve                 34061 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 06 79 74</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.853501369431331,43.610272961980627</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">136</SimpleData>
+		<SimpleData name="Numero">136.00000000000</SimpleData>
+		<SimpleData name="Nom">Mutuelle des motards</SimpleData>
+		<SimpleData name="Adresse">1056 rue de la croix verte                        34294 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 72 73 20</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.843155281998921,43.642457500045857</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">137</SimpleData>
+		<SimpleData name="Numero">137.00000000000</SimpleData>
+		<SimpleData name="Nom">Mutuelle des motards</SimpleData>
+		<SimpleData name="Adresse">1027 rue de la croix verte                        34294 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 72 73 20</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.843510219370915,43.643036292019765</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">138</SimpleData>
+		<SimpleData name="Numero">138.00000000000</SimpleData>
+		<SimpleData name="Nom">Groupama Sud</SimpleData>
+		<SimpleData name="Adresse">Place Jean Antoine de Chaptal                              34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 34 78 86</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.867481814127475,43.60312657935679</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">139</SimpleData>
+		<SimpleData name="Numero">139.00000000000</SimpleData>
+		<SimpleData name="Nom">Montpellier beton                      SERVANT Prestations</SimpleData>
+		<SimpleData name="Adresse">1, Rue de la Premi�re �cluse                             34070 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 92 15 10</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.895781836107501,43.587763229626553</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">140</SimpleData>
+		<SimpleData name="Numero">140.00000000000</SimpleData>
+		<SimpleData name="Nom">H�tel IBIS Centre Com�die</SimpleData>
+		<SimpleData name="Adresse">All�e Jules Milhau       Immeuble le Triangle               34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 99 13 29 99</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.883159270706935,43.60898812256702</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">141</SimpleData>
+		<SimpleData name="Numero">141.00000000000</SimpleData>
+		<SimpleData name="Nom">H�tel IBIS Montpellier Sud</SimpleData>
+		<SimpleData name="Adresse">164 avenue palavas                 34070 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67  58 82 30</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.891727497290893,43.589250255164302</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">142</SimpleData>
+		<SimpleData name="Numero">142.00000000000</SimpleData>
+		<SimpleData name="Nom">Hotel mercure</SimpleData>
+		<SimpleData name="Adresse">Carrefour de l'aeroport               34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 20 63 63</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.894071817597844,43.608944563164776</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">143</SimpleData>
+		<SimpleData name="Numero">143.00000000000</SimpleData>
+		<SimpleData name="Nom">Hotel mercure centre</SimpleData>
+		<SimpleData name="Adresse">Rue de la Spirale                34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 99 89 89</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.885475414882884,43.609090269037232</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">144</SimpleData>
+		<SimpleData name="Numero">144.00000000000</SimpleData>
+		<SimpleData name="Nom">H�tel NOVOTEL</SimpleData>
+		<SimpleData name="Adresse">125 avenue Palavas                        34070 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 99 52 34 34</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.892349911033258,43.589548765856307</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">145</SimpleData>
+		<SimpleData name="Numero">145.00000000000</SimpleData>
+		<SimpleData name="Nom">CRS 56</SimpleData>
+		<SimpleData name="Adresse">1 Rue Louis L�pine              34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 13 17 00</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.906532507628287,43.612219880819396</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">146</SimpleData>
+		<SimpleData name="Numero">146.00000000000</SimpleData>
+		<SimpleData name="Nom">Accueil clinique du millenaire                              Accueil</SimpleData>
+		<SimpleData name="Adresse">220 bd penelope           34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 99 53 61 03</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.913754910761697,43.602075429109092</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">147</SimpleData>
+		<SimpleData name="Numero">147.00000000000</SimpleData>
+		<SimpleData name="Nom">Accueil clinique du millenaire                                        Urgences</SimpleData>
+		<SimpleData name="Adresse">220 bd penelope           34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 99 53 61 03</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.913539893749371,43.601496603382017</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">148</SimpleData>
+		<SimpleData name="Numero">148.00000000000</SimpleData>
+		<SimpleData name="Nom">Ametra</SimpleData>
+		<SimpleData name="Adresse">201 place de Thessalie         34000 MONTPELLIER</SimpleData>
+		<SimpleData name="Tel">04 67 84 76 40</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.892267404401615,43.607560363220628</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">149</SimpleData>
+		<SimpleData name="Numero">149.00000000000</SimpleData>
+		<SimpleData name="Nom">apec</SimpleData>
+		<SimpleData name="Adresse">170 rue leon blum          34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.890527418785093,43.60879115042799</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">150</SimpleData>
+		<SimpleData name="Numero">150.00000000000</SimpleData>
+		<SimpleData name="Nom">Arcade SFGE</SimpleData>
+		<SimpleData name="Adresse">1-55 Rue de la Constituante                       34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.894223236047369,43.60190666870551</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">151</SimpleData>
+		<SimpleData name="Numero">151.00000000000</SimpleData>
+		<SimpleData name="Nom">ASPM SECTION AFPS</SimpleData>
+		<SimpleData name="Adresse">1635 Avenue Albert Einstein                                   34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.91678043227754,43.611353263681259</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">152</SimpleData>
+		<SimpleData name="Numero">152.00000000000</SimpleData>
+		<SimpleData name="Nom">Caf�t�ria UFR AES</SimpleData>
+		<SimpleData name="Adresse">257-269 Rue Vend�miaire  34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.899352187452509,43.603025020350913</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">153</SimpleData>
+		<SimpleData name="Numero">153.00000000000</SimpleData>
+		<SimpleData name="Nom">Caisse MSA Languedoc</SimpleData>
+		<SimpleData name="Adresse">4 place Jean Antoine de Chaptal                             34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.867250326634346,43.602995749697136</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">154</SimpleData>
+		<SimpleData name="Numero">154.00000000000</SimpleData>
+		<SimpleData name="Nom">Centre Mutualiste Neurologique PROPARA</SimpleData>
+		<SimpleData name="Adresse">263 Rue du Caduc�e                    34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.832210409544138,43.64338434969406</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">155</SimpleData>
+		<SimpleData name="Numero">155.00000000000</SimpleData>
+		<SimpleData name="Nom">Communaute d Agglomeration de Montpellier</SimpleData>
+		<SimpleData name="Adresse">50 place Zeus</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.890641484438891,43.607613205215181</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">156</SimpleData>
+		<SimpleData name="Numero">156.00000000000</SimpleData>
+		<SimpleData name="Nom">D.D.S.I.S. HERAULT</SimpleData>
+		<SimpleData name="Adresse">2 Rue Duval-Jouve                  34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.865424591227477,43.61031132735495</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">157</SimpleData>
+		<SimpleData name="Numero">157.00000000000</SimpleData>
+		<SimpleData name="Nom">DDTM34 - site du Mill�naire</SimpleData>
+		<SimpleData name="Adresse">233 rue Guglielmo Marconi                                34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.911251895363346,43.612133016283003</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">158</SimpleData>
+		<SimpleData name="Numero">158.00000000000</SimpleData>
+		<SimpleData name="Nom">Ecole Sup�rieure Des Beaux Arts</SimpleData>
+		<SimpleData name="Adresse">130 Rue Yehudi Menuhin              34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.883982989080515,43.61719341531802</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">159</SimpleData>
+		<SimpleData name="Numero">159.00000000000</SimpleData>
+		<SimpleData name="Nom">Facult� de Droit</SimpleData>
+		<SimpleData name="Adresse">Rue de l'Ecole Mage              34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.876879443595654,43.613713295121137</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">160</SimpleData>
+		<SimpleData name="Numero">160.00000000000</SimpleData>
+		<SimpleData name="Nom">faculte de pharmacie</SimpleData>
+		<SimpleData name="Adresse">15 avenue charles flahault                         34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.861858404327919,43.623950676634486</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">161</SimpleData>
+		<SimpleData name="Numero">161.00000000000</SimpleData>
+		<SimpleData name="Nom">fafsea</SimpleData>
+		<SimpleData name="Adresse">2460 avenue albert einstein                                 34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.92771433730693,43.610620089829659</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">162</SimpleData>
+		<SimpleData name="Numero">162.00000000000</SimpleData>
+		<SimpleData name="Nom">Hotel des impots</SimpleData>
+		<SimpleData name="Adresse">40 rue de louvois                  34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.819696887146688,43.632342313291005</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">163</SimpleData>
+		<SimpleData name="Numero">163.00000000000</SimpleData>
+		<SimpleData name="Nom">Inset de Montpellier</SimpleData>
+		<SimpleData name="Adresse">76 Place de la R�volution   34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.898251488993558,43.603974026878433</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">164</SimpleData>
+		<SimpleData name="Numero">164.00000000000</SimpleData>
+		<SimpleData name="Nom">maison agriculture</SimpleData>
+		<SimpleData name="Adresse">place chaptal                                 34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.866333273255976,43.60388609130235</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">165</SimpleData>
+		<SimpleData name="Numero">165.00000000000</SimpleData>
+		<SimpleData name="Nom">TALCO LR</SimpleData>
+		<SimpleData name="Adresse">40 rue de Pinville              34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.905060632380539,43.613808747482736</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">166</SimpleData>
+		<SimpleData name="Numero">166.00000000000</SimpleData>
+		<SimpleData name="Nom">Zenith Sud</SimpleData>
+		<SimpleData name="Adresse">avenue Albert Einstein                     34000 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.930747029399894,43.612822843296364</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">168</SimpleData>
+		<SimpleData name="Numero">168.00000000000</SimpleData>
+		<SimpleData name="Nom">Action d'Urgence Internationale</SimpleData>
+		<SimpleData name="Adresse">1401 rue de fontcouverte                   34070 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.852558975155362,43.593528804692582</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">169</SimpleData>
+		<SimpleData name="Numero">169.00000000000</SimpleData>
+		<SimpleData name="Nom">Cfpmea</SimpleData>
+		<SimpleData name="Adresse">501 des metairies de saysset                                   34070 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.894237077137118,43.590608774972353</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">172</SimpleData>
+		<SimpleData name="Numero">172.00000000000</SimpleData>
+		<SimpleData name="Nom">Amphitheatre d'O</SimpleData>
+		<SimpleData name="Adresse">121 Rue de la Carri�rasse                  34090 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.835077672976051,43.635121334049785</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">173</SimpleData>
+		<SimpleData name="Numero">173.00000000000</SimpleData>
+		<SimpleData name="Nom">B�timent k Iut montpellier 2</SimpleData>
+		<SimpleData name="Adresse">139 Avenue d'Occitanie                       34090 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.851495781015491,43.635035817859496</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">174</SimpleData>
+		<SimpleData name="Numero">174.00000000000</SimpleData>
+		<SimpleData name="Nom">Bibliotheque st charles</SimpleData>
+		<SimpleData name="Adresse">Rue auguste broussonnet                         34090 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.872583166601083,43.615536136352745</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">175</SimpleData>
+		<SimpleData name="Numero">175.00000000000</SimpleData>
+		<SimpleData name="Nom">Centre de formation professionnel croix rouge</SimpleData>
+		<SimpleData name="Adresse">Rue de la valesi�re                    34090 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.830095458010836,43.641533489159578</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">176</SimpleData>
+		<SimpleData name="Numero">176.00000000000</SimpleData>
+		<SimpleData name="Nom">Chru</SimpleData>
+		<SimpleData name="Adresse">Avenue Augustin Fliche                               34090 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.861512926596678,43.629597645031382</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">177</SimpleData>
+		<SimpleData name="Numero">177.00000000000</SimpleData>
+		<SimpleData name="Nom">Chru euromed</SimpleData>
+		<SimpleData name="Adresse">Rue du caduce                         34090 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.835013744227638,43.642551063990659</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">179</SimpleData>
+		<SimpleData name="Numero">179.00000000000</SimpleData>
+		<SimpleData name="Nom">CHU Lapeyronie hall d'accueil</SimpleData>
+		<SimpleData name="Adresse">Pont Lapeyronie                            34090 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.852075809194118,43.630137553355119</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">178</SimpleData>
+		<SimpleData name="Numero">178.00000000000</SimpleData>
+		<SimpleData name="Nom">Chru lapeyronie</SimpleData>
+		<SimpleData name="Adresse">Avenue du doyen gaston giraud                                  34090 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.850812897921802,43.631302303357174</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">181</SimpleData>
+		<SimpleData name="Numero">181.00000000000</SimpleData>
+		<SimpleData name="Nom">Ipl sant� envirronement durable M�diterrran�e</SimpleData>
+		<SimpleData name="Adresse">778 rue de la croix verte                  34090 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.840834654167038,43.644715567469973</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">182</SimpleData>
+		<SimpleData name="Numero">182.00000000000</SimpleData>
+		<SimpleData name="Nom">Les Jardins de Grasse</SimpleData>
+		<SimpleData name="Adresse">1482 Rue de Saint-Priest                            34090 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.835342427433039,43.637540491041698</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">183</SimpleData>
+		<SimpleData name="Numero">183.00000000000</SimpleData>
+		<SimpleData name="Nom">Parcs Nationaux de France</SimpleData>
+		<SimpleData name="Adresse">1037 rue Jean Fran�ois Breton                            34090 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.878717368588054,43.647417878416327</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">187</SimpleData>
+		<SimpleData name="Numero">187.00000000000</SimpleData>
+		<SimpleData name="Nom">Cirad</SimpleData>
+		<SimpleData name="Adresse">Avenue agropolis     34398 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.868430789817982,43.650488411808723</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">188</SimpleData>
+		<SimpleData name="Numero">188.00000000000</SimpleData>
+		<SimpleData name="Nom">Mornay</SimpleData>
+		<SimpleData name="Adresse">26 allee jules milhau            34965 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.883354680063808,43.609020442377215</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">189</SimpleData>
+		<SimpleData name="Numero">189.00000000000</SimpleData>
+		<SimpleData name="Nom">Boulodrome Bernard Gasset</SimpleData>
+		<SimpleData name="Adresse">122 avenue Maurice Plan�s                                 34070 MONTPELLIER</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.843291698985538,43.596780650132175</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">190</SimpleData>
+		<SimpleData name="Numero">190.00000000000</SimpleData>
+		<SimpleData name="Nom">Cuisine Centrale</SimpleData>
+		<SimpleData name="Adresse">950 all�e de la Martelle        34070 Mtp</SimpleData>
+		<SimpleData name="Tel">04 67 15 92 69</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.841062826972373,43.600069012999029</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">0</SimpleData>
+		<SimpleData name="Numero">0.00000000000</SimpleData>
+		<SimpleData name="Nom">Centre de Culture Contemporaine La Panac�e</SimpleData>
+		<SimpleData name="Adresse">14 rue �cole de pharmacie</SimpleData>
+		<SimpleData name="Tel">04 34 88 79 79</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.878266733413996,43.612599728940744</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#VilleMTP_MTP_Defibrillateurs">
+		<SimpleData name="Id">0</SimpleData>
+		<SimpleData name="Numero">0.00000000000</SimpleData>
+		<SimpleData name="Nom">Ancien H�tel de Ville (Poste de Police Municipale)</SimpleData>
+		<SimpleData name="Adresse">1 Place Fran�is Ponge</SimpleData>
+		<SimpleData name="Tel">04 67 34 71 45</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>3.884142802861342,43.609300940241802</coordinates></Point>
+  </Placemark>
+</Folder>
+</Document></kml>
