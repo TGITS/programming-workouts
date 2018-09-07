@@ -1,3 +1,3 @@
 # Programming workouts
 
-Small programming exercises in Java 8 and Clojure, some kind of small programming workouts :-).
+Small programming exercises in various languages, some kind of small programming workouts :-). Some are classical katas or programmings exercices. Some are solutions to puzzles from CodinGame.
