@@ -1,0 +1,21 @@
+{
+  "name": "aneo",
+  "version": "1.0.0",
+  "description": "CodinGame Puzzle sponsorized by Aneo",
+  "main": "solution.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "CodinGame",
+    "Aneo",
+    "Puzzle",
+    "Kata"
+  ],
+  "author": "TGITS",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}
