@@ -1,0 +1,16 @@
+exercism configure --token=0118cf7f-4936-4a31-835b-d2cafacfaf8e
+
+You have configured the Exercism command-line client:
+
+Config dir:                       /Users/christophe/.config/exercism
+Token:         (-t, --token)      0118cf7f-4936-4a31-835b-d2cafacfaf8e
+Workspace:     (-w, --workspace)  /Users/christophe/Exercism
+API Base URL:  (-a, --api)        https://api.exercism.io/v1
+
+You have configured the Exercism command-line client:
+
+Config dir:                       /Users/christophe/.config/exercism
+Token:         (-t, --token)      0118cf7f-4936-4a31-835b-d2cafacfaf8e
+Workspace:     (-w, --workspace)  /Users/christophe/Documents/Perso/Workspace/programming-workouts/exercism
+API Base URL:  (-a, --api)        https://api.exercism.io/v1
+
