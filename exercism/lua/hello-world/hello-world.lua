@@ -11,7 +11,7 @@ function hello_world.hello()
   -- When you have a working solution, REMOVE ALL THE STOCK COMMENTS.
   -- They're here to help you get started but they only clutter a finished solution.
   -- If you leave them in, reviewers will protest!
-  return ''
+  return 'Hello, World!'
 end
 
 -- Return the hello_world table to make it accessible as a module.
