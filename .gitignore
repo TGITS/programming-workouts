@@ -381,3 +381,6 @@ wrapper
 kobaltBuild
 programming-workouts_hdi_settings.json
 /scala/codingame/practice/easy/solution_horse_racing_hyperdual.scala.backup
+
+# Ignoring working file of Stack (Haskell)
+.stack-work
