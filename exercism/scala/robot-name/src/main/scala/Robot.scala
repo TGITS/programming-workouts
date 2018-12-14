@@ -4,7 +4,7 @@ import scala.util.Random
 class Robot() {
   var name = Robot.createUniqueName(2,3)
   def reset(): Unit = {
-    //Robot.deleteNameFromSet(name)
+    Robot.deleteNameFromSet(name)
     name = Robot.createUniqueName(2,3)
   }
 }
