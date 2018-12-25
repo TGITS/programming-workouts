@@ -1,6 +1,22 @@
 (ns armstrong-numbers-test
   (:require [clojure.test :refer [deftest is testing]]
-            [armstrong-numbers :refer [armstrong?]]))
+            [armstrong-numbers :refer [armstrong? count-number-of-digits number-to-digits-list]]))
+
+(deftest count-digit-in-number-5
+  (testing "The number of digits of a single digit number"
+    (is (= 1 (count-number-of-digits 5)))))
+
+(deftest count-digit-in-number-10
+  (testing "The number of digits of a 2-digits number"
+    (is (= 2 (count-number-of-digits 10)))))
+
+(deftest count-digit-in-number-153
+  (testing "The number of digits of a 3-digits number"
+    (is (= 3 (count-number-of-digits 153)))))
+
+(deftest number-to-digits-list-153
+  (testing "Tranforming a number in a list of digit"
+    (is (= [1 5 3] (number-to-digits-list 153)))))
 
 (deftest armstrong-number-5
   (testing "Single digit numbers are Armstrong numbers"
