@@ -45,8 +45,7 @@
     },
     {
       "name": "Arryn of Gulltown",
-      "main_seat",
-      "Gulltown"
+      "main_seat" : "Gulltown"
     },
     {
       "name": "Tully",
