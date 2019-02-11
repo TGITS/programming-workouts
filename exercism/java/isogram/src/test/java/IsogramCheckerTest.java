@@ -10,7 +10,7 @@ public class IsogramCheckerTest {
         IsogramChecker iso = new IsogramChecker();
         assertFalse(iso.isIsogram(null));
     }
-    
+
     @Test
     public void testEmptyString() {
         IsogramChecker iso = new IsogramChecker();
