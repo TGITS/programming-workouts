@@ -6,6 +6,12 @@ import static org.junit.Assert.*;
 public class IsogramCheckerTest {
 
     @Test
+    public void testNullString() {
+        IsogramChecker iso = new IsogramChecker();
+        assertFalse(iso.isIsogram(null));
+    }
+    
+    @Test
     public void testEmptyString() {
         IsogramChecker iso = new IsogramChecker();
         assertTrue(iso.isIsogram(""));
