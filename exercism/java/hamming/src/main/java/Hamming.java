@@ -1,13 +1,18 @@
-import java.util.ArrayList;
-import java.util.List;
-
 class Hamming {
 
     private String leftStrand;
     private String rightStrand;
 
     Hamming(String leftStrand, String rightStrand) {
-        if(leftStrand.length() != rightStrand.length()) {
+        if(leftStrand.length() == 0 && rightStrand.length() != 0) {
+            throw new IllegalArgumentException("left strand must not be empty.");
+        }
+
+        if(rightStrand.length() == 0 && leftStrand.length() != 0) {
+            throw new IllegalArgumentException("right strand must not be empty.");
+        }
+
+        if (leftStrand.length() != rightStrand.length()) {
             throw new IllegalArgumentException("leftStrand and rightStrand must be of equal length.");
         }
 
@@ -17,37 +22,19 @@ class Hamming {
 
     int getHammingDistance() {
 
-        if(this.leftStrand == this.rightStrand) {
+        if (this.leftStrand == this.rightStrand) {
             return 0;
         }
 
-        return Long.valueOf(zip(this.leftStrand,this.rightStrand).stream().filter(PairOfStrings::isPairDifferent).count()).intValue();
-    }
+        int differencesCount = 0;
 
-    private List<PairOfStrings> zip(String left, String right) {
-        List<PairOfStrings> pairs = new ArrayList<>();
-        for(int i = 0; i < left.length(); i++) {
-            pairs.add(new PairOfStrings(Character.toString(left.charAt(i)),Character.toString(right.charAt(i))));
-        }
-        return pairs;
-    }
-
-    private static class PairOfStrings {
-        private final String first;
-        private final String second;
-
-        public PairOfStrings(String first, String second) {
-            this.first = first;
-            this.second = second;
+        for (int i = 0; i < leftStrand.length(); i++) {
+            if (leftStrand.charAt(i) != rightStrand.charAt(i)) {
+                differencesCount++;
+            }
         }
 
-        public boolean isPairIdentical() {
-            return this.first.equals(this.second);
-        }
-
-        public boolean isPairDifferent() {
-            return !isPairIdentical();
-        }
+        return differencesCount;
     }
 
 }
