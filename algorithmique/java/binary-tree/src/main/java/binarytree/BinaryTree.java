@@ -1,82 +1,81 @@
 package binarytree;
 
+import io.vavr.Tuple;
+import io.vavr.Tuple2;
+import lombok.Data;
+import lombok.NonNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
 public class BinaryTree<K extends Comparable<K>,V> {
-	private K id;
-	private V content;
-	private BinaryTree<K, V> right;
-	private BinaryTree<K, V> left;
+    @NonNull
+    private final K id;
+    @NonNull
+    private V content;
+    private BinaryTree<K, V> right;
+    private BinaryTree<K, V> left;
 
-	public BinaryTree(K id, V value) {
-		this.id = id;
-		this.content = value;
-		this.right = null;
-		this.left = null;
-	}
+    public List<Tuple2<K, V>> getNodesInPrefixOrder() {
+        List<Tuple2<K, V>> nodesInPrefixOrder = new ArrayList<>();
+        nodesInPrefixOrder.add(Tuple.of(id, content));
 
-	public void setRight(BinaryTree<K, V> right) {
-		this.right = right;
-	}
+        if (this.left != null) {
+            nodesInPrefixOrder.addAll(left.getNodesInPrefixOrder());
+        }
 
-	public BinaryTree<K, V> getRight() {
-		return right;
-	}
+        if (this.right != null) {
+            nodesInPrefixOrder.addAll(right.getNodesInPrefixOrder());
+        }
 
-	public void setLeft(BinaryTree<K, V> left) {
-		this.left = left;
-	}
+        return nodesInPrefixOrder;
+    }
 
-	public BinaryTree<K, V> getLeft() {
-		return left;
-	}
+    public String displayPrefixTraversal() {
+        return getNodesInPrefixOrder().toString();
+    }
 
-	public V getContent() {
-		return content;
-	}
+    public List<Tuple2<K, V>> getNodesInInfixOrder() {
+        List<Tuple2<K, V>> nodesInInfixOrder = new ArrayList<>();
 
-	public String prefix() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(id);
+        if (this.left != null) {
+            nodesInInfixOrder.addAll(this.left.getNodesInInfixOrder());
+        }
 
-		if (getLeft() != null) {
-			sb.append(getLeft().prefix());
-		}
+        nodesInInfixOrder.add(Tuple.of(id, content));
 
-		if (getRight() != null) {
-			sb.append(getRight().prefix());
-		}
+        if (this.right != null) {
+            nodesInInfixOrder.addAll(this.right.getNodesInInfixOrder());
+        }
 
-		return sb.toString();
-	}
+        return nodesInInfixOrder;
+    }
 
-	public String infix() {
-		StringBuilder sb = new StringBuilder();
+    public String displayInfixTraversal() {
+        return getNodesInInfixOrder().toString();
+    }
 
-		if (getLeft() != null) {
-			sb.append(getLeft().infix());
-		}
+    public List<Tuple2<K, V>> getNodesInPostfixOrder() {
+        List<Tuple2<K, V>> nodesInPostfixOrder = new ArrayList<>();
 
-		sb.append(id);
+        if (this.left != null) {
+            nodesInPostfixOrder.addAll(this.left.getNodesInPostfixOrder());
+        }
 
-		if (getRight() != null) {
-			sb.append(getRight().infix());
-		}
+        if (this.right != null) {
+            nodesInPostfixOrder.addAll(this.right.getNodesInPostfixOrder());
+        }
 
-		return sb.toString();
-	}
+        nodesInPostfixOrder.add(Tuple.of(id, content));
 
-	public String postfix() {
-		StringBuilder sb = new StringBuilder();
+        return nodesInPostfixOrder;
+    }
 
-		if (getLeft() != null) {
-			sb.append(getLeft().postfix());
-		}
+    public String displayPostfixTraversal() {
+        return getNodesInPostfixOrder().toString();
+    }
 
-		if (getRight() != null) {
-			sb.append(getRight().postfix());
-		}
 
-		sb.append(id);
 
-		return sb.toString();
-	}
 }
