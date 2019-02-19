@@ -22,6 +22,10 @@ class Hamming {
         this.rightStrand = rightStrand;
     }
 
+    int getHammingDistance() {
+        return (int)IntStream.range(0,this.leftStrand.length()).mapToObj( i -> leftStrand.charAt(i) != rightStrand.charAt(i)).filter( v -> v == true).count();
+    }
+
     int getHammingDistanceClassicalWay() {
 
         if (this.leftStrand == this.rightStrand) {
@@ -37,10 +41,6 @@ class Hamming {
         }
 
         return differencesCount;
-    }
-
-    int getHammingDistance() {
-        return (int)IntStream.range(0,this.leftStrand.length()).mapToObj( i -> leftStrand.charAt(i) != rightStrand.charAt(i)).filter( v -> v == true).count();
     }
 
 }
