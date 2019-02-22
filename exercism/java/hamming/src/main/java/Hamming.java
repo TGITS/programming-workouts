@@ -6,11 +6,11 @@ class Hamming {
     private String rightStrand;
 
     Hamming(String leftStrand, String rightStrand) {
-        if(leftStrand.length() == 0 && rightStrand.length() != 0) {
+        if (leftStrand.length() == 0 && rightStrand.length() != 0) {
             throw new IllegalArgumentException("left strand must not be empty.");
         }
 
-        if(rightStrand.length() == 0 && leftStrand.length() != 0) {
+        if (rightStrand.length() == 0 && leftStrand.length() != 0) {
             throw new IllegalArgumentException("right strand must not be empty.");
         }
 
@@ -23,7 +23,7 @@ class Hamming {
     }
 
     int getHammingDistance() {
-        return (int)IntStream.range(0,this.leftStrand.length()).mapToObj( i -> leftStrand.charAt(i) != rightStrand.charAt(i)).filter( v -> v == true).count();
+        return (int) IntStream.range(0, this.leftStrand.length()).filter(i -> leftStrand.charAt(i) != rightStrand.charAt(i)).count();
     }
 
     int getHammingDistanceClassicalWay() {
@@ -42,5 +42,4 @@ class Hamming {
 
         return differencesCount;
     }
-
 }
