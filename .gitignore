@@ -494,3 +494,5 @@ typings/
 .exercism
 .exercism
 .exercism
+/exercism/csharp/hello-world/obj
+/dotnet/csharp/basic/myApp/obj
