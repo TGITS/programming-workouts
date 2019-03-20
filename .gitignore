@@ -496,3 +496,4 @@ typings/
 .exercism
 /exercism/csharp/hello-world/obj
 /dotnet/csharp/basic/myApp/obj
+/exercism/python/.pytest_cache
