@@ -499,3 +499,4 @@ typings/
 /exercism/python/.pytest_cache
 /exercism/csharp/two-fer/obj
 /exercism/perl6/hello-world/.precomp
+/exercism/perl6/leap/.precomp
