@@ -1,20 +1,32 @@
 import random
+import string
 
 class Robot(object):
-
-    _letters = list("ABCDEFGHIJKMNOPQRSTUVWXYZ")
-    _already_used_names = {}
+    already_used_names = set()
 
     def __init__(self):
         random.seed()
+        self.name = None
         self.reset()
 
+    def generate_random_name(self):
+        return "{}{}{}{}{}".format(
+            random.choice(string.ascii_uppercase), 
+            random.choice(string.ascii_uppercase), 
+            random.randint(0,9), 
+            random.randint(0,9),
+            random.randint(0,9))
+    
     def reset(self):
-        name = "{}{}{}{}{}".format(random.choice(Robot._letters), random.choice(Robot._letters), random.randint(0,9), random.randint(0,9),random.randint(0,9))
-        if name in Robot._already_used_names:
+        if self.name :
+            Robot.already_used_names.remove(self.name)
+        
+        self.name = self.generate_random_name()
+
+        if self.name in Robot.already_used_names:
             self.reset()
         else:
-            Robot._already_used_names.add(name)
-            self.name = name
+            Robot.already_used_names.add(self.name)
+            
 
 
