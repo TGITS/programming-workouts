@@ -1,18 +1,21 @@
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 
 class Gigasecond {
 
+    private static final long ONE_BILLION = 1_000_000_000;
+
+    private LocalDateTime moment;
+
     Gigasecond(LocalDate moment) {
-        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
+        this.moment = moment.atStartOfDay();
     }
 
     Gigasecond(LocalDateTime moment) {
-        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
+        this.moment = moment;
     }
 
     LocalDateTime getDateTime() {
-        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
+       return moment.plusSeconds(ONE_BILLION);
     }
 
 }
