@@ -24,7 +24,6 @@ public class DiamondPrinterTest {
         assertThat(output, is(singletonList("A")));
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void testTwoByTwoDiamond() {
         List<String> output = diamondPrinter.printToList('B');

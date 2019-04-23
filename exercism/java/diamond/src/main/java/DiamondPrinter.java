@@ -1,9 +1,13 @@
+import java.util.ArrayList;
 import java.util.List;
 
 class DiamondPrinter {
 
-    List<String> printToList(char a) {
-        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
-    }
+    private static final String UPPERCASE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+    public List<String> printToList(char a) {
+        List<String> lines = new ArrayList<>();
+        lines.add(Character.toString(a));
+        return lines;
+    }
 }
