@@ -14,7 +14,7 @@ class Proverb {
         if (words == null || words.length == 0) {
             return "";
         }
-        
+
         StringBuilder sb = new StringBuilder();
         if (words.length > 1) {
             for (int i = 0; i < words.length - 1; i++) {
