@@ -21,7 +21,6 @@ public class BobTest {
         );
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void shouting() {
         assertEquals(
@@ -30,7 +29,6 @@ public class BobTest {
         );
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void shoutingGibberish() {
         assertEquals(
@@ -39,7 +37,6 @@ public class BobTest {
         );
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void askingAQuestion() {
         assertEquals(
@@ -48,7 +45,6 @@ public class BobTest {
         );
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void askingANumericQuestion() {
         assertEquals(
@@ -57,7 +53,6 @@ public class BobTest {
         );
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void askingGibberish() {
         assertEquals(
@@ -66,7 +61,6 @@ public class BobTest {
         );
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void talkingForcefully() {
         assertEquals(
@@ -75,7 +69,6 @@ public class BobTest {
         );
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void usingAcronymsInRegularSpeech() {
         assertEquals(
@@ -83,7 +76,6 @@ public class BobTest {
         );
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void forcefulQuestions() {
         assertEquals(
@@ -91,7 +83,6 @@ public class BobTest {
         );
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void shoutingNumbers() {
         assertEquals(
@@ -99,7 +90,6 @@ public class BobTest {
         );
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void onlyNumbers() {
         assertEquals(
