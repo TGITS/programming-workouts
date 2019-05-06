@@ -888,7 +888,7 @@
                         "Mark Mylod"
                     ],
                     "writers": [
-                        "Bryan Cogmans"
+                        "Bryan Cogman"
                     ],
                     "original_air_date": "July 23, 2017",
                     "number_us_viewers": "9.27"
@@ -902,7 +902,7 @@
                     ],
                     "writers": [
                         "David Benioff",
-                        "D. B. Weisss"
+                        "D. B. Weiss"
                     ],
                     "original_air_date": "July 30, 2017",
                     "number_us_viewers": "9.25"
@@ -916,7 +916,7 @@
                     ],
                     "writers": [
                         "David Benioff",
-                        "D. B. Weisss"
+                        "D. B. Weiss"
                     ],
                     "original_air_date": "August 6, 2017",
                     "number_us_viewers": "10.17"
@@ -943,7 +943,7 @@
                     ],
                     "writers": [
                         "David Benioff",
-                        "D. B. Weisss"
+                        "D. B. Weiss"
                     ],
                     "original_air_date": "August 20, 2017",
                     "number_us_viewers": "10.24"
@@ -957,10 +957,99 @@
                     ],
                     "writers": [
                         "David Benioff",
-                        "D. B. Weisss"
+                        "D. B. Weiss"
                     ],
                     "original_air_date": "August 27, 2017",
                     "number_us_viewers": "12.1"
+                }
+            ]
+        },
+        {
+            "season": "8",
+            "year": "2019",
+            "episodes": [
+                {
+                    "number_overall": "68",
+                    "number_in_season": "1",
+                    "title": "Winterfell",
+                    "directors": [
+                        "David Nutter"
+                    ],
+                    "writers": [
+                        "Dave Hill"
+                    ],
+                    "original_air_date": "April 14, 2019",
+                    "number_us_viewers": "11.76"
+                },
+                {
+                    "number_overall": "69",
+                    "number_in_season": "2",
+                    "title": "A Knight of the Seven Kingdoms",
+                    "directors": [
+                        "David Nutter"
+                    ],
+                    "writers": [
+                        "Bryan Cogman"
+                    ],
+                    "original_air_date": "July 23, 2017",
+                    "number_us_viewers": "9.27"
+                },
+                {
+                    "number_overall": "70",
+                    "number_in_season": "3",
+                    "title": "The Long Night",
+                    "directors": [
+                        "Miguel Sapochnik"
+                    ],
+                    "writers": [
+                        "David Benioff",
+                        "D. B. Weiss"
+                    ],
+                    "original_air_date": "April 28, 2019",
+                    "number_us_viewers": "12.02"
+                },
+                {
+                    "number_overall": "71",
+                    "number_in_season": "4",
+                    "title": "The Last of the Starks",
+                    "directors": [
+                        "David Nutter"
+                    ],
+                    "writers": [
+                        "David Benioff",
+                        "D. B. Weiss"
+                    ],
+                    "original_air_date": "May 5, 2019",
+                    "number_us_viewers": ""
+                },
+                {
+                    "number_overall": "72",
+                    "number_in_season": "5",
+                    "title": "",
+                    "directors": [
+                        "Miguel Sapochnik"
+                    ],
+                    "writers": [
+                        "David Benioff",
+                        "D. B. Weiss"
+                    ],
+                    "original_air_date": "May 12, 2019",
+                    "number_us_viewers": ""
+                },
+                {
+                    "number_overall": "73",
+                    "number_in_season": "6",
+                    "title": "",
+                    "directors": [
+                        "David Benioff",
+                        "D. B. Weiss"
+                    ],
+                    "writers": [
+                        "David Benioff",
+                        "D. B. Weiss"
+                    ],
+                    "original_air_date": "May 19, 2019",
+                    "number_us_viewers": ""
                 }
             ]
         }
