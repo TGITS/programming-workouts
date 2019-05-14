@@ -13,29 +13,30 @@ fun main(args: Array<String>) {
     val input = Scanner(System.`in`)
     val surfaceN = input.nextInt() // the number of points used to draw the surface of Mars.
     val points: MutableList<Point> = mutableListOf();
-    var minX: Int = 0
-    var maxX: Int = 0
-    var maxY: Int = 0
+    var startOfFlatGround = Point()
+    var endOfFlatGround = Point()
+    var highestPoint = Point()
 
     for (i in 0 until surfaceN) {
         val landX = input.nextInt() // X coordinate of a surface point. (0 to 6999)
         val landY = input.nextInt() // Y coordinate of a surface point. By linking all the points together in a sequential fashion, you form the surface of Mars.
+        val currentPoint = Point(landX, landY)
         if (i > 0) {
             val previousPoint = points.get(i - 1)
-            if (previousPoint.y == landY) {
-                if (landX - previousPoint.x >= 1000) {
-                    minX = previousPoint.x
-                    maxX = landX
+            if (previousPoint.asSameHeightAs(currentPoint)) {
+                if (previousPoint.distanceAlongXAxis(currentPoint) >= 1000) {
+                    startOfFlatGround = previousPoint
+                    endOfFlatGround = currentPoint
                 }
             }
         }
-        if (landY > maxY) {
-            maxY = landY
+        if (currentPoint.isStrictlyHigherThan(highestPoint)) {
+            highestPoint = currentPoint
         }
-        points.add(Point(landX, landY))
+        points.add(currentPoint)
     }
 
-    System.err.println("Found flat area between ${minX} and ${maxX}")
+    System.err.println("Found flat area between ${startOfFlatGround} and ${endOfFlatGround}")
 
     // game loop
     while (true) {
@@ -57,14 +58,40 @@ fun main(args: Array<String>) {
         // If on the left of the minX, I have to rotate negatively and thrust to max to go on left until I am above flat ground
         // If on the right of the maxX, I have to rotate positively and thrust to max to go on right until I am above flat ground
         val answer = when (X) {
-            in 0..minX -> goRight(hSpeed, vSpeed, fuel, rotate, power)
-            in maxX..6999 -> goLeft(hSpeed, vSpeed, fuel, rotate, power)
-            in minX..maxX -> goDown(hSpeed, vSpeed, fuel, rotate, power)
+            in 0..startOfFlatGround.x -> goRight(hSpeed, vSpeed, fuel, rotate, power)
+            in endOfFlatGround.x..6999 -> goLeft(hSpeed, vSpeed, fuel, rotate, power)
+            in startOfFlatGround.x..endOfFlatGround.x -> goDown(hSpeed, vSpeed, fuel, rotate, power)
             else -> goDown(hSpeed, vSpeed, fuel, rotate, power)
         }
 
         // rotate power. rotate is the desired rotation angle. power is the desired thrust power.
         println(answer)
+    }
+}
+
+data class Point(val x: Int = 0, val y: Int = 0) {
+    fun isStrictlyHigherThan(other:Point):Boolean {
+        return this.y > other.y
+    }
+
+    fun isStrictlyLowerThan(other: Point):Boolean {
+        return this.y <= other.y
+    }
+
+    fun asSameHeightAs(other: Point):Boolean {
+        return this.y == other.y;
+    }
+
+    fun distanceAlongXAxis(other: Point): Int {
+        return Math.abs(other.x - this.x)
+    }
+
+    fun distanceAlongYAxis(other: Point): Int {
+        return Math.abs(other.y - this.y)
+    }
+
+    fun distance(other:Point): Double {
+        return Math.sqrt(Math.pow((other.x - this.x).toDouble(),2.0) + Math.pow((other.y - this.y).toDouble(),2.0))
     }
 }
 
@@ -102,4 +129,4 @@ fun goRight(hSpeed: Int, vSpeed: Int, fuel: Int, rotate: Int, power: Int): Strin
     return "-90 4"
 }
 
-data class Point(val x: Int, val y: Int)
+
