@@ -1,16 +1,14 @@
 class Scrabble {
 
-    private Integer score;
-    private String word;
+    private final int score;
+    private final String word;
 
     public Scrabble(String word) {
         this.word = word;
+        this.score = this.word.toUpperCase().chars().mapToObj(c -> (char)c).mapToInt(this::getCharacterScore).sum();
     }
 
     public int getScore() {
-        if(this.score == null) {
-            this.score = this.word.toUpperCase().chars().mapToObj(c -> (char)c).mapToInt(this::getCharacterScore).sum();
-        }
         return score;
     }
 
