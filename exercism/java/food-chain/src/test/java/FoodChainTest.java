@@ -22,7 +22,6 @@ public class FoodChainTest {
     }
 
     @Test
-    @Ignore("Remove to run test.")
     public void spider() {
         int verse = 2;
         String expected = "I know an old lady who swallowed a spider.\n" +
@@ -34,7 +33,6 @@ public class FoodChainTest {
     }
 
     @Test
-    @Ignore("Remove to run test.")
     public void bird() {
         int verse = 3;
         String expected = "I know an old lady who swallowed a bird.\n" +
@@ -115,7 +113,6 @@ public class FoodChainTest {
     }
 
     @Test
-    @Ignore("Remove to run test.")
     public void horse() {
         int verse = 8;
         String expected = "I know an old lady who swallowed a horse.\n" +
