@@ -36,7 +36,6 @@ public class PhoneNumberTest {
         );
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void cleansNumbersWithDots() {
         String expectedNumber = "2234567890";
@@ -47,7 +46,6 @@ public class PhoneNumberTest {
         );
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void cleansNumbersWithMultipleSpaces() {
         String expectedNumber = "2234567890";
@@ -58,7 +56,6 @@ public class PhoneNumberTest {
         );
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void invalidWhen9Digits() {
         expectedException.expect(IllegalArgumentException.class);
