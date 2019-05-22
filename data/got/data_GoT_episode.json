@@ -1025,7 +1025,7 @@
                 {
                     "number_overall": "72",
                     "number_in_season": "5",
-                    "title": "",
+                    "title": "The Bells",
                     "directors": [
                         "Miguel Sapochnik"
                     ],
@@ -1034,12 +1034,12 @@
                         "D. B. Weiss"
                     ],
                     "original_air_date": "May 12, 2019",
-                    "number_us_viewers": ""
+                    "number_us_viewers": "12.48"
                 },
                 {
                     "number_overall": "73",
                     "number_in_season": "6",
-                    "title": "",
+                    "title": "The Iron Throne",
                     "directors": [
                         "David Benioff",
                         "D. B. Weiss"
@@ -1049,7 +1049,7 @@
                         "D. B. Weiss"
                     ],
                     "original_air_date": "May 19, 2019",
-                    "number_us_viewers": ""
+                    "number_us_viewers": "13.61"
                 }
             ]
         }

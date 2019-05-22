@@ -114,5 +114,5 @@ No. overall	No. in season	Title	Directed by [87][88]	Written by [89]	Origina
 69	2	"A Knight of the Seven Kingdoms"	David Nutter	Bryan Cogman	April 21, 2019	10.29[92]
 70	3	"The Long Night"	Miguel Sapochnik	David Benioff & D. B. Weiss	April 28, 2019	12.02[93]
 71	4	"The Last of the Starks"	David Nutter	David Benioff & D. B. Weiss	May 5, 2019	11.80
-72	5	TBA	Miguel Sapochnik	David Benioff & D. B. Weiss	May 12, 2019	TBD
-73	6	TBA	David Benioff & D. B. Weiss	David Benioff & D. B. Weiss	May 19, 2019	TBD
+72	5	"The Bells"	Miguel Sapochnik	David Benioff & D. B. Weiss	May 12, 2019	12.48[5]
+73	6	"The Iron Throne"	David Benioff & D. B. Weiss	David Benioff & D. B. Weiss	May 19, 2019	13.61
