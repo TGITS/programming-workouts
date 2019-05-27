@@ -1,17 +1,14 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
 
 public class NucleotideCounter {
 
-    private final Map<Character, Integer> countByNucleotide;
     private final String nucleotide;
 
     public NucleotideCounter(String s) {
-        countByNucleotide = new HashMap<>();
-        countByNucleotide.put('A',0);
-        countByNucleotide.put('C',0);
-        countByNucleotide.put('G',0);
-        countByNucleotide.put('T',0);
         if(!s.matches("[ACGT]*")) {
             throw new IllegalArgumentException("Invalid DNA Letters");
         }
@@ -19,7 +16,10 @@ public class NucleotideCounter {
     }
 
     public Map<Character, Integer> nucleotideCounts() {
-        this.nucleotide.chars().mapToObj(c -> (char)c).forEach(c -> countByNucleotide.computeIfPresent(c,(k,v) -> v + 1));
+        Map<Character, Integer> countByNucleotide = this.nucleotide.chars().mapToObj(c-> (char)c).collect(groupingBy(c -> c,reducing(0, e -> 1, Integer::sum)));
+        for(char c:new char[]{'A','C','G','T'}) {
+            countByNucleotide.putIfAbsent(c,0);
+        }
         return countByNucleotide;
     }
 }
