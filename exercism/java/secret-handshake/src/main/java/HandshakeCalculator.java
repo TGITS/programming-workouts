@@ -2,19 +2,21 @@ import java.util.*;
 
 class HandshakeCalculator {
 
-    private static final Map<Integer, Signal> SIGNAL_BY_BINARY_VALUE = new HashMap<>();
+    private static final Map<Integer, Optional<Signal>> SIGNAL_BY_BINARY_VALUE = new HashMap<>();
+
     static {
-        SIGNAL_BY_BINARY_VALUE.put(1000, Signal.JUMP);
-        SIGNAL_BY_BINARY_VALUE.put(100, Signal.CLOSE_YOUR_EYES);
-        SIGNAL_BY_BINARY_VALUE.put(10, Signal.DOUBLE_BLINK);
-        SIGNAL_BY_BINARY_VALUE.put(1, Signal.WINK);
+        SIGNAL_BY_BINARY_VALUE.put(10000, Optional.empty());
+        SIGNAL_BY_BINARY_VALUE.put(1000, Optional.of(Signal.JUMP));
+        SIGNAL_BY_BINARY_VALUE.put(100, Optional.of(Signal.CLOSE_YOUR_EYES));
+        SIGNAL_BY_BINARY_VALUE.put(10, Optional.of(Signal.DOUBLE_BLINK));
+        SIGNAL_BY_BINARY_VALUE.put(1, Optional.of(Signal.WINK));
     }
 
-    private static final int[] BINARY_VALUES = new int[]{1000, 100, 10, 1};
+    private static final int[] BINARY_VALUES_FOR_SIGNAL = new int[]{10000, 1000, 100, 10, 1};
 
 
     public List<Signal> calculateHandshake(int number) {
-        return computeHandshake(decimalToBinary(number),new ArrayList<>());
+        return computeHandshake(decimalToBinary(number), new ArrayList<>());
     }
 
     private int decimalToBinary(int decimal) {
@@ -22,20 +24,18 @@ class HandshakeCalculator {
     }
 
     private List<Signal> computeHandshake(int numberInBinary, List<Signal> handshake) {
-        if(numberInBinary >= 10000) {
-            final List<Signal> temp = computeHandshake(numberInBinary - 10000, handshake);
-            Collections.reverse(temp);
-            return temp;
-        }
 
-        for(int value:BINARY_VALUES) {
+        for (int value : BINARY_VALUES_FOR_SIGNAL) {
             if (numberInBinary >= value) {
                 final List<Signal> temp = computeHandshake(numberInBinary - value, handshake);
-                temp.add(SIGNAL_BY_BINARY_VALUE.get(value));
+                SIGNAL_BY_BINARY_VALUE.get(value).ifPresent(temp::add);
+                if (!SIGNAL_BY_BINARY_VALUE.get(value).isPresent()) {
+                    Collections.reverse(temp);
+                }
                 return temp;
             }
         }
-        
+
         return handshake;
     }
 }
