@@ -12,7 +12,7 @@ enum Signal {
         this.mask = mask;
     }
 
-    public int mask() {
-        return mask;
+    public boolean isPresentInNumber(int number) {
+        return (number & mask) == mask;
     }
 }
