@@ -4,17 +4,19 @@ import java.util.List;
 
 class HandshakeCalculator {
 
+    private final static Signal[] SIGNALS = Signal.values();
+
     public List<Signal> calculateHandshake(int number) {
         final List<Signal> handshake = new ArrayList<>();
-        for (Signal signal : Signal.values()) {
+        for (Signal signal : SIGNALS) {
             if (signal.isPresentInNumber(number)) {
-                if (signal == Signal.REVERSE) {
-                    Collections.reverse(handshake);
-                } else {
-                    handshake.add(signal);
-                }
+                handshake.add(signal);
             }
+        }
+        if (handshake.remove(Signal.REVERSE)) {
+            Collections.reverse(handshake);
         }
         return handshake;
     }
+
 }
