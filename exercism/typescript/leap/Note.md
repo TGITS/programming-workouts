@@ -20,7 +20,7 @@ Although the exposed solution is correct in output, the check year % 400 is only
 Always try to put the common path first.
 Logically, following the instructions putting this check first is incorrect.
 
-Thus a trully correct solution is :
+Thus a more correct solution is :
 
 ```javascript
 function isLeapYear( year:number ) {
@@ -29,3 +29,14 @@ function isLeapYear( year:number ) {
 
 export default isLeapYear
 ```
+
+However there is something else to keep in mind: as it stands, in the previous solution the check year % 400 is executed for all years that don't match year % 4 == 0, and for these (75% of all years), always returns false, because if something is not divisible by 4 it can not be divisible by 400. We can refactor this a little bit.
+
+```javascript
+function isLeapYear( year:number ) {
+    return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+}
+
+export default isLeapYear
+```
+
