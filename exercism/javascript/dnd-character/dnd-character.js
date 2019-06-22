@@ -53,6 +53,6 @@ export class Character {
   }
 
   get hitpoints() {
-    return 10 + abilityModifier(this.constitution);
+    return 10 + abilityModifier(this._constitution);
   }
 }
