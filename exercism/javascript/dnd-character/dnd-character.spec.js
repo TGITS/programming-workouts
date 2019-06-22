@@ -95,7 +95,6 @@ describe('D&D Character', () => {
   describe('Random character is valid', () => {
     test('character is valid', () => {
       const Drizzt = new Character();
-
       expect(Drizzt.strength).toBeLessThanOrEqual(18);
       expect(Drizzt.strength).toBeGreaterThanOrEqual(3);
       expect(Drizzt.dexterity).toBeLessThanOrEqual(18);
