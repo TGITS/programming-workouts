@@ -106,6 +106,21 @@ void main() {
         expect(result, equals(9));
       }, skip: false);
 
+      test("  BLACK  ", () {
+        final int result = resistorColor.colorCode("  BLACK  ");
+        expect(result, equals(0));
+      }, skip: false);
+
+      test("  GREY", () {
+        final int result = resistorColor.colorCode("  GREY");
+        expect(result, equals(8));
+      }, skip: false);
+
+      test("White  ", () {
+        final int result = resistorColor.colorCode("White  ");
+        expect(result, equals(9));
+      }, skip: false);
+
       test("Wrong color like gray", () {
         expect(() => resistorColor.colorCode("gray"), throwsA(TypeMatcher<ArgumentError>()));
       }, skip: false);
