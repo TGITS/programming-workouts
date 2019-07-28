@@ -12,5 +12,5 @@ const colorsMapping = {
 };
 
 export const value = ([color_1, color_2]) => {
-  return parseInt(colorsMapping[color_1.toLowerCase()] + colorsMapping[color_2.toLowerCase()], 10);
+  return Number(colorsMapping[color_1.toLowerCase()] + colorsMapping[color_2.toLowerCase()]);
 };
