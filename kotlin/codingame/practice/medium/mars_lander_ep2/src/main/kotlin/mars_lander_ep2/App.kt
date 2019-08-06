@@ -75,7 +75,7 @@ data class Point(val x: Int = 0, val y: Int = 0) {
     }
 
     fun isStrictlyLowerThan(other: Point):Boolean {
-        return this.y <= other.y
+        return this.y < other.y
     }
 
     fun asSameHeightAs(other: Point):Boolean {
@@ -99,9 +99,9 @@ fun goDown(hSpeed: Int, vSpeed: Int, fuel: Int, rotate: Int, power: Int): String
     var result = ""
 
     if (hSpeed > 19) {
-        return "45 4"
+        return "15 ${Integer.toString(Math.max(0, power - 1))}"
     } else if (hSpeed < -19) {
-        return "-45 4"
+        return "-15 ${Integer.toString(Math.min(4, power + 1))}"
     } else {
         if (vSpeed > 39) {
             result = "0 ${Integer.toString(Math.max(0, power - 1))}"
@@ -126,7 +126,14 @@ fun goLeft(hSpeed: Int, vSpeed: Int, fuel: Int, rotate: Int, power: Int): String
 }
 
 fun goRight(hSpeed: Int, vSpeed: Int, fuel: Int, rotate: Int, power: Int): String {
-    return "-90 4"
+    //return "-90 4"
+    return if (hSpeed > 19) {
+        "45 ${Integer.toString(Math.max(0, power - 1))}"
+    } else if (hSpeed < -19) {
+        "-45 ${Integer.toString(Math.min(4, power + 1))}"
+    } else {
+        "0 0"
+    }
 }
 
 
