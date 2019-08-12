@@ -9,13 +9,16 @@ defmodule RnaTranscription do
   """
   @spec to_rna([char]) :: [char]
   def to_rna(dna) do
-    Enum.map(dna, fn nucleotide -> transcript(nucleotide) end)
+    IO.puts(:stderr, dna)
+    dna
+    |> Enum.map(&transcript/1)
   end
 
   @spec transcript(char) :: char
-  def transcript(nucleotide)  do
-    case nucleotide do
-      'G' -> 'C'
+  def transcript(n)  do
+    IO.puts(:stderr, n)
+    case n do
+      71 -> 'C'
       'C' -> 'G'
       'T' -> 'A'
       'A' -> 'U'
