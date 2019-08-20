@@ -1,9 +1,21 @@
 (ns nucleotide-count)
 
-(defn count [nucleotide strand] ;; <- Arglist goes here
-  ;; your code goes here
+(def possible-nucleotides #{\A \C \G \T})
+
+(defn count [nucleotide strand] 
+  (if (possible-nucleotides nucleotide)
+    (clojure.core/count (filter #(= nucleotide %) (seq strand)))
+    (throw (IllegalArgumentException. "The provided nucleotide does not exist"))
+  )
 )
 
-(defn nucleotide-counts [strand] ;; <- Arglist goes here
-  ;; your code goes here
+;; We could have just built and returned directly the following map
+;;{
+;; \A (nucleotide-count/count \A strand)
+;; \C (nucleotide-count/count \C strand)
+;; \G (nucleotide-count/count \G strand)
+;; \T (nucleotide-count/count \T strand)
+;; }
+(defn nucleotide-counts [strand] 
+  (apply hash-map (flatten (map #(list % (nucleotide-count/count % strand)) possible-nucleotides)))
 )
