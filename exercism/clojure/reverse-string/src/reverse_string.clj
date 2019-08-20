@@ -1,14 +1,10 @@
 (ns reverse-string)
 (require '[clojure.string :as str])
 
-(defn- reverse-string-as-sequence [sequence reverse-string]
-  (loop [seq sequence rs reverse-string]
-    (if (empty? seq)
+(defn reverse-string [s]
+  (loop [char-seq (seq s) rs ""]
+    (if (empty? char-seq)
       rs
-      (recur (rest seq) (str (first seq) rs)))
+      (recur (rest char-seq) (str (first char-seq) rs)))
     )
   )
-
-(defn reverse-string [s] 
-  (reverse-string-as-sequence (str/split s #"") "")
-)
