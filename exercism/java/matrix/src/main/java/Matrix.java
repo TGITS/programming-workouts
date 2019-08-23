@@ -10,15 +10,19 @@ class Matrix {
     }
 
     int[] getRow(int rowNumber) {
-        List<Integer> temp = Arrays.stream(rows[rowNumber-1].split(" ")).map(String::trim).map(Integer::parseInt).collect(Collectors.toList());
-        int[] result = new int[temp.size()];
-        for(int i =0; i < temp.size() ; i++) {
-            result[i] = temp.get(i);
+        List<Integer> list = Arrays.stream(rows[rowNumber - 1].split(" ")).map(Integer::parseInt).collect(Collectors.toList());
+        int[] row = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            row[i] = list.get(i);
         }
-        return result;
+        return row;
     }
 
     int[] getColumn(int columnNumber) {
-        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
+        int[] column = new int[rows.length];
+        for (int i = 0; i < rows.length; i++) {
+            column[i] = getRow(i + 1)[columnNumber - 1];
+        }
+        return column;
     }
 }

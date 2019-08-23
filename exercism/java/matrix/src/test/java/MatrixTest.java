@@ -1,4 +1,3 @@
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -60,7 +59,6 @@ public class MatrixTest {
         assertArrayEquals(expectedColumn, matrix.getColumn(columnIndex));
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void extractColumnMatrixTest() {
         String matrixAsString = "1 2 3\n4 5 6\n7 8 9";
@@ -72,7 +70,6 @@ public class MatrixTest {
         assertArrayEquals(expectedColumn, matrix.getColumn(columnIndex));
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void extractColumnFromNonSquareMatrixTest() {
         String matrixAsString = "1 2 3\n4 5 6\n7 8 9\n8 7 6";
@@ -84,7 +81,6 @@ public class MatrixTest {
         assertArrayEquals(expectedColumn, matrix.getColumn(columnIndex));
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void extractColumnFromDiffWidthsMatrixTest() {
         String matrixAsString = "89 1903 3\n18 3 1\n9 4 800";
