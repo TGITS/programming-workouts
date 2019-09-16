@@ -2,14 +2,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PointTest {
+class PointTest {
 
     private Point origin = new Point(0, 0);
     private Point oneOnXAxis = new Point(1, 0);
     private Point oneOnYAxis = new Point(0, 1);
 
     @Test
-    public void testDistance() {
+    void testDistance() {
 
         assertEquals(1.0, origin.distance(oneOnXAxis));
         assertEquals(1.0, oneOnXAxis.distance(origin));
@@ -19,7 +19,7 @@ public class PointTest {
     }
 
     @Test
-    public void testHorizontalDistance() {
+    void testHorizontalDistance() {
         assertEquals(1, oneOnXAxis.horizontalDistance(oneOnYAxis));
         assertEquals(1, oneOnYAxis.horizontalDistance(oneOnXAxis));
         assertEquals(1, origin.horizontalDistance(oneOnXAxis));
@@ -29,7 +29,7 @@ public class PointTest {
     }
 
     @Test
-    public void testVerticalDistance() {
+    void testVerticalDistance() {
         assertEquals(1, oneOnXAxis.verticalDistance(oneOnYAxis));
         assertEquals(1, oneOnYAxis.verticalDistance(oneOnXAxis));
         assertEquals(0, origin.verticalDistance(oneOnXAxis));
@@ -39,11 +39,46 @@ public class PointTest {
     }
 
     @Test
-    public void testHasSameAltitude() {
+    void testHasSameAltitude() {
         Point p1 = new Point(1000, 2000);
         Point p2 = new Point(2000, 500);
         Point p3 = new Point(3000, 500);
         assertFalse(p1.hasSameAltitude(p2));
         assertTrue(p2.hasSameAltitude(p3));
+    }
+
+    @Test
+    void testHasSameAbscissa() {
+        Point p1 = new Point(1000, 2000);
+        Point p2 = new Point(2000, 500);
+        Point p3 = new Point(3000, 500);
+        Point p4 = new Point(3000, 700);
+        assertFalse(p1.hasSameAbscissa(p2));
+        assertTrue(p3.hasSameAbscissa(p4));
+    }
+
+    @Test
+    void testIsOnLeft() {
+        Point p1 = new Point(1000, 2000);
+        Point p2 = new Point(2000, 500);
+        Point p3 = new Point(3000, 500);
+        Point p4 = new Point(3000, 700);
+        assertTrue(p1.isOnLeftOf(p2));
+        assertTrue(p2.isOnLeftOf(p3));
+        assertFalse(p3.isOnLeftOf(p4));
+        assertFalse(p4.isOnLeftOf(p1));
+    }
+
+    @Test
+    void isOnRight() {
+        Point p1 = new Point(1000, 2000);
+        Point p2 = new Point(2000, 500);
+        Point p3 = new Point(3000, 500);
+        Point p4 = new Point(3000, 700);
+        assertFalse(p1.isOnRightOf(p2));
+        assertFalse(p2.isOnRightOf(p3));
+        assertFalse(p3.isOnRightOf(p4));
+        assertTrue(p3.isOnRightOf(p2));
+        assertTrue(p2.isOnRightOf(p1));
     }
 }

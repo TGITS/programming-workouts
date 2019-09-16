@@ -67,31 +67,31 @@ final class Point {
         return Objects.hash(x, y);
     }
 
-    public double distance(Point p) {
+    double distance(Point p) {
         return Math.sqrt(Math.pow((p.getX() - this.getX()), 2) + Math.pow((p.getY() - this.getY()), 2));
     }
 
-    public int horizontalDistance(Point p) {
+    int horizontalDistance(Point p) {
         return Math.abs(p.getX() - this.getX());
     }
 
-    public int verticalDistance(Point p) {
+    int verticalDistance(Point p) {
         return Math.abs(p.getY() - this.getY());
     }
 
-    public boolean hasSameAltitude(Point p) {
+    boolean hasSameAltitude(Point p) {
         return this.getY() == p.getY();
     }
 
-    public boolean isOnLeftOf(Point p) {
+    boolean isOnLeftOf(Point p) {
         return this.x < p.x;
     }
 
-    public boolean isOnRightOf(Point p) {
+    boolean isOnRightOf(Point p) {
         return this.x > p.x;
     }
 
-    public boolean hasSameAbsciss(Point p) {
+    boolean hasSameAbscissa(Point p) {
         return this.x == p.x;
     }
 }
@@ -99,19 +99,19 @@ final class Point {
 final class Surface {
     private final List<Point> points = new ArrayList<>();
 
-    public Surface() {
+    Surface() {
         super();
     }
 
-    public boolean addPoint(Point p) {
+    boolean addPoint(Point p) {
         return points.add(p);
     }
 
-    public int getNumberOfDefiningPoints() {
+    int getNumberOfDefiningPoints() {
         return points.size();
     }
 
-    public Surface getBiggestFlatGround() {
+    Surface getBiggestFlatGround() {
         Point previousPoint = points.get(0);
         double biggestDistance = 0.0;
         Point startOfFlatGround = previousPoint;
@@ -146,11 +146,11 @@ final class MarsLander {
     private int rotationAngle;   // the rotation angle in degrees (-90 to 90).
     private int thrustPower;     // the thrust power (0 to 4).
 
-    public MarsLander() {
+    MarsLander() {
         super();
     }
 
-    public void update(int x, int y, int horizontalSpeed, int verticalSpeed, int fuel, int rotationAngle, int thrustPower) {
+    void update(int x, int y, int horizontalSpeed, int verticalSpeed, int fuel, int rotationAngle, int thrustPower) {
         this.updatePosition(new Point(x, y));
         this.updateHorizontalSpeed(horizontalSpeed);
         this.updateVerticalSpeed(verticalSpeed);
@@ -159,63 +159,85 @@ final class MarsLander {
         this.updateThrustPower(thrustPower);
     }
 
-    public Point getPosition() {
+    Point getPosition() {
         return position;
     }
 
-    public int getHorizontalSpeed() {
+    int getHorizontalSpeed() {
         return horizontalSpeed;
     }
 
-    public int getVerticalSpeed() {
+    int getVerticalSpeed() {
         return verticalSpeed;
     }
 
-    public int getFuel() {
+    int getFuel() {
         return fuel;
     }
 
-    public int getRotationAngle() {
+    int getRotationAngle() {
         return rotationAngle;
     }
 
-    public int getThrustPower() {
+    int getThrustPower() {
         return thrustPower;
     }
 
-    public void updatePosition(Point position) {
+    void updatePosition(Point position) {
         this.position = position;
     }
 
-    public void updatePosition(int x, int y) {
+    void updatePosition(int x, int y) {
         this.updatePosition(new Point(x, y));
     }
 
-    public void updateHorizontalSpeed(int horizontalSpeed) {
+    void updateHorizontalSpeed(int horizontalSpeed) {
         this.horizontalSpeed = horizontalSpeed;
     }
 
-    public void updateVerticalSpeed(int verticalSpeed) {
+    void updateVerticalSpeed(int verticalSpeed) {
         this.verticalSpeed = verticalSpeed;
     }
 
-    public void updateFuel(int fuel) {
+    void updateFuel(int fuel) {
         this.fuel = fuel;
     }
 
-    public void updateRotationAngle(int rotationAngle) {
+    void updateRotationAngle(int rotationAngle) {
         this.rotationAngle = rotationAngle;
     }
 
-    public void updateThrustPower(int thrustPower) {
+    void updateThrustPower(int thrustPower) {
         this.thrustPower = thrustPower;
     }
 
-    public String computeRotationAngleAndThrustPower(Surface marsSurface) {
-        return computeRotationAngle(marsSurface) + " " + computeThrustPower(marsSurface);
+    String computeRotationAngleAndThrustPower(Surface marsSurface) {
+        Surface flatGround = marsSurface.getBiggestFlatGround();
+        Point flatGroundStartOnLeft = flatGround.getPoint(0);
+        Point flatGroundEndOnRight = flatGround.getPoint(1);
+        String thrustPower = "";
+
+        if(this.position.isOnLeftOf(flatGroundStartOnLeft)) {
+            //we need to go to the right
+        } else if (this.position.isOnRightOf(flatGroundEndOnRight)) {
+            //we need to go to the left
+        } else if(this.position.isOnRightOf(flatGroundStartOnLeft) && this.position.isOnLeftOf(flatGroundEndOnRight)) {
+            //we need to stop going right or left
+            //we have to stabilize our rotation angle to 0
+            //we have to reduce our horizontal speed below 20ms (absolute value)
+            //we have to reduce our vertical speed below 40ms (absolute value)
+            if (verticalSpeed > 39) {
+                thrustPower = Integer.toString(Math.max(0, this.thrustPower - 1));
+            } else if (verticalSpeed < -39) {
+                thrustPower = Integer.toString(Math.min(4, this.thrustPower + 1));
+            } else {
+                thrustPower = "0";
+            }
+        }
+        return computeRotationAngle(marsSurface) + " " + thrustPower;
     }
 
-    public String computeRotationAngle(Surface marsSurface) {
+    String computeRotationAngle(Surface marsSurface) {
         Surface flatGround = marsSurface.getBiggestFlatGround();
         return "0";
     }
