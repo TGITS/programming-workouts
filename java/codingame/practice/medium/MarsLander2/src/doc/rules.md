@@ -1,4 +1,4 @@
-# Mar Lander - Episode 2
+# Mars Lander - Episode 2
 
 ## Goal
 
