@@ -38,18 +38,19 @@ final class Player {
 }
 
 final class Point {
-    private final int x, y;
+    private final int x;
+    private final int y;
 
     Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public int getX() {
+    int getX() {
         return x;
     }
 
-    public int getY() {
+    int getY() {
         return y;
     }
 
@@ -96,8 +97,37 @@ final class Point {
     }
 }
 
+final class FlatArea {
+    private final Point rightMostPoint;
+    private Point middlePoint;
+    private final Point leftMostPoint;
+
+    FlatArea(Point leftMostPoint, Point rightMostPoint) {
+        super();
+        this.leftMostPoint = leftMostPoint;
+        this.rightMostPoint = rightMostPoint;
+    }
+
+    Point getMiddlePoint() {
+        if (middlePoint == null) {
+            middlePoint = new Point((rightMostPoint.getX() - leftMostPoint.getX()) / 2, leftMostPoint.getY());
+        }
+        return middlePoint;
+    }
+
+
+    Point getRightMostPoint() {
+        return this.rightMostPoint;
+    }
+
+    Point getLeftMostPoint() {
+        return this.leftMostPoint;
+    }
+}
+
 final class Surface {
     private final List<Point> points = new ArrayList<>();
+    private FlatArea flatArea;
 
     Surface() {
         super();
@@ -111,25 +141,37 @@ final class Surface {
         return points.size();
     }
 
-    Surface getBiggestFlatGround() {
-        Point previousPoint = points.get(0);
-        double biggestDistance = 0.0;
-        Point startOfFlatGround = previousPoint;
-        Point endOfFlatGround = previousPoint;
-        for (Point currentPoint : points.subList(1, points.size())) {
-            double currentDistance = currentPoint.distance(previousPoint);
-            if (currentPoint.hasSameAltitude(previousPoint) && currentDistance > biggestDistance) {
-                biggestDistance = currentDistance;
-                startOfFlatGround = previousPoint;
-                endOfFlatGround = currentPoint;
+    FlatArea getFlatArea() {
+        if (flatArea == null) {
+            Point previousPoint = points.get(0);
+            double biggestDistance = 0.0;
+            Point leftMostPoint = previousPoint;
+            Point rightMostPoint = previousPoint;
+            for (Point currentPoint : points.subList(1, points.size())) {
+                double currentDistance = currentPoint.distance(previousPoint);
+                if (currentPoint.hasSameAltitude(previousPoint) && currentDistance > biggestDistance) {
+                    biggestDistance = currentDistance;
+                    leftMostPoint = previousPoint;
+                    rightMostPoint = currentPoint;
+                }
+                previousPoint = currentPoint;
             }
-            previousPoint = currentPoint;
-        }
 
-        Surface flatGround = new Surface();
-        flatGround.addPoint(startOfFlatGround);
-        flatGround.addPoint(endOfFlatGround);
-        return flatGround;
+            this.flatArea = new FlatArea(leftMostPoint, rightMostPoint);
+        }
+        return this.flatArea;
+    }
+
+    boolean isLanderAboveFlatArea(MarsLander marsLander) {
+        return marsLander.getPosition().isOnLeftOf(this.getFlatArea().getLeftMostPoint()) && marsLander.getPosition().isOnRightOf(this.getFlatArea().getRightMostPoint());
+    }
+
+    boolean isLanderOnLeftOfFlatArea(MarsLander marsLander) {
+        return marsLander.getPosition().isOnLeftOf(this.getFlatArea().getLeftMostPoint());
+    }
+
+    boolean isLanderOnRightOfFlatArea(MarsLander marsLander) {
+        return marsLander.getPosition().isOnRightOf(this.getFlatArea().getRightMostPoint());
     }
 
     public Point getPoint(int index) {
@@ -211,17 +253,71 @@ final class MarsLander {
         this.thrustPower = thrustPower;
     }
 
+    String outputAnswer() {
+        return String.format("%d %d", this.rotationAngle, this.thrustPower);
+    }
+
+    void incrementRotationAngle() {
+        if (this.rotationAngle >= 75) {
+            this.rotationAngle = 90;
+        } else {
+            this.rotationAngle = this.rotationAngle + 15;
+        }
+    }
+
+    void decrementRotationAngle() {
+        if (this.rotationAngle <= -75) {
+            this.rotationAngle = -90;
+        } else {
+            this.rotationAngle = this.rotationAngle - 15;
+        }
+    }
+
+    void incrementThrustPower() {
+        if (this.thrustPower >= 3) {
+            this.thrustPower = 4;
+        } else {
+            this.thrustPower = this.thrustPower + 1;
+        }
+    }
+
+    void decrementThrustPower() {
+        if (this.thrustPower <= 1) {
+            this.thrustPower = 0;
+        } else {
+            this.thrustPower = this.thrustPower - 1;
+        }
+    }
+
+    void goOnRight() {
+        //Quelle est notre vitesse horizontale ?
+        //Est-ce que cette vitesse horizontale est dans la bonne direction ? La vitesse horizontale doit être négative pour qu'on aille à droite
+        //Quelle est notre angle de rotation ? Est-ce que c'est angle est dans le bon sens ?
+        //Si on va dans la bonne direction, est-ce que notre vitesse est suffisante ?
+        //Comment déterminer que la vitesse est suffisante ? En approchant il faut ralentir
+        if(this.horizontalSpeed > 0) {
+            //Vitesse horizontale dans la bonne direction
+        }
+        else {
+            //vitesse horizontale dans la mauvaise direction
+            if(this.rotationAngle > 0) {
+                //Angle de rotation dans la bonne direction
+            } else {
+                //Angle de rotation dans la mauvaise direction
+                //Il faut corriger l'angle qui actuellement est négatif ou nul, on veut le rentre positif
+                this.incrementRotationAngle();
+            }
+        }
+    }
+
     String computeRotationAngleAndThrustPower(Surface marsSurface) {
-        Surface flatGround = marsSurface.getBiggestFlatGround();
-        Point flatGroundStartOnLeft = flatGround.getPoint(0);
-        Point flatGroundEndOnRight = flatGround.getPoint(1);
         String thrustPower = "";
 
-        if(this.position.isOnLeftOf(flatGroundStartOnLeft)) {
+        if (marsSurface.isLanderOnLeftOfFlatArea(this)) {
             //we need to go to the right
-        } else if (this.position.isOnRightOf(flatGroundEndOnRight)) {
+        } else if (marsSurface.isLanderOnRightOfFlatArea(this)) {
             //we need to go to the left
-        } else if(this.position.isOnRightOf(flatGroundStartOnLeft) && this.position.isOnLeftOf(flatGroundEndOnRight)) {
+        } else if (marsSurface.isLanderAboveFlatArea(this)) {
             //we need to stop going right or left
             //we have to stabilize our rotation angle to 0
             //we have to reduce our horizontal speed below 20ms (absolute value)
@@ -234,17 +330,17 @@ final class MarsLander {
                 thrustPower = "0";
             }
         }
-        return computeRotationAngle(marsSurface) + " " + thrustPower;
+        return outputAnswer();
     }
 
     String computeRotationAngle(Surface marsSurface) {
-        Surface flatGround = marsSurface.getBiggestFlatGround();
+        FlatArea flatGround = marsSurface.getFlatArea();
         return "0";
     }
 
-    public String computeThrustPower(Surface marsSurface) {
+    String computeThrustPower(Surface marsSurface) {
         String result = "";
-        Surface flatGround = marsSurface.getBiggestFlatGround();
+        FlatArea flatGround = marsSurface.getFlatArea();
         if (verticalSpeed > 39) {
             result = Integer.toString(Math.max(0, thrustPower - 1));
         } else if (verticalSpeed < -39) {

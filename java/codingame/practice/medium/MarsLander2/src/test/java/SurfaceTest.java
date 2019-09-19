@@ -23,10 +23,9 @@ public class SurfaceTest {
         marsSurface.addPoint(new Point(5000, 1500));
         marsSurface.addPoint(new Point(6999, 1000));
 
-        Surface flatGround = marsSurface.getBiggestFlatGround();
+        FlatArea flatGround = marsSurface.getFlatArea();
         assertEquals(6, marsSurface.getNumberOfDefiningPoints());
-        assertEquals(2, flatGround.getNumberOfDefiningPoints());
-        assertEquals(new Point(2000, 500), flatGround.getPoint(0));
-        assertEquals(new Point(3500,500), flatGround.getPoint(1));
+        assertEquals(new Point(2000, 500), flatGround.getRightMostPoint());
+        assertEquals(new Point(3500,500), flatGround.getLeftMostPoint());
     }
 }
