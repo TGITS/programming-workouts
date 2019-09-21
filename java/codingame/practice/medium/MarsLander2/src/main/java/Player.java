@@ -316,13 +316,13 @@ final class MarsLander {
             //Vitesse horizontale dans la bonne direction
             //Est-ce que la vitesse est suffisante ? Doit-on maintenir la vitesse ? Décélérer ?
             //On maintient l'angle et la vitesse ?
-            if (this.rotationAngle < 0) {
+            if (this.rotationAngle <= 0) {
                 //Angle de rotation dans la bonne direction (negatif)
                 //On veut inverser la vitesse horizontale. Comme l'angle est dans la bon sens, il faut que j'accèlère
                 this.incrementThrustPower();
-                if (this.rotationAngle >= -60) {
-                    this.decrementRotationAngle();
-                }
+            }
+            if (this.rotationAngle >= -45) {
+                this.decrementRotationAngle();
             }
         } else {
             //vitesse horizontale dans la mauvaise direction
@@ -330,7 +330,7 @@ final class MarsLander {
                 //Angle de rotation dans la bonne direction (negatif)
                 //On veut inverser la vitesse horizontale. Comme l'angle est dans la bon sens, il faut que j'accèlère
                 this.incrementThrustPower();
-                if (this.rotationAngle >= -60) {
+                if (this.rotationAngle >= -45) {
                     this.decrementRotationAngle();
                 }
             } else {
@@ -354,9 +354,9 @@ final class MarsLander {
                 //Angle de rotation dans la bonne direction
                 //On veut inverser la vitesse horizontale. Comme l'angle est dans le bon sens, il faut que j'accèlère
                 this.incrementThrustPower();
-                if (this.rotationAngle <= 60) {
-                    this.incrementRotationAngle();
-                }
+            }
+            if (this.rotationAngle <= 45) {
+                this.incrementRotationAngle();
             }
         } else {
             //vitesse horizontale dans la mauvaise direction
@@ -364,7 +364,9 @@ final class MarsLander {
                 //Angle de rotation dans la bonne direction
                 //On veut inverser la vitesse horizontale. Comme l'angle est dans le bon sens, il faut que j'accèlère
                 this.incrementThrustPower();
-                this.incrementRotationAngle();
+                if (this.rotationAngle <= 45) {
+                    this.incrementRotationAngle();
+                }
             } else {
                 //Angle de rotation dans la mauvaise direction (negatif)
                 //Il faut corriger l'angle qui actuellement est négatif ou nul, on veut le rendre positif
@@ -386,88 +388,23 @@ final class MarsLander {
     }
 
     String computeRotationAngleAndThrustPower(Surface marsSurface) {
-        if (marsSurface.isLanderFarOnLeftOfFlatArea(this)) {
+        if (marsSurface.isLanderOnLeftOfFlatArea(this) && this.horizontalSpeed < 20) {
             //we need to go to the right
             goOnRight();
-        } else if (marsSurface.isLanderNearOnLeftOfFlatArea(this)) {
-            System.err.println("Trying to slow down : " + this.horizontalSpeed);
-            //reducing angle and thrust power
-            if (this.rotationAngle < 0) {
-                this.incrementRotationAngle();
-                this.decrementThrustPower();
-            } else if (this.rotationAngle == 0) {
-                slowDownVertically();
-            }
-        } else if (marsSurface.isLanderFarOnRightOfFlatArea(this)) {
+        } else if (marsSurface.isLanderFarOnRightOfFlatArea(this) && this.horizontalSpeed > -20) {
             //we need to go to the left
             goOnLeft();
-        } else if (marsSurface.isLanderNearOnRightOfFlatArea(this)) {
+        } else {
             System.err.println("Trying to slow down : " + this.horizontalSpeed);
             if (this.rotationAngle > 0) {
                 this.decrementRotationAngle();
-                this.decrementThrustPower();
-            } else if (this.rotationAngle == 0) {
-                slowDownVertically();
-            }
-
-        } else if (marsSurface.isLanderAboveFlatArea(this)) {
-            System.err.println("Above Flat Area - Horizontal Speed : " + this.horizontalSpeed);
-            if (this.horizontalSpeed > 20) {
-                //we have to compensate a little bit on the left
-                //how is our angle ? if the angle makes us go right (augmenting the hSpeed) we have to
-                if (this.rotationAngle < 0) {
-                    //The angle makes us augment the hSpeed
-                    this.incrementRotationAngle();
-                    this.decrementThrustPower();
-                } else {
-                    this.incrementThrustPower();
-                }
-            } else if (this.horizontalSpeed < -20) {
-                //we have to compensate a little bit on the right
-                if (this.rotationAngle > 0) {
-                    this.decrementRotationAngle();
-                    this.decrementThrustPower();
-                } else {
-                    this.incrementThrustPower();
-                }
+            } else if (this.rotationAngle < 0) {
+                this.decrementRotationAngle();
             } else {
-                //nous sommes dans la bonne limite de HSpeed
-                //d'abord, il faut réduire le rotationAngle à 0
-                if (this.rotationAngle < 0) {
-                    this.incrementRotationAngle();
-                } else if (this.rotationAngle > 0) {
-                    this.decrementRotationAngle();
-                } else {
-                    //maintenant il faut réduire la vitesse verticale
-                    if (this.verticalSpeed > 39) {
-                        this.decrementThrustPower();
-                    } else if (verticalSpeed < -39) {
-                        this.incrementThrustPower();
-                    } else {
-                        this.updateThrustPower(0);
-                    }
-                }
+                slowDownVertically();
             }
         }
         return outputAnswer();
     }
 
-    /*String computeRotationAngle(Surface marsSurface) {
-        FlatArea flatGround = marsSurface.getFlatArea();
-        return "0";
-    }
-
-    String computeThrustPower(Surface marsSurface) {
-        String result = "";
-        FlatArea flatGround = marsSurface.getFlatArea();
-        if (verticalSpeed > 39) {
-            result = Integer.toString(Math.max(0, thrustPower - 1));
-        } else if (verticalSpeed < -39) {
-            result = Integer.toString(Math.min(4, thrustPower + 1));
-        } else {
-            result = "0";
-        }
-        return result;
-    }
-*/
 }
