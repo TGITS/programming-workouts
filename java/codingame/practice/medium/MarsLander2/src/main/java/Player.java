@@ -306,78 +306,46 @@ final class MarsLander {
     }
 
     void goOnRight() {
-        //Quelle est notre vitesse horizontale ?
-        //Est-ce que cette vitesse horizontale est dans la bonne direction ? La vitesse horizontale doit être négative pour qu'on aille à droite
-        //Quelle est notre angle de rotation ? Est-ce que c'est angle est dans le bon sens ?
-        //Si on va dans la bonne direction, est-ce que notre vitesse est suffisante ?
-        //Comment déterminer que la vitesse est suffisante ? En approchant il faut ralentir
-        System.err.println("Go On Right - Horizontal Speed : " + this.horizontalSpeed);
-        if (this.horizontalSpeed > 0) {
-            //Vitesse horizontale dans la bonne direction
-            //Est-ce que la vitesse est suffisante ? Doit-on maintenir la vitesse ? Décélérer ?
-            //On maintient l'angle et la vitesse ?
-            if (this.rotationAngle <= 0) {
-                //Angle de rotation dans la bonne direction (negatif)
-                //On veut inverser la vitesse horizontale. Comme l'angle est dans la bon sens, il faut que j'accèlère
-                this.incrementThrustPower();
-            }
-            if (this.rotationAngle >= -45) {
+        System.err.println("Going On Right");
+        if (this.horizontalSpeed < 18) {
+            this.incrementThrustPower();
+            if (this.rotationAngle > -45) {
                 this.decrementRotationAngle();
             }
         } else {
-            //vitesse horizontale dans la mauvaise direction
             if (this.rotationAngle < 0) {
-                //Angle de rotation dans la bonne direction (negatif)
-                //On veut inverser la vitesse horizontale. Comme l'angle est dans la bon sens, il faut que j'accèlère
-                this.incrementThrustPower();
-                if (this.rotationAngle >= -45) {
-                    this.decrementRotationAngle();
-                }
-            } else {
-                //Angle de rotation dans la mauvaise direction (positif)
-                //Il faut corriger l'angle qui actuellement est positif ou nul, on veut le rendre negatif
-                this.decrementRotationAngle();
-                //On réduit la vitesse
+                this.incrementRotationAngle();
                 this.decrementThrustPower();
+            } else if (this.rotationAngle > 0) {
+                this.decrementRotationAngle();
+                this.decrementThrustPower();
+            } else {
+                this.incrementThrustPower();
             }
         }
     }
 
     void goOnLeft() {
-        System.err.println("Go On Left - Horizontal Speed : " + this.horizontalSpeed);
-        if (this.horizontalSpeed < 0) {
-            //Vitesse horizontale dans la bonne direction
-            //Est-ce que la vitesse est suffisante ? Doit-on maintenir la vitesse ? Décélérer ?
-            //On maintient l'angle et la vitesse ?
-            //Est-ce que l'angle est dans le bon sens
-            if (this.rotationAngle >= 0) {
-                //Angle de rotation dans la bonne direction
-                //On veut inverser la vitesse horizontale. Comme l'angle est dans le bon sens, il faut que j'accèlère
-                this.incrementThrustPower();
-            }
-            if (this.rotationAngle <= 45) {
+        System.err.println("Going On Left");
+        if (this.horizontalSpeed > -18) {
+            this.incrementThrustPower();
+            if (this.rotationAngle < 45) {
                 this.incrementRotationAngle();
             }
         } else {
-            //vitesse horizontale dans la mauvaise direction
             if (this.rotationAngle > 0) {
-                //Angle de rotation dans la bonne direction
-                //On veut inverser la vitesse horizontale. Comme l'angle est dans le bon sens, il faut que j'accèlère
-                this.incrementThrustPower();
-                if (this.rotationAngle <= 45) {
-                    this.incrementRotationAngle();
-                }
-            } else {
-                //Angle de rotation dans la mauvaise direction (negatif)
-                //Il faut corriger l'angle qui actuellement est négatif ou nul, on veut le rendre positif
                 this.incrementRotationAngle();
-                //On réduit la vitesse
                 this.decrementThrustPower();
+            } else if (this.rotationAngle < 0) {
+                this.incrementRotationAngle();
+                this.decrementThrustPower();
+            } else {
+                this.incrementThrustPower();
             }
         }
     }
 
-    void slowDownVertically() {
+    void prepareToLand() {
         if (this.verticalSpeed > 39) {
             this.decrementThrustPower();
         } else if (verticalSpeed < -39) {
@@ -388,20 +356,20 @@ final class MarsLander {
     }
 
     String computeRotationAngleAndThrustPower(Surface marsSurface) {
-        if (marsSurface.isLanderOnLeftOfFlatArea(this) && this.horizontalSpeed < 20) {
-            //we need to go to the right
+        if (marsSurface.isLanderOnLeftOfFlatArea(this)) {
+            System.err.println("Lander on left of Flat Area");
             goOnRight();
-        } else if (marsSurface.isLanderFarOnRightOfFlatArea(this) && this.horizontalSpeed > -20) {
-            //we need to go to the left
+        } else if (marsSurface.isLanderFarOnRightOfFlatArea(this)) {
+            System.err.println("Lander on right of Flat Area");
             goOnLeft();
         } else {
-            System.err.println("Trying to slow down : " + this.horizontalSpeed);
+            System.err.println("Lander above Flat Area");
             if (this.rotationAngle > 0) {
                 this.decrementRotationAngle();
             } else if (this.rotationAngle < 0) {
                 this.decrementRotationAngle();
             } else {
-                slowDownVertically();
+                prepareToLand();
             }
         }
         return outputAnswer();
