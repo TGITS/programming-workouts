@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SurfaceTest {
 
@@ -25,7 +26,7 @@ public class SurfaceTest {
 
         FlatArea flatGround = marsSurface.getFlatArea();
         assertEquals(6, marsSurface.getNumberOfDefiningPoints());
-        assertEquals(new Point(2000, 500), flatGround.getRightMostPoint());
-        assertEquals(new Point(3500,500), flatGround.getLeftMostPoint());
+        assertEquals(new Point(2000, 500), flatGround.getLeftMostPoint());
+        assertEquals(new Point(3500,500),flatGround.getRightMostPoint());
     }
 }

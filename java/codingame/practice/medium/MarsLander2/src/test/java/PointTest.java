@@ -70,7 +70,7 @@ class PointTest {
     }
 
     @Test
-    void isOnRight() {
+    void testIsOnRight() {
         Point p1 = new Point(1000, 2000);
         Point p2 = new Point(2000, 500);
         Point p3 = new Point(3000, 500);
@@ -80,5 +80,29 @@ class PointTest {
         assertFalse(p3.isOnRightOf(p4));
         assertTrue(p3.isOnRightOf(p2));
         assertTrue(p2.isOnRightOf(p1));
+    }
+
+    @Test
+    void testIsAbove() {
+        Point p1 = new Point(1000, 2000);
+        Point p2 = new Point(2000, 500);
+        Point p3 = new Point(3000, 2500);
+        Point p4 = new Point(3000, 700);
+        assertTrue(p1.isAboveOf(p2));
+        assertTrue(p3.isAboveOf(p4));
+        assertFalse(p1.isAboveOf(p3));
+        assertFalse(p2.isAboveOf(p4));
+    }
+
+    @Test
+    void testisBelow() {
+        Point p1 = new Point(1000, 2000);
+        Point p2 = new Point(2000, 500);
+        Point p3 = new Point(3000, 2500);
+        Point p4 = new Point(3000, 700);
+        assertFalse(p1.isBelowOf(p2));
+        assertFalse(p3.isBelowOf(p4));
+        assertTrue(p1.isBelowOf(p3));
+        assertTrue(p2.isBelowOf(p4));
     }
 }

@@ -1,5 +1,13 @@
 # Mars Lander - Episode 2
 
+## Learning Objectives
+
+In this puzzle, iterating on a series of 2D coordinates helps you grasp the concepts of comparisons, distance computation, extrapolation. This puzzles works with angle and orientation constraints. You learn to compute the speed of an object using its coordinates at two different times. If you perform well, you can solve this problem using some distance and trajectory optimization.
+
+## Statement
+
+The goal of this problem is to make you work with 2D coordinates in a big environnement. You will have to manage and extrapolate the speed of a spaceship and make it land on a flat ground at correct speed.
+
 ## Goal
 
 The goal for your program is to safely land the "Mars Lander" shuttle, the landing ship which contains the Opportunity rover. Mars Lander is guided by a program, and right now the failure rate for landing on the NASA simulator is unacceptable.
@@ -71,3 +79,21 @@ Response time per turn ≤ 100ms
 ```
 
 Requested rotation to the right, maximum thrust power
+
+## Ressources
+
+* https://www.codingame.com/learn/trigonometry
+* https://www.codingame.com/learn/distance
+* https://en.wikipedia.org/wiki/Euclidean_distance#Two_dimensions
+* https://byjus.com/physics/measurement-of-speed/
+* https://en.wikipedia.org/wiki/PID_controller
+* https://en.wikipedia.org/wiki/Dead_reckoning
+* https://en.wikipedia.org/wiki/True_range_multilateration
+* https://tech.io/playgrounds/334/genetic-algorithms/history
+* https://www.codingame.com/blog/genetic-algorithm-mars-lander/
+* https://www.physicsclassroom.com/class
+* [https://github.com/texus/codingame/blob/master/SingePlayer/Medium/Mars%20Lander%20-%20Level%202.cpp](https://github.com/texus/codingame/blob/master/SingePlayer/Medium/Mars Lander - Level 2.cpp)
+* https://pastebin.com/shmCsvRA
+* https://www.quora.com/What-solutions-did-you-imagine-to-solve-the-Mission-to-Mars-problems
+* https://github.com/fabriziocucci/CodinGame/tree/master/medium/mars-lander-level-2
+* https://www.xarg.org/puzzle/codingame/mars-lander/
