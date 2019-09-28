@@ -1,13 +1,14 @@
 (ns rna-transcription)
 
+(def nucleotide-transcription-map {\A \U \T \A \C \G \G \C})
+
 (defn transcribe [nucleotide]
-  (cond
-    (= nucleotide \A) \U
-    (= nucleotide \T) \A
-    (= nucleotide \C) \G
-    (= nucleotide \G) \C
-    :else (throw (AssertionError. "The provided nucleotide does not exist"))))
+  (if (contains? nucleotide-transcription-map nucleotide )
+    (get nucleotide-transcription-map nucleotide)
+    (throw (AssertionError. "The provided nucleotide does not exist"))
+    )
+  )
 
 (defn to-rna [dna]
-  (apply str (map rna-transcription/transcribe (seq dna))))
+  (apply str (map rna-transcription/transcribe dna)))
 
