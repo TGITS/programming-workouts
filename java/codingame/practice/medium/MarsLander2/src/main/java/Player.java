@@ -263,44 +263,25 @@ final class MarsLander {
         return this.getPosition().isOnRightOf(this.marsSurface.getFlatArea().getLeftMostPoint()) && this.getPosition().isOnLeftOf(this.marsSurface.getFlatArea().getRightMostPoint());
     }
 
-    boolean isLanderOnLeftOfFlatArea() {
+    boolean isOnLeftOfFlatArea() {
         return this.getPosition().isOnLeftOf(this.marsSurface.getFlatArea().getLeftMostPoint());
     }
 
-    boolean isLanderFarOnLeftOfFlatArea() {
-        return isLanderOnLeftOfFlatArea() && this.getPosition().horizontalDistance(this.marsSurface.getFlatArea().getLeftMostPoint()) > 1000;
-    }
-
-    boolean isLanderNearOnLeftOfFlatArea() {
-        return isLanderOnLeftOfFlatArea() && this.getPosition().horizontalDistance(this.marsSurface.getFlatArea().getLeftMostPoint()) <= 1000;
-    }
-
-    boolean isLanderOnRightOfFlatArea() {
+    boolean isOnRightOfFlatArea() {
         return this.getPosition().isOnRightOf(this.marsSurface.getFlatArea().getRightMostPoint());
     }
 
-    boolean isLanderFarOnRightOfFlatArea() {
-        return isLanderOnRightOfFlatArea() && this.getPosition().horizontalDistance(this.marsSurface.getFlatArea().getRightMostPoint()) > 1000;
-    }
-
-    boolean isLanderNearOnRightOfFlatArea(MarsLander marsLander) {
-        return isLanderOnRightOfFlatArea() && marsLander.getPosition().horizontalDistance(this.marsSurface.getFlatArea().getRightMostPoint()) <= 1000;
-    }
-
-
-    void incrementRotationAngle() {
+    void incrementRotationAngle(int angle) {
+        this.rotationAngle = this.rotationAngle + angle;
         if (this.rotationAngle >= 75) {
             this.rotationAngle = 90;
-        } else {
-            this.rotationAngle = this.rotationAngle + 15;
         }
     }
 
-    void decrementRotationAngle() {
+    void decrementRotationAngle(int angle) {
+        this.rotationAngle = this.rotationAngle - angle;
         if (this.rotationAngle <= -75) {
             this.rotationAngle = -90;
-        } else {
-            this.rotationAngle = this.rotationAngle - 15;
         }
     }
 
@@ -324,22 +305,22 @@ final class MarsLander {
         System.err.println("Going On Right");
         if (this.horizontalSpeed >= 18 && this.horizontalSpeed <= 20) {
             if (this.rotationAngle < 0) {
-                this.incrementRotationAngle();
+                this.incrementRotationAngle(15);
             } else if (this.rotationAngle > 0) {
-                this.decrementRotationAngle();
+                this.decrementRotationAngle(15);
             }
             this.incrementThrustPower();
         } else if (this.horizontalSpeed < 18) {
             this.incrementThrustPower();
             if (this.rotationAngle > -45) {
-                this.decrementRotationAngle();
+                this.decrementRotationAngle(15);
             }
         } else {
             if (this.rotationAngle <= 0) {
-                this.incrementRotationAngle();
+                this.incrementRotationAngle(15);
                 this.decrementThrustPower();
             } else {
-                this.incrementRotationAngle();
+                this.incrementRotationAngle(15);
                 this.incrementThrustPower();
             }
         }
@@ -349,22 +330,22 @@ final class MarsLander {
         System.err.println("Going On Left");
         if (this.horizontalSpeed >= -20 && this.horizontalSpeed < -18) {
             if (this.rotationAngle > 0) {
-                this.decrementRotationAngle();
+                this.decrementRotationAngle(15);
             } else if (this.rotationAngle < 0) {
-                this.incrementRotationAngle();
+                this.incrementRotationAngle(15);
             }
             this.incrementThrustPower();
         } else if (this.horizontalSpeed > -18) {
             this.incrementThrustPower();
             if (this.rotationAngle < 45) {
-                this.incrementRotationAngle();
+                this.incrementRotationAngle(15);
             }
         } else {
             if (this.rotationAngle >= 0) {
-                this.decrementRotationAngle();
+                this.decrementRotationAngle(15);
                 this.decrementThrustPower();
             } else {
-                this.decrementRotationAngle();
+                this.decrementRotationAngle(15);
                 this.incrementThrustPower();
             }
         }
@@ -381,18 +362,18 @@ final class MarsLander {
     }
 
     String computeRotationAngleAndThrustPower() {
-        if (isLanderOnLeftOfFlatArea()) {
+        if (isOnLeftOfFlatArea()) {
             System.err.println("Lander on left of Flat Area");
             goOnRight();
-        } else if (isLanderOnRightOfFlatArea()) {
+        } else if (isOnRightOfFlatArea()) {
             System.err.println("Lander on right of Flat Area");
             goOnLeft();
         } else {
             System.err.println("Lander above Flat Area");
             if (this.rotationAngle > 0) {
-                this.decrementRotationAngle();
+                this.decrementRotationAngle(15);
             } else if (this.rotationAngle < 0) {
-                this.incrementRotationAngle();
+                this.incrementRotationAngle(15);
             } else {
                 prepareToLand();
             }
