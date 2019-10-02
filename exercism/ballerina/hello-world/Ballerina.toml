@@ -1,5 +1,0 @@
-[project]
-org-name= "exercism"
-version= "0.1.0"
-
-[dependencies]
