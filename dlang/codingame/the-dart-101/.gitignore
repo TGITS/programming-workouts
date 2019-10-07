@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/the-dart-101
+the-dart-101.so
+the-dart-101.dylib
+the-dart-101.dll
+the-dart-101.a
+the-dart-101.lib
+the-dart-101-test-*
+*.exe
+*.o
+*.obj
+*.lst
