@@ -1,6 +1,7 @@
 import std;
 import std.uni : isWhite;
 import std.array : split;
+import std.string : isNumeric;
 
 /**
  * Auto-generated code below aims at helping you parse
@@ -23,7 +24,7 @@ void main()
     }
 
     stderr.writeln("names : ", names);
-    stderr.writeln("shoots : ", shootsForEachPlayer);
+    stderr.writeln("shoots for the ", n ," players : ", shootsForEachPlayer);
     // Write an action using writeln().
     // To debug: stderr.writeln("Debug messages...");
     for (int i = 0; i < n; i++)
@@ -37,4 +38,11 @@ void main()
 void evaluateShoots(string shootsForPlayer)
 {
     stderr.writeln("shoots : ", shootsForPlayer.split!isWhite);
+    string[] shoots = shootsForPlayer.split!isWhite;
+    int sum = 0;
+    foreach(shoot; shoots) {
+        if(isNumeric(shoot)) {
+            sum += shoot.strip.to!int();
+        }
+    }
 }
