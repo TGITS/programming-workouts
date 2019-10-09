@@ -8,13 +8,19 @@ import std.string : isNumeric;
  * the standard input according to the problem statement.
  **/
 
+struct Score
+{
+    int scoreValue;
+    int numberOfRounds;
+}
+
 void main()
 {
     int n = readln.strip.to!int;
     stderr.writeln("Number of players : ", n);
     string[] names;
     string[] shootsForEachPlayer;
-    int[] scores;
+    Score[] scores;
     for (int i = 0; i < n; i++)
     {
         names ~= readln.strip;
@@ -34,67 +40,116 @@ void main()
     }
 
     const int index_winner = findIndexScoreMax(scores);
+    stderr.writeln("Winner score ", scores[index_winner].scoreValue, " - ",
+            scores[index_winner].numberOfRounds);
     writeln(names[index_winner]);
 }
 
-int evaluateShoots(string shootsForPlayer)
+Score evaluateShoots(string shootsForPlayer)
 {
-    stderr.writeln("shoots : ", shootsForPlayer.split!isWhite);
     string[] shoots = shootsForPlayer.split!isWhite;
-    int sum = 0;
-    int consecutiveMisses = 0;
-    foreach (shoot; shoots)
+    stderr.writeln("shoots : ", shoots);
+    int total_sum = 0;
+    int round_sum = 0;
+    bool is_round_on = true;
+    int consecutive_misses = 0;
+    int number_of_rounds = 0;
+    int in_round_counter = 0;
+    int shoot_value = 0;
+    int index_shoots = 0;
+    string shoot;
+    while (index_shoots < shoots.length)
     {
-        int shootValue = 0;
-        if (isNumeric(shoot))
+        is_round_on = true;
+        round_sum = 0;
+        in_round_counter = 0;
+        while (is_round_on)
         {
-            shootValue = shoot.strip.to!int();
-        }
-        else if ("X" == shoot.strip)
-        {
-            shootValue -= 20;
-            if (consecutiveMisses == 1)
+            shoot_value = 0;
+            in_round_counter++;
+            shoot = shoots[index_shoots];
+            if (isNumeric(shoot))
             {
-                shootValue -= 10;
-                consecutiveMisses++;
+                shoot_value = shoot.strip.to!int();
+                consecutive_misses = 0;
+                stderr.write(" ", shoot_value, " ");
             }
-            else if (consecutiveMisses == 2)
+            else if ("X" == shoot.strip)
             {
-                sum = 0;
-                shootValue = 0;
-                consecutiveMisses = 0;
+                shoot_value -= 20;
+                consecutive_misses++;
+                if (consecutive_misses == 2)
+                {
+                    shoot_value -= 10;
+                }
+                else if (consecutive_misses == 3)
+                {
+                    total_sum = 0;
+                    shoot_value = 0;
+                    round_sum = 0;
+                    consecutive_misses = 0;
+                }
+
+                stderr.write(" X ");
             }
             else
             {
-                consecutiveMisses++;
+                string[] vals = shoot.split("*");
+                shoot_value = vals[0].to!int * vals[1].to!int;
+                consecutive_misses = 0;
+                stderr.write(" ", shoot, " ");
             }
-        } 
-        else 
-        {
-            string[] vals = shoot.split("*");
-            shootValue = vals[0].to!int * vals[1].to!int;
-        }
-        
-        if(sum + shootValue <= 101) {
-            sum += shootValue;
+            round_sum += shoot_value;
+            if (total_sum + round_sum > 101)
+            {
+                in_round_counter = 0;
+                round_sum = 0;
+                is_round_on = false;
+                number_of_rounds++;
+            }
+
+            if (total_sum + round_sum == 101)
+            {
+                in_round_counter = 0;
+                is_round_on = false;
+                number_of_rounds++;
+            }
+
+            if (in_round_counter == 3)
+            {
+                in_round_counter = 0;
+                is_round_on = false;
+                number_of_rounds++;
+                consecutive_misses = 0;
+            }
+
+            index_shoots++;
         }
 
-        if(sum == 101) {
+        stderr.writeln(" = ", round_sum);
+        total_sum += round_sum;
+        stderr.writeln("Somme totale : ", total_sum);
+        if (total_sum == 101)
+        {
             break;
         }
-    }
 
-    return sum;
+    }
+    return Score(total_sum, number_of_rounds);
 }
 
-int findIndexScoreMax(int[] scores) {
-    int max = scores[0];
+int findIndexScoreMax(Score[] scores)
+{
+    int max = scores[0].scoreValue;
     int max_index = 0;
-    for(int i=1; i < scores.length; i++) {
-        if(max < scores[i]) {
-            max = scores[i];
+    for (int i = 1; i < scores.length; i++)
+    {
+        if ((max < scores[i].scoreValue) || (max == scores[i].scoreValue
+                && (scores[max_index].numberOfRounds > scores[i].numberOfRounds)))
+        {
+            max = scores[i].scoreValue;
             max_index = i;
-        } 
+        }
     }
     return max_index;
 }
