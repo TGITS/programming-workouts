@@ -32,16 +32,12 @@ void main()
 
     stderr.writeln("names : ", names);
     stderr.writeln("shoots for the ", n, " players : ", shootsForEachPlayer);
-    // Write an action using writeln().
-    // To debug: stderr.writeln("Debug messages...");
     for (int i = 0; i < n; i++)
     {
         scores ~= evaluateShoots(shootsForEachPlayer[i]);
     }
 
     const int index_winner = findIndexScoreMax(scores);
-    stderr.writeln("Winner score ", scores[index_winner].scoreValue, " - ",
-            scores[index_winner].numberOfRounds);
     writeln(names[index_winner]);
 }
 
@@ -126,9 +122,7 @@ Score evaluateShoots(string shootsForPlayer)
             index_shoots++;
         }
 
-        stderr.writeln(" = ", round_sum);
         total_sum += round_sum;
-        stderr.writeln("Somme totale : ", total_sum);
         if (total_sum == 101)
         {
             break;
