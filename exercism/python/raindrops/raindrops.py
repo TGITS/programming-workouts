@@ -1,16 +1,14 @@
+textByFactors = {
+    3 : "Pling",
+    5 : "Plang",
+    7 : "Plong"
+}
+
 def convert(number):
-    result = ""
+    result = []
     
-    if number % 3 == 0:
-        result = result + "Pling"
-
-    if number % 5 == 0:
-        result = result + "Plang"
-
-    if number % 7 == 0: 
-        result = result + "Plong"
-
-    if not result:
-        result = str(number)
-
-    return result
+    for k,v in textByFactors.items():
+        if number % k == 0:
+            result.append(v)
+       
+    return "".join(result) if result else str(number)
