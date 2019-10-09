@@ -3,15 +3,19 @@ module rna_transcription;
 import std.algorithm;
 import std.conv;
 
-string dnaComplement(string rna_strand) {
-    string[string] dnaToRna;
-    dnaToRna["G"] = "C";
-    dnaToRna["C"] = "G";
-    dnaToRna["T"] = "A";
-    dnaToRna["A"] = "U";
+string dnaComplement(string dna_strand) {
+    char[char] dnaToRna;
+    dnaToRna['G'] = 'C';
+    dnaToRna['C'] = 'G';
+    dnaToRna['T'] = 'A';
+    dnaToRna['A'] = 'U';
+    char[] dna_strand_to_dchar = dna_strand.dup;
+    char[] rna_strand;
+    foreach(letter;dna_strand_to_dchar) {
+        rna_strand ~= dnaToRna[letter];
+    }
 
-
-    return rna_strand.map!(letter => dnaToRna[letter.to!string]).to!string;
+    return rna_strand.idup;
 }
 
 unittest
@@ -21,9 +25,9 @@ unittest
     const int allTestsEnabled = 0;
 
     assert(dnaComplement("C") == "G");
+    assert(dnaComplement("G") == "C");
     static if (allTestsEnabled)
     {
-        assert(dnaComplement("G") == "C");
         assert(dnaComplement("T") == "A");
         assert(dnaComplement("A") == "U");
 
