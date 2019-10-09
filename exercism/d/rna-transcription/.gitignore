@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/rna-transcription
+rna-transcription.so
+rna-transcription.dylib
+rna-transcription.dll
+rna-transcription.a
+rna-transcription.lib
+rna-transcription-test-*
+*.exe
+*.o
+*.obj
+*.lst

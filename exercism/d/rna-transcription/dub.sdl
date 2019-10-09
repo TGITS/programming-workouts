@@ -1,0 +1,3 @@
+name "rna-transcription"
+buildRequirements "disallowDeprecations"
+authors "TGITS"
