@@ -105,13 +105,13 @@ final class Point {
     }
 }
 
-final class FlatArea {
+final class LandingArea {
     private final Point leftMostPoint;
     private final Point rightMostPoint;
     private Point middlePoint;
 
 
-    FlatArea(Point leftMostPoint, Point rightMostPoint) {
+    LandingArea(Point leftMostPoint, Point rightMostPoint) {
         super();
         this.leftMostPoint = leftMostPoint;
         this.rightMostPoint = rightMostPoint;
@@ -135,7 +135,7 @@ final class FlatArea {
 
 final class Surface {
     private final List<Point> points = new ArrayList<>();
-    private FlatArea flatArea;
+    private LandingArea landingArea;
 
     Surface() {
         super();
@@ -149,8 +149,8 @@ final class Surface {
         return points.size();
     }
 
-    FlatArea getFlatArea() {
-        if (flatArea == null) {
+    LandingArea getLandingArea() {
+        if (landingArea == null) {
             Point previousPoint = points.get(0);
             double biggestDistance = 0.0;
             Point leftMostPoint = previousPoint;
@@ -165,9 +165,9 @@ final class Surface {
                 previousPoint = currentPoint;
             }
 
-            this.flatArea = new FlatArea(leftMostPoint, rightMostPoint);
+            this.landingArea = new LandingArea(leftMostPoint, rightMostPoint);
         }
-        return this.flatArea;
+        return this.landingArea;
     }
 
     public Point getPoint(int index) {
@@ -175,6 +175,12 @@ final class Surface {
     }
 }
 
+/**
+ * From the MarsLander point of view, 2 questions must be answered, the second depending on the ansewer to the first :
+ * - What should I do considering my present situation ? Should I go left, right, down, up, prepare to land ?
+ * - How I do what I should do considering my present situation and state ? What is my current state and what is the state I want to be in next round ?
+ * The idea is to modify my current state to be in a state that allow me to change my situation in a correct way with the objectives.
+ */
 final class MarsLander {
 
     private Point position;
@@ -259,28 +265,36 @@ final class MarsLander {
         return String.format("%d %d", this.rotationAngle, this.thrustPower);
     }
 
-    boolean isLanderAboveFlatArea() {
-        return this.getPosition().isOnRightOf(this.marsSurface.getFlatArea().getLeftMostPoint()) && this.getPosition().isOnLeftOf(this.marsSurface.getFlatArea().getRightMostPoint());
+    boolean isInAbscissaLimitOfLandingArea() {
+        return this.getPosition().isOnRightOf(this.marsSurface.getLandingArea().getLeftMostPoint()) && this.getPosition().isOnLeftOf(this.marsSurface.getLandingArea().getRightMostPoint());
     }
 
-    boolean isOnLeftOfFlatArea() {
-        return this.getPosition().isOnLeftOf(this.marsSurface.getFlatArea().getLeftMostPoint());
+    boolean isOnLeftOfLandingArea() {
+        return this.getPosition().isOnLeftOf(this.marsSurface.getLandingArea().getLeftMostPoint());
     }
 
-    boolean isOnRightOfFlatArea() {
-        return this.getPosition().isOnRightOf(this.marsSurface.getFlatArea().getRightMostPoint());
+    boolean isOnRightOfLandingArea() {
+        return this.getPosition().isOnRightOf(this.marsSurface.getLandingArea().getRightMostPoint());
+    }
+
+    boolean isBelowLandingArea() {
+        return this.getPosition().isBelowOf(this.marsSurface.getLandingArea().getMiddlePoint());
+    }
+
+    boolean isAboveLandingArea() {
+        return this.getPosition().isAboveOf(this.marsSurface.getLandingArea().getMiddlePoint());
     }
 
     void incrementRotationAngle(int angle) {
         this.rotationAngle = this.rotationAngle + angle;
-        if (this.rotationAngle >= 75) {
+        if (this.rotationAngle > 90) {
             this.rotationAngle = 90;
         }
     }
 
     void decrementRotationAngle(int angle) {
         this.rotationAngle = this.rotationAngle - angle;
-        if (this.rotationAngle <= -75) {
+        if (this.rotationAngle < -90) {
             this.rotationAngle = -90;
         }
     }
@@ -301,57 +315,51 @@ final class MarsLander {
         }
     }
 
+    /**
+     * The HS is positive oriented to the Right
+     * The HS is negative oriented to the Left
+     * Tilt Angle is positive toward the Left (trigonometric sense/anti-clockwise)
+     * Tilt Angle is negative toward the Right (clockwise)
+     *
+     * To increment HorizontalSpeed, the tilt angle must be negative and the thrust power must
+     * */
+
     void goOnRight() {
         System.err.println("Going On Right");
-        if (this.horizontalSpeed >= 18 && this.horizontalSpeed <= 20) {
-            if (this.rotationAngle < 0) {
-                this.incrementRotationAngle(15);
-            } else if (this.rotationAngle > 0) {
-                this.decrementRotationAngle(15);
-            }
+        if (this.horizontalSpeed <= 20 && this.horizontalSpeed > 18) {
+            this.updateRotationAngle(0);
             this.incrementThrustPower();
         } else if (this.horizontalSpeed < 18) {
+            this.updateRotationAngle(-45);
             this.incrementThrustPower();
-            if (this.rotationAngle > -45) {
-                this.decrementRotationAngle(15);
-            }
-        } else {
-            if (this.rotationAngle <= 0) {
-                this.incrementRotationAngle(15);
-                this.decrementThrustPower();
-            } else {
-                this.incrementRotationAngle(15);
-                this.incrementThrustPower();
-            }
+        } else if (this.horizontalSpeed > 20) {
+            this.updateRotationAngle(45);
+            this.incrementThrustPower();
+        }
+        else {
+            this.updateRotationAngle(0);
+            this.updateThrustPower(2);
         }
     }
 
     void goOnLeft() {
         System.err.println("Going On Left");
         if (this.horizontalSpeed >= -20 && this.horizontalSpeed < -18) {
-            if (this.rotationAngle > 0) {
-                this.decrementRotationAngle(15);
-            } else if (this.rotationAngle < 0) {
-                this.incrementRotationAngle(15);
-            }
+            this.updateRotationAngle(0);
             this.incrementThrustPower();
         } else if (this.horizontalSpeed > -18) {
+            this.updateRotationAngle(45);
             this.incrementThrustPower();
-            if (this.rotationAngle < 45) {
-                this.incrementRotationAngle(15);
-            }
-        } else {
-            if (this.rotationAngle >= 0) {
-                this.decrementRotationAngle(15);
-                this.decrementThrustPower();
-            } else {
-                this.decrementRotationAngle(15);
-                this.incrementThrustPower();
-            }
+        } else if(this.horizontalSpeed < -20 ) {
+            this.updateRotationAngle(-45);
+            this.incrementThrustPower();
+        }else {
+            this.updateRotationAngle(0);
+            this.updateThrustPower(2);
         }
     }
 
-    void prepareToLand() {
+    void regulateVerticalSpeed() {
         if (this.verticalSpeed > 39) {
             this.decrementThrustPower();
         } else if (verticalSpeed < -39) {
@@ -362,21 +370,17 @@ final class MarsLander {
     }
 
     String computeRotationAngleAndThrustPower() {
-        if (isOnLeftOfFlatArea()) {
+        if (isOnLeftOfLandingArea()) {
             System.err.println("Lander on left of Flat Area");
             goOnRight();
-        } else if (isOnRightOfFlatArea()) {
+        } else if (isOnRightOfLandingArea()) {
             System.err.println("Lander on right of Flat Area");
             goOnLeft();
         } else {
             System.err.println("Lander above Flat Area");
-            if (this.rotationAngle > 0) {
-                this.decrementRotationAngle(15);
-            } else if (this.rotationAngle < 0) {
-                this.incrementRotationAngle(15);
-            } else {
-                prepareToLand();
-            }
+            this.updateRotationAngle(0);
+            regulateVerticalSpeed();
+
         }
         return outputAnswer();
     }
