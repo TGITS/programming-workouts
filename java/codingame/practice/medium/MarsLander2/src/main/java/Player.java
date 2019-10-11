@@ -199,11 +199,11 @@ final class Surface {
         return points.stream().filter(point -> point.isOnLeftOf(referencePoint)).collect(Collectors.toList());
     }
 
-    Optional<Point> getPeakOnTheRight(Point referencePoint)  {
+    Optional<Point> getPeakOnTheRight(Point referencePoint) {
         return points.stream().filter(point -> point.isOnRightOf(referencePoint)).filter(point -> point.isAboveOf(referencePoint)).max(Comparator.comparingInt(Point::getY));
     }
 
-    Optional<Point> getPeakOnTheLeft(Point referencePoint)  {
+    Optional<Point> getPeakOnTheLeft(Point referencePoint) {
         return points.stream().filter(point -> point.isOnLeftOf(referencePoint)).filter(point -> point.isAboveOf(referencePoint)).max(Comparator.comparingInt(Point::getY));
     }
 }
@@ -420,10 +420,11 @@ final class MarsLander {
         System.err.println("Prepare landing approaching on right");
         if (this.horizontalSpeed > ABSOLUTE_MAX_HORIZONTAL_SPEED - 5 && this.horizontalSpeed <= ABSOLUTE_MAX_HORIZONTAL_SPEED) {
             this.updateRotationAngle(0);
-            if (this.isBelowLandingArea() || this.getMarsSurface().getPointsOnRightOfReferencePoint(this.getPosition()).stream().anyMatch(point -> this.getPosition().isBelowOf(point))) {
-                this.updateThrustPower(4);
-            } else {
+            //Il faut que je récupère juste le prochain pic, celui qui vient juste après ma position pas le plus lointain
+            if (this.isAboveLandingArea() && this.getMarsSurface().getPointsOnRightOfReferencePoint(this.getPosition()).stream().allMatch(point -> this.getPosition().isAboveOf(point))) {
                 regulateVerticalSpeed();
+            } else {
+                this.updateThrustPower(4);
             }
         } else if (this.horizontalSpeed > ABSOLUTE_MAX_HORIZONTAL_SPEED) {
             this.updateThrustPower(4);
@@ -447,10 +448,10 @@ final class MarsLander {
         System.err.println("Prepare landing approaching on left");
         if (this.horizontalSpeed >= -ABSOLUTE_MAX_HORIZONTAL_SPEED && this.horizontalSpeed < -ABSOLUTE_MAX_HORIZONTAL_SPEED + 5) {
             this.updateRotationAngle(0);
-            if (this.isBelowLandingArea() || this.getMarsSurface().getPointsOnLeftOfReferencePoint(this.getPosition()).stream().anyMatch(point -> this.getPosition().isBelowOf(point))) {
-                this.updateThrustPower(4);
-            } else {
+            if (this.isAboveLandingArea() && this.getMarsSurface().getPointsOnLeftOfReferencePoint(this.getPosition()).stream().allMatch(point -> this.getPosition().isAboveOf(point))) {
                 regulateVerticalSpeed();
+            } else {
+                this.updateThrustPower(4);
             }
         } else if (this.horizontalSpeed < -ABSOLUTE_MAX_HORIZONTAL_SPEED) {
             this.updateThrustPower(4);
