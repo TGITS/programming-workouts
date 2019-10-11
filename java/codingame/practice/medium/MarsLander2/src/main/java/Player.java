@@ -106,6 +106,9 @@ final class Point {
 }
 
 final class LandingArea {
+
+    public static final int NEARING_WIDTH_LIMIT = 500;
+    public static final int NEARING_HEIGHT_LIMIT = 500;
     private final Point leftMostPoint;
     private final Point rightMostPoint;
     private Point middlePoint;
@@ -128,8 +131,24 @@ final class LandingArea {
         return this.rightMostPoint;
     }
 
+    Point getRightMostPointWithNearingLimit() {
+        return new Point(this.rightMostPoint.getX() + LandingArea.NEARING_WIDTH_LIMIT, this.leftMostPoint.getY());
+    }
+
     Point getLeftMostPoint() {
         return this.leftMostPoint;
+    }
+
+    Point getLeftMostPointWithNearingLimit() {
+        return new Point(this.leftMostPoint.getX() - LandingArea.NEARING_WIDTH_LIMIT, this.leftMostPoint.getY());
+    }
+
+    int getLandingAreaAltitude() {
+        return this.middlePoint.getY();
+    }
+
+    int getLandingAreaAltitudeWithNearingLimit() {
+        return this.getLandingAreaAltitude() + LandingArea.NEARING_HEIGHT_LIMIT;
     }
 }
 
@@ -182,6 +201,9 @@ final class Surface {
  * The idea is to modify my current state to be in a state that allow me to change my situation in a correct way with the objectives.
  */
 final class MarsLander {
+
+    private static final int ABSOLUTE_MAX_HORIZONTAL_SPEED = 20;
+    private static final int ABSOLUTE_MAX_VERTICAL_SPEED = 40;
 
     private Point position;
     private int horizontalSpeed; // the horizontal speed (in m/s), can be negative.
@@ -273,8 +295,16 @@ final class MarsLander {
         return this.getPosition().isOnLeftOf(this.marsSurface.getLandingArea().getLeftMostPoint());
     }
 
+    boolean isNearOnLeftOfLandingArea() {
+        return isOnLeftOfLandingArea() && this.getPosition().isOnRightOf(this.marsSurface.getLandingArea().getLeftMostPointWithNearingLimit());
+    }
+
     boolean isOnRightOfLandingArea() {
         return this.getPosition().isOnRightOf(this.marsSurface.getLandingArea().getRightMostPoint());
+    }
+
+    boolean isNearOnRightOfLandingArea() {
+        return isOnRightOfLandingArea() && this.getPosition().isOnLeftOf(this.marsSurface.getLandingArea().getRightMostPointWithNearingLimit());
     }
 
     boolean isBelowLandingArea() {
@@ -320,67 +350,113 @@ final class MarsLander {
      * The HS is negative oriented to the Left
      * Tilt Angle is positive toward the Left (trigonometric sense/anti-clockwise)
      * Tilt Angle is negative toward the Right (clockwise)
-     *
+     * <p>
      * To increment HorizontalSpeed, the tilt angle must be negative and the thrust power must
-     * */
+     */
 
     void goOnRight() {
-        System.err.println("Going On Right");
-        if (this.horizontalSpeed <= 20 && this.horizontalSpeed > 18) {
-            this.updateRotationAngle(0);
-            this.incrementThrustPower();
-        } else if (this.horizontalSpeed < 18) {
+        System.err.println("Going on right");
+        if (this.horizontalSpeed <= ABSOLUTE_MAX_HORIZONTAL_SPEED * 2) {
             this.updateRotationAngle(-45);
-            this.incrementThrustPower();
-        } else if (this.horizontalSpeed > 20) {
+            this.updateThrustPower(4);
+        } else if (this.horizontalSpeed > ABSOLUTE_MAX_HORIZONTAL_SPEED * 2) {
+            //Going too fast, we slow down
             this.updateRotationAngle(45);
-            this.incrementThrustPower();
-        }
-        else {
-            this.updateRotationAngle(0);
-            this.updateThrustPower(2);
+            this.updateThrustPower(4);
         }
     }
 
     void goOnLeft() {
-        System.err.println("Going On Left");
-        if (this.horizontalSpeed >= -20 && this.horizontalSpeed < -18) {
-            this.updateRotationAngle(0);
-            this.incrementThrustPower();
-        } else if (this.horizontalSpeed > -18) {
+        System.err.println("Going on left");
+        if (this.horizontalSpeed >= -ABSOLUTE_MAX_HORIZONTAL_SPEED * 2) {
             this.updateRotationAngle(45);
-            this.incrementThrustPower();
-        } else if(this.horizontalSpeed < -20 ) {
+            this.updateThrustPower(4);
+        } else if (this.horizontalSpeed < -ABSOLUTE_MAX_HORIZONTAL_SPEED * 2) {
+            //Going too fast, we slow down
             this.updateRotationAngle(-45);
-            this.incrementThrustPower();
-        }else {
+            this.updateThrustPower(4);
+        }
+    }
+
+    void prepareLandingApproachingOnRight() {
+        System.err.println("Prepare landing approaching on right");
+        if (this.horizontalSpeed > ABSOLUTE_MAX_HORIZONTAL_SPEED - 5 && this.horizontalSpeed <= ABSOLUTE_MAX_HORIZONTAL_SPEED) {
             this.updateRotationAngle(0);
-            this.updateThrustPower(2);
+            if (this.isBelowLandingArea()) {
+                this.incrementThrustPower();
+            } else {
+                regulateVerticalSpeed();
+            }
+        } else if (this.horizontalSpeed > ABSOLUTE_MAX_HORIZONTAL_SPEED) {
+            //We slow down
+            this.updateRotationAngle(45);
+            this.updateThrustPower(4);
+        } else {
+            this.updateRotationAngle(-45);
+            this.updateThrustPower(4);
+        }
+    }
+
+    void prepareLandingApproachingOnLeft() {
+        System.err.println("Prepare landing approaching on left");
+        if (this.horizontalSpeed >= -ABSOLUTE_MAX_HORIZONTAL_SPEED && this.horizontalSpeed < -ABSOLUTE_MAX_HORIZONTAL_SPEED + 5) {
+            this.updateRotationAngle(0);
+            if (this.isBelowLandingArea()) {
+                this.incrementThrustPower();
+            } else {
+                regulateVerticalSpeed();
+            }
+        } else if (this.horizontalSpeed < -ABSOLUTE_MAX_HORIZONTAL_SPEED) {
+            //we slow down
+            this.updateRotationAngle(-45);
+            this.updateThrustPower(4);
+        } else {
+            this.updateRotationAngle(45);
+            this.updateThrustPower(4);
+        }
+    }
+
+    void prepareFinalLanding() {
+        if ((this.horizontalSpeed > -ABSOLUTE_MAX_HORIZONTAL_SPEED && this.horizontalSpeed < ABSOLUTE_MAX_HORIZONTAL_SPEED)) {
+            this.updateRotationAngle(0);
+            regulateVerticalSpeed();
+        } else if (this.horizontalSpeed >= ABSOLUTE_MAX_HORIZONTAL_SPEED) {
+            //We slow down
+            this.updateRotationAngle(45);
+            this.updateThrustPower(4);
+        } else {
+            //we slow down
+            this.updateRotationAngle(-45);
+            this.updateThrustPower(4);
         }
     }
 
     void regulateVerticalSpeed() {
-        if (this.verticalSpeed > 39) {
-            this.decrementThrustPower();
-        } else if (verticalSpeed < -39) {
-            this.incrementThrustPower();
+        if (this.verticalSpeed > ABSOLUTE_MAX_VERTICAL_SPEED / 2) {
+            this.updateThrustPower(0);
+        } else if (verticalSpeed < -ABSOLUTE_MAX_VERTICAL_SPEED / 2) {
+            this.updateThrustPower(4);
         } else {
             this.updateThrustPower(0);
         }
     }
 
     String computeRotationAngleAndThrustPower() {
-        if (isOnLeftOfLandingArea()) {
+        if (isNearOnLeftOfLandingArea()) {
+            System.err.println("Lander nearing on left of Flat Area");
+            prepareLandingApproachingOnRight();
+        } else if (isOnLeftOfLandingArea()) {
             System.err.println("Lander on left of Flat Area");
             goOnRight();
+        } else if (isNearOnRightOfLandingArea()) {
+            System.err.println("Lander nearing on right of Flat Area");
+            prepareLandingApproachingOnLeft();
         } else if (isOnRightOfLandingArea()) {
             System.err.println("Lander on right of Flat Area");
             goOnLeft();
         } else {
             System.err.println("Lander above Flat Area");
-            this.updateRotationAngle(0);
-            regulateVerticalSpeed();
-
+            prepareFinalLanding();
         }
         return outputAnswer();
     }
