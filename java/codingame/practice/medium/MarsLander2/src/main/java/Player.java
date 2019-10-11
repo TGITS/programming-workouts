@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 final class Player {
@@ -108,7 +105,7 @@ final class Point {
 
 final class LandingArea {
 
-    public static final int NEARING_WIDTH_LIMIT = 500;
+    public static final int NEARING_WIDTH_LIMIT = 1000;
     public static final int NEARING_HEIGHT_LIMIT = 500;
     private final Point leftMostPoint;
     private final Point rightMostPoint;
@@ -194,15 +191,21 @@ final class Surface {
         return points.get(index);
     }
 
-    public List<Point> getPointsOnRightOfReferencePoint(Point referencePoint) {
+    List<Point> getPointsOnRightOfReferencePoint(Point referencePoint) {
         return points.stream().filter(point -> point.isOnRightOf(referencePoint)).collect(Collectors.toList());
     }
 
-    public List<Point> getPointsOnLeftOfReferencePoint(Point referencePoint) {
+    List<Point> getPointsOnLeftOfReferencePoint(Point referencePoint) {
         return points.stream().filter(point -> point.isOnLeftOf(referencePoint)).collect(Collectors.toList());
     }
 
+    Optional<Point> getPeakOnTheRight(Point referencePoint)  {
+        return points.stream().filter(point -> point.isOnRightOf(referencePoint)).filter(point -> point.isAboveOf(referencePoint)).max(Comparator.comparingInt(Point::getY));
+    }
 
+    Optional<Point> getPeakOnTheLeft(Point referencePoint)  {
+        return points.stream().filter(point -> point.isOnLeftOf(referencePoint)).filter(point -> point.isAboveOf(referencePoint)).max(Comparator.comparingInt(Point::getY));
+    }
 }
 
 /**
@@ -323,6 +326,14 @@ final class MarsLander {
     }
 
     boolean isAboveLandingArea() {
+        return this.getPosition().isAboveOf(this.marsSurface.getLandingArea().getMiddlePoint());
+    }
+
+    boolean isBelowLandingAreaWithNearingLimit() {
+        return this.getPosition().isBelowOf(this.marsSurface.getLandingArea().getMiddlePoint());
+    }
+
+    boolean isAboveLandingAreaWithNearingLimit() {
         return this.getPosition().isAboveOf(this.marsSurface.getLandingArea().getMiddlePoint());
     }
 
