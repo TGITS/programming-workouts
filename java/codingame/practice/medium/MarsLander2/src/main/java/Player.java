@@ -101,12 +101,16 @@ final class Point {
     boolean isBelowOf(Point p) {
         return this.y < p.y;
     }
+
+    Point pointHigherOf(int additionalAltitude) {
+        return new Point(this.x, this.y + additionalAltitude);
+    }
 }
 
 final class LandingArea {
 
     public static final int NEARING_WIDTH_LIMIT = 1000;
-    public static final int NEARING_HEIGHT_LIMIT = 500;
+    public static final int NEARING_HEIGHT_LIMIT = 700;
     private final Point leftMostPoint;
     private final Point rightMostPoint;
     private Point middlePoint;
@@ -200,11 +204,11 @@ final class Surface {
     }
 
     Optional<Point> getFirstPeakOnTheRightBeforeLandingArea(Point referencePoint) {
-        return points.stream().filter(point -> point.isOnRightOf(referencePoint)).filter(point -> point.isOnLeftOf(this.getLandingArea().getLeftMostPoint())).filter(point -> point.isAboveOf(referencePoint)).min(Comparator.comparingDouble(point -> point.distance(referencePoint)));
+        return points.stream().filter(point -> point.isOnRightOf(referencePoint)).filter(point -> point.isOnLeftOf(this.getLandingArea().getLeftMostPoint())).filter(point -> point.pointHigherOf(300).isAboveOf(referencePoint)).min(Comparator.comparingDouble(point -> point.distance(referencePoint)));
     }
 
     Optional<Point> getFirstPeakOnTheLeftBeforeLandingArea(Point referencePoint) {
-        return points.stream().filter(point -> point.isOnLeftOf(referencePoint)).filter(point -> point.isOnRightOf(this.getLandingArea().getLeftMostPoint())).filter(point -> point.isAboveOf(referencePoint)).min(Comparator.comparingDouble(point -> point.distance(referencePoint)));
+        return points.stream().filter(point -> point.isOnLeftOf(referencePoint)).filter(point -> point.isOnRightOf(this.getLandingArea().getRightMostPoint())).filter(point -> point.pointHigherOf(300).isAboveOf(referencePoint)).min(Comparator.comparingDouble(point -> point.distance(referencePoint)));
     }
 }
 
@@ -329,12 +333,8 @@ final class MarsLander {
         return this.getPosition().isAboveOf(this.marsSurface.getLandingArea().getMiddlePoint());
     }
 
-    boolean isBelowLandingAreaWithNearingLimit() {
-        return this.getPosition().isBelowOf(this.marsSurface.getLandingArea().getMiddlePoint());
-    }
-
     boolean isAboveLandingAreaWithNearingLimit() {
-        return this.getPosition().isAboveOf(this.marsSurface.getLandingArea().getMiddlePoint());
+        return this.getPosition().isAboveOf(this.marsSurface.getLandingArea().getMiddlePoint().pointHigherOf(LandingArea.NEARING_HEIGHT_LIMIT));
     }
 
     void incrementRotationAngle(int angle) {
@@ -367,18 +367,18 @@ final class MarsLander {
         }
     }
 
-    boolean peakToAvoidOnRightBeforeLandingArea() {
+    private boolean peakToAvoidOnRightBeforeLandingArea() {
         Optional<Point> peak = this.getMarsSurface().getFirstPeakOnTheRightBeforeLandingArea(this.getPosition());
         if (peak.isPresent()) {
-            return this.getPosition().isBelowOf(peak.get());
+            return this.getPosition().isBelowOf(peak.get().pointHigherOf(LandingArea.NEARING_HEIGHT_LIMIT));
         }
         return false;
     }
 
-    boolean peakToAvoidOnLeftBeforeLandingArea() {
+    private boolean peakToAvoidOnLeftBeforeLandingArea() {
         Optional<Point> peak = this.getMarsSurface().getFirstPeakOnTheLeftBeforeLandingArea(this.getPosition());
         if (peak.isPresent()) {
-            return this.getPosition().isBelowOf(peak.get());
+            return this.getPosition().isBelowOf(peak.get().pointHigherOf(LandingArea.NEARING_HEIGHT_LIMIT));
         }
         return false;
     }
@@ -396,15 +396,14 @@ final class MarsLander {
         System.err.println("Going on right");
         if (this.horizontalSpeed <= ABSOLUTE_MAX_HORIZONTAL_SPEED * 2) {
             this.updateThrustPower(4);
-
-            if (this.isAboveLandingArea() && !peakToAvoidOnRightBeforeLandingArea()) {
+            if (this.isAboveLandingAreaWithNearingLimit() && !peakToAvoidOnRightBeforeLandingArea()) {
                 this.updateRotationAngle(-45);
             } else {
                 this.updateRotationAngle(0);
             }
         } else {
             this.updateThrustPower(4);
-            if (this.isAboveLandingArea() && this.getMarsSurface().getPointsOnRightOfReferencePoint(this.getPosition()).stream().allMatch(point -> this.getPosition().isAboveOf(point))) {
+            if (this.isAboveLandingAreaWithNearingLimit() && !peakToAvoidOnRightBeforeLandingArea()) {
                 //Going too fast, we try to slow down
                 this.updateRotationAngle(45);
             } else {
@@ -417,14 +416,14 @@ final class MarsLander {
         System.err.println("Going on left");
         if (this.horizontalSpeed >= -ABSOLUTE_MAX_HORIZONTAL_SPEED * 2) {
             this.updateThrustPower(4);
-            if (this.isAboveLandingArea() && !peakToAvoidOnLeftBeforeLandingArea()) {
+            if (this.isAboveLandingAreaWithNearingLimit() && !peakToAvoidOnLeftBeforeLandingArea()) {
                 this.updateRotationAngle(45);
             } else {
                 this.updateRotationAngle(0);
             }
         } else {
             this.updateThrustPower(4);
-            if (this.isAboveLandingArea() && this.getMarsSurface().getPointsOnLeftOfReferencePoint(this.getPosition()).stream().allMatch(point -> this.getPosition().isAboveOf(point))) {
+            if (this.isAboveLandingAreaWithNearingLimit() && !peakToAvoidOnLeftBeforeLandingArea()) {
                 //Going too fast, we try to slow down
                 this.updateRotationAngle(-45);
             } else {
@@ -438,14 +437,14 @@ final class MarsLander {
         if (this.horizontalSpeed > ABSOLUTE_MAX_HORIZONTAL_SPEED - 5 && this.horizontalSpeed <= ABSOLUTE_MAX_HORIZONTAL_SPEED) {
             this.updateRotationAngle(0);
             //Il faut que je récupère juste le prochain pic, celui qui vient juste après ma position pas le plus lointain
-            if (this.isAboveLandingArea() && !peakToAvoidOnRightBeforeLandingArea()) {
+            if (this.isAboveLandingAreaWithNearingLimit() && !peakToAvoidOnRightBeforeLandingArea()) {
                 regulateVerticalSpeed();
             } else {
                 this.updateThrustPower(4);
             }
         } else if (this.horizontalSpeed > ABSOLUTE_MAX_HORIZONTAL_SPEED) {
             this.updateThrustPower(4);
-            if (this.isAboveLandingArea() && !peakToAvoidOnRightBeforeLandingArea()) {
+            if (this.isAboveLandingAreaWithNearingLimit() && !peakToAvoidOnRightBeforeLandingArea()) {
                 //Going too fast, we try to slow down
                 this.updateRotationAngle(45);
             } else {
@@ -453,7 +452,7 @@ final class MarsLander {
             }
         } else {
             this.updateThrustPower(4);
-            if (this.isAboveLandingArea() && !peakToAvoidOnRightBeforeLandingArea()) {
+            if (this.isAboveLandingAreaWithNearingLimit() && !peakToAvoidOnRightBeforeLandingArea()) {
                 this.updateRotationAngle(-45);
             } else {
                 this.updateRotationAngle(0);
@@ -465,14 +464,14 @@ final class MarsLander {
         System.err.println("Prepare landing approaching on left");
         if (this.horizontalSpeed >= -ABSOLUTE_MAX_HORIZONTAL_SPEED && this.horizontalSpeed < -ABSOLUTE_MAX_HORIZONTAL_SPEED + 5) {
             this.updateRotationAngle(0);
-            if (this.isAboveLandingArea() && !peakToAvoidOnLeftBeforeLandingArea()) {
+            if (this.isAboveLandingAreaWithNearingLimit() && !peakToAvoidOnLeftBeforeLandingArea()) {
                 regulateVerticalSpeed();
             } else {
                 this.updateThrustPower(4);
             }
         } else if (this.horizontalSpeed < -ABSOLUTE_MAX_HORIZONTAL_SPEED) {
             this.updateThrustPower(4);
-            if (this.isAboveLandingArea() && !peakToAvoidOnLeftBeforeLandingArea()) {
+            if (this.isAboveLandingAreaWithNearingLimit() && !peakToAvoidOnLeftBeforeLandingArea()) {
                 //Going too fast, we try to slow down
                 this.updateRotationAngle(-45);
             } else {
@@ -480,7 +479,7 @@ final class MarsLander {
             }
         } else {
             this.updateThrustPower(4);
-            if (this.isAboveLandingArea() && !peakToAvoidOnLeftBeforeLandingArea()) {
+            if (this.isAboveLandingAreaWithNearingLimit() && !peakToAvoidOnLeftBeforeLandingArea()) {
                 this.updateRotationAngle(45);
             } else {
                 this.updateRotationAngle(0);
