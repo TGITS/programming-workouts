@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 final class Player {
 
@@ -109,8 +108,8 @@ final class Point {
 
 final class LandingArea {
 
-    public static final int NEARING_WIDTH_LIMIT = 1000;
-    public static final int NEARING_HEIGHT_LIMIT = 700;
+    static final int NEARING_WIDTH_LIMIT = 1000;
+    static final int NEARING_HEIGHT_LIMIT = 700;
     private final Point leftMostPoint;
     private final Point rightMostPoint;
     private Point middlePoint;
@@ -144,17 +143,10 @@ final class LandingArea {
     Point getLeftMostPointWithNearingLimit() {
         return new Point(this.leftMostPoint.getX() - LandingArea.NEARING_WIDTH_LIMIT, this.leftMostPoint.getY());
     }
-
-    int getLandingAreaAltitude() {
-        return this.middlePoint.getY();
-    }
-
-    int getLandingAreaAltitudeWithNearingLimit() {
-        return this.getLandingAreaAltitude() + LandingArea.NEARING_HEIGHT_LIMIT;
-    }
 }
 
 final class Surface {
+    private static final int PEAK_NEARING_HEIGHT_LIMIT = 300;
     private final List<Point> points = new ArrayList<>();
     private LandingArea landingArea;
 
@@ -191,24 +183,12 @@ final class Surface {
         return this.landingArea;
     }
 
-    public Point getPoint(int index) {
-        return points.get(index);
-    }
-
-    List<Point> getPointsOnRightOfReferencePoint(Point referencePoint) {
-        return points.stream().filter(point -> point.isOnRightOf(referencePoint)).collect(Collectors.toList());
-    }
-
-    List<Point> getPointsOnLeftOfReferencePoint(Point referencePoint) {
-        return points.stream().filter(point -> point.isOnLeftOf(referencePoint)).collect(Collectors.toList());
-    }
-
     Optional<Point> getFirstPeakOnTheRightBeforeLandingArea(Point referencePoint) {
-        return points.stream().filter(point -> point.isOnRightOf(referencePoint)).filter(point -> point.isOnLeftOf(this.getLandingArea().getLeftMostPoint())).filter(point -> point.pointHigherOf(300).isAboveOf(referencePoint)).min(Comparator.comparingDouble(point -> point.distance(referencePoint)));
+        return points.stream().filter(point -> point.isOnRightOf(referencePoint)).filter(point -> point.isOnLeftOf(this.getLandingArea().getLeftMostPoint())).filter(point -> point.pointHigherOf(PEAK_NEARING_HEIGHT_LIMIT).isAboveOf(referencePoint)).min(Comparator.comparingDouble(point -> point.distance(referencePoint)));
     }
 
     Optional<Point> getFirstPeakOnTheLeftBeforeLandingArea(Point referencePoint) {
-        return points.stream().filter(point -> point.isOnLeftOf(referencePoint)).filter(point -> point.isOnRightOf(this.getLandingArea().getRightMostPoint())).filter(point -> point.pointHigherOf(300).isAboveOf(referencePoint)).min(Comparator.comparingDouble(point -> point.distance(referencePoint)));
+        return points.stream().filter(point -> point.isOnLeftOf(referencePoint)).filter(point -> point.isOnRightOf(this.getLandingArea().getRightMostPoint())).filter(point -> point.pointHigherOf(PEAK_NEARING_HEIGHT_LIMIT).isAboveOf(referencePoint)).min(Comparator.comparingDouble(point -> point.distance(referencePoint)));
     }
 }
 
@@ -217,6 +197,11 @@ final class Surface {
  * - What should I do considering my present situation ? Should I go left, right, down, up, prepare to land ?
  * - How I do what I should do considering my present situation and state ? What is my current state and what is the state I want to be in next round ?
  * The idea is to modify my current state to be in a state that allow me to change my situation in a correct way with the objectives.
+ * The HS is positive oriented to the Right
+ * The HS is negative oriented to the Left
+ * Tilt Angle is positive toward the Left (trigonometric sense/anti-clockwise)
+ * Tilt Angle is negative toward the Right (clockwise)
+ * To increment HorizontalSpeed, the tilt angle must be negative and the thrust power must
  */
 final class MarsLander {
 
@@ -236,44 +221,15 @@ final class MarsLander {
         this.marsSurface = marsSurface;
     }
 
-    void update(int x, int y, int horizontalSpeed, int verticalSpeed, int fuel, int rotationAngle, int thrustPower) {
-        this.updatePosition(new Point(x, y));
-        this.updateHorizontalSpeed(horizontalSpeed);
-        this.updateVerticalSpeed(verticalSpeed);
-        this.updateFuel(fuel);
-        this.updateRotationAngle(rotationAngle);
-        this.updateThrustPower(thrustPower);
-    }
-
-    Point getPosition() {
+    private Point getPosition() {
         return position;
     }
 
-    int getHorizontalSpeed() {
-        return horizontalSpeed;
-    }
-
-    int getVerticalSpeed() {
-        return verticalSpeed;
-    }
-
-    int getFuel() {
-        return fuel;
-    }
-
-    int getRotationAngle() {
-        return rotationAngle;
-    }
-
-    int getThrustPower() {
-        return thrustPower;
-    }
-
-    Surface getMarsSurface() {
+    private Surface getMarsSurface() {
         return this.marsSurface;
     }
 
-    void updatePosition(Point position) {
+    private void updatePosition(Point position) {
         this.position = position;
     }
 
@@ -301,98 +257,41 @@ final class MarsLander {
         this.thrustPower = thrustPower;
     }
 
-    String outputAnswer() {
+    private String outputAnswer() {
         return String.format("%d %d", this.rotationAngle, this.thrustPower);
     }
 
-    boolean isInAbscissaLimitOfLandingArea() {
-        return this.getPosition().isOnRightOf(this.marsSurface.getLandingArea().getLeftMostPoint()) && this.getPosition().isOnLeftOf(this.marsSurface.getLandingArea().getRightMostPoint());
-    }
-
-    boolean isOnLeftOfLandingArea() {
+    private boolean isOnLeftOfLandingArea() {
         return this.getPosition().isOnLeftOf(this.marsSurface.getLandingArea().getLeftMostPoint());
     }
 
-    boolean isNearOnLeftOfLandingArea() {
+    private boolean isNearOnLeftOfLandingArea() {
         return isOnLeftOfLandingArea() && this.getPosition().isOnRightOf(this.marsSurface.getLandingArea().getLeftMostPointWithNearingLimit());
     }
 
-    boolean isOnRightOfLandingArea() {
+    private boolean isOnRightOfLandingArea() {
         return this.getPosition().isOnRightOf(this.marsSurface.getLandingArea().getRightMostPoint());
     }
 
-    boolean isNearOnRightOfLandingArea() {
+    private boolean isNearOnRightOfLandingArea() {
         return isOnRightOfLandingArea() && this.getPosition().isOnLeftOf(this.marsSurface.getLandingArea().getRightMostPointWithNearingLimit());
     }
 
-    boolean isBelowLandingArea() {
-        return this.getPosition().isBelowOf(this.marsSurface.getLandingArea().getMiddlePoint());
-    }
-
-    boolean isAboveLandingArea() {
-        return this.getPosition().isAboveOf(this.marsSurface.getLandingArea().getMiddlePoint());
-    }
-
-    boolean isAboveLandingAreaWithNearingLimit() {
+    private boolean isAboveLandingAreaWithNearingLimit() {
         return this.getPosition().isAboveOf(this.marsSurface.getLandingArea().getMiddlePoint().pointHigherOf(LandingArea.NEARING_HEIGHT_LIMIT));
-    }
-
-    void incrementRotationAngle(int angle) {
-        this.rotationAngle = this.rotationAngle + angle;
-        if (this.rotationAngle > 90) {
-            this.rotationAngle = 90;
-        }
-    }
-
-    void decrementRotationAngle(int angle) {
-        this.rotationAngle = this.rotationAngle - angle;
-        if (this.rotationAngle < -90) {
-            this.rotationAngle = -90;
-        }
-    }
-
-    void incrementThrustPower() {
-        if (this.thrustPower >= 3) {
-            this.thrustPower = 4;
-        } else {
-            this.thrustPower = this.thrustPower + 1;
-        }
-    }
-
-    void decrementThrustPower() {
-        if (this.thrustPower <= 1) {
-            this.thrustPower = 0;
-        } else {
-            this.thrustPower = this.thrustPower - 1;
-        }
     }
 
     private boolean peakToAvoidOnRightBeforeLandingArea() {
         Optional<Point> peak = this.getMarsSurface().getFirstPeakOnTheRightBeforeLandingArea(this.getPosition());
-        if (peak.isPresent()) {
-            return this.getPosition().isBelowOf(peak.get().pointHigherOf(LandingArea.NEARING_HEIGHT_LIMIT));
-        }
-        return false;
+        return peak.filter(point -> this.getPosition().isBelowOf(point.pointHigherOf(LandingArea.NEARING_HEIGHT_LIMIT))).isPresent();
     }
 
     private boolean peakToAvoidOnLeftBeforeLandingArea() {
         Optional<Point> peak = this.getMarsSurface().getFirstPeakOnTheLeftBeforeLandingArea(this.getPosition());
-        if (peak.isPresent()) {
-            return this.getPosition().isBelowOf(peak.get().pointHigherOf(LandingArea.NEARING_HEIGHT_LIMIT));
-        }
-        return false;
+        return peak.filter(point -> this.getPosition().isBelowOf(point.pointHigherOf(LandingArea.NEARING_HEIGHT_LIMIT))).isPresent();
     }
 
-    /**
-     * The HS is positive oriented to the Right
-     * The HS is negative oriented to the Left
-     * Tilt Angle is positive toward the Left (trigonometric sense/anti-clockwise)
-     * Tilt Angle is negative toward the Right (clockwise)
-     * <p>
-     * To increment HorizontalSpeed, the tilt angle must be negative and the thrust power must
-     */
-
-    void goOnRight() {
+    private void goOnRight() {
         System.err.println("Going on right");
         if (this.horizontalSpeed <= ABSOLUTE_MAX_HORIZONTAL_SPEED * 2) {
             this.updateThrustPower(4);
@@ -412,7 +311,7 @@ final class MarsLander {
         }
     }
 
-    void goOnLeft() {
+    private void goOnLeft() {
         System.err.println("Going on left");
         if (this.horizontalSpeed >= -ABSOLUTE_MAX_HORIZONTAL_SPEED * 2) {
             this.updateThrustPower(4);
@@ -432,7 +331,7 @@ final class MarsLander {
         }
     }
 
-    void prepareLandingApproachingOnRight() {
+    private void prepareLandingApproachingOnRight() {
         System.err.println("Prepare landing approaching on right");
         if (this.horizontalSpeed > ABSOLUTE_MAX_HORIZONTAL_SPEED - 5 && this.horizontalSpeed <= ABSOLUTE_MAX_HORIZONTAL_SPEED) {
             this.updateRotationAngle(0);
@@ -460,7 +359,7 @@ final class MarsLander {
         }
     }
 
-    void prepareLandingApproachingOnLeft() {
+    private void prepareLandingApproachingOnLeft() {
         System.err.println("Prepare landing approaching on left");
         if (this.horizontalSpeed >= -ABSOLUTE_MAX_HORIZONTAL_SPEED && this.horizontalSpeed < -ABSOLUTE_MAX_HORIZONTAL_SPEED + 5) {
             this.updateRotationAngle(0);
@@ -487,7 +386,7 @@ final class MarsLander {
         }
     }
 
-    void prepareFinalLanding() {
+    private void prepareFinalLanding() {
         if ((this.horizontalSpeed > -ABSOLUTE_MAX_HORIZONTAL_SPEED && this.horizontalSpeed < ABSOLUTE_MAX_HORIZONTAL_SPEED)) {
             this.updateRotationAngle(0);
             regulateVerticalSpeed();
@@ -502,7 +401,7 @@ final class MarsLander {
         }
     }
 
-    void regulateVerticalSpeed() {
+    private void regulateVerticalSpeed() {
         if (this.verticalSpeed > ABSOLUTE_MAX_VERTICAL_SPEED - 10) {
             this.updateThrustPower(0);
         } else if (verticalSpeed < -ABSOLUTE_MAX_VERTICAL_SPEED + 10) {
