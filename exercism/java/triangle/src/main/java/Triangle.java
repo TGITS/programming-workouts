@@ -1,7 +1,7 @@
+import java.util.Arrays;
+
 class Triangle {
-    private double side1;
-    private double side2;
-    private double side3;
+    private double[] sides = new double[3];
 
     Triangle(double side1, double side2, double side3) throws TriangleException {
         if ((side1 == 0 || side2 == 0 || side3 == 0)
@@ -9,17 +9,17 @@ class Triangle {
             throw new TriangleException();
         }
 
-        this.side1 = side1;
-        this.side2 = side2;
-        this.side3 = side3;
+        this.sides[0] = side1;
+        this.sides[1] = side2;
+        this.sides[2] = side3;
     }
 
     boolean isEquilateral() {
-        return side1 == side2 && side2 == side3;
+        return Arrays.stream(sides).distinct().count() == 1;
     }
 
     boolean isIsosceles() {
-        return side1 == side2 || side2 == side3 || side1 == side3;
+        return Arrays.stream(sides).distinct().count() == 2 || isEquilateral();
     }
 
     boolean isScalene() {
@@ -27,7 +27,7 @@ class Triangle {
     }
 
     boolean isDegenerate() {
-        return side1 + side2 == side3 || side1 + side3 == side2 || side2 + side3 == side1;
+        return sides[0] + sides[1] == sides[2] || sides[0] + sides[2] == sides[1] || sides[1] + sides[2] == sides[0];
     }
 
 }
