@@ -1,7 +1,9 @@
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 class Triangle {
-    private double[] sides = new double[3];
+    private Set<Double> sides = new HashSet<>();
 
     Triangle(double side1, double side2, double side3) throws TriangleException {
         if ((side1 == 0 || side2 == 0 || side3 == 0)
@@ -9,25 +11,39 @@ class Triangle {
             throw new TriangleException();
         }
 
-        this.sides[0] = side1;
-        this.sides[1] = side2;
-        this.sides[2] = side3;
+        sides.add(side1);
+        sides.add(side2);
+        sides.add(side3);
     }
 
     boolean isEquilateral() {
-        return Arrays.stream(sides).distinct().count() == 1;
+        return sides.size() == 1;
     }
 
     boolean isIsosceles() {
-        return Arrays.stream(sides).distinct().count() == 2 || isEquilateral();
+        return sides.size() == 2 || isEquilateral();
     }
 
     boolean isScalene() {
-        return !isEquilateral() && !isIsosceles();
+        return sides.size() == 3;
     }
 
     boolean isDegenerate() {
-        return sides[0] + sides[1] == sides[2] || sides[0] + sides[2] == sides[1] || sides[1] + sides[2] == sides[0];
+        if (sides.size() == 2) {
+            Iterator<Double> iterator = sides.iterator();
+            double side1 = iterator.next();
+            double side2 = iterator.next();
+            return side1 < side2 ? (2 * side1) == side2 : (2 * side2) == side1;
+        } else if (sides.size() == 3) {
+            double[] sidesAsArray = new double[3];
+            int i = 0;
+            for (double side : sides) {
+                sidesAsArray[i] = side;
+                i++;
+            }
+            return sidesAsArray[0] + sidesAsArray[1] == sidesAsArray[2] || sidesAsArray[0] + sidesAsArray[2] == sidesAsArray[1] || sidesAsArray[1] + sidesAsArray[2] == sidesAsArray[0];
+        }
+        return false;
     }
 
 }
