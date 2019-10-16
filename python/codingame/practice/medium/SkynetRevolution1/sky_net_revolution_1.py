@@ -29,6 +29,10 @@ def updateOrCreateNodeAndUpdateAdjacencies(nodes, index_node_1, index_node_2):
 def shortestPath(nodes, source_node_index, destination_node_index):
     pass
 
+def createDistanceTable(nodes, source_node_index):
+    pass
+
+
 if __name__ == "__main__":
     # Auto-generated code below aims at helping you parse
     # the standard input according to the problem statement.
