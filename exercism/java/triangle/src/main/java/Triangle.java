@@ -21,7 +21,7 @@ class Triangle {
     }
 
     boolean isIsosceles() {
-        return sides.size() == 2 || isEquilateral();
+        return sides.size() <= 2;
     }
 
     boolean isScalene() {
