@@ -54,30 +54,32 @@ class Graph:
         distance_table = self.build_distance_table(source_node_index)
 
         path = [destination_node_index]
+        print('Path at the beginning : {}'.format(' '.join(map(str,path))), file=sys.stderr)
 
         previous_vertex = distance_table[destination_node_index][1]
 
         while previous_vertex is not None and previous_vertex is not source_node_index:
-            path = path.insert(0, previous_vertex)
+            path.insert(0, previous_vertex)
             previous_vertex = distance_table[previous_vertex][1]
+            print('Path in the while : {}'.format(' '.join(map(str,path))), file=sys.stderr)
 
         if previous_vertex is None:
-            print("No shortest path from %d to %d".format(
+            print('No shortest path from {} to {}'.format(
                 source_node_index, destination_node_index), file=sys.stderr)
         else:
-            path = path.insert(0, source_node_index)
-            print("Shortest path from %d to %d is : ".format(
-                source_node_index, destination_node_index, path), file=sys.stderr)
+            path.insert(0, source_node_index)
+            print('Shortest path from {} to {} is : {}'.format(
+                source_node_index, destination_node_index, ' '.join([str(n) for n in path])), file=sys.stderr)
 
         return path
 
     def compute_edge_to_severe(self, skynet_agent_node_index):
         pathes = sorted([self.compute_shortest_path(
-            skynet_agent_node_index, gateway.get_index()) for gateway in self.vertex_list], key=len)
+            skynet_agent_node_index, gateway.get_index()) for gateway in self.get_gateways()], key=len)
         if len(pathes) >= 1:
             selected_shortest_path = pathes[0]
-            if len(selected_shortest_path > 1):
-                return "%d %d".format(selected_shortest_path[-2], selected_shortest_path[-1])
+            if len(selected_shortest_path) > 1:
+                return "{} {}".format(selected_shortest_path[-2], selected_shortest_path[-1])
 
         return " "
 
@@ -151,12 +153,11 @@ if __name__ == "__main__":
     while True:
         # The index of the node on which the Skynet agent is positioned this turn
         skynet_agent_node_index = int(input())
-        print("Graph :")
+        print("Graph :", file=sys.stderr)
         print("{}".format(graph), file=sys.stderr)
 
-        print("Gateways :")
+        print("Gateways :", file=sys.stderr)
         for gateway in gateways:
             print("{}".format(graph.get_gateways()), file=sys.stderr)
 
-        # Example: 0 1 are the indices of the nodes you wish to sever the link between
         print(graph.compute_edge_to_severe(skynet_agent_node_index))
