@@ -77,7 +77,7 @@ class Graph:
         if len(pathes) >= 1:
             selected_shortest_path = pathes[0]
             if len(selected_shortest_path) > 1:
-                return "{} {}".format(selected_shortest_path[-2], selected_shortest_path[-1])
+                return "{} {}".format(selected_shortest_path[0], selected_shortest_path[1])
 
         return " "
 
