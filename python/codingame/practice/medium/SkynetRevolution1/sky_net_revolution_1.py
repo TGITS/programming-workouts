@@ -54,14 +54,12 @@ class Graph:
         distance_table = self.build_distance_table(source_node_index)
 
         path = [destination_node_index]
-        print('Path at the beginning : {}'.format(' '.join(map(str,path))), file=sys.stderr)
 
         previous_vertex = distance_table[destination_node_index][1]
 
         while previous_vertex is not None and previous_vertex is not source_node_index:
             path.insert(0, previous_vertex)
             previous_vertex = distance_table[previous_vertex][1]
-            print('Path in the while : {}'.format(' '.join(map(str,path))), file=sys.stderr)
 
         if previous_vertex is None:
             print('No shortest path from {} to {}'.format(
@@ -153,11 +151,5 @@ if __name__ == "__main__":
     while True:
         # The index of the node on which the Skynet agent is positioned this turn
         skynet_agent_node_index = int(input())
-        print("Graph :", file=sys.stderr)
-        print("{}".format(graph), file=sys.stderr)
-
-        print("Gateways :", file=sys.stderr)
-        for gateway in gateways:
-            print("{}".format(graph.get_gateways()), file=sys.stderr)
 
         print(graph.compute_edge_to_severe(skynet_agent_node_index))
