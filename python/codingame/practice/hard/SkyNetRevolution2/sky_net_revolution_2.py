@@ -2,6 +2,41 @@ import sys
 from queue import Queue
 
 
+class Node:
+    def __init__(self, index):
+        self.index = index
+        self.adjacency_set = set()
+        self.is_gateway = False
+
+    def get_index(self):
+        return self.index
+
+    def add_edge(self, adjacent_vertex_index):
+        self.adjacency_set.add(adjacent_vertex_index)
+
+    def severe_edge(self, adjacent_vertex_index):
+        self.adjacency_set.discard(adjacent_vertex_index)
+
+    def mark_as_gateway(self):
+        self.is_gateway = True
+
+    def get_adjacent_vertices(self):
+        return self.adjacency_set
+
+    def get_indegree(self):
+        return len(self.adjacency_set)
+
+    def __str__(self):
+        return 'Node(index={}, adjacency set=[{}], isGateway={})'.format(self.index,
+                                                                         ' '.join(map(str, self.adjacency_set)),
+                                                                         self.is_gateway)
+
+    def __repr__(self):
+        return 'Node(index={}, adjacency set=[{}], isGateway={})'.format(self.index,
+                                                                         ' '.join(map(str, self.adjacency_set)),
+                                                                         self.is_gateway)
+
+
 class Graph:
     def __init__(self, vertices=[]):
         self.vertices = vertices
@@ -21,6 +56,16 @@ class Graph:
 
     def get_adjacent_vertices(self, v):
         return self.vertices[v].get_adjacent_vertices()
+
+    def is_gateway(self, v):
+        return self.vertices[v].is_gateway
+
+    def is_near_gateway(self, v):
+        return self.is_gateway(v) or len([node for node in self.get_adjacent_vertices(v) if self.is_gateway(node)]) > 0
+
+    def get_gateway_indegree(self, v):
+        return len(
+            [node for node in self.get_adjacent_vertices(v) if self.is_gateway(node) or self.is_near_gateway(node)])
 
     def get_indegree(self, v):
         return self.vertices[v].get_indegree()
@@ -75,16 +120,20 @@ class Graph:
         return path
 
     def compute_edge_to_severe(self, skynet_agent_vertex_index):
-        paths = sorted(filter(lambda vertices_list: len(vertices_list) > 1, [self.compute_shortest_path(
-            skynet_agent_vertex_index, gateway.get_index()) for gateway in self.get_gateways()]), key=len)
-        print('Paths : {}'.format(' '.join([str(path) for path in paths])), file=sys.stderr)
-        if len(paths) >= 1:
-            selected_shortest_path = paths[0]
-            if len(selected_shortest_path) > 1:
-                self.severe_edge(selected_shortest_path[-2], selected_shortest_path[-1])
-                return "{} {}".format(selected_shortest_path[-2], selected_shortest_path[-1])
-
-        return " "
+        shortest_paths = filter(lambda vertices_list: len(vertices_list) > 1,
+                                [self.compute_shortest_path(skynet_agent_vertex_index, gateway.get_index()) for gateway
+                                 in self.get_gateways()])
+        shortest_paths_sorted_by_penultimate_vertex_indegree = sorted(
+            [shortest_path for shortest_path in shortest_paths],
+            key=lambda shortest_path: graph.get_gateway_indegree(shortest_path[-2]), reverse=True)
+        print('Shortest paths sorted by penultimate vertex indegree : {}'.format(
+            ' '.join([str(path) for path in shortest_paths_sorted_by_penultimate_vertex_indegree])), file=sys.stderr)
+        shortest_paths_sorted_by_length = sorted(shortest_paths_sorted_by_penultimate_vertex_indegree, key=len)
+        print('Shortest paths sorted by length : {}'.format(
+            ' '.join([str(path) for path in shortest_paths_sorted_by_length])), file=sys.stderr)
+        selected_path = shortest_paths_sorted_by_length[0]
+        self.severe_edge(selected_path[-2], selected_path[-1])
+        return "{} {}".format(selected_path[-2], selected_path[-1])
 
     def get_gateways(self):
         return [v for v in self.vertices if v.is_gateway]
@@ -100,41 +149,6 @@ class Graph:
         for v in self.vertices:
             graph_as_string = graph_as_string + str(v) + "\n"
         return graph_as_string
-
-
-class Node:
-    def __init__(self, index):
-        self.index = index
-        self.adjacency_set = set()
-        self.is_gateway = False
-
-    def get_index(self):
-        return self.index
-
-    def add_edge(self, adjacent_vertex_index):
-        self.adjacency_set.add(adjacent_vertex_index)
-
-    def severe_edge(self, adjacent_vertex_index):
-        self.adjacency_set.discard(adjacent_vertex_index)
-
-    def mark_as_gateway(self):
-        self.is_gateway = True
-
-    def get_adjacent_vertices(self):
-        return self.adjacency_set
-
-    def get_indegree(self, v):
-        return len(self.adjacency_set)
-
-    def __str__(self):
-        return 'Node(index={}, adjacency set=[{}], isGateway={})'.format(self.index,
-                                                                         ' '.join(map(str, self.adjacency_set)),
-                                                                         self.is_gateway)
-
-    def __repr__(self):
-        return 'Node(index={}, adjacency set=[{}], isGateway={})'.format(self.index,
-                                                                         ' '.join(map(str, self.adjacency_set)),
-                                                                         self.is_gateway)
 
 
 if __name__ == "__main__":
