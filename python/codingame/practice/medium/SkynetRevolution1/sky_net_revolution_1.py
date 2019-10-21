@@ -1,16 +1,5 @@
 import sys
-from itertools import tee
 from queue import Queue
-
-
-def pairwise(iterable):
-    """s -> (s0,s1), (s1,s2), (s2, s3), ...
-
-    Code taken from https://docs.python.org/3.7/library/itertools.html
-    """
-    a, b = tee(iterable)
-    next(b, None)
-    return zip(a, b)
 
 
 class Graph:
@@ -86,7 +75,7 @@ class Graph:
         return path
 
     def compute_edge_to_severe(self, skynet_agent_vertex_index):
-        paths = sorted(filter(lambda vertices_list : len(vertices_list) > 1, [self.compute_shortest_path(
+        paths = sorted(filter(lambda vertices_list: len(vertices_list) > 1, [self.compute_shortest_path(
             skynet_agent_vertex_index, gateway.get_index()) for gateway in self.get_gateways()]), key=len)
         print('Paths : {}'.format(' '.join([str(path) for path in paths])), file=sys.stderr)
         if len(paths) >= 1:
