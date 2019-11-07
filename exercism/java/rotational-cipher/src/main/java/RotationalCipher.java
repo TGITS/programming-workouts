@@ -1,7 +1,9 @@
 class RotationalCipher {
 
+    private int shiftKey;
+
     RotationalCipher(int shiftKey) {
-        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
+        this.shiftKey = shiftKey;
     }
 
     String rotate(String data) {
