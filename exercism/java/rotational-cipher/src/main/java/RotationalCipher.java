@@ -1,6 +1,9 @@
-class RotationalCipher {
+import java.util.stream.Collectors;
 
-    private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+class RotationalCipher {
+    private static final int LOWER_CASE_Z_CODE_POINT = "z".codePointAt(0);
+    private static final int LOWER_CASE_A_CODE_POINT = "a".codePointAt(0);
+
     private int shiftKey;
 
     RotationalCipher(int shiftKey) {
@@ -8,25 +11,28 @@ class RotationalCipher {
     }
 
     String rotate(String data) {
-        StringBuilder rotatedData = new StringBuilder();
-        for (int i = 0; i < data.length(); i++) {
-            char c = data.charAt(i);
-            if (Character.isLetter(c)) {
-                rotatedData.append(rotateCharacter(c));
-            } else {
-                rotatedData.append(c);
-            }
-        }
-        return rotatedData.toString();
+        return data.codePoints().mapToObj(this::processCodePoint).collect(Collectors.joining());
     }
 
-    private char rotateCharacter(char c) {
-        boolean isUpperCase = Character.isUpperCase(c);
-        if (isUpperCase) {
-            c = Character.toLowerCase(c);
+    private String processCodePoint(int codePoint) {
+        if (Character.isLetter(codePoint)) {
+            return rotateCodePoint(codePoint);
+        } else {
+            return new String(Character.toChars(codePoint));
         }
-        int originalPositionInAlphabet = ALPHABET.indexOf(c);
-        int rotatedPosition = (originalPositionInAlphabet + shiftKey) % ALPHABET.length();
-        return isUpperCase ? Character.toUpperCase(ALPHABET.charAt(rotatedPosition)) : ALPHABET.charAt(rotatedPosition);
     }
+
+    private String rotateCodePoint(int codePoint) {
+        boolean isUpperCase = Character.isUpperCase(codePoint);
+        if (isUpperCase) {
+            codePoint = Character.toLowerCase(codePoint);
+        }
+        int rotatedCodePoint = codePoint + shiftKey;
+        if (rotatedCodePoint > LOWER_CASE_Z_CODE_POINT) {
+            rotatedCodePoint = rotatedCodePoint - (LOWER_CASE_Z_CODE_POINT + 1) + LOWER_CASE_A_CODE_POINT;
+        }
+        return isUpperCase ? new String(Character.toChars(rotatedCodePoint)).toUpperCase() : new String(Character.toChars(rotatedCodePoint));
+    }
+
+
 }
