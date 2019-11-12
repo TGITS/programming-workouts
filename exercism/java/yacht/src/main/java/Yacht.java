@@ -1,11 +1,35 @@
+import java.util.Arrays;
+
 class Yacht {
 
-    Yacht(int[] dice, YachtCategory yachtCategory) {
-        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
+    private int[] dices;
+    private final YachtCategory yachtCategory;
+
+    Yacht(int[] dices, YachtCategory yachtCategory) {
+        this.dices = Arrays.copyOf(dices, dices.length);
+        this.yachtCategory = yachtCategory;
     }
 
     int score() {
-        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
+        switch (this.yachtCategory) {
+            case YACHT:
+                return this.scoreForYacht();
+            case ONES:
+                return this.scoreForNumbers(1);
+            case TWOS:
+                return this.scoreForNumbers(2);
+            default:
+                return -1;
+        }
+
+    }
+
+    private int scoreForYacht() {
+        return Arrays.stream(dices).distinct().count() == 1 ? 50 : 0;
+    }
+
+    private int scoreForNumbers(int number) {
+        return (int) (Arrays.stream(dices).filter(i -> i == number).count() * number);
     }
 
 }

@@ -11,35 +11,30 @@ public class YachtTest {
         assertEquals(50, yacht.score());
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void notYacht() {
         Yacht yacht = new Yacht(new int[]{ 1, 3, 3, 2, 5 }, YachtCategory.YACHT);
         assertEquals(0, yacht.score());
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void ones() {
         Yacht yacht =  new Yacht(new int[]{ 1, 1, 1, 3, 5 }, YachtCategory.ONES);
         assertEquals(3, yacht.score());
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void onesOutOfOrder() {
         Yacht yacht = new Yacht(new int[]{ 3, 1, 1, 5, 1 }, YachtCategory.ONES);
         assertEquals(3, yacht.score());
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void noOnes() {
         Yacht yacht = new Yacht(new int[]{ 4, 3, 6, 5, 5 }, YachtCategory.ONES);
         assertEquals(0, yacht.score());
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void twos() {
         Yacht yacht = new Yacht(new int[]{ 2, 3, 4, 5, 6 }, YachtCategory.TWOS);
