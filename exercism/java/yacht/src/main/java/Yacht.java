@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.function.Function;
@@ -32,10 +33,13 @@ class Yacht {
                 return this.scoreForNumbers(6);
             case FULL_HOUSE:
                 return this.scoreForFullHouse();
+            case FOUR_OF_A_KIND:
+                return this.scoreForFourOfAKind();
+            case LITTLE_STRAIGHT:
+                return this.scoreForLittleStraight();
             default:
                 return -1;
         }
-
     }
 
     private int scoreForYacht() {
@@ -48,10 +52,22 @@ class Yacht {
 
     private int scoreForFullHouse() {
         Map<Integer, Long> groupByCount = Arrays.stream(dices).boxed().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        groupByCount.values();
-        if (groupByCount.size() == 2 /*&& new HashSet<>(groupByCount.values()).equals(new HashSet<Long>(2L,3L))*/) {
+        if (new HashSet<>(groupByCount.values()).equals(new HashSet<>(Arrays.asList(2L, 3L)))) {
             return Arrays.stream(dices).sum();
         }
+        return 0;
+    }
+
+    private int scoreForFourOfAKind() {
+        Map<Integer, Long> groupByCount = Arrays.stream(dices).boxed().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        if (new HashSet<>(groupByCount.values()).equals(new HashSet<>(Arrays.asList(1L, 4L))) || new HashSet<>(groupByCount.values()).equals(new HashSet<>(Collections.singletonList(5L)))) {
+            return groupByCount.entrySet().stream().filter(entry -> entry.getValue() == 4L || entry.getValue() == 5L).map(entry -> entry.getKey() * 4).findFirst().get();
+        }
+        return 0;
+    }
+
+    private int scoreForLittleStraight() {
+        //if (new HashSet<Integer>(Arrays.asList(dices)).equals(new HashSet<>(Arrays.asList(1L, 4L)))
         return 0;
     }
 }
