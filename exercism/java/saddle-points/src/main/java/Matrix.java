@@ -35,7 +35,7 @@ class Matrix {
         List<Integer> rowMinList = Arrays.stream(this.transposedMatrix).map(array -> Arrays.stream(array).min().getAsInt()).collect(Collectors.toList());
         for (int i = 0; i < numberOfRows; i++) {
             for (int j = 0; j < numberOfColumns; j++) {
-                if (matrix[i][j] == rowMaxList.get(i) && matrix[i][j] == rowMinList.get(j)) {
+                if (rowMaxList.get(i) == rowMinList.get(j)) {
                     saddlePoints.add(new MatrixCoordinate(i + 1, j + 1));
                 }
             }

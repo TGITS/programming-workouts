@@ -49,6 +49,9 @@ class Yacht {
     }
 
     private int scoreForFullHouse() {
-        return (Arrays.stream(dices).distinct().count() == 2) ? Arrays.stream(dices).sum() : 0;
+        if(Arrays.stream(dices).distinct().count() == 2) {
+            return Arrays.stream(dices).sum();
+        }
+        return 0;
     }
 }
