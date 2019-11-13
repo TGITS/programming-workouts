@@ -1,10 +1,8 @@
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import static java.util.function.IntUnaryOperator.identity;
-import static java.util.stream.Collectors.toMap;
 
 class Yacht {
 
@@ -49,7 +47,9 @@ class Yacht {
     }
 
     private int scoreForFullHouse() {
-        if(Arrays.stream(dices).distinct().count() == 2) {
+        Map<Integer, Long> groupByCount = Arrays.stream(dices).boxed().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        groupByCount.values();
+        if (groupByCount.size() == 2 /*&& new HashSet<>(groupByCount.values()).equals(new HashSet<Long>(2L,3L))*/) {
             return Arrays.stream(dices).sum();
         }
         return 0;
