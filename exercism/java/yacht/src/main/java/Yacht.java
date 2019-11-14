@@ -1,11 +1,12 @@
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 class Yacht {
+
+    private static final int LOSING_SCORE = 0;
+    private static final int YACHT_SCORE = 50;
+    private static final int STRAIGHT_SCORE = 30;
 
     private int[] dices;
     private final YachtCategory yachtCategory;
@@ -36,14 +37,18 @@ class Yacht {
             case FOUR_OF_A_KIND:
                 return this.scoreForFourOfAKind();
             case LITTLE_STRAIGHT:
-                return this.scoreForLittleStraight();
+                return this.scoreForStraight(Arrays.asList(1,2,3,4,5));
+            case BIG_STRAIGHT:
+                return this.scoreForStraight(Arrays.asList(2,3,4,5,6));
+            case CHOICE:
+                return this.scoreForChoice();
             default:
                 return -1;
         }
     }
 
     private int scoreForYacht() {
-        return Arrays.stream(dices).distinct().count() == 1 ? 50 : 0;
+        return Arrays.stream(dices).distinct().count() == 1 ? YACHT_SCORE : LOSING_SCORE;
     }
 
     private int scoreForNumbers(int number) {
@@ -55,7 +60,7 @@ class Yacht {
         if (new HashSet<>(groupByCount.values()).equals(new HashSet<>(Arrays.asList(2L, 3L)))) {
             return Arrays.stream(dices).sum();
         }
-        return 0;
+        return LOSING_SCORE;
     }
 
     private int scoreForFourOfAKind() {
@@ -63,11 +68,16 @@ class Yacht {
         if (new HashSet<>(groupByCount.values()).equals(new HashSet<>(Arrays.asList(1L, 4L))) || new HashSet<>(groupByCount.values()).equals(new HashSet<>(Collections.singletonList(5L)))) {
             return groupByCount.entrySet().stream().filter(entry -> entry.getValue() == 4L || entry.getValue() == 5L).map(entry -> entry.getKey() * 4).findFirst().get();
         }
-        return 0;
+        return LOSING_SCORE;
     }
 
-    private int scoreForLittleStraight() {
-        //if (new HashSet<Integer>(Arrays.asList(dices)).equals(new HashSet<>(Arrays.asList(1L, 4L)))
-        return 0;
+    private int scoreForStraight(List<Integer> expectedResult) {
+        Set<Integer> littleStraight = new HashSet<>(expectedResult);
+        Set<Integer> givenRoll = Arrays.stream(dices).boxed().collect(Collectors.toSet());
+        return givenRoll.equals(littleStraight) ? STRAIGHT_SCORE : LOSING_SCORE;
+    }
+
+    private int scoreForChoice() {
+        return Arrays.stream(dices).sum();
     }
 }
