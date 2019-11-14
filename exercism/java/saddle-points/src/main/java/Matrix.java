@@ -10,6 +10,7 @@ class Matrix {
     private int[][] transposedMatrix = null;
     private int numberOfRows;
     private int numberOfColumns;
+    private Set<MatrixCoordinate> saddlePoints;
 
     Matrix(List<List<Integer>> values) {
         if (!values.isEmpty()) {
@@ -24,22 +25,28 @@ class Matrix {
                 }
             }
         }
+        precomputeSaddlePoints();
+    }
+
+    private void precomputeSaddlePoints() {
+        if (matrix == null) {
+            this.saddlePoints = Set.of();
+        } else {
+            Set<MatrixCoordinate> saddlePoints = new HashSet<>();
+            List<Integer> rowMaxList = Arrays.stream(this.matrix).map(array -> Arrays.stream(array).max().getAsInt()).collect(Collectors.toList());
+            List<Integer> rowMinList = Arrays.stream(this.transposedMatrix).map(array -> Arrays.stream(array).min().getAsInt()).collect(Collectors.toList());
+            for (int i = 0; i < numberOfRows; i++) {
+                for (int j = 0; j < numberOfColumns; j++) {
+                    if (rowMaxList.get(i) == rowMinList.get(j)) {
+                        saddlePoints.add(new MatrixCoordinate(i + 1, j + 1));
+                    }
+                }
+            }
+            this.saddlePoints = saddlePoints;
+        }
     }
 
     Set<MatrixCoordinate> getSaddlePoints() {
-        if (matrix == null) {
-            return Set.of();
-        }
-        Set<MatrixCoordinate> saddlePoints = new HashSet<>();
-        List<Integer> rowMaxList = Arrays.stream(this.matrix).map(array -> Arrays.stream(array).max().getAsInt()).collect(Collectors.toList());
-        List<Integer> rowMinList = Arrays.stream(this.transposedMatrix).map(array -> Arrays.stream(array).min().getAsInt()).collect(Collectors.toList());
-        for (int i = 0; i < numberOfRows; i++) {
-            for (int j = 0; j < numberOfColumns; j++) {
-                if (rowMaxList.get(i) == rowMinList.get(j)) {
-                    saddlePoints.add(new MatrixCoordinate(i + 1, j + 1));
-                }
-            }
-        }
-        return saddlePoints;
+        return this.saddlePoints;
     }
 }
