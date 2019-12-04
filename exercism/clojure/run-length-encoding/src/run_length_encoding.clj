@@ -1,16 +1,14 @@
 (ns run-length-encoding
   (:require [clojure.string :as string :only join]))
 
-;; Pensez à faire une version avec reduce
 (defn plain-text-to-vector
   "transforms the plain text in a vector of vector of characters"
   [plain-text]
   (loop [acc [] char-seq plain-text]
     (let [current-char (first char-seq) current-vector (peek acc)]
-      (if (nil? current-char) acc
-          (cond
+      (cond (nil? current-char) acc
             (or (empty? acc) (not (= current-char (peek current-vector)))) (recur (conj acc (vector current-char)) (rest char-seq))
-            (= current-char (peek current-vector)) (recur (conj (vec (butlast acc)) (conj current-vector current-char)) (rest char-seq)))))))
+            (= current-char (peek current-vector)) (recur (conj (vec (butlast acc)) (conj current-vector current-char)) (rest char-seq))))))
 
 (defn vector-to-cipher-text
   "transforms a vector of vector of characters in the run-length encoded string"
@@ -38,3 +36,18 @@
         (empty? char-seq) acc
         (java.lang.Character/isDigit current-char) (recur acc (rest char-seq) (vector (if (empty? stack) (java.lang.Character/digit current-char 10) (+ (java.lang.Character/digit current-char 10) (* 10 (last stack))))))
         :else (recur (str acc (if (empty? stack) (str current-char) (string/join (repeat (last stack) (str current-char))))) (rest char-seq) [])))))
+
+(defn plaintext-to-vector-with-reduce
+  "Function to be used with reduce to iteratively transform the plaintext in a vector of vector of characters. 
+   Same objective than the plain-text-to-vector function but by using reduce rather than loop/recur"
+  [acc current-char]
+  (cond (nil? current-char) acc
+        (or (empty? acc) (not (= current-char (peek (peek acc))))) (conj acc (vector current-char))
+        (= current-char (peek (peek acc))) (conj (vec (butlast acc)) (conj (peek acc) current-char))))
+
+(defn run-length-encode-with-reduce
+  "encodes a string with run-length-encoding"
+  [plain-text]
+  (->> plain-text
+       (reduce plaintext-to-vector-with-reduce [])
+       (vector-to-cipher-text)))
