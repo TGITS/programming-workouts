@@ -1,9 +1,9 @@
 (ns grains)
 
-(defn square [] ;; <- arglist goes here
-    ;; your code goes here
+(defn square [case-number] 
+    (bigint (Math/pow 2 (dec case-number)))
 )
 
-(defn total []  ;; <- arglist goes here
-    ;; your code goes here
+(defn total []  
+    (reduce + (map square (range 1 65)))
 )
