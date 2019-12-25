@@ -2,29 +2,38 @@
 
 (defrecord BinarySearchTree [value left right])
 
-(defn value [binary-search-tree]
-  (:value binary-search-tree))
+(defn value [bst]
+  (:value bst))
 
 (defn singleton [value]
   (BinarySearchTree. value nil nil))
 
-(defn left [binary-search-tree]
-  (:left binary-search-tree))
+(defn left [bst]
+  (:left bst))
 
-(defn right [binary-search-tree]
-  (:right binary-search-tree))
+(defn right [bst]
+  (:right bst))
 
-(defn insert [val binary-search-tree]
+(defn left-empty? [bst]
+  (nil? (left bst)))
+
+(defn right-empty? [bst]
+  (nil? (right bst)))
+
+(defn insert [val bst]
   (cond
-    (<= val (value binary-search-tree)) (if (nil? (left binary-search-tree)) (assoc binary-search-tree :left (singleton val)) (insert val (left binary-search-tree)))
-    (> val (value binary-search-tree)) (if (nil? (right binary-search-tree)) (assoc binary-search-tree :right (singleton val)) (insert val (right binary-search-tree)))))
+    (<= val (value bst)) (if (left-empty? bst)
+                                          (assoc bst :left (singleton val))
+                                          (BinarySearchTree. (value bst) (insert val (left bst)) (right bst)))
+    (> val (value bst)) (if (right-empty? bst)
+                                         (assoc bst :right (singleton val))
+                                         (BinarySearchTree. (value bst) (left bst) (insert val (right bst))))))
 
 (defn from-list [seq]
-    (doseq [root (singleton (first seq)) value (rest seq)]
-      (insert value root)))
+  (let [root (singleton (first seq)) values (rest seq)]
+    (reduce #(insert %2 %1) root values)))
 
-(defn to-list [] ;; <- arglist goes here
-  ;; your code goes here
-  )
-
-
+(defn to-list [bst]
+  (if (nil? bst)
+    nil
+    (concat (to-list (left bst)) (list (value bst)) (to-list (right bst)))))
