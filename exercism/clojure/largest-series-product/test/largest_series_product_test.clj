@@ -37,6 +37,8 @@
     (is (= 1 (lsp/largest-product 0 ""))))
   (testing "reports 1 for nonempty string and empty product (0 span)"
     (is (= 1 (lsp/largest-product 0 "123"))))
+  (testing "rejects invalid character in digits for 0 span"
+    (is (thrown? Throwable (lsp/largest-product 0 "1234a5"))))
   (testing "rejects empty string and nonzero span"
     (is (thrown? Throwable (lsp/largest-product 1 ""))))
   (testing "rejects invalid character in digits"
