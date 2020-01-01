@@ -59,34 +59,40 @@
     :else (decades-strictly-below-twenty num)))
 
 (defn hundreds
-  "Spell out in English the number given in arguments if it is a positive number less or equal to 999.
-   It throws an IllegalArgumentException otherwise"
+  "Spell out in English the number given in arguments if it is a strictly positive number less or equal to 999.
+   For the value 0, the empty string is returned.
+   An IllegalArgumentException is thrown otherwise"
   [num]
   (let [number-of-hundreds (quot num HUNDRED) decades-remainder (rem num HUNDRED)]
     (str/trim (str (if (not= 0 number-of-hundreds) (str (units number-of-hundreds) " hundred") "") (if (not= 0 decades-remainder) (str " " (decades-and-units decades-remainder)) "")))))
 
 (defn thousands
-  "Spell out in English the number given in arguments if it is a positive number less or equal to 999999.
-   It throws an IllegalArgumentException otherwise."
+  "Spell out in English the number given in arguments if it is a strictly positive number less or equal to 999999.
+   For the value 0, the empty string is returned.
+   An IllegalArgumentException is thrown otherwise"
   [num]
   (let [number-of-thousands (quot num THOUSAND) thousands-remainder (rem num THOUSAND)]
     (str/trim (str (if (not= 0 number-of-thousands) (str (hundreds number-of-thousands) " thousand") "") (if (not= 0 thousands-remainder) (str " " (hundreds thousands-remainder)) "")))))
 
 (defn millions
-  "Spell out in English the number given in arguments if it is a positive number less or equal to 999999999.
-   It throws an IllegalArgumentException otherwise."
+  "Spell out in English the number given in arguments if it is a strictly positive number less or equal to 999999999.
+   For the value 0, the empty string is returned.
+   An IllegalArgumentException is thrown otherwise"
   [num]
   (let [number-of-millions (quot num MILLION) millions-remainder (rem num MILLION)]
     (str/trim (str (if (not= 0 number-of-millions) (str (hundreds number-of-millions) " million") "") (if (not= 0 millions-remainder) (str " " (thousands millions-remainder)) "")))))
 
 (defn billions
-  "Spell out in English the number given in arguments if it is a positive number less or equal to 999999999999.
-   It throws an IllegalArgumentException otherwise."
+  "Spell out in English the number given in arguments if it is a strictly positive number less or equal to 999999999999.
+   For the value 0, the empty string is returned.
+   An IllegalArgumentException is thrown otherwise"
   [num]
   (let [number-of-billions (quot num BILLION) billions-remainder (rem num BILLION)]
     (str/trim (str (if (not= 0 number-of-billions) (str (hundreds number-of-billions) " billion") "") (if (not= 0 billions-remainder) (str " " (millions billions-remainder)) "")))))
 
-(defn number 
+(defn number
+  "Spell out in English the number given in arguments if it is a positive number less or equal to 999999999999.
+   Otherwise an IllegalArgumentException is thrown for a number that is out of the defined range."
   [num]
   (cond
     (= 0 num) (units num)

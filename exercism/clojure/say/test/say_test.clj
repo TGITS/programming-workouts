@@ -77,6 +77,9 @@
 (deftest above-nineteen-for-decades-strictly-below-twenty-test-2
   (is (thrown? IllegalArgumentException (say/decades-strictly-below-twenty 123456789))))
 
+(deftest zero-for-decades-and-units-test
+  (is (= "zero" (say/decades-and-units 0))))
+
 (deftest eight-for-decades-and-units-test
   (is (= "eight" (say/decades-and-units 8))))
 
@@ -124,6 +127,24 @@
 
 (deftest forty-for-decades-and-units-test
   (is (= "forty" (say/decades-and-units 40))))
+
+(deftest zero-for-hundreds-test
+  (is (= "" (say/hundreds 0))))
+
+(deftest seven-for-hundreds-test
+  (is (= "seven" (say/hundreds 7))))
+
+(deftest eleven-for-hundreds-test
+  (is (= "eleven" (say/hundreds 11))))
+
+(deftest fifty-seven-for-hundreds-test
+  (is (= "fifty-seven" (say/hundreds 57))))
+
+(deftest one-hundred-for-hundreds-test
+  (is (= "one hundred" (say/hundreds 100))))
+
+(deftest eight-hundred-and-fifty-nine-for-hundreds-test
+  (is (= "eight hundred fifty-nine" (say/hundreds 859))))
 
 (deftest zero-test
   (is (= "zero" (say/number 0))))
