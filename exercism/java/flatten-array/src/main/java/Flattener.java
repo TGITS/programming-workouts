@@ -1,10 +1,35 @@
-/*
+import java.util.ArrayList;
+import java.util.List;
 
-Since this exercise has a difficulty of > 4 it doesn't come
-with any starter implementation.
-This is so that you get to practice creating classes and methods
-which is an important part of programming in Java.
+public class Flattener {
 
-Please remove this comment when submitting your solution.
+    public List flatten(List list) {
+        //return recursiveFlatten(list, new ArrayList());
+        return iterativeFlatten(list);
+    }
 
-*/
+    private List recursiveFlatten(List list, List flattenList) {
+        if(list == null || list.isEmpty()) {
+            return flattenList;
+        }
+        var elem = list.get(0);
+        if(elem instanceof List) {
+            flattenList.addAll(recursiveFlatten((List) elem, new ArrayList<>()));
+        } else if (elem != null){
+            flattenList.add(elem);
+        }
+        return recursiveFlatten(list.subList(1, list.size()),flattenList);
+    }
+
+    private List iterativeFlatten(List list){
+        List flattenList = new ArrayList();
+        for(var elem:list) {
+            if(elem instanceof List) {
+                flattenList.addAll(iterativeFlatten((List) elem));
+            } else if (elem != null){
+                flattenList.add(elem);
+            }
+        }
+        return flattenList;
+    }
+}
