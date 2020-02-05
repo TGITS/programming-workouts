@@ -20,6 +20,6 @@ export class ResistorColor {
     this.valueByColors.set("white", "9");
   }
 
-  value = (): number => parseInt(this.colors.slice(0, 2).map(s => this.valueByColors.get(s)).reduce((accumulator, currentValue) => accumulator?.concat(currentValue || ""), "") || "", 10)
+  value = (): number => parseInt(this.colors.slice(0, 2).map(s => this.valueByColors.get(s)).join(""), 10)
 }
 
