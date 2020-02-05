@@ -1,5 +1,25 @@
+class ValueByColor {
+  private mapping: Map<string, string>;
+
+  constructor() {
+    this.mapping = new Map();
+    this.mapping.set("black", "0");
+    this.mapping.set("brown", "1");
+    this.mapping.set("red", "2");
+    this.mapping.set("orange", "3");
+    this.mapping.set("yellow", "4");
+    this.mapping.set("green", "5");
+    this.mapping.set("blue", "6");
+    this.mapping.set("violet", "7");
+    this.mapping.set("grey", "8");
+    this.mapping.set("white", "9");
+  }
+
+  get = (color: string) => this.mapping.get(color);
+}
+
 export class ResistorColor {
-  private valueByColors: Map<string, string>;
+  private static valueByColors: ValueByColor = new ValueByColor();
   private colors: string[];
 
   constructor(colors: string[]) {
@@ -7,19 +27,8 @@ export class ResistorColor {
       throw new Error("At least two colors need to be present");
     }
     this.colors = colors;
-    this.valueByColors = new Map();
-    this.valueByColors.set("black", "0");
-    this.valueByColors.set("brown", "1");
-    this.valueByColors.set("red", "2");
-    this.valueByColors.set("orange", "3");
-    this.valueByColors.set("yellow", "4");
-    this.valueByColors.set("green", "5");
-    this.valueByColors.set("blue", "6");
-    this.valueByColors.set("violet", "7");
-    this.valueByColors.set("grey", "8");
-    this.valueByColors.set("white", "9");
   }
 
-  value = (): number => parseInt(this.colors.slice(0, 2).map(s => this.valueByColors.get(s)).join(""), 10)
+  colors2Values = () => this.colors.slice(0, 2).map(s => ResistorColor.valueByColors.get(s)).join("")
+  value = (): number => parseInt(this.colors2Values(), 10)
 }
-
