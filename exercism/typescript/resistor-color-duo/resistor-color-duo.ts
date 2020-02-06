@@ -15,7 +15,7 @@ class ValueByColor {
     this.mapping.set("white", "9");
   }
 
-  get = (color: string) => this.mapping.get(color);
+  get = (color: string): string => this.mapping.get(color) || "";
 }
 
 export class ResistorColor {

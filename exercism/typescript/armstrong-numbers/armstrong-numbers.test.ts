@@ -1,15 +1,15 @@
-import ArmstrongNumbers from './armstrong-numbers'
+import { ArmstrongNumbers } from './armstrong-numbers'
 
 describe('Armstrong Numbers', () => {
     it('Single digit numbers are Armstrong numbers', () => {
         expect(ArmstrongNumbers.isArmstrongNumber(5)).toBeTruthy()
     })
 
-    xit('There are no 2 digit Armstrong numbers', () => {
+    it('There are no 2 digit Armstrong numbers', () => {
         expect(ArmstrongNumbers.isArmstrongNumber(10)).toBeFalsy()
     })
 
-    xit('Three digit number that is an Armstrong number', () => {
+    it('Three digit number that is an Armstrong number', () => {
         expect(ArmstrongNumbers.isArmstrongNumber(153)).toBeTruthy()
     })
 
