@@ -1,8 +1,13 @@
-//
-// This is only a SKELETON file for the 'RNA Transcription' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+const DNA2RNAMapping = {
+  'G' : 'C',
+  'C' : 'G',
+  'T' : 'A',
+  'A' : 'U'
+};
 
-export const toRna = () => {
-  throw new Error("Remove this statement and implement this function");
+export const toRna = (dna_strand) => {
+  if (!dna_strand || dna_strand.trim().length === 0) {
+      return '';
+  }
+  return Array.from(dna_strand).map((dna_letter) => DNA2RNAMapping[dna_letter]).join('');
 };
