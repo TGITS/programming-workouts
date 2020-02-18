@@ -6,6 +6,13 @@
 
 (defn output [msg] (println msg) (flush))
 (defn debug [msg] (binding [*out* *err*] (println msg) (flush)))
+(defn create-graph-from-read-input [number-of-links]
+  (loop [i number-of-links graph {}]
+    (if (> i 0)
+      (let [n1 (read) n2 (read)]
+          ; n1: n1 and n2 defines a link between these nodes
+        (recur (dec i) (merge-with {n1  n2, n2 n1} graph))) (graph))))
+
 
 (defn -main [& _]
   (let [number-of-nodes (read)
