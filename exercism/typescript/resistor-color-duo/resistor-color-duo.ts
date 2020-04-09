@@ -1,29 +1,26 @@
-enum Color {
-  black = "0",
-  brown = "1",
-  red = "2",
-  orange = "3",
-  yellow = "4",
-  green = "5",
-  blue = "6",
-  violet = "7",
-  grey = "8",
-  white = "9"
+enum CodeByColor {
+  black = 0,
+  brown = 1,
+  red = 2,
+  orange = 3,
+  yellow = 4,
+  green = 5,
+  blue = 6,
+  violet = 7,
+  grey = 8,
+  white = 9
 }
 
-type ColorKey = keyof typeof Color;
+type Color = keyof typeof CodeByColor;
 
 export class ResistorColor {
-  private firstColor: Color;
-  private secondColor: Color;
+  private colors: string[]
 
-  constructor(colors: ColorKey[]) {
+  constructor(colors: string[]) {
     if (colors.length < 2) {
       throw new Error("At least two colors need to be present");
     }
-    this.firstColor = Color[colors[0]];
-    this.secondColor = Color[colors[1]];
+    this.colors = colors;
   }
-
-  value = (): number => Number(`${this.firstColor}${this.secondColor}`)
+  value = (): number => CodeByColor[this.colors[0] as Color] * 10 + CodeByColor[this.colors[1] as Color];
 }
