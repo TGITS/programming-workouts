@@ -22,8 +22,9 @@ export class ResistorColor {
     }
     this.colors = colors;
   }
+
   value = (): number => {
     const [first, second] = this.colors;
-    return CodeByColor[first] * 10 + CodeByColor[second]
+    return CodeByColor[first] * 10 + CodeByColor[second];
   };
 }
