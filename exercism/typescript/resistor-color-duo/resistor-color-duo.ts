@@ -14,13 +14,16 @@ enum CodeByColor {
 type Color = keyof typeof CodeByColor;
 
 export class ResistorColor {
-  private colors: string[]
+  private colors: Color[]
 
-  constructor(colors: string[]) {
+  constructor(colors: Color[]) {
     if (colors.length < 2) {
       throw new Error("At least two colors need to be present");
     }
     this.colors = colors;
   }
-  value = (): number => CodeByColor[this.colors[0] as Color] * 10 + CodeByColor[this.colors[1] as Color];
+  value = (): number => {
+    const [first, second] = this.colors;
+    return CodeByColor[first] * 10 + CodeByColor[second]
+  };
 }
