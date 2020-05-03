@@ -1,24 +1,20 @@
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Flattener {
 
-    @SuppressWarnings("unchecked")
-    public List<Object> flatten(List<Object> list) {
-        return (List<Object>) list.stream()
-                .filter(Objects::nonNull)
-                .reduce(new ArrayList<>(), (previousAccumulatedElem, currentElem) -> accumulate((List<Object>) previousAccumulatedElem, currentElem));
-    }
+	public List<Object> flatten(List<Object> list) {
+		return flattenToStream(list).collect(Collectors.toList());
+	}
 
-    @SuppressWarnings("unchecked")
-    private List<Object> accumulate(List<Object> previousAccumulatedElem, Object currentElem) {
-        if (currentElem instanceof List) {
-            previousAccumulatedElem.addAll(flatten((List<Object>) currentElem));
-        } else {
-            previousAccumulatedElem.add(currentElem);
-        }
-        return previousAccumulatedElem;
-    }
+	@SuppressWarnings("unchecked")
+	private Stream<Object> flattenToStream(Object currentElem) {
+		if (currentElem instanceof List) {
+			return ((List<Object>) currentElem).stream().flatMap(this::flattenToStream);
+		} else {
+			return Stream.ofNullable(currentElem);
+		}
+	}
 
 }
