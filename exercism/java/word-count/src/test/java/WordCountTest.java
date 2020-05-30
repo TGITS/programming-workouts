@@ -187,4 +187,19 @@ public class WordCountTest {
         );
     }
 
+    @Test
+    public void withUnbalancedQuotations() {
+        expectedWordCount.put("joe", 1);
+        expectedWordCount.put("can't", 1);
+        expectedWordCount.put("tell", 1);
+        expectedWordCount.put("between", 1);
+        expectedWordCount.put("large", 2);
+        expectedWordCount.put("and", 1);
+
+        actualWordCount = wordCount.phrase("Joe can't tell between 'large and large'.");
+        assertEquals(
+                expectedWordCount, actualWordCount
+        );
+    }
+
 }
