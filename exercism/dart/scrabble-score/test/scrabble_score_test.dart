@@ -11,32 +11,32 @@ void main() {
     test('uppercase letter', () {
       final int result = score('A');
       expect(result, equals(1));
-    }, skip: true);
+    }, skip: false);
 
     test('valuable letter', () {
       final int result = score('f');
       expect(result, equals(4));
-    }, skip: true);
+    }, skip: false);
 
     test('short word', () {
       final int result = score('at');
       expect(result, equals(2));
-    }, skip: true);
+    }, skip: false);
 
     test('short, valuable word', () {
       final int result = score('zoo');
       expect(result, equals(12));
-    }, skip: true);
+    }, skip: false);
 
     test('medium word', () {
       final int result = score('street');
       expect(result, equals(6));
-    }, skip: true);
+    }, skip: false);
 
     test('medium, valuable word', () {
       final int result = score('quirky');
       expect(result, equals(22));
-    }, skip: true);
+    }, skip: false);
 
     test('long, mixed-case word', () {
       final int result = score('OxyphenButazone');
