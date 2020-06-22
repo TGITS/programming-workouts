@@ -1,3 +1,9 @@
 class DifferenceOfSquares {
-  // Put your code here
+  int squareOfSum(int maxNumber) {
+    return 1;
+  }
+
+  int sumOfSquares(int maxNumber) {
+    return 1;
+  }
 }
