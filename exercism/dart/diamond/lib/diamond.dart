@@ -1,3 +1,5 @@
 class Diamond {
-  // Put your code here
+  List<String> rows(String letter) {
+    return new List();
+  }
 }
