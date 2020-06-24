@@ -1,16 +1,18 @@
 import 'dart:math';
 
 class DifferenceOfSquares {
-  int _square(int number) => pow(number, 2) as int;
+  int _square(int number) => pow(number, 2).toInt();
+  
+  int _sum(int a, int b) => a + b;
+  
+  List<int> _generateList(int max) => List<int>.generate(max, (i) => i + 1);
+  
   int squareOfSum(int max) {
-    return _square(new List<int>.generate(max, (i) => i + 1)
-        .fold(0, (previousValue, value) => previousValue + value));
+    return _square(_generateList(max).reduce(_sum));
   }
 
   int sumOfSquares(int max) {
-    return new List<int>.generate(max, (i) => i + 1)
-        .map(_square)
-        .fold(0, (previousValue, value) => previousValue + value);
+    return _generateList(max).map(_square).reduce(_sum);
   }
 
   int differenceOfSquares(int max) {
