@@ -39,9 +39,9 @@
     },
     {
       "name": "collection",
-      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/collection-1.14.12",
+      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/collection-1.14.13",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.3"
     },
     {
       "name": "convert",
@@ -105,9 +105,9 @@
     },
     {
       "name": "js",
-      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/js-0.6.1+1",
+      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/js-0.6.2",
       "packageUri": "lib/",
-      "languageVersion": "1.19"
+      "languageVersion": "2.0"
     },
     {
       "name": "logging",
@@ -117,9 +117,9 @@
     },
     {
       "name": "matcher",
-      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/matcher-0.12.6",
+      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/matcher-0.12.8",
       "packageUri": "lib/",
-      "languageVersion": "2.2"
+      "languageVersion": "2.4"
     },
     {
       "name": "meta",
@@ -130,12 +130,6 @@
     {
       "name": "mime",
       "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/mime-0.9.6+3",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
-    },
-    {
-      "name": "multi_server_socket",
-      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/multi_server_socket-1.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -153,7 +147,7 @@
     },
     {
       "name": "node_preamble",
-      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/node_preamble-1.4.10",
+      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/node_preamble-1.4.12",
       "packageUri": "lib/",
       "languageVersion": "1.24"
     },
@@ -189,9 +183,9 @@
     },
     {
       "name": "shelf",
-      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/shelf-0.7.5",
+      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/shelf-0.7.7",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.1"
     },
     {
       "name": "shelf_packages_handler",
@@ -255,31 +249,31 @@
     },
     {
       "name": "test",
-      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/test-1.14.7",
+      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/test-1.15.1",
       "packageUri": "lib/",
       "languageVersion": "2.7"
     },
     {
       "name": "test_api",
-      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/test_api-0.2.16",
+      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/test_api-0.2.17",
       "packageUri": "lib/",
       "languageVersion": "2.7"
     },
     {
       "name": "test_core",
-      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/test_core-0.3.7",
+      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/test_core-0.3.9",
       "packageUri": "lib/",
       "languageVersion": "2.7"
     },
     {
       "name": "typed_data",
-      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/typed_data-1.1.6",
+      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/typed_data-1.2.0",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.4"
     },
     {
       "name": "vm_service",
-      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/vm_service-4.0.4",
+      "rootUri": "file:///C:/Users/cvaudry/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/vm_service-4.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.6"
     },
@@ -314,7 +308,7 @@
       "languageVersion": "2.0"
     }
   ],
-  "generated": "2020-06-08T17:45:33.313909Z",
+  "generated": "2020-06-25T16:31:17.621676Z",
   "generator": "pub",
   "generatorVersion": "2.8.4"
 }

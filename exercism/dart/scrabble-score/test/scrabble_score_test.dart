@@ -41,21 +41,21 @@ void main() {
     test('long, mixed-case word', () {
       final int result = score('OxyphenButazone');
       expect(result, equals(41));
-    }, skip: true);
+    }, skip: false);
 
     test('english-like word', () {
       final int result = score('pinata');
       expect(result, equals(8));
-    }, skip: true);
+    }, skip: false);
 
     test('empty input', () {
       final int result = score('');
       expect(result, equals(0));
-    }, skip: true);
+    }, skip: false);
 
     test('entire alphabet available', () {
       final int result = score('abcdefghijklmnopqrstuvwxyz');
       expect(result, equals(87));
-    }, skip: true);
+    }, skip: false);
   });
 }
