@@ -13,7 +13,7 @@ void main() {
     test("Degenerate case with no row containing 3 distinct groups of spaces", () {
       final List<String> result = diamond.rows("B");
       expect(result, equals([" A ", "B B", " A "]));
-    }, skip: true);
+    }, skip: false);
 
     test("Smallest non-degenerate case with odd diamond side length", () {
       final List<String> result = diamond.rows("C");
