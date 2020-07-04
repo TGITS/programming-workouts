@@ -1,39 +1,36 @@
 class Diamond {
-  static final String UPPERCASE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  static final List<int> odd = new List<int>.generate(26, (int index) => 1 + index * 2);
+  int getLineSizeFromLineIndex(int index) => 1 + index * 2;
+  static final String LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-  List<String> rows(String letter) {
-    int index = UPPERCASE_LETTERS.indexOf(letter);
-    int lengthMax = odd.elementAt(index);
-    print(lengthMax);
+  List<String> rows(String initialLetter) {
+    int index = LETTERS.indexOf(initialLetter);
+    int lengthMax = getLineSizeFromLineIndex(index);
     List<String> lines = List();
+    String letter = LETTERS[index];
+
     if (index == 0) {
-      lines.add(UPPERCASE_LETTERS[index]);
+      lines.add(letter);
     } else {
-      lines.add(UPPERCASE_LETTERS[index] +
-          " " * (lengthMax - 2) +
-          UPPERCASE_LETTERS[index]);
+      lines.add(letter + " " * (lengthMax - 2) + letter);
     }
+
     index--;
+
     while (index >= 0) {
+      letter = LETTERS[index];
+      int lineSize = getLineSizeFromLineIndex(index);
+      int paddingSize = (lengthMax - lineSize) ~/ 2;
+      String padding = " " * paddingSize;
+      String line;
       if (index == 0) {
-        int padding_size = (lengthMax - 1) ~/ 2;
-        String line = " " * padding_size + UPPERCASE_LETTERS[index] + " " * padding_size;
-        lines.add(line);
-        lines.insert(0,line);
+        line = padding + letter + padding;
       } else {
-        int nbSpaces = odd.elementAt(index);
-        int padding_size = (lengthMax - nbSpaces) ~/ 2;
-        lines.add(" " * padding_size + UPPERCASE_LETTERS[index] +
-            " " * (nbSpaces - 2) +
-            UPPERCASE_LETTERS[index] + " " * padding_size);
-        lines.insert(
-            0,
-            " " * padding_size + UPPERCASE_LETTERS[index] +
-            " " * (nbSpaces - 2) +
-            UPPERCASE_LETTERS[index] + " " * padding_size);
+        String spaces = " " * (lineSize - 2);
+        line = padding + letter + spaces + letter + padding;
       }
-      index --;
+      lines.add(line);
+      lines.insert(0, line);
+      index--;
     }
     return lines;
   }
