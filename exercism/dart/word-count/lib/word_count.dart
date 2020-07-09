@@ -1,8 +1,6 @@
 class WordCount {
-  Map<String, int> _collectAsMap(Map<String, int> accumulator, String key) {
-    accumulator.update(key, (int value) => value + 1, ifAbsent: () => 1);
-    return accumulator;
-  }
+  Map<String, int> _collectAsMap(Map<String, int> accumulator, String key) =>
+      accumulator..update(key, (int value) => ++value, ifAbsent: () => 1);
 
   String _deleteFrontAndBackQuotesIfAny(String inputString) {
     String processedString = inputString;
@@ -20,11 +18,11 @@ class WordCount {
 
   Map<String, int> countWords(String input) {
     return input
-        .replaceAll(new RegExp(r'[,;:!&@%&\?\$\^\.\*\\\s]+'), ' ')
+        .replaceAll(RegExp(r'[,;:!&@%&\?\$\^\.\*\\\s]+'), ' ')
         .split(' ')
         .where((s) => s.trim().isNotEmpty)
         .map((s) => s.toLowerCase())
         .map(_deleteFrontAndBackQuotesIfAny)
-        .fold<Map<String, int>>(Map<String, int>(), _collectAsMap);
+        .fold({}, _collectAsMap);
   }
 }
