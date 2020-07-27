@@ -25,4 +25,10 @@ defmodule RnaTranscriptionTest do
   test "it transcribes all dna nucleotides to rna equivalents" do
     assert RnaTranscription.to_rna('ACGTGGTCTTAA') == 'UGCACCAGAAUU'
   end
+
+  test "An invalid nucleotides value should raise a RuntimeException" do
+    assert_raise RuntimeError, fn ->
+      RnaTranscription.to_rna('H')
+    end
+  end
 end

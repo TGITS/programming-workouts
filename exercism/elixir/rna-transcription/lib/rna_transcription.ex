@@ -13,13 +13,28 @@ defmodule RnaTranscription do
   end
 
   @spec transcript(char) :: char
+  def transcript(?G)  do
+    ?C
+  end
+
+  @spec transcript(char) :: char
+  def transcript(?C)  do
+    ?G
+  end
+
+  @spec transcript(char) :: char
+  def transcript(?T)  do
+    ?A
+  end
+
+  @spec transcript(char) :: char
+  def transcript(?A)  do
+    ?U
+  end
+
+  @spec transcript(char) :: char
   def transcript(c)  do
-    case c do
-      ?G -> ?C
-      ?C -> ?G
-      ?T -> ?A
-      ?A -> ?U
-    end
+    raise RuntimeError, message: "The value #{c} is not valid"
   end
 
 end
