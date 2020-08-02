@@ -30,19 +30,9 @@ defmodule ProteinTranslation do
   UGA -> STOP
   """
   @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("UGU") do
-    {:ok, "Cysteine"}
-  end
-
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("UGC") do
-    {:ok, "Cysteine"}
-  end
-
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("UUA") do
-    {:ok, "Leucine"}
-  end
+  def of_codon("UGU"), do: {:ok, "Cysteine"}
+  def of_codon("UGC"), do: {:ok, "Cysteine"}
+  def of_codon("UUA"), do: {:ok, "Leucine"}
 
   @spec of_codon(String.t()) :: {atom, String.t()}
   def of_codon("UUG") do
