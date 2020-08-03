@@ -33,46 +33,14 @@ defmodule ProteinTranslation do
   def of_codon("UGU"), do: {:ok, "Cysteine"}
   def of_codon("UGC"), do: {:ok, "Cysteine"}
   def of_codon("UUA"), do: {:ok, "Leucine"}
-
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("UUG") do
-    {:ok, "Leucine"}
-  end
-
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("AUG") do
-    {:ok, "Methionine"}
-  end
-
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("UUU") do
-    {:ok, "Phenylalanine"}
-  end
-
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("UUC") do
-    {:ok, "Phenylalanine"}
-  end
-
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("UCU") do
-    {:ok, "Serine"}
-  end
-
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("UCC") do
-    {:ok, "Serine"}
-  end
-
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("UCA") do
-    {:ok, "Serine"}
-  end
-
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("UCG") do
-    {:ok, "Serine"}
-  end
+  def of_codon("UUG"), do: {:ok, "Leucine"}
+  def of_codon("AUG"), do: {:ok, "Methionine"}
+  def of_codon("UUU"), do: {:ok, "Phenylalanine"}
+  def of_codon("UUC"), do: {:ok, "Phenylalanine"}
+  def of_codon("UCU"), do: {:ok, "Serine"}
+  def of_codon("UCC"), do: {:ok, "Serine"}
+  def of_codon("UCA"), do: {:ok, "Serine"}
+  def of_codon("UCG"), do: {:ok, "Serine"}
 
   @spec of_codon(String.t()) :: {atom, String.t()}
   def of_codon("UGG") do
