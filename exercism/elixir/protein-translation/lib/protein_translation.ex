@@ -4,7 +4,8 @@ defmodule ProteinTranslation do
   """
   @spec of_rna(String.t()) :: {atom, list(String.t())}
   def of_rna(rna) do
-    rna
+    String.graphemes(rna)
+    |> Stream.chunk_every(3)
     |> Enum.map(&of_codon/1)
   end
 
@@ -41,40 +42,13 @@ defmodule ProteinTranslation do
   def of_codon("UCC"), do: {:ok, "Serine"}
   def of_codon("UCA"), do: {:ok, "Serine"}
   def of_codon("UCG"), do: {:ok, "Serine"}
+  def of_codon("UGG"), do: {:ok, "Tryptophan"}
+  def of_codon("UAU"), do: {:ok, "Tyrosine"}
+  def of_codon("UAC"), do: {:ok, "Tyrosine"}
+  def of_codon("UAA"), do: {:ok, "STOP"}
+  def of_codon("UAG"), do: {:ok, "STOP"}
+  def of_codon("UGA"), do: {:ok, "STOP"}
+  def of_codon(_), do: {:error, "invalid codon"}
 
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("UGG") do
-    {:ok, "Tryptophan"}
-  end
-
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("UAU") do
-    {:ok, "Tyrosine"}
-  end
-
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("UAC") do
-    {:ok, "Tyrosine"}
-  end
-
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("UAA") do
-    {:ok, "STOP"}
-  end
-
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("UAG") do
-    {:ok, "STOP"}
-  end
-
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon("UGA") do
-    {:ok, "STOP"}
-  end
-
-  @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon(_) do
-    {:error, "invalid codon"}
-  end
 end
 
