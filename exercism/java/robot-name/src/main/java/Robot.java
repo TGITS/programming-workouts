@@ -12,13 +12,11 @@ public class Robot {
 
     public String getName() {
         if (name == null) {
-            Stream.generate(this::generateName).
-                    dropWhile(generatedName -> existingNames.contains(generatedName)).
-                    findFirst().
-                    ifPresent(generatedName -> {
-                        name = generatedName;
-                        existingNames.add(generatedName);
-                    });
+            name = generateName();
+            while (existingNames.contains(name)) {
+                name = generateName();
+            }
+            existingNames.add(name);
         }
         return name;
 
