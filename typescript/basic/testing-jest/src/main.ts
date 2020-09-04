@@ -1,0 +1,1 @@
+export const testingJest = (link: string) => /^\/(?!\/)/.test(link)
