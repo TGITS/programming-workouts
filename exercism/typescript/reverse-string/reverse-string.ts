@@ -1,6 +1,11 @@
 class ReverseString {
-    static reverse( /* Parameters go here */ ) {
-        // Your code here
+    static reverse(s: string): string {
+        if (s.length == 0) {
+            return s;
+        } else {
+            let indexLast = s.length - 1;
+            return s.charAt(indexLast) + ReverseString.reverse(s.substring(0, indexLast));
+        }
     }
 }
 
