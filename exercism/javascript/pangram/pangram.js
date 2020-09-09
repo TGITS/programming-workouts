@@ -1,8 +1,5 @@
-//
-// This is only a SKELETON file for the 'Pangram' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+const alphabet = new Set("abcdefghijklmnopqrstuvwxyz".split(''));
 
-export const isPangram = () => {
-  throw new Error("Remove this statement and implement this function");
+export const isPangram = (s) => {
+  return new Set(s.toLowerCase().split('').filter(x => alphabet.has(x))).size == alphabet.size;
 };
