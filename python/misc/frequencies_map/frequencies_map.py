@@ -1,7 +1,6 @@
 from itertools import groupby
 
-def create_frequencies_map(elements):
+
+def frequencies_map_from(elements):
     map = {}
-    for k, g in groupby(sorted(elements)):
-        map[k] = len(list(g))
-    return map
+    return {k: len(list(g)) for k, g in groupby(sorted(elements))}
