@@ -4,7 +4,9 @@ import re
 
 def count_words(sentence):
     map = {}
-    pattern = re.compile("[\s_,;:.!?&@$%^('(?=\s))((?<=\s)')]")
+    pattern = re.compile(
+        "'+[_,;:.!?&@$%^\\s]+'*|[_,;:.!?&@$%^\\s]+'+|[_,;:.!?&@$%^\\s]+|'+$|^'+")
+    words = pattern.split(sentence.lower())
     map = {k: len(list(g)) for k, g in itertools.groupby(
-        sorted(pattern.split(sentence.lower()))) if len(k) > 0}
+        sorted([word for word in words if word is not None and len(word) > 0]))}
     return map
