@@ -1,7 +1,6 @@
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-import java.util.stream.Stream;
 
 public class Robot {
 
@@ -19,7 +18,6 @@ public class Robot {
             existingNames.add(name);
         }
         return name;
-
     }
 
     public void reset() {
@@ -27,11 +25,13 @@ public class Robot {
     }
 
     private String generateName() {
-        return String.valueOf(generateRandomUpperCaseLetter()) +
-                generateRandomUpperCaseLetter() +
-                generateRandomDigit() +
-                generateRandomDigit() +
-                generateRandomDigit();
+        return new StringBuilder()
+                .append(generateRandomUpperCaseLetter())
+                .append(generateRandomUpperCaseLetter())
+                .append(generateRandomDigit())
+                .append(generateRandomDigit())
+                .append(generateRandomDigit())
+                .toString();
     }
 
     private char generateRandomUpperCaseLetter() {
