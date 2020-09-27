@@ -20,7 +20,6 @@ public class BinarySearchTest {
         assertEquals(0, search.indexOf(6));
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void findsAValueInTheMiddleOfAnArray() throws ValueNotFoundException {
         List<Integer> sortedList = Collections.unmodifiableList(
@@ -32,7 +31,6 @@ public class BinarySearchTest {
         assertEquals(3, search.indexOf(6));
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void findsAValueAtTheBeginningOfAnArray() throws ValueNotFoundException {
         List<Integer> sortedList = Collections.unmodifiableList(
@@ -44,7 +42,6 @@ public class BinarySearchTest {
         assertEquals(0, search.indexOf(1));
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void findsAValueAtTheEndOfAnArray() throws ValueNotFoundException {
         List<Integer> sortedList = Collections.unmodifiableList(
@@ -56,7 +53,6 @@ public class BinarySearchTest {
         assertEquals(6, search.indexOf(11));
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void findsAValueInAnArrayOfOddLength() throws ValueNotFoundException {
         List<Integer> sortedListOfOddLength = Collections.unmodifiableList(
