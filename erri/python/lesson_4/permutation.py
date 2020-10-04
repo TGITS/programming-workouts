@@ -1,0 +1,9 @@
+variable1 = input("entrez une première valeur : ")
+variable2 = input("entrez une deuxième valeur : ")
+print("variable1 =", variable1)
+print("variable2 =", variable2)
+intermédiaire = variable2
+variable2 = variable1
+variable1 = intermédiaire
+print("variable1 =", variable1)
+print("variable2 =", variable2)
