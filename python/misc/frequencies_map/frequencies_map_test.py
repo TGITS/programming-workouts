@@ -23,6 +23,26 @@ class FrequenciesMapWithForTest(unittest.TestCase):
             ["a", "b", "c", "a", "d", "a", "d", "b", "d", "d"]), {"a": 3, "b": 2, "c": 1, "d": 4})
 
 
+class FrequenciesMapWithMapTest(unittest.TestCase):
+    def test_empty_list(self):
+        self.assertEqual(frequencies_map_with_map_from([]), {})
+
+    def test_single_element_list(self):
+        self.assertEqual(frequencies_map_with_map_from(["a"]), {"a": 1})
+
+    def test_several_identical_elements_list(self):
+        self.assertEqual(frequencies_map_with_map_from(
+            ["a", "a", "a"]), {"a": 3})
+
+    def test_several_different_elements_list_sorted(self):
+        self.assertEqual(frequencies_map_with_map_from(
+            ["a", "a", "a", "b", "b", "c", "d", "d", "d", "d"]), {"a": 3, "b": 2, "c": 1, "d": 4})
+
+    def test_several_different_elements_list_unsorted(self):
+        self.assertEqual(frequencies_map_with_map_from(
+            ["a", "b", "c", "a", "d", "a", "d", "b", "d", "d"]), {"a": 3, "b": 2, "c": 1, "d": 4})
+
+
 class FrequenciesMapWithComprehensionTest(unittest.TestCase):
     def test_empty_list(self):
         self.assertEqual(frequencies_map_with_comprehension_from([]), {})
@@ -41,26 +61,6 @@ class FrequenciesMapWithComprehensionTest(unittest.TestCase):
 
     def test_several_different_elements_list_unsorted(self):
         self.assertEqual(frequencies_map_with_comprehension_from(
-            ["a", "b", "c", "a", "d", "a", "d", "b", "d", "d"]), {"a": 3, "b": 2, "c": 1, "d": 4})
-
-
-class FrequenciesMapWithReduceTest(unittest.TestCase):
-    def test_empty_list(self):
-        self.assertEqual(frequencies_map_with_map_from([]), {})
-
-    def test_single_element_list(self):
-        self.assertEqual(frequencies_map_with_map_from(["a"]), {"a": 1})
-
-    def test_several_identical_elements_list(self):
-        self.assertEqual(frequencies_map_with_map_from(
-            ["a", "a", "a"]), {"a": 3})
-
-    def test_several_different_elements_list_sorted(self):
-        self.assertEqual(frequencies_map_with_map_from(
-            ["a", "a", "a", "b", "b", "c", "d", "d", "d", "d"]), {"a": 3, "b": 2, "c": 1, "d": 4})
-
-    def test_several_different_elements_list_unsorted(self):
-        self.assertEqual(frequencies_map_with_map_from(
             ["a", "b", "c", "a", "d", "a", "d", "b", "d", "d"]), {"a": 3, "b": 2, "c": 1, "d": 4})
 
 
