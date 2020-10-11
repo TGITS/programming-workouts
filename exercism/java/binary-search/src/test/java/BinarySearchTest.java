@@ -64,7 +64,6 @@ public class BinarySearchTest {
         assertEquals(9, search.indexOf(144));
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void findsAValueInAnArrayOfEvenLength() throws ValueNotFoundException {
         List<Integer> sortedListOfEvenLength = Collections.unmodifiableList(
@@ -76,7 +75,6 @@ public class BinarySearchTest {
         assertEquals(5, search.indexOf(21));
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void identifiesThatAValueIsNotFoundInTheArray() {
         List<Integer> sortedList = Collections.unmodifiableList(
@@ -93,7 +91,6 @@ public class BinarySearchTest {
         assertThat(expected).hasMessage("Value not in array");
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void aValueSmallerThanTheArraysSmallestValueIsNotFound() {
         List<Integer> sortedList = Collections.unmodifiableList(
@@ -110,7 +107,6 @@ public class BinarySearchTest {
         assertThat(expected).hasMessage("Value not in array");
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void aValueLargerThanTheArraysSmallestValueIsNotFound() throws ValueNotFoundException {
         List<Integer> sortedList = Collections.unmodifiableList(
@@ -127,7 +123,6 @@ public class BinarySearchTest {
         assertThat(expected).hasMessage("Value not in array");
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void nothingIsFoundInAnEmptyArray() throws ValueNotFoundException {
         List<Integer> emptyList = Collections.emptyList();
@@ -142,7 +137,6 @@ public class BinarySearchTest {
         assertThat(expected).hasMessage("Value not in array");
     }
 
-    @Ignore("Remove to run test")
     @Test
     public void nothingIsFoundWhenTheLeftAndRightBoundCross() throws ValueNotFoundException {
         List<Integer> sortedList = Collections.unmodifiableList(
