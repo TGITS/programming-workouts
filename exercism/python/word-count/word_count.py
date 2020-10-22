@@ -1,12 +1,10 @@
-import itertools
 import re
+from collections import Counter
 
 
 def count_words(sentence):
-    map = {}
+    count_by_word = {}
     pattern = re.compile(
         "'+[_,;:.!?&@$%^\\s]+'*|[_,;:.!?&@$%^\\s]+'+|[_,;:.!?&@$%^\\s]+|'+$|^'+")
-    words = pattern.split(sentence.lower())
-    map = {k: len(list(g)) for k, g in itertools.groupby(
-        sorted([word for word in words if word is not None and len(word) > 0]))}
-    return map
+    words = [word for word in pattern.split(sentence.lower()) if word]
+    return Counter(words)
