@@ -1,4 +1,5 @@
 from itertools import groupby
+from collections import Counter
 
 
 def frequencies_map_with_for_from(elements):
@@ -17,3 +18,7 @@ def frequencies_map_with_map_from(elements):
 
 def frequencies_map_with_comprehension_from(elements):
     return {k: len(list(v)) for k, v in groupby(sorted(elements))}
+
+
+def frequencies_map_with_counter_from(elements):
+    return Counter(elements)
