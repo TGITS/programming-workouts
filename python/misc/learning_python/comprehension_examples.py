@@ -24,6 +24,13 @@ print(generator_of_powers_of_2_for_first_numbers)
 print(next(generator_of_powers_of_2_for_first_numbers))
 print(next(generator_of_powers_of_2_for_first_numbers))
 print(*generator_of_powers_of_2_for_first_numbers)
+print(sum((x**2 for x in range(1, 10))))
+print(max((x**2 for x in range(1, 10))))
+print(min((x**2 for x in range(1, 10))))
+
+print('\n##############\n')
+
+print("Générateurs _infinis_ à partir d'une compréhension")
 neverending_generator_of_powers_of_2 = (x**2 for x in itertools.count(1))
 print(next(neverending_generator_of_powers_of_2))
 print(next(neverending_generator_of_powers_of_2))
@@ -50,5 +57,5 @@ print('\n##############\n')
 
 print('Compréhension imbriquée avec filtrage')
 sum_of_even_and_odd = [
-    x+y for x in range(10) if x % 2 == 0 for y in range(10) if y % 2 == 1]
+    x + y for x in range(10) if x % 2 == 0 for y in range(10) if y % 2 == 1]
 print(sum_of_even_and_odd)
