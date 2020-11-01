@@ -1,0 +1,5 @@
+one, two, three, *the_rest = range(10)
+print(one)
+print(two)
+print(three)
+print(the_rest)
