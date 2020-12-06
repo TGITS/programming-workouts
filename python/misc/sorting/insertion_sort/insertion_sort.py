@@ -11,15 +11,21 @@ def sort(to_sort):
 
 
 def sort_by_step(to_sort):
+    initial_sequence = to_sort[:]
     to_sort_size = len(to_sort)
+    yield SortStepReporting(initial_sequence)
     if to_sort_size >= 1:
         for j in range(1, to_sort_size):
             processed = to_sort[j]
             i = j-1
+            yield SortStepReporting(initial_sequence, j, processed)
             while i >= 0 and to_sort[i] > processed:
+                yield SortStepReporting(initial_sequence, j, processed, i)
                 to_sort[i+1] = to_sort[i]
+                yield SortStepReporting(initial_sequence, j, processed, i, to_sort)
                 i = i - 1
             to_sort[i+1] = processed
+            yield SortStepReporting(initial_sequence, j, processed, i, to_sort)
 
 
 class SortStepReporting:
@@ -59,7 +65,7 @@ class SortStepReporting:
     def search_position_index(self):
         return self._search_position_index
 
-    @processed_element.setter
+    @search_position_index.setter
     def search_position_index(self, value):
         self._search_position_index = value
 
@@ -67,6 +73,15 @@ class SortStepReporting:
     def sequence_during_sorting(self):
         return self._sequence_during_sorting
 
-    @processed_element.setter
+    @sequence_during_sorting.setter
     def sequence_during_sorting(self, value):
         self._sequence_during_sorting = value
+
+    def __str__(self):
+        return "(initial_sequence : {}, sequence_traversal_index : {}, processed_element : {}, search_position_index : {}, sequence_during_sorting : {})".format(self.initial_sequence, self.sequence_traversal_index, self.processed_element, self.search_position_index, self.sequence_during_sorting)
+
+
+if __name__ == "__main__":
+    sort_process = sort_by_step([6, 9, 5, 4, 8, 10])
+    for i in range(0,21):
+        print(next(sort_process))
