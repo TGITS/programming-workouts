@@ -1,3 +1,3 @@
 def is_valid(isbn):
-    sum([index * int(number) for index, number in enumerate(isbn.replace('-',
-                                                                         '').split().reverse())]) % 11 == 0
+    return sum([(index + 1) * int(number) for index, number in enumerate(list(isbn.replace('-',''))[::-1])]) % 11 == 0
+
