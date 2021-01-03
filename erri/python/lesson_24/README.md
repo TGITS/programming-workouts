@@ -1,0 +1,2 @@
+Beaucoup de travail dans ipython pour amener à comprendre l'utilité des fonctions et amener à la compréhension de l'utilisation de la boucle for.
+Un peu laborieux la compréhension sur la notion d'itération, il va falloir revenir dessus.
