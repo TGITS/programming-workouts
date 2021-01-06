@@ -482,3 +482,7 @@ typings/
 /exercism/go/two-fer/go.sum
 /java/misc/fizzbuzz-with-junit5/.jqwik-database
 /exercism/fsharp/hello-world/obj
+/exercism/fsharp/two-fer/.ionide
+/exercism/fsharp/two-fer/obj
+/exercism/fsharp/hamming/obj
+/exercism/fsharp/hamming/.ionide
