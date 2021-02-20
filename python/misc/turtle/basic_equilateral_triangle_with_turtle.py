@@ -1,0 +1,17 @@
+import turtle
+
+print("La tortue est en position : ", str(turtle.position()))
+turtle.color('red', 'yellow')
+turtle.begin_fill()
+turtle.pendown()
+turtle.forward(200)
+print("La tortue est en position : ", str(turtle.position()))
+turtle.left(120)
+turtle.forward(200)
+print("La tortue est en position : ", str(turtle.position()))
+turtle.left(120)
+turtle.forward(200)
+print("La tortue est en position : ", str(turtle.position()))
+turtle.end_fill()
+turtle.hideturtle()
+turtle.done()
