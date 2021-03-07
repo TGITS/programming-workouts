@@ -2,8 +2,6 @@ import itertools
 
 def squared(x): return x**2
 
-def squared_pair(x): return (x,x**2)
-
 print("Itérateurs créés à partir d'une map")
 iterator_of_powers_of_2_for_first_numbers = map(squared, range(1, 10))
 print("Un objet _map_, iterator_of_powers_of_2_for_first_numbers :",  iterator_of_powers_of_2_for_first_numbers)
@@ -28,6 +26,8 @@ iterator_of_powers_of_2_for_first_numbers = map(squared, range(1, 10))
 print("Ensemble des carrés des 9 premiers entiers strictement positifs :",set(iterator_of_powers_of_2_for_first_numbers))
 
 print('\n##############\n')
+
+def squared_pair(x): return (x,x**2)
 
 print("Dictionnaire avec map")
 iterator_powers_of_2_for_first_numbers = map(squared_pair, range(1, 10))
