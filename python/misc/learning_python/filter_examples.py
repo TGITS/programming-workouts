@@ -33,3 +33,19 @@ odds_numbers_with_comprehension = (
     x for x in itertools.count(1) if x % 2 != 0)
 print(*itertools.takewhile(lambda x: x < 100,
                            odds_numbers_with_comprehension))
+
+print('\n##############\n')
+
+print("Passage de None comme valeur pour le paramètre correspondant à la fonction")
+# Si la valeur de la fonction passée en paramètre est None, c'est la fonction identité qui est utilisée
+# Cela revient à supprimer toutes valeurs s'évaluant à faux dans un contexte booléen
+# Il faut se rappeler qu'en Python il n'y a pas que True ou False qui peuvent être évaluée à vrai ou faux dans un contexte booléen.
+# Pour rappel des valeurs 'falsy' en Python sont : False, None, [], (), {}, set(), "", range(0), 0, 0.0, 0j
+falsy_values = [False, None, [], (), {}, set(), "", range(0), 0, 0.0, 0j]
+print("Exemple de valeurs 'falsy' en Python : ", falsy_values)
+truthy_values = [True, "Not falsy", 1, [0, 1, 2]]
+print("Exemple de valeurs 'truthy' en Python : ", truthy_values)
+falsy_and_truthy_values = falsy_values + truthy_values
+print("Exemple d'une liste de valeurs 'falsy' et 'truthy'", falsy_and_truthy_values)
+print("Liste précédente filtrée de ces valeurs 'falsy' (avec filter) :", list(filter(None,falsy_and_truthy_values)))
+print("Liste précédente filtrée de ces valeurs 'falsy' (avec une compréhension) :", [item for item in falsy_and_truthy_values if item])
