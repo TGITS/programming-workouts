@@ -11,6 +11,13 @@ print("L'objet iterator converti en liste :", list(houses_starting_with_t))
 print("L'équivalent avec une compréhension :", [
       house for house in houses if house.startswith("t")])
 
+print("L'équivalent avec une boucle for : ", end='')
+houses_starting_with_t = []
+for house in houses:
+      if house.startswith("t"):
+            houses_starting_with_t.append(house)
+print(houses_starting_with_t)
+
 print('\n##############\n')
 
 houses_with_short_name = filter(lambda s: len(s) <= 5, houses)

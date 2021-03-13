@@ -486,3 +486,5 @@ typings/
 /exercism/fsharp/two-fer/obj
 /exercism/fsharp/hamming/obj
 /exercism/fsharp/hamming/.ionide
+/.ionide
+/exercism/fsharp/leap/obj
