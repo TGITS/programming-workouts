@@ -44,7 +44,7 @@ print(*itertools.takewhile(lambda x: x < 100,
 print('\n##############\n')
 
 print("Passage de None comme valeur pour le paramètre correspondant à la fonction")
-# Si la valeur de la fonction passée en paramètre est None, c'est la fonction identité qui est utilisée
+# Si la valeur de la fonction passée en paramètre de filter est None, c'est la fonction identité qui est utilisée
 # Cela revient à supprimer toutes valeurs s'évaluant à faux dans un contexte booléen
 # Il faut se rappeler qu'en Python il n'y a pas que True ou False qui peuvent être évaluée à vrai ou faux dans un contexte booléen.
 # Pour rappel des valeurs 'falsy' en Python sont : False, None, [], (), {}, set(), "", range(0), 0, 0.0, 0j
@@ -56,3 +56,13 @@ falsy_and_truthy_values = falsy_values + truthy_values
 print("Exemple d'une liste de valeurs 'falsy' et 'truthy'", falsy_and_truthy_values)
 print("Liste précédente filtrée de ces valeurs 'falsy' (avec filter) :", list(filter(None,falsy_and_truthy_values)))
 print("Liste précédente filtrée de ces valeurs 'falsy' (avec une compréhension) :", [item for item in falsy_and_truthy_values if item])
+
+print('\n##############\n')
+
+houses_not_starting_with_t = itertools.filterfalse(lambda s: s.startswith("t"), houses)
+print("La fonction filterfalse retourne un objet iterator :", houses_not_starting_with_t)
+print("L'objet iterator converti en liste :", list(houses_not_starting_with_t))
+# Si la valeur de la fonction passée en paramètre de filterfalse est None, c'est la fonction identité qui est utilisée
+# Cela revient à supprimer toutes valeurs s'évaluant à vrai dans un contexte booléen.
+print("Exemple d'une liste de valeurs 'falsy' et 'truthy'", falsy_and_truthy_values)
+print("Liste précédente filtrée de ces valeurs 'thruthy' (avec filterfalse) :", list(itertools.filterfalse(None,falsy_and_truthy_values)))
