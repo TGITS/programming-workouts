@@ -10,5 +10,3 @@ print("[compréhension] Liste des nombres pairs plus petits que 10 :", even_numb
 
 even_numbers_below_10_with_filter = filter(lambda n: n % 2 == 0, range(1, 10))
 print("[filter] Liste des nombres pairs plus petits que 10 :", list(even_numbers_below_10_with_filter))
-
-

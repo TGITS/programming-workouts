@@ -7,9 +7,12 @@ print('\n##############\n')
 
 houses_starting_with_t = filter(lambda s: s.startswith("t"), houses)
 print("La fonction filter retourne un objet iterator :", houses_starting_with_t)
+print("C'est bien un objet iterator avec les méthodes __iter__ et __next__")
+print("Il possède la fonction __iter__ ('__iter__' in dir(houses_starting_with_t)) :", '__iter__' in dir(houses_starting_with_t))
+print("Il possède la fonction __next__ ('__next__' in dir(houses_starting_with_t)) :", '__next__' in dir(houses_starting_with_t))
 print("L'objet iterator converti en liste :", list(houses_starting_with_t))
-print("L'équivalent avec une compréhension :", [
-      house for house in houses if house.startswith("t")])
+print("L'équivalent avec une compréhension :", list((
+      house for house in houses if house.startswith("t"))))
 
 print("L'équivalent avec une boucle for : ", end='')
 houses_starting_with_t = []

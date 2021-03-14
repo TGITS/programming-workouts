@@ -4,7 +4,10 @@ def squared(x): return x**2
 
 print("Itérateurs créés à partir d'une map")
 iterator_of_powers_of_2_for_first_numbers = map(squared, range(1, 10))
-print("Un objet _map_, iterator_of_powers_of_2_for_first_numbers :",  iterator_of_powers_of_2_for_first_numbers)
+print("La fonction map retourne un objet iterator :", iterator_of_powers_of_2_for_first_numbers)
+print("C'est bien un objet iterator avec les méthodes __iter__ et __next__")
+print("Il possède la fonction __iter__ ('__iter__' in dir(houses_starting_with_t)) :", '__iter__' in dir(iterator_of_powers_of_2_for_first_numbers))
+print("Il possède la fonction __next__ ('__next__' in dir(houses_starting_with_t)) :", '__next__' in dir(iterator_of_powers_of_2_for_first_numbers))
 print("Premier élément :", next(iterator_of_powers_of_2_for_first_numbers))
 print("Elément suivant :", next(iterator_of_powers_of_2_for_first_numbers))
 print("La suite des éléments : ", end = '')
