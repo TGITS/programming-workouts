@@ -1,4 +1,5 @@
 import functools
+import operator
 
 # Exemple classique d'utilisation de reduce pour réaliser la somme d'une liste de nombres
 numbers_1_to_10 = range(1, 11)
@@ -13,8 +14,9 @@ print("Somme des nombres de 1 à 10 (avec sum) :", sum(numbers_1_to_10))
 print()
 
 print("Pareil mais avec une valeur de départ de 5 ajoutée à la somme")
+# Utilisation de operator.add plutôt que de la lambda `lambda a, b: a + b`
 sum_numbers_1_to_10_plus_5 = functools.reduce(
-    lambda a, b: a + b, numbers_1_to_10, 5)
+    operator.add, numbers_1_to_10, 5)
 print("Somme des nombres de 1 à 10 avec une valeur initiale de 5 (avec reduce) :",
       sum_numbers_1_to_10_plus_5)
 print("Somme des nombres de 1 à 10 avec une valeur initiale de 5 (avec sum) :",
@@ -38,7 +40,7 @@ print("Le plus petit nombre pour l'intervalle de 1 à 10 (avec min) :",
 
 print('\n##############\n')
 
-print("On n'est pas obligé de réduire à une valeur scalaire !")
+print("On n'est pas obligé de réduire à une valeur scalaire ! On peur réduire à n'importe quelle valeur !")
 houses = ["tyrell", "stark", "lannister", "tarly", "baratheon", "targaryen"]
 print('Houses  :', houses)
 
