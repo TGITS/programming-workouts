@@ -19,5 +19,5 @@ class Cipher:
         decoded = ""
         for i, c in enumerate(text.lower()):
             decoded += chr(((ord(c) -
-                             ord(self.key[i] % len(self.key)) - ord('a')) % 26 + ord('a')))
+                             ord(self.key[i % len(self.key)])) % 26 + ord('a')))
         return decoded
