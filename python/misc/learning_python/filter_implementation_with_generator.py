@@ -1,6 +1,6 @@
 def my_filter(predicate, sequence):
     for elt in sequence:
-        if(predicate(elt)):
+        if predicate(elt):
             yield elt
 
 

@@ -61,11 +61,11 @@ print("Liste précédente filtrée de ces valeurs 'falsy' (avec filter) :", list
 print("Liste précédente filtrée de ces valeurs 'falsy' (avec une compréhension) :", [item for item in falsy_and_truthy_values if item])
 
 print('\n##############\n')
-
+# Plutôt que d'écrire filter(lambda s: not s.startswith("t"), houses)
 houses_not_starting_with_t = itertools.filterfalse(lambda s: s.startswith("t"), houses)
 print("La fonction filterfalse retourne un objet iterator :", houses_not_starting_with_t)
 print("L'objet iterator converti en liste :", list(houses_not_starting_with_t))
 # Si la valeur de la fonction passée en paramètre de filterfalse est None, c'est la fonction identité qui est utilisée
 # Cela revient à supprimer toutes valeurs s'évaluant à vrai dans un contexte booléen.
 print("Exemple d'une liste de valeurs 'falsy' et 'truthy'", falsy_and_truthy_values)
-print("Liste précédente filtrée de ces valeurs 'thruthy' (avec filterfalse) :", list(itertools.filterfalse(None,falsy_and_truthy_values)))
+print("Liste précédente filtrée de ces valeurs 'truthy' (avec filterfalse) :", list(itertools.filterfalse(None,falsy_and_truthy_values)))
