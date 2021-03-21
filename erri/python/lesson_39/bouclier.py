@@ -1,6 +1,6 @@
 from turtle import *
 from itertools import cycle
-from math import sqrt, sin, radians
+from math import sqrt, sin
 
 
 def cercle(rayon, couleur):
@@ -43,55 +43,42 @@ while rayon > 120:
 
 cercle(rayon, next(couleurs))
 
-# calculating somme values
-# Based on some maths about Pentagone and Golden Ratio :
-# - https://debart.pagesperso-orange.fr/1s/pentagone.mobile.html
-# - http://villemin.gerard.free.fr/Wwwgvmm/Geometri/NbOrEtoi.htm
+# penup()
+# left(90)
+# forward(200)
+# right(150)
+# pendown()
+# pencolor(blanc_etoile)
+# forward(90)
+
 phi = (1 + sqrt(5)) / 2
 coefficient = sqrt(3 - phi)
 cote_pentagone = coefficient * rayon
 cote_oppose = cote_pentagone / 2
-hypothenus = cote_oppose / sin(radians(54))
+hypothenus = cote_oppose / sin(54)
 
-# Placing the turtle to the initial spot
 penup()
 left(90)
 forward(2 * rayon)
-right(90)
-
-# Calculating the different points of the star
-sommets = []
-sommets.append(position())
-
-right(72)
-
-for i in range(0, 4):
-    forward(hypothenus)
-    sommets.append(position())
-    left(72)
-    forward(hypothenus)
-    sommets.append(position())
-    right(144)
-
-forward(hypothenus)
-sommets.append(position())
-left(72)
-forward(hypothenus)
-sommets.append(position())
-
-# Drawing the star
-fillcolor(blanc_etoile)
+right(126)
+pendown()
 pencolor(blanc_etoile)
-begin_fill()
-begin_poly()
-
-for sommet in sommets:
-    setposition(sommet)
-
-setposition(sommets[0])
-
-end_poly()
-end_fill()
+fillcolor(blanc_etoile)
+sommets = dict()
+sommets[1] = position()
+forward(coefficient * rayon)
+right(180 - 108)
+sommets[2] = position()
+forward(coefficient * rayon)
+right(180 - 108)
+sommets[3] = position()
+forward(coefficient * rayon)
+right(180 - 108)
+sommets[4] = position()
+forward(coefficient * rayon)
+right(180 - 108)
+sommets[5] = position()
+forward(coefficient * rayon)
 
 hideturtle()
 done()
