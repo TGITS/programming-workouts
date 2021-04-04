@@ -1,2 +1,5 @@
 def valeur_absolue(n):
-    pass
+    if n  >= 0 :
+        return n
+    else:
+        return -n
