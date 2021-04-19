@@ -44,9 +44,9 @@ print("Liste des carrés des 9 premiers entiers strictement positifs :",
 print('\n##############\n')
 
 print("Ensemble avec map")
-iterator_of_powers_of_2_for_first_numbers = map(squared, range(1, 10))
-print("Ensemble des carrés des 9 premiers entiers strictement positifs :",
-      set(iterator_of_powers_of_2_for_first_numbers))
+iterator_of_powers_of_2 = map(squared, range(-9, 10))
+print("Ensemble des carrés des entiers entre -9 et 9 :",
+      set(iterator_of_powers_of_2))
 
 print('\n##############\n')
 
@@ -86,29 +86,5 @@ first_event_numbers = filter(lambda x: x % 2 == 0, range(1, 10))
 print("Un objet _filter_, first_event_numbers :", first_event_numbers)
 list_powers_of_2_for_first_event_numbers = map(squared, first_event_numbers)
 print("Les premiers carrés :", list(list_powers_of_2_for_first_event_numbers))
-
-print('\n##############\n')
-
-print("Pour effectuer l'équivalent d'une compréhension imbriquée")
-columns = ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
-rows = (1, 2, 3, 4, 5, 6, 7, 8)
-chessboard = functools.reduce(operator.iconcat, map(
-    lambda x: map(lambda y: (x, y), rows), columns), [])
-print("Liste des cases de l'échiquier avec map, reduce et iconcat :", chessboard)
-chessboard = itertools.chain(
-    *map(lambda x: map(lambda y: (x, y), rows), columns))
-print("\nListe des cases de l'échiquier avec map et chain :", list(chessboard))
-print("\nPour effectuer l'équivalent d'une compréhension imbriquée on préféra utiliser product")
-chessboard = itertools.product(columns, rows)
-print("Liste des cases de l'échiquier avec product:", list(chessboard))
-
-
-def functional_flatmap(fun, iterator):
-    return functools.reduce(operator.iconcat, map(fun, iterator))
-
-
-chessboard = functional_flatmap(lambda x: list(map(lambda y: (x, y), rows)), columns)
-print("\nListe des cases de l'échiquier avec functional_flatmap :", chessboard)
-
 
 print('\n##############\n')
