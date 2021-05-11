@@ -18,8 +18,8 @@ class Luhn:
             return (product_by_2 - 9) if product_by_2 > 9 else product_by_2
 
         sum_for_odd_index = sum(
-            [luhn_double(int(c)) for c in self.card_num[::-1][1::2]]
+            [luhn_double(int(c)) for c in self.card_num[-2::-2]]
         )
-        sum_for_even_index = sum([int(c) for c in self.card_num[::-1][0::2]])
+        sum_for_even_index = sum([int(c) for c in self.card_num[::-2]])
 
         return (sum_for_odd_index + sum_for_even_index) % 10 == 0
