@@ -2,7 +2,7 @@
 name = "web-safe-colors"
 version = "0.1.0"
 description = ""
-authors = ["cvaudry <cvaudry@norsys.fr>"]
+authors = ["TGITS <thegeekintheshell@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
