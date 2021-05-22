@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Safe Colors</title>
+</head>
+<body>
+
+<h1>Web Safe Colors</h1>
+    {% for color in web_safe_colors %}
+    <div>
+        <label for="{{ color }}">Color "{{ color }}"</label>
+        <input type="color" value="{{ color }}" id="{{ color }}">
+    </div>
+    {% endfor %}
+</body>
+</html>

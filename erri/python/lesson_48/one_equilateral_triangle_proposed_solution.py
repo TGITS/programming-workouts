@@ -29,7 +29,8 @@ angle = 120
 # Dessin du triangle
 # La Tortue doit avancer de 40 unités et tourner à gauche de 120 degrés , et cela 3 fois
 # Elle doit tourner de 120 degrés par rapport à un angle plat (180 degrés), pour que l'angle du triangle soit bien de 60 degrés
-for i in range(0, 3):
+# On utilise `_` comme 'variable de boucle' car on n'utilise pas la valeur dans la boucle
+for _ in range(3): # range(3) défini un intervalle de valeurs entières de 0 à 2, soit 3 éléments
     # On fait avancer la Tortue de "side" unités
     turtle.forward(side)
     # On fait tourner la tortue de "angle" degrés

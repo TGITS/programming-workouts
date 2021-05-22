@@ -29,13 +29,14 @@ side = initial_side_length
 angle = 120
 
 # On veut dessiner 4 triangles au total, en augmentant à chaque fois leur taille de la valeur de initial_side_length
-
-for j in range(0,4):
+# On utilise `_` comme 'variable de boucle' car on n'utilise pas la valeur dans la boucle
+for _ in range(4): # range(4) défini un intervalle de valeurs entières de 0 à 3, soit 4 éléments
 
     # Dessin d'un triangle
     # La Tortue doit avancer de "side" unités et tourner à gauche de "angle"" degrés , et cela 3 fois
     # Elle doit tourner de 120 degrés par rapport à un angle plat (180 degrés), pour que l'angle du triangle soit bien de 60 degrés
-    for i in range(0, 3):
+    # On utilise `_` comme 'variable de boucle' car on n'utilise pas la valeur dans la boucle
+    for _ in range(3): # range(3) défini un intervalle de valeurs entières de 0 à 2, soit 3 éléments
         # On fait avancer la Tortue de "side" unités
         turtle.forward(side)
         # On fait tourner la tortue de "angle" degrés

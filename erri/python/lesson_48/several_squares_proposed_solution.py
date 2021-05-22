@@ -25,14 +25,17 @@ side_initial_length = 10
 step = 5
 # On définit l'angle duquel la tortue doit tourner
 angle = 90
-# On doit dessiner 30 rectangles
+
 # La valeur initial d'un côté est défini dans la variable side_initial_length
 side = side_initial_length
-for j in range(0, 30):
+# On doit dessiner 30 rectangles, 
+# On utilise `_` comme 'variable de boucle' car on n'utilise pas la valeur dans la boucle
+for _ in range(30): # range(30) défini un intervalle de valeurs entières de 0 à 29, soit 30 éléments
     # On va dessiner un carré de côté "side"
 
     # La Tortue doit avancer de 100 unités et tourner à gauche de 90 degrés, et cela 4 fois pour dessiner un carré
-    for i in range(0, 4):
+    # On utilise `_` comme 'variable de boucle' car on n'utilise pas la valeur dans la boucle
+    for _ in range(4): # range(4) défini un intervalle de valeurs entières de 0 à 3, soit 4 éléments
         # On fait avancer la Tortue de "side" unités
         turtle.forward(side)
         # On fait tourner la tortue de "angle" degrés

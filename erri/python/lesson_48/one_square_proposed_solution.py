@@ -24,7 +24,8 @@ side = 100
 # On définit l'angle duquel la tortue doit tourner
 angle = 90
 # La Tortue doit avancer de 100 unités et tourner à gauche de 90 degrés, et cela 4 fois
-for i in range(0, 4):
+# On utilise `_` comme 'variable de boucle' car on n'utilise pas la valeur dans la boucle
+for _ in range(0, 4):
     # On fait avancer la Tortue de "side" unités
     turtle.forward(side)
     # On fait tourner la tortue de "angle" degrés
