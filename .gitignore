@@ -489,3 +489,5 @@ typings/
 /.ionide
 /exercism/fsharp/leap/obj
 /rust/basic/hello_world/main.pdb
+
+.fake
