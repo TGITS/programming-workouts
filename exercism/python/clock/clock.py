@@ -1,5 +1,4 @@
 class Clock:
-
     def __init__(self, hour: int, minute: int):
         self.minute = minute % 60
         overflow = minute // 60
@@ -14,15 +13,7 @@ class Clock:
         return False
 
     def __add__(self, minutes: int):
-        total_minutes = self.minute + minutes
-        self.minute = total_minutes % 60
-        overflow = total_minutes // 60
-        self.hour = (self.hour + overflow) % 24
-        return self
+        return Clock(self.hour, self.minute + minutes)
 
     def __sub__(self, minutes: int):
-        total_minutes = self.minute - minutes
-        self.minute = total_minutes % 60
-        overflow = total_minutes // 60
-        self.hour = (self.hour + overflow) % 24
-        return self
+        return Clock(self.hour, self.minute - minutes)
