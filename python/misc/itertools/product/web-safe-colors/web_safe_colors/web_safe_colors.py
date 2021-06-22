@@ -25,5 +25,5 @@ def main():
     with open("./web_safe_colors.html", 'w') as file:
         file.write(get_rendered_template())
 
-if __name__ == "main":
+if __name__ == "__main__":
     main()
