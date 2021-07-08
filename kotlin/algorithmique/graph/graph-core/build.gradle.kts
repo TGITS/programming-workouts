@@ -26,7 +26,7 @@ dependencies {
     // Use the Kotlin JDK 8 standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-
+    implementation( "org.ejml:ejml-kotlin:0.40")
     implementation("org.ejml:ejml-all:0.40")
 
     // Use the Kotlin test library.
