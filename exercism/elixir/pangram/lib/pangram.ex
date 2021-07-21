@@ -14,5 +14,13 @@ defmodule Pangram do
 
   @spec pangram?(String.t()) :: boolean
   def pangram?(sentence) do
+    MapSet.equal?(
+      sentence
+      |> String.downcase()
+      |> String.replace(~r/[^a-z]+/, "")
+      |> String.to_char_list()
+      |> MapSet.new(),
+      ?a..?z |> MapSet.new()
+    )
   end
 end
