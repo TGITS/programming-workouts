@@ -3,8 +3,6 @@ defmodule RomanNumerals do
   Convert the number to a roman number.
   """
   @spec numeral(pos_integer) :: String.t()
-  # def numeral(number) do
-  # end
   def numeral(0), do: ""
   def numeral(number) when number > 0 and number < 4, do: "I" <> numeral(number - 1)
   def numeral(4), do: "IV"
