@@ -6,4 +6,4 @@
 % Replace the goal below with
 % your implementation.
 
-hello_world(false).
+hello_world('Hello World!').
