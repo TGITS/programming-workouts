@@ -11,6 +11,6 @@ const orbital_periods_in_earth_year: Record<string, number> = {
   'neptune': 164.79132
 }
 
-const round_with_2_decimals = (val:number) => Math.round(val * 100) / 100;
+const round_with_2_decimals = (val: number): number => Math.round(val * 100) / 100;
 
-export const age = (planet: string, age_in_seconds: number) => round_with_2_decimals(age_in_seconds / (EARTH_ORBITAL_PERIOD_IN_SECONDS * orbital_periods_in_earth_year[planet]));
+export const age = (planet: string, age_in_seconds: number): number => round_with_2_decimals(age_in_seconds / (EARTH_ORBITAL_PERIOD_IN_SECONDS * orbital_periods_in_earth_year[planet]));
