@@ -4,10 +4,10 @@ L'objet de la leçon du jour est de voir les bases sur les listes.
 
 Première leçon (formelle) sur les listes même si on avait déjà vu  et manipuler des listes dans les leçons précédentes.
 
-Iic nous avons vu/revu les éléments suivants via la REPL et vi un totu petit programme :
+Nous avons vu/revu les éléments suivants via la REPL et vi un totu petit programme :
 
 * Accès via indice aux éléments de la liste
-* En python on peut utilsier des indices positifs partant du début de la liste et démarrant à 0, des indices négatifs en partant de la fin à partir de l'indice -1
+* En python on peut utiliser des indices positifs partant du début de la liste et démarrant à 0, des indices négatifs en partant de la fin à partir de l'indice -1
 * Accès en lecture ou en écriture à un éléments de la liste par son indice
 * Utilisation des _slices_ pour accéder à une tranche de la liste ; utilisation d'indices positifs et négatifs pour définir le début et la fin de la _slice_.
   * L'indice de fin est non inclus
