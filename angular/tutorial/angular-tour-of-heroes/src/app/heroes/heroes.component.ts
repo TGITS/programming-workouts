@@ -18,7 +18,7 @@ export class HeroesComponent implements OnInit {
   }
 
   onSelect(hero: Hero): void {
-    this.selectedHero=hero;
+    this.selectedHero = hero;
   }
 
 }
