@@ -1,6 +1,5 @@
 package tgits.programming.workout.perfectnumber;
 
-import java.util.List;
 import java.util.function.IntPredicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -35,11 +34,11 @@ public class PerfectNumber {
 	}
 }
 
+/**
+ * A number is perfect if it is equal to the sum of its dividers divided by 2 
+ * 2 × 6 = 12 = 1 + 2 + 3 + 6 or 6 = 1 + 2 + 3
+ */
 class PerfectNumberPredicate implements IntPredicate {
-	/* *
-	 * A number is perfect if it is equal to the sum of its dividers divided by 2 
-	 * 2 × 6 = 12 = 1 + 2 + 3 + 6 or 6 = 1 + 2 + 3
-	 */
 	
 	private int sumOfDividers(int value){
 		return IntStream.rangeClosed(1, value).filter(i -> value % i == 0).sum();
