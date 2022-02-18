@@ -491,3 +491,4 @@ typings/
 /rust/basic/hello_world/main.pdb
 
 .fake
+.Rproj.user
