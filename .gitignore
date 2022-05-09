@@ -492,3 +492,4 @@ typings/
 
 .fake
 .Rproj.user
+/exercism/python/rational-numbers/.pytest_cache
