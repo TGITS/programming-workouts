@@ -1,0 +1,22 @@
+{
+  "blurb": "Implement a RESTful API for tracking IOUs.",
+  "authors": [
+    "jmrunkle"
+  ],
+  "contributors": [
+    "mirkoperillo",
+    "msomji",
+    "muzimuzhi"
+  ],
+  "files": {
+    "solution": [
+      "src/main/java/RestApi.java"
+    ],
+    "test": [
+      "src/test/java/RestApiTest.java"
+    ],
+    "example": [
+      ".meta/src/reference/java/RestApi.java"
+    ]
+  }
+}

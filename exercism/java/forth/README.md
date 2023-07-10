@@ -1,5 +1,10 @@
 # Forth
 
+Welcome to Forth on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement an evaluator for a very simple subset of Forth.
 
 [Forth](https://en.wikipedia.org/wiki/Forth_%28programming_language%29)
@@ -25,30 +30,23 @@ enough.)
 
 Words are case-insensitive.
 
-## Setup
+## Source
 
-Go through the setup instructions for Java to install the necessary
-dependencies:
+### Created by
 
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
+- @stkent
 
-# Running the tests
+### Contributed to by
 
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @aadityakulkarni
+- @FridaTveit
+- @hgvanpariya
+- @jmrunkle
+- @kytrinyx
+- @lemoncurry
+- @mirkoperillo
+- @msomji
+- @muzimuzhi
+- @sjwarner-bp
+- @SleeplessByte
+- @sshine

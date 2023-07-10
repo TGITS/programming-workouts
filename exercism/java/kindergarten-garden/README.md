@@ -1,5 +1,10 @@
 # Kindergarten Garden
 
+Welcome to Kindergarten Garden on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given a diagram, determine which plants each child in the kindergarten class is
 responsible for.
 
@@ -59,31 +64,31 @@ While asking for Bob's plants would yield:
 
 - Clover, grass, clover, clover
 
-## Setup
-
-Go through the setup instructions for Java to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
-
-# Running the tests
-
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
 ## Source
 
-Random musings during airplane trip. [http://jumpstartlab.com](http://jumpstartlab.com)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @Smarticles101
+
+### Contributed to by
+
+- @aadityakulkarni
+- @c-thornton
+- @FridaTveit
+- @jmrunkle
+- @kytrinyx
+- @lemoncurry
+- @mirkoperillo
+- @msomji
+- @muzimuzhi
+- @redshirt4
+- @RonakLakhotia
+- @sjwarner-bp
+- @SleeplessByte
+- @sshine
+- @stkent
+- @Zaldrick
+
+### Based on
+
+Random musings during airplane trip. - http://jumpstartlab.com
