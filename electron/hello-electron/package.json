@@ -11,6 +11,6 @@
   "author": "TGITS",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^18.3.7"
+    "electron": "^22.3.25"
   }
 }
