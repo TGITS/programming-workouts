@@ -23,8 +23,8 @@ class NumberInfo:
     def update_number(self, character:str):
         self.number += character
 
-    def to_coordinates(self)-> tuple[int]:
-        return (self.position_in_line, self.line_number)
+    def to_set_of_coordinates(self) -> set[tuple[int]]:
+        return {(x, self.line_number) for x in range(self.position_in_line, self.position_in_line+len(self.number))}
 
 @dataclass
 class SymbolInfo:
@@ -37,23 +37,23 @@ class SymbolInfo:
     def compute_neighbourhood(self):
         self.set_of_neighbors = {(self.position_in_line-1, self.line_number-1), (self.position_in_line, self.line_number-1),(self.position_in_line+1, self.line_number-1),
                                  (self.position_in_line-1, self.line_number), (self.position_in_line+1, self.line_number),
-                                 (self.position_in_line-1, self.line_number+1,(self.position_in_line+1, self.line_number+1))}
+                                 (self.position_in_line-1, self.line_number+1), (self.position_in_line, self.line_number+1),(self.position_in_line+1, self.line_number+1)}
 
     def find_eligible_numbers(self, list_of_numbers):
-        print(list_of_numbers)
-        return [number.value() for number in list_of_numbers if number.to_coordinates() in self.set_of_neighbors]
+        #print(list_of_numbers)
+        return [number.value() for number in list_of_numbers if len(self.set_of_neighbors.intersection(number.to_set_of_coordinates())) > 0]
 
     def compute_gear_ratio(self, list_of_numbers):
         numbers = self.find_eligible_numbers(list_of_numbers)
-        print(numbers)
+        #print(numbers)
         if len(numbers) == 2:
             return functools.reduce(operator.mul, numbers)
         return 0
 
 
-#filename = 'input.txt'
+filename = 'input.txt'
 #filename = 'smaller_input1.txt'
-filename = 'smaller_input2.txt'
+#filename = 'smaller_input2.txt'
 
 if __name__ == '__main__':
     list_of_numbers = []
@@ -81,10 +81,10 @@ if __name__ == '__main__':
                         symbol.compute_neighbourhood()
                         list_of_symbols.append(symbol)
     
-    print("The list of numbers: ")
-    for number in list_of_numbers:
-        print(number)
-    print()  
+    #print("The list of numbers: ")
+    #for number in list_of_numbers:
+    #    print(number, ':', number.to_set_of_coordinates())
+    #print()  
     list_of_ratios_gear = [symbol.compute_gear_ratio(list_of_numbers) for symbol in list_of_symbols]
     #print("gear ratios: ")
     #for ratio in list_of_ratios_gear:
