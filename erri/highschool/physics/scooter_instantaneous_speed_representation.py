@@ -25,7 +25,7 @@ for k in range(0,N-1):
     echelle=0.3 # coefficient pour ajuster la longeur des vecteurs
     Vx=Vx*echelle
 
-    plt.quiver(x[k],y[k],Vx,0,color="red", scale_units='xy',scale=1)
+    plt.quiver(x[k],y[k],Vx,0,color="orange", scale_units='xy',scale=1)
 
 # Affichage
 plt.show()

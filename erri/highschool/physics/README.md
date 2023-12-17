@@ -22,12 +22,5 @@ Il y a plusieurs manières de créer et de gérer des environnements virtuels en
   * `pip install matplotlib`
 * A la fin de votre session de travail, désactiver l'environnement virtuel : `venv\Scripts\deactivate`
 
-Une fois l'installation réalisée les commandes sont les suivantes :
-
-* Initialisation : `mkdocs new`
-* Prévisualisation : `mkdocs serve` ou `mkdocs serve --dirtyreload` si vous voulez juste mettre à jour la page courante (_build_ incomplet mais plus rapide).
-* Construction du site : `mkdocs build`
-  * Le site (HTML) est généré dans le répertoire `site/etude_fido2` et est complètement _autonome_ normalement.
-
 Penser à activer l'environnement virtuel avant de lancer les commandes : `venv\Scripts\activate`
 A la fin de votre session de travail, penser à désactiver l'environnement virtuel : `venv\Scripts\deactivate` (ce n'est pas dramatique si ce n'est pas fait, si vous fermez l'invite de commande).
