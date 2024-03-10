@@ -4,11 +4,17 @@ h1 {
 
 body {
   background-image: url("snake-7386684_640.jpg");
-  color: white;
+  color: rgb(2, 255, 255);
 }
  
 .texte{
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    color: red;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  color: red;
 }
+
+table {
+  color: deeppink;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
