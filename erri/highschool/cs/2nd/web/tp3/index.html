@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>Tutoriel Initiation Javascript</title>
+    <meta charset="utf-8" />
+    <script>
+      function myFunction() {
+        document.getElementById("balise2").innerHTML =
+          "Le texte a été modifié, coool !";
+      }
+    </script>
+    <script src="monscript.js"></script>
+  </head>
+  <body>
+    <h2>Premier programme en JavaScript</h2>
+    <p id="demo">Le code est affiché ici</p>
+    <p id="balise2">Ce texte va changer</p>
+    <button type="button" onclick="myFunction()">Cliquer ici!</button>
+    <p id="balise3">...</p>
+    <button type="button" onclick="bonjour()">Cliquez ici</button>
+    <script>
+      document.getElementById("demo").innerHTML =
+        "Mon premier programme javaScript";
+      let a = 5 + 6;
+      window.alert("Resultat 5+6: " + a);
+      console.log("Resultat 5+6: " + a);
+    </script>
+  </body>
+</html>
