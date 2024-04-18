@@ -1,0 +1,20 @@
+h1 {
+  color: blue;
+}
+
+body {
+  /* background-color: black; */
+  background-image: url("snake-7386684_640.jpg");
+  color: white;
+}
+
+.texte {
+  font-family: arial;
+  text-align: center;
+  color: red;
+}
+
+table {
+  color: deeppink;
+  font-family: arial;
+}
