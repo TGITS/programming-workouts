@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+html {
+  text-align: center;
+  background-image: url("fond.jpg");
+  background-size: 100%;
+}
+
+.header {
+  width: 100%;
+  height: 200px;
+  background-color: white;
+}
+
+.header h1 {
+  color: blue;
+}
+
+.sidebar {
+  width: 30%;
+  height: 200px;
+  float: left;
+  background-color: yellow;
+  padding-top: 100px;
+}
+
+.content {
+  width: 70%;
+  height: 200px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.big {
+  color: black;
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.content p {
+  color: black;
+  font-weight: bold;
+}
+
+.footer {
+  background-color: pink;
+  height: 100px;
+  width: 100%;
+}
