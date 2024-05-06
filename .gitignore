@@ -496,3 +496,5 @@ typings/
 /java/libgdx/tutorial/drop/gradle
 /angular/tutorial/angular-tour-of-heroes/.angular
 /exercism/typescript/difference-of-squares/.yarn
+zig-cache
+zig-out
