@@ -1,6 +1,12 @@
 import unittest
 
-from robot_simulator import Robot, NORTH, EAST, SOUTH, WEST
+from robot_simulator import (
+    Robot,
+    NORTH,
+    EAST,
+    SOUTH,
+    WEST,
+)
 
 # Tests adapted from `problem-specifications//canonical-data.json`
 
@@ -135,6 +141,10 @@ class RobotSimulatorTest(unittest.TestCase):
 
         self.assertEqual(robot.coordinates, (11, 5))
         self.assertEqual(robot.direction, NORTH)
+
+    # Utility functions
+    def assertRaisesWithMessage(self, exception):
+        return self.assertRaisesRegex(exception, r".+")
 
 
 if __name__ == "__main__":
