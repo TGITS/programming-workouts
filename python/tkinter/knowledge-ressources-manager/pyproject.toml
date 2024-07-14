@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "knowledge-ressources-manager"
+version = "0.1.0"
+description = ""
+authors = ["TGITS <thegeekintheshell@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+customtkinter = "^5.2.2"
+pillow = "^10.4.0"
+beautifulsoup4 = "^4.12.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
