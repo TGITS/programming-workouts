@@ -21,7 +21,7 @@ public class SynchronizedLongCounter implements LongCounter {
     }
 
     @Override
-    public long value() {
+    public synchronized long value() {
         return counter;
     }
 }
