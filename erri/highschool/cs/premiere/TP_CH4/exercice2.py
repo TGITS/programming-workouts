@@ -6,4 +6,4 @@ prenom = input("Saisissez votre prénom: ")
 age = int(input("Saisissez votre âge: "))
 x = int(input("Saisissez une durée en année: "))
 
-print("votre âge dans", x, "ans sera", age+x)
+print("votre âge dans", x, "ans sera", str(age+x))
