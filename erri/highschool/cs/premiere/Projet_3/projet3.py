@@ -16,7 +16,7 @@ def tableau_jeu()->list:
     crée le tableau correspondant à la grille de jeu de la figure
     '''
     tab = []
-    for i in range(0,10):
+    for i in range(0,10): 
         tab.append([0]*10)
     
     tab[0][5]=20
@@ -48,9 +48,34 @@ def deplacement_pion(evt):
     déplace le pion sur la grille en fonction des touches bas, gauche et droite
     :param evt: événement lié à l'action des touches
     '''
+    global x_pion
+    global y_pion
+    global max_mouv
+    global le_score
     
-    pass
-
+    if evt.keysym == "Down" and max_mouv < 28:
+        if y_pion < 9: # Pour ne pas sortir du tableau
+            score(pion)
+            canvas.move(pion, 0, 50)
+            y_pion += 1
+            max_mouv +=1
+    if evt.keysym == "Left" and max_mouv < 28:
+        if x_pion > 0: # Pour ne pas sortir du tableau
+            score(pion)
+            canvas.move(pion, -50, 0)
+            x_pion -= 1
+            max_mouv+=1
+    if evt.keysym == "Right" and max_mouv < 28:
+        if x_pion < 9: # Pour ne pas sortir du tableau
+            score(pion)
+            canvas.move(pion, 50, 0)
+            x_pion += 1
+            max_mouv+=1
+      
+    if max_mouv >= 28 :
+        canvas.create_text(250, 510, text = "Score : " + str(le_score), font = ("Arial", 12))
+        
+        
 def score(pion):
     '''
     calcule le score en fonction du contenu de la case dans le tableau
@@ -58,8 +83,21 @@ def score(pion):
     *** sur la case
     :param pion:objet construit dans le programme
     '''
-    pass
+    global le_score
+    global canvas
+    global x_pion
+    global y_pion
+    global tableau
     
+    (x_haut, y_haut, x_bas, y_bas) = canvas.coords(pion)
+    valeur = tableau[y_pion][x_pion]
+
+    if valeur > 0:
+        le_score += valeur
+        print("score: ", le_score, " - valeur: ", valeur, "tableau[y_pion][x_pion]: ", tableau[y_pion][x_pion])
+        canvas.create_text(x_haut, y_haut , text = "***", font = ("Arial", 15))
+        tableau[y_pion][x_pion] = 0
+        
 #programme    
 fen = Tk()
 fen.geometry("520x600")
@@ -69,6 +107,11 @@ canvas.pack()
 quadrillage()
 tableau=tableau_jeu()
 affiche_valeurs(tableau)
+pion=canvas.create_oval(20,20,50,50, fill = "Blue")
+x_pion=0
+y_pion=0
+max_mouv=0
+le_score=0
 fen.bind("<KeyPress>", deplacement_pion)
 fen.mainloop()
 
