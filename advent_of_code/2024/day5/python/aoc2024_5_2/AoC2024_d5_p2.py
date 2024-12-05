@@ -61,24 +61,35 @@ def find_invalid_pages(
 
 
 def correct_invalid_pages(
-    pages_to_produce: list[list[int]],
-    pages_valid_before_by_page: dict[int, int]
+    pages_to_produce: list[list[int]], pages_valid_before_by_page: dict[int, int]
 ) -> list[list[int]]:
     corrected_list_of_pages_to_produce = []
     number_to_process = len(pages_to_produce)
     i = 0
     while i < number_to_process:
-        corrected_pages = pages_to_produce[i][:] #une copie de travail
-        pages_to_process = pages_to_produce[i][:] # une copie pour avoir la liste des pages à traiter
-        while pages_to_process: # Tant qu'il y a des éléments dans la liste, i.e. que la liste est non vide
-            page_to_process = pages_to_process.pop(0) # Je récupère la valeur du premier élement et je le retire de la liste des pages à traiter
+        corrected_pages = pages_to_produce[i][:]  # une copie de travail
+        pages_to_process = pages_to_produce[i][
+            :
+        ]  # une copie pour avoir la liste des pages à traiter
+        while (
+            pages_to_process
+        ):  # Tant qu'il y a des éléments dans la liste, i.e. que la liste est non vide
+            page_to_process = pages_to_process.pop(
+                0
+            )  # Je récupère la valeur du premier élement et je le retire de la liste des pages à traiter
             index_page_to_process = corrected_pages.index(page_to_process)
-            set_of_pages_to_move = set(pages_valid_before_by_page.get(page_to_process, [])) & set(corrected_pages[index_page_to_process+1 :])
-            #print(set_of_pages_to_move)
-            if len(set_of_pages_to_move) > 0 : # Il y a des déplacements de pages à faire
+            set_of_pages_to_move = set(
+                pages_valid_before_by_page.get(page_to_process, [])
+            ) & set(corrected_pages[index_page_to_process + 1 :])
+            # print(set_of_pages_to_move)
+            if (
+                len(set_of_pages_to_move) > 0
+            ):  # Il y a des déplacements de pages à faire
                 corrected_pages.remove(page_to_process)
-                max_index_to_move = max([corrected_pages.index(page) for page in set_of_pages_to_move])
-                corrected_pages.insert(max_index_to_move+1, page_to_process)
+                max_index_to_move = max(
+                    [corrected_pages.index(page) for page in set_of_pages_to_move]
+                )
+                corrected_pages.insert(max_index_to_move + 1, page_to_process)
         corrected_list_of_pages_to_produce.append(corrected_pages)
         i += 1
 
@@ -102,7 +113,9 @@ if __name__ == "__main__":
     )
     invalid_pages = find_invalid_pages(pages_to_produce, pages_valid_before_by_page)
     print(invalid_pages)
-    corrected_list_of_pages = correct_invalid_pages(invalid_pages, pages_valid_before_by_page)
+    corrected_list_of_pages = correct_invalid_pages(
+        invalid_pages, pages_valid_before_by_page
+    )
     print(corrected_list_of_pages)
     middle_numbers = find_middle_number(corrected_list_of_pages)
     print(middle_numbers)
