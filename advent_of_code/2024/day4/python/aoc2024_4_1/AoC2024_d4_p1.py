@@ -1,7 +1,7 @@
 # Il faut rechercher sur une ligne XMAS ou SAMX
 # Pareil il faut rechercher sur une colonne XMAS ou SAMX, le plus simple serait de transformer une colonne en ligne
 # Enfin, il faudrait pouvoir extraire les différentes diagonales, sous forme de chaines et de trouver XMAS ou SAMX dedans
-def extract_lines(input_name: str) -> list[list[str]]:
+def extract_lines(input_name: str) -> list[str]:
     lines = None
     with open(input_name, "r") as input:
        lines = [line.strip() for line in input.readlines()]

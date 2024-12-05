@@ -1,7 +1,7 @@
 import re
 
 
-def extract_lines(input_name: str) -> list[list[str]]:
+def extract_lines(input_name: str) -> list[str]:
     lines = None
     with open(input_name, "r") as input:
         lines = [line.strip() for line in input.readlines()]
