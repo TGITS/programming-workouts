@@ -1,2 +1,2 @@
 import pytest
-from AoC2024_d6_p1 import *
+from AoC2023_d5_p1 import *
