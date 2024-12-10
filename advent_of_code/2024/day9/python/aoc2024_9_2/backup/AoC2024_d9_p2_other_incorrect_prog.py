@@ -54,6 +54,7 @@ def compact(memory: list[str], only_blocks: dict[int, str]) -> str:
 
 
 def compute_checksum(memory: list[str]) -> int:
+    # print("memory as list:", memory)
     checksum = 0
     for i, cell in enumerate(memory):
         if cell != ".":
@@ -63,14 +64,14 @@ def compute_checksum(memory: list[str]) -> int:
 
 
 if __name__ == "__main__":
-    data = extract_data("input_test.txt")
-    # data = extract_data("input.txt")
+    # data = extract_data("input_test.txt")
+    data = extract_data("input.txt")
     # print("data:", data)
-    (memory, blocks) = compute_id_numbers_list(data)
+    (memory, only_blocks) = compute_id_numbers_list(data)
     # print(memory)
     # print("memory:", ''.join(memory))
     # print("Blocks:", only_blocks)
-    compacted_memory = compact(memory, blocks)
+    compacted_memory = compact(memory, only_blocks)
     # print("Compacted memory: ", compacted_memory)
     # Expected : 00992111777.44.333....5555.6666.....8888..
     # Value :    00992111777.44.333....5555.6666.....8888..
@@ -80,5 +81,5 @@ if __name__ == "__main__":
 # 105995726871 too low
 # 107537132056 too low
 # 188927125610 also incorrect
-# 108262115579 also incorrect
-# Good value : 6,265,268,809,555 ? => 6265268809555 ????
+# Good value : 6,265,268,809,555 ?
+# 6265268809555
