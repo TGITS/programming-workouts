@@ -15,6 +15,22 @@ def extract_line_of_numbers(input_name: str) -> list[str]:
 
     return lines[0].split(' ')
 
+def transform_number(number: str) -> str:
+    if number == '0':
+        return '1'
+    elif len(number) % 2 == 0:
+        half = len(number) // 2
+        left = number[0:half].lstrip('0')
+        if len(left) == 0:
+            left = '0'
+            right = number[half:].lstrip('0')
+        if len(right) == 0:
+            right = '0'
+        return left + "," + right
+    else:
+        return str(int(number)*2024)
+
+
 def transform_line(line: list[str]) -> list[str]:
     transform_line = []
     for number in line:
@@ -35,19 +51,29 @@ def transform_line(line: list[str]) -> list[str]:
     return transform_line
 
 
-def apply_transformation_n_times(line: list[str], n:int) -> list[str]:
+def apply_transformation(line: list[str]): 
     transformed_line = line
-    for _ in range(n):
+    while True:
         transformed_line = transform_line(transformed_line)
+        yield transformed_line
 
-    return transformed_line
+def apply_transformation_n_times(line: list[str], n:int) -> list[str]: 
+    i = 0
+    gen = apply_transformation(line)
+    while i < n-1:
+        next(gen)
+        i += 1
+
+    return gen
 
 
 if __name__ == "__main__":
-    #numbers = extract_line_of_numbers("input_test.txt")
-    numbers = extract_line_of_numbers("input.txt")
+    numbers = extract_line_of_numbers("input_test.txt")
+    #numbers = extract_line_of_numbers("input.txt")
     print(numbers)
-    transformed_line = apply_transformation_n_times(numbers, 75)
+    #transformed_line = apply_transformation_n_times(numbers, 25)
     #print(transformed_line)
-    print(len(transformed_line))
+    gen = apply_transformation_n_times(numbers, 25)
+    print(len(list(gen)))
+
 

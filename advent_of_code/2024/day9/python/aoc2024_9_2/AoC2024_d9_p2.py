@@ -1,84 +1,99 @@
+from collections import deque
+from dataclasses import dataclass
+
+
+@dataclass
+class Slot:
+    """A memory Slot
+    Free space has an ID of -1
+    A file hase an index >= 0
+    position is the position of the slot in the memory
+    size is the size of the slot
+    """
+
+    id: int
+    size: int
+    position: int
+
+
 def extract_data(input_name: str) -> str:
     data = []
     with open(input_name, "r") as input:
         for line in input:
             data.append(line.strip())
-    return data[0]
+    return [int(c) for c in data[0]]
 
 
-def compute_id_numbers_list(data: str) -> tuple[list[str], dict[int, str], int]:
-    memory = []
-    blocks = {}
-    size = len(data)
-    i = 0
-    block_id = 0
-    for i in range(0, size, 2):
-        block_size = int(data[i])
-        cell = str(block_id) * block_size
-        blocks[block_id] = block_size
-        if len(cell.strip()) > 0:
-            memory.append(cell)
-        block_id += 1
+def construct_memory_layout(
+    data: list[int],
+) -> tuple[list[type[Slot]], list[type[Slot]], list[int]]:
+    """Compute the memory layout : a list of Slots representing the File, a list of Slots representing the Free Space and finally the total memory 'disk'"""
+    disk = []
+    blocks = []
+    free_spaces = []
+    position = 0
+    file_id = 0
 
-        if i + 1 < size:
-            free_space = int(data[i + 1])
-            cell = "." * free_space
-            if len(cell.strip()) > 0:
-                memory.append(cell)
+    for i, block_size in enumerate(data):
+        if i % 2 == 0:  # File
+            file = Slot(id=file_id, size=block_size, position=position)
+            blocks.append(file)
+            disk.extend([file_id] * block_size)
+            file_id += 1
+        else:
+            free_space = Slot(id=-1, size=block_size, position=position)
+            free_spaces.append(free_space)
+            disk.extend([None] * block_size)
+        position += block_size
 
-    return (memory, blocks)
+    return (blocks, free_spaces, disk)
 
 
-def compact(memory: list[str], only_blocks: dict[int, str]) -> str:
-    working_copy = "".join(memory)
-    keys = sorted(only_blocks.keys(), reverse=True)
-    for block_id in keys:
-        block_size = only_blocks[block_id]
-        pattern = "." * block_size
-        block = "".join([str(block_id)]*block_size)
-        index_block = working_copy.rfind(block)
-        index_first_dot = working_copy.find(".", 0, index_block)
-        if index_first_dot < index_block :
-            index_pattern = working_copy.find(pattern, index_first_dot, index_block)
+def defragment(
+    files: list[type[Slot]], frees_paces: list[type[Slot]], disk: list[int]
+) -> list[type[Slot]]:
+    defragmented_disk = [None] * len(disk)
+    spaces = free_spaces.copy()
 
-            if index_pattern > 0 and index_pattern < index_block:
-                working_copy = (
-                    working_copy[0:index_pattern]
-                    + block
-                    + working_copy[index_pattern + len(block) : index_block]
-                    + pattern
-                    + working_copy[index_block + len(pattern) :]
+    for file in sorted(files, key=lambda f: -f.id):
+        moved = False
+
+        for i, space in enumerate(spaces):
+            if space.position > file.position:
+                break
+            if space.size >= file.size:
+                position = space.position
+                for j in range(file.size):
+                    defragmented_disk[position + j] = file.id
+
+                spaces[i] = Slot(
+                    id=-1,
+                    position=space.position + file.size,
+                    size=space.size - file.size,
                 )
+                if spaces[i].size == 0:
+                    spaces.pop(i)
+                moved = True
+                break
 
-    return working_copy
+        if not moved:
+            position = file.position
+            for j in range(file.size):
+                defragmented_disk[position + j] = file.id
+
+    return defragmented_disk
 
 
-def compute_checksum(memory: list[str]) -> int:
-    checksum = 0
-    for i, cell in enumerate(memory):
-        if cell != ".":
-            checksum += int(cell) * i
-
-    return checksum
+def compute_checksum(memory: list[int]) -> int:
+    return sum(position * id for position, id in enumerate(memory) if id is not None)
 
 
 if __name__ == "__main__":
-    data = extract_data("input_test.txt")
-    # data = extract_data("input.txt")
+    # data = extract_data("input_test.txt")
+    data = extract_data("input.txt")
     # print("data:", data)
-    (memory, blocks) = compute_id_numbers_list(data)
-    # print(memory)
-    # print("memory:", ''.join(memory))
-    # print("Blocks:", only_blocks)
-    compacted_memory = compact(memory, blocks)
-    # print("Compacted memory: ", compacted_memory)
-    # Expected : 00992111777.44.333....5555.6666.....8888..
-    # Value :    00992111777.44.333....5555.6666.....8888..
-    # print(''.join(memory))
-    print(compute_checksum(list(compacted_memory)))
-
-# 105995726871 too low
-# 107537132056 too low
-# 188927125610 also incorrect
-# 108262115579 also incorrect
-# Good value : 6,265,268,809,555 ? => 6265268809555 ????
+    (files, free_spaces, disk) = construct_memory_layout(data)
+    defragmented_disk = defragment(files, free_spaces, disk)
+    print(
+        compute_checksum(defragmented_disk)
+    )  # "input_test.txt" => 2858 / "input.txt" => 6389911791746

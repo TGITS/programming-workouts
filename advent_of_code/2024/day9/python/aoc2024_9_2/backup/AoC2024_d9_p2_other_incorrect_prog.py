@@ -35,10 +35,10 @@ def compact(memory: list[str], only_blocks: dict[int, str]) -> str:
     for block_id in keys:
         block_size = only_blocks[block_id]
         pattern = "." * block_size
-        block = "".join([str(block_id)]*block_size)
+        block = "".join([str(block_id)] * block_size)
         index_block = working_copy.rfind(block)
         index_first_dot = working_copy.find(".", 0, index_block)
-        if index_first_dot < index_block :
+        if index_first_dot < index_block:
             index_pattern = working_copy.find(pattern, index_first_dot, index_block)
 
             if index_pattern > 0 and index_pattern < index_block:

@@ -1,3 +1,3 @@
 import pytest
-from AoC2024_d6_p2 import *
+from AoC2024_d13_p2 import *
 

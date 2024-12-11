@@ -42,12 +42,12 @@ def find_eligible_neighbours(
     return neighbours_list
 
 
-def walk_trail(
+def score_trailhead(
     node: tuple[int, int],
     map: list[str],
     x_max: int,
     y_max: int,
-    unique_ending_position: set[tuple[int, int]],
+    explored_nodes: set[tuple[int, int]],
 ) -> int:
     """
     Find all the possible trails from a trailhead to deduce the score
@@ -55,28 +55,32 @@ def walk_trail(
     x = node[0]
     y = node[1]
     if map[y][x] == "9":
-        unique_ending_position.add((x, y))
-        return
-
+        return 1
+    sum = 0
     eligible_neighbours = find_eligible_neighbours(node, map, x_max, y_max)
     for neighbour in eligible_neighbours:
-        walk_trail(neighbour, map, x_max, y_max, unique_ending_position)
+        # print("neighbour :", neighbour, " - ", map[neighbour[1]][neighbour[0]])
+        if not neighbour in explored_nodes:
+            sum += score_trailhead(neighbour, map, x_max, y_max, explored_nodes)
+            explored_nodes.add(neighbour)
+
+    return sum
 
 
 def compute_total_score(
     trailheads: list[tuple[int, int]], map: list[str], x_max: int, y_max: int
 ) -> int:
-    score = 0
+    total_score = 0
+    explored_nodes = set()
     for trailhead in trailheads:
-        unique_ending_position = set()
-        walk_trail(trailhead, map, x_max, y_max, unique_ending_position)
-        score += len(unique_ending_position)
-
-    return score
+        score = score_trailhead(trailhead, map, x_max, y_max, explored_nodes)
+        print("score for ", trailhead, ":", score)
+        total_score += score
+    return total_score
 
 
 if __name__ == "__main__":
-    map = extract_data("input.txt")
+    map = extract_data("input_test.txt")
     print(map)
     y_max = len(map)  # maximum numbers of lines
     x_max = len(map[0])  # maximum length of a line
