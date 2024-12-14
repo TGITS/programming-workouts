@@ -69,102 +69,111 @@ def count_garden_plot_corners(map: list[str], garden_plot: type[GardenPlot]) -> 
     gp_type = garden_plot.type
     corners = 0
 
-    print("garden plot:", garden_plot)
-    # outside corner against "void"
-    # Upper left corner outside the Region
+    # print("garden plot:", garden_plot)
+
+    # 1er cas, coin externe contre l'extérieur
+    # Dans le sens des aiguilles d'une montre (clockwise)
+    # En partant du coin supérieur gauche
     if garden_plot.x - 1 < 0 and garden_plot.y - 1 < 0:
         corners += 1
-        #print("found Upper left corner outside the Region")
 
-    # Upper right corner outside the Region
     if garden_plot.x + 1 >= x_max and garden_plot.y - 1 < 0:
         corners += 1
-        #print("found Upper right corner outside the Region")
 
-    # Lower right corner outside the Region
     if garden_plot.x + 1 >= x_max and garden_plot.y + 1 >= y_max:
         corners += 1
-        #print("found Lower right corner outside the Region")
 
-    # Lower left corner outside the Region
-    if (garden_plot.x - 1 < 0 and garden_plot.y + 1 >= y_max):
-        corners += 1
-        #print("found Lower left corner outside the Region")
-
-    # ---- 
-
-    if (garden_plot.x - 1 < 0 and garden_plot.y + 1 < y_max and map[y+1][x] != gp_type):
+    if garden_plot.x - 1 < 0 and garden_plot.y + 1 >= y_max:
         corners += 1
 
-    if (garden_plot.x - 1 < 0 and garden_plot.y - 1 >= 0 and map[y-1][x] != gp_type):
+    # ----
+
+    # 2ème cas coin externe, seulement une des 2 coordonneés donnant sur l'extérieur
+    # coordonnées x donnant sur l'extérieur
+    if garden_plot.x - 1 < 0 and garden_plot.y - 1 >= 0 and map[y - 1][x] != gp_type:
         corners += 1
 
-    if (garden_plot.x + 1 >= x_max and garden_plot.y + 1 < y_max and map[y+1][x] != gp_type):
+    if garden_plot.x - 1 < 0 and garden_plot.y + 1 < y_max and map[y + 1][x] != gp_type:
         corners += 1
 
-    if (garden_plot.x + 1 >= x_max and garden_plot.y - 1 > 0 and map[y-1][x] != gp_type):
-        corners += 1
-
-    #----
-
-    if (garden_plot.y - 1 < 0 and garden_plot.x + 1 < x_max and map[y][x+1] != gp_type):
-        corners += 1
-
-    if (garden_plot.y - 1 < 0 and garden_plot.x - 1 >= 0 and map[y][x-1] != gp_type):
-        corners += 1
-
-    if (garden_plot.y + 1 >= y_max and garden_plot.x + 1 < x_max and map[y][x+1] != gp_type):
-        corners += 1
-
-    if (garden_plot.y + 1 >= y_max and garden_plot.x - 1 > 0 and map[y][x-1] != gp_type):
-        corners += 1   
-
-    # -----
-
-    # count "outside" corner
-    # upper left outside corner
-    if (garden_plot.x - 1 >= 0
+    if (
+        garden_plot.x + 1 >= x_max
         and garden_plot.y - 1 >= 0
-        and map[y - 1][x - 1] != gp_type
-        and map[y][x - 1] != gp_type
-        and map[y - 1][x] != gp_type):
+        and map[y - 1][x] != gp_type
+    ):
         corners += 1
-        #print("found upper left outside corner")
 
-    # Upper right corner outside
+    if (
+        garden_plot.x + 1 >= x_max
+        and garden_plot.y + 1 < y_max
+        and map[y + 1][x] != gp_type
+    ):
+        corners += 1
+
+    # coordonnées y donnant sur l'extérieur
+    if garden_plot.y - 1 < 0 and garden_plot.x - 1 >= 0 and map[y][x - 1] != gp_type:
+        corners += 1
+
+    if garden_plot.y - 1 < 0 and garden_plot.x + 1 < x_max and map[y][x + 1] != gp_type:
+        corners += 1
+
+    if (
+        garden_plot.y + 1 >= y_max
+        and garden_plot.x - 1 >= 0
+        and map[y][x - 1] != gp_type
+    ):
+        corners += 1
+
+    if (
+        garden_plot.y + 1 >= y_max
+        and garden_plot.x + 1 < x_max
+        and map[y][x + 1] != gp_type
+    ):
+        corners += 1
+
+    # ----
+
+    # 3ème cas, coin externe, pas en bordure ni pour les x, ni pour les y
+    # Sens des aiguilles d'une montre
+    if (
+        garden_plot.x - 1 >= 0
+        and garden_plot.y - 1 >= 0
+        # and map[y - 1][x - 1] != gp_type
+        and map[y][x - 1] != gp_type
+        and map[y - 1][x] != gp_type
+    ):
+        corners += 1
+
     if (
         garden_plot.x + 1 < x_max
         and garden_plot.y - 1 >= 0
-        and map[y - 1][x + 1] != gp_type
+        # and map[y - 1][x + 1] != gp_type
         and map[y][x + 1] != gp_type
         and map[y - 1][x] != gp_type
     ):
         corners += 1
-        #print("found Upper right corner")
 
-    # Lower right corner outside
     if (
         garden_plot.x + 1 < x_max
         and garden_plot.y + 1 < y_max
-        and map[y + 1][x + 1] != gp_type
+        # and map[y + 1][x + 1] != gp_type
         and map[y][x + 1] != gp_type
         and map[y + 1][x] != gp_type
     ):
         corners += 1
-        # print("found Lower right corner")
 
-    # Lower left corner outside
     if (
         garden_plot.x - 1 >= 0
         and garden_plot.y + 1 < y_max
-        and map[y + 1][x - 1] != gp_type
+        # and map[y + 1][x - 1] != gp_type
         and map[y + 1][x] != gp_type
         and map[y][x - 1] != gp_type
     ):
         corners += 1
-        # print("found Lower left corner")
 
-    # count "inside" corner
+    # Coin externe, cas spécial on a 2 régions avec le même type qui se touche sur le coin
+
+    # Coin intérieur
     if (
         garden_plot.x - 1 >= 0
         and garden_plot.y - 1 >= 0
@@ -173,7 +182,6 @@ def count_garden_plot_corners(map: list[str], garden_plot: type[GardenPlot]) -> 
         and map[y - 1][x] == gp_type
     ):
         corners += 1
-        # print("found corner")
 
     if (
         garden_plot.x + 1 < x_max
@@ -183,7 +191,6 @@ def count_garden_plot_corners(map: list[str], garden_plot: type[GardenPlot]) -> 
         and map[y - 1][x] == gp_type
     ):
         corners += 1
-        # print("found corner")
 
     if (
         garden_plot.x + 1 < x_max
@@ -193,7 +200,6 @@ def count_garden_plot_corners(map: list[str], garden_plot: type[GardenPlot]) -> 
         and map[y + 1][x] == gp_type
     ):
         corners += 1
-        # print("found corner")
 
     if (
         garden_plot.x - 1 >= 0
@@ -203,7 +209,6 @@ def count_garden_plot_corners(map: list[str], garden_plot: type[GardenPlot]) -> 
         and map[y][x - 1] == gp_type
     ):
         corners += 1
-        # print("found corner")
 
     return corners
 
@@ -249,19 +254,19 @@ def compute_total_price(map: list[str], regions: list[type[Region]]) -> int:
 
 
 if __name__ == "__main__":
-    map = get_map("input_test.txt")
+    # map = get_map("input_test.txt")
     # map = get_map("input_test0.txt")
     # map = get_map("input_test1.txt")
     # map = get_map("input_test2.txt")
     # map = get_map("input_test3.txt")
-    # map = get_map("input.txt")
+    map = get_map("input.txt")
     print("map:", map)
     garden_plots_to_process = initialize_garden_plots_to_process(map)
-    #print(garden_plots_to_process)
+    # print(garden_plots_to_process)
     garden_plots_to_process = initialize_garden_plots_to_process(map)
     processed_garden_plots = set()
     regions = compute_regions(map, garden_plots_to_process, processed_garden_plots)
-    #print(regions)
+    # print(regions)
     print(compute_total_price(map, regions))
 
 
