@@ -179,55 +179,53 @@ def calculate_rotation(current_direction, neighbour_direction):
         return 2
 
 
-def compute_distances(start_cell: Cell, start_direction: int, start_distance: Distance):
-    start_cell.distance = start_distance
-    to_explore = [(start_cell, start_direction, start_distance)]
+def compute_distances(
+    current_cell: Cell,
+    current_direction: int,
+    current_distance: Distance,
+    already_visited: set[Position],
+):
+    already_visited.append(current_cell.position)
+    if current_cell.distance is None:
+        current_cell.distance = current_distance
 
-    while to_explore:
-        current_cell, current_direction, current_distance = heapq.heappop(to_explore)
+    cell_in_direction = current_cell.neighbours.get(current_direction)
 
-        cell_in_direction = current_cell.neighbours.get(current_direction)
+    if (
+        not cell_in_direction is None
+        and not cell_in_direction.position in already_visited
+    ):
+        distance = Distance(current_distance.step + 1, current_distance.rotation)
+        compute_distances(
+            cell_in_direction, current_direction, distance, already_visited
+        )
 
-        if not cell_in_direction is None:
-            distance = Distance(current_distance.step + 1, current_distance.rotation)
-            if not cell_in_direction.distance is None:
-                if cell_in_direction.distance > distance:
-                    cell_in_direction.distance = distance
-                    heapq.heappush(
-                        to_explore, (cell_in_direction, current_direction, distance)
-                    )
-            else:
-                cell_in_direction.distance = distance
-                heapq.heappush(
-                    to_explore, (cell_in_direction, current_direction, distance)
-                )
+    data_by_distance = {}
+    for key in filter(lambda k: k != current_direction, current_cell.neighbours.keys()):
+        cell = current_cell.neighbours.get(key)
+        if not cell is None and not cell.position in already_visited:
+            rotation = current_distance.rotation + calculate_rotation(
+                current_direction, key
+            )
+            distance = Distance(current_distance.step, rotation)
+            data = data_by_distance.get(distance.evaluate(), [])
+            data.append((current_cell, key, distance))
+            data_by_distance[distance.evaluate()] = data
 
-        for key in filter(
-            lambda k: k != current_direction, current_cell.neighbours.keys()
-        ):
-            cell = current_cell.neighbours.get(key)
-            if not cell is None:
-                rotation = current_distance.rotation + calculate_rotation(
-                    current_direction, key
-                )
-                distance = Distance(current_distance.step + 1, rotation)
-                if not cell.distance is None:
-                    if cell.distance > distance:
-                        cell.distance = distance
-                        heapq.heappush(to_explore, (cell, key, distance))
-                else:
-                    cell.distance = distance
-                    heapq.heappush(to_explore, (cell, key, distance))
+    for k in sorted(data_by_distance.keys()):
+        v = data_by_distance[k]
+        for data in sorted(v, key=itemgetter(2, 1)):
+            compute_distances(data[0], data[1], data[2], already_visited)
 
 
 def walk_the_maze(start_cell: Cell):
-    compute_distances(start_cell, EAST, Distance(0, 0))
+    compute_distances(start_cell, EAST, Distance(0, 0), set())
 
 
 if __name__ == "__main__":
     # maze = get_maze("input_test.txt")
-    # maze = get_maze("input_test1.txt")
-    maze = get_maze("input.txt")
+    maze = get_maze("input_test1.txt")
+    # maze = get_maze("input.txt")
     display_maze(maze)
     print()
 
@@ -242,7 +240,7 @@ if __name__ == "__main__":
     print("end_cell:", end_cell)
     print()
 
-    walk_the_maze(start_cell)
+    compute_distances(start_cell, EAST, Distance(0, 0), [])
 
     print("start_cell:", start_cell)
     print("end_cell:", end_cell)

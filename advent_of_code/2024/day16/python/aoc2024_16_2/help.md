@@ -1,0 +1,299 @@
+# Ressources d'aide pour AoC 2024 #16
+
+* https://www.reddit.com/r/adventofcode/comments/1hfboft/2024_day_16_solutions/
+
+* https://www.reddit.com/user/xelf/
+  
+```python
+grid = {Complex(x,y):c for y,r in enumerate(open(filename).read().splitlines())
+                       for x,c in enumerate(r) if c!='#'}
+start = next(z for z in grid if grid[z]=='S')
+end = next(z for z in grid if grid[z]=='E')
+
+queue = [(0, start, 1, [start])]
+seen, best, low = {}, set(), float("inf")
+
+while queue:
+    score, loc, face, path = heapq.heappop(queue)
+    if loc == end:
+        low = score
+        best |= set(path)
+    seen[loc,face] = score
+
+    for d in map(Complex,(-1,1,-1j,1j)):
+        cost = 1001 if d!=face else 1
+        if loc+d in grid and seen.get((loc+d,d),float("inf")) > score+cost <= low:
+            heapq.heappush(queue, (score + cost, loc+d, d, path+[loc+d]))
+
+print(f"part 1: {low} part2: {len(best)}")
+```
+
+* https://www.reddit.com/user/Ok-Builder-2348/
+
+```python
+import heapq
+from collections import defaultdict
+import math
+
+with open('2024_16.txt') as f:
+    grid = f.read().splitlines()
+
+directions = {(-1,0),(0,-1),(0,1),(1,0)}
+
+walls = {(i,j) for i,line in enumerate(grid) for j,char in enumerate(line) if char=='#'}
+
+start = [(i,j) for i,line in enumerate(grid) for j,char in enumerate(line) if char=='S']
+assert len(start) == 1
+start = start[0]+(0,1)
+
+end = [(i,j) for i,line in enumerate(grid) for j,char in enumerate(line) if char=='E']
+assert len(end) == 1
+end = end[0]
+ends = [end+direction for direction in directions]
+
+def dijkstra_function(start,ends,distance_function):
+    visited = {}
+    queue = [(0,start)]
+    time_dict = defaultdict(lambda: math.inf, {start:0})
+    while True:
+        time,loc = heapq.heappop(queue)
+        if loc in visited:
+            continue
+        visited[loc] = 1
+        if loc in ends:
+            return time
+        neighbours = distance_function(loc)
+        for coord,distance in neighbours:
+            newtime = time+distance
+            if coord not in visited:
+                if newtime < time_dict[coord]:
+                    time_dict[coord] = newtime
+                    heapq.heappush(queue,(newtime,coord))
+                    
+def dijkstra_function_2(starts,distance_function):
+    visited = {}
+    queue = [(0,start) for start in starts]
+    time_dict = defaultdict(lambda: math.inf, {start:0 for start in starts})
+    output = dict()
+    while True:
+        if queue:
+            time,loc = heapq.heappop(queue)
+            if loc in visited:
+                continue
+            else:
+                output[loc] = time
+            visited[loc] = 1
+            neighbours = distance_function(loc)
+            for coord,distance in neighbours:
+                newtime = time+distance
+                if coord not in visited:
+                    if newtime < time_dict[coord]:
+                        time_dict[coord] = newtime
+                        heapq.heappush(queue,(newtime,coord))
+        else:
+            return output
+                    
+def distance_function(loc):
+    x,y,dx,dy = loc 
+    output = []
+    if (x+dx,y+dy) not in walls:
+        output.append([(x+dx,y+dy,dx,dy),1])
+    for newdx,newdy in directions:
+        if (newdx,newdy) != (dx,dy):
+            output.append([(x,y,newdx,newdy),1000])
+    return output
+
+answer = dijkstra_function(start,ends,distance_function)
+print(answer)
+
+distance_from_start = dijkstra_function_2([start],distance_function)
+distance_from_end = dijkstra_function_2(ends,distance_function)
+
+coords = set()
+for (x,y,dx,dy) in distance_from_start:
+    if distance_from_start[(x,y,dx,dy)]+distance_from_end[(x,y,-dx,-dy)] == answer:
+        coords.add((x,y))
+print(len(coords))
+```
+
+* https://www.reddit.com/user/kupuguy/
+
+* https://www.reddit.com/user/xHyroM/
+  * https://github.com/xhyrom/aoc/blob/main/2024/16/solution.py
+
+* https://www.reddit.com/user/fsed123/
+  * https://github.com/Fadi88/AoC/blob/master/2024/day16/code.py
+
+* https://www.reddit.com/user/svinther/
+  * https://topaz.github.io/paste/#XQAAAQBKDgAAAAAAAAAzHIoib6p4r/McpYgEEgWhHoa5LSRMgpcaJDRy31O2mvvvG2LPgLg22r0Ml2+PtW/9KNm0KiCB87wk7v3uWbM4ee2kfp+atNtotghH/7IzdpEB+Dj5T15X2vomAcuejwPhOLOZu8BVas+fx/iX1TwDNz2D8/u7uHG8ZgtD+d/8txwXNpESJ313p7EYBD+j8rWXIWo/ws7X43pzvgbgAz9HdQucVLu7NdjZV2ZJkFF4Zz//DzQ1ZY/2yiv+7tGyLYTuz949lP0KzreqBqr1+5i/6XEC7Px2qA5vORY+rRdZTFncZVUek1VC9B9XNbxo8Sx1mh707nAU2P8KCF9ya6rUd6r+qJcgXIN98CbzadCYkMsTW43tDwBMZWiAvEiz1l5xQGHnw+ao0E/4LfFpgHn8vBr8uBSq1HjsHt4Lqe36pOPG7uVsiSUk5BCpwfY9XZE50MORRg6xVHrrYkITvTHcvF2rfgMOpqIjP6O/p5GuFtlS3oymQtjhgvbTfzALRqET6LVKrM5qdlWstRX1nTpkXSCgBKaCvgf+KX+cBnrhRoWbAZgBEkg2oikZw4nETYe2EtUeTwgHHfu7yit3jS0g/UWN+eLhAGAl7P6M0lU94/TtIpmyUr2Y+p7Djy6+0uW0OLBqBn7vSpj4xsFilb7vAaPVTIUNHDnAr6EppdCpDrubxGHtx7VRJQedlwZlBA+jvozvg/SabwRV7vrvomRRYyON4b+YDl0Y37o60xH+0JZ02igKjBXWwZoo7h9xkrIa+wYyaJmwYzAl7IwtaIUygxx71MYJkAUhLyM6cA3Sxb/N0Td5xGaVGZM/uCCPAm7dcanjLG1pjG599J+lf0X037NIQYjxtCOjD7HyPsaHrhH0wKnWZ/pA4wbS9atIeao2nnGoHKHDNLDPYuIPrymDODgvBo0fnonYjW8OXxwMAgaTX4++CHZ8gLm1ue1z06uecc9WzVrSqnYuLIAwn/uK4MkNIs14U0FzRCCbhCvTRcwuHOSTdbJXAXtCVahjWZVxmrwaKgD8mnEL0FuWX2E4xLh5vp0pjb3to/bCOLRA8g/5KGtFMNrl20IkO9xWj2j3Z89n4PSyb1btUhA6PczQW+39SFpFlEWt2Vd6FjRDwaFjNTSx+TNbhFHN2Ao+GZEbcqiMsm/YVnHcSkQv1N5FBQlQtzHkB0Wha4JWMc35PxXpZuF1tVmMkMZnZA8xLy556sO8CwIhxvjeudOeC/hFHTifKOydIgeTVpVQ0p/LSVamodQjS2rMZvpUe3ZiUpC7V0u9WNiZFfvXiyqfYp/un7nZSBLZqOODEjApp5VNerKBBSJIQAkTJCGrzLCAlKzYYXFWF1ghZ4CjNpwHIDdvxCMPlogJ+Tjx3Rpp/+1eol0=
+
+```python
+from itertools import *
+from heapq import *
+from collections import *
+
+dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
+
+def solvep1(G):
+    R = len(G)
+    C = len(G[0])
+    S, E = None, None
+    for r in range(R):
+        for c in range(C):
+            if G[r][c] == "S":
+                S = r, c
+            elif G[r][c] == "E":
+                E = r, c
+    costs = {(S, 0): 0}
+    pq = [(0, (S, 0))]
+    while pq:
+        cost, (s, d) = heappop(pq)
+        if cost != costs[(s, d)]:
+            continue
+        if s == E:
+            return cost
+        sr, sc = s
+
+        # move forward
+        dr, dc = dirs[d]
+        nbr, nbc = sr + dr, sc + dc
+        if 0 <= nbr < R and 0 <= nbc < C and G[nbr][nbc] != "#":
+            nb = ((nbr, nbc), d)
+            if nb not in costs or costs[nb] > cost + 1:
+                costs[nb] = cost + 1
+                heappush(pq, (cost + 1, nb))
+
+        # rotate
+        for dn in [(d + 1) % 4, (d - 1) % 4]:
+            nb = ((sr, sc), dn)
+            if nb not in costs or costs[nb] > cost + 1000:
+                costs[nb] = cost + 1000
+                heappush(pq, (cost + 1000, nb))
+
+
+def solvep2(G):
+    R = len(G)
+    C = len(G[0])
+    S, E = None, None
+    for r in range(R):
+        for c in range(C):
+            if G[r][c] == "S":
+                S = r, c
+            elif G[r][c] == "E":
+                E = r, c
+
+    cost = solvep1(G)
+    costs = {(S, 0): 0}
+    allp = set()
+
+    P = [(S, 0)]
+    cur = {S}
+
+    def bt(c):
+        s, d = P[-1]
+
+        if c == cost and s == E:
+            allp.update(cur)
+        elif c > cost:
+            return
+
+        sr, sc = s
+        for dn, dcost in [(d, 0), ((d + 1) % 4, 1000), ((d - 1) % 4, 1000)]:
+            dr, dc = dirs[dn]
+            nbr, nbc = sr + dr, sc + dc
+            if (
+                0 <= nbr < R
+                and 0 <= nbc < C
+                and G[nbr][nbc] != "#"
+                and (nbr, nbc) not in cur
+            ):
+                nb = ((nbr, nbc), dn)
+                newcost = c + 1 + dcost
+                if nb not in costs or newcost <= costs[nb]:
+                    costs[nb] = newcost
+
+                    cur.add((nbr, nbc))
+                    P.append(nb)
+                    bt(newcost)
+                    cur.remove((nbr, nbc))
+                    P.pop()
+
+    bt(0)
+    return len(allp)
+
+
+def parse(input_: str):
+    parsed = []
+    for l in input_.split("\n"):
+        l = l.strip()
+        if not l:
+            continue
+        parsed.append(l)
+    return parsed
+
+
+def testp1p2():
+    # input_=Path(f"{DAY}ex.txt").read_text()
+    input_ = """\
+###############
+#.......#....E#
+#.#.###.#.###.#
+#.....#.#...#.#
+#.###.#####.#.#
+#.#.#.......#.#
+#.#.#####.###.#
+#...........#.#
+###.#.#####.#.#
+#...#.....#.#.#
+#.#.#.###.#.#.#
+#.....#...#.#.#
+#.###.#.#.#.#.#
+#S..#.....#...#
+###############
+"""
+    parsed = parse(input_)
+    assert solvep1(parsed) == 7036
+    assert solvep2(parsed) == 45
+
+
+def testp1p2_2():
+    # input_=Path(f"{DAY}ex.txt").read_text()
+    input_ = """\
+#################
+#...#...#...#..E#
+#.#.#.#.#.#.#.#.#
+#.#.#.#...#...#.#
+#.#.#.#.###.#.#.#
+#...#.#.#.....#.#
+#.#.#.#.#.#####.#
+#.#...#.#.#.....#
+#.#.#####.#.###.#
+#.#.#.......#...#
+#.#.###.#####.###
+#.#.#...#.....#.#
+#.#.#.#####.###.#
+#.#.#.........#.#
+#.#.#.#########.#
+#S#.............#
+#################
+"""
+    parsed = parse(input_)
+    assert solvep1(parsed) == 11048
+    assert solvep2(parsed) == 64
+
+
+def run():
+    input_ = open(0).read()
+    parsed = parse(input_)
+    p1result = solvep1(parsed)
+    print(p1result)
+
+    parsed = parse(input_)
+    p2result = solvep2(parsed)
+    print(p2result)
+
+
+if __name__ == "__main__":
+    run()
+```
