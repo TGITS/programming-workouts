@@ -297,3 +297,83 @@ def run():
 if __name__ == "__main__":
     run()
 ```
+
+
+* https://www.reddit.com/user/hrunt/
+
+```python
+#!/usr/bin/env python3
+
+import pathlib
+import sys
+
+from collections import deque
+from typing import Iterator
+
+sys.path.append(str(pathlib.Path(__file__).resolve().parents[3] / 'lib' / 'python'))
+
+import aoc
+
+Position = tuple[int, int]
+
+def moves(node: Position, dir: int) -> Iterator[tuple[Position, int]]:
+  for turn in range(-1, 2):
+    ndir = (dir + turn) % 4
+    yield (node[0] + (1, 0, -1, 0)[ndir], node[1] + (0, 1, 0, -1)[ndir]), ndir
+
+def shortest_paths(
+  node: Position,
+  dir: int,
+  end: Position,
+  depth: dict[tuple[Position, int], int],
+  path: list[Position]
+) -> Iterator[tuple[Position, ...]]:
+  path.append(node)
+
+  if node == end:
+    yield tuple(path)
+  else:
+    for nnode, ndir in moves(node, dir):
+      cost = (ndir != dir) * 1000 + 1
+      if (nnode, ndir) in depth and depth[nnode, ndir] == depth[node, dir] + cost:
+        for shortest in shortest_paths(nnode, ndir, end, depth, path):
+          yield shortest
+
+  path.pop()
+
+def run() -> None:
+  with open(aoc.inputfile('input.txt')) as f:
+    map = [line.strip() for line in f.readlines()]
+
+  mx, my = len(map[0]), len(map)
+  start = min((x, y) for y in range(my) for x in range(mx) if map[y][x] == 'S')
+  end = min((x, y) for y in range(my) for x in range(mx) if map[y][x] == 'E')
+
+  depth = {(start, 0): 0}
+
+  nodes = deque([(start, 0)])
+  while nodes:
+    (x, y), dir = nodes.popleft()
+    if (x, y) == end:
+      continue
+
+    for (nx, ny), ndir in moves((x, y), dir):
+      cost = depth[(x, y), dir] + (dir != ndir) * 1000 + 1
+      if map[ny][nx] != '#' and (((nx, ny), ndir) not in depth or depth[(nx, ny), ndir] > cost):
+        depth[(nx, ny), ndir] = cost
+        nodes.append(((nx, ny), ndir))
+
+  score = min(v for (p, _), v in depth.items() if p == end)
+  print(f"Lowest score: {score}")
+
+  seats = set()
+  for path in shortest_paths(start, 0, end, depth, []):
+    seats |= set(path)
+
+  print(f"Optimal seats: {len(seats)}")
+
+if __name__ == '__main__':
+  run()
+  sys.exit(0)
+
+```
