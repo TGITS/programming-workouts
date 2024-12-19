@@ -148,48 +148,14 @@ def run_program(program: list[int]) -> tuple[list[int], bool]:
 
     return output, program_normal_ending
 
-def find_candidates(start_value:int, position: int, program: list[int]) -> set[int]:
-    global register_A
-    candidates = set()
-    for a in range(start_value, start_value+8):
-        register_A = a
-        output, _ = run_program(program)
-        valid = True
-        for _ in range(position,0,-1):
-            if program[len(program) - position] != output[len(output) - position]:
-                valid = False
-                break
-        if valid:
-            if position < len(program):
-                candidates.add(a * 8)
-            else:
-                candidates.add(a)
-    return candidates
-
-def findA(program: list[int]) -> int:
-    # Work from end of program backwards. 
-    # We will get the last digit when a is somewhere between 0 and 7.
-    # After we have this first a, shift it left by 3 and start from that a until a+7. 
-    # When an a is found for the last and last-1 digits, shift a left by 3 again. Rinse and repeat.
-    # For a digit there are potentially multiple a's that fit. So use these all as candidates for generating the next digit.
-    # In the end, get the minimum of all a's which lead to a copy of the program.
-    candidates = set()
-    candidates.add(0)
-    for i in range(1, len(program)+1):
-        newCandidates = set()
-        for candidate in candidates:
-            newCandidates = newCandidates | find_candidates(candidate, i, program)
-        candidates = newCandidates
-
-    return min(candidates)
 
 def find_A_value(program: list[int]):
     global register_A
     global register_B
     global register_C
 
-    candidate_values = set()
-    candidate_values.add(0)
+    candidate_values = deque()
+    candidate_values.append(0)
 
     for i in range(1, len(program) + 1):
         candidate_value = candidate_values.popleft() * 8
@@ -231,15 +197,14 @@ def find_value(program:list[int], regA:int=0, position:int=0) -> int:
 # Il faut qu'on prenne la plus petite des valeurs candidates possibles
 if __name__ == "__main__":
     # Expected value for register A : 117440
-    # register_A, register_B, register_C, program = extract_data("input_test.txt")
-    register_A, register_B, register_C, program = extract_data("input.txt")
+    register_A, register_B, register_C, program = extract_data("input_test.txt")
+    # register_A, register_B, register_C, program = extract_data("input.txt")
     print("Register A:", register_A)
     print("Register B:", register_B)
     print("Register C:", register_C)
     print("Program:", program)
     # print(find_value(program))
-    # value_for_A = find_A_value(program)
-    # print(value_for_A)
-    print(findA(program))
+    value_for_A = find_A_value(program)
+    print(value_for_A)
     # register_A = 117440
     # print(run_program(program))

@@ -153,9 +153,9 @@ def find_candidates(start_value:int, position: int, program: list[int]) -> set[i
     candidates = set()
     for a in range(start_value, start_value+8):
         register_A = a
-        output, _ = run_program(program)
+        output, program_normal_ending = run_program(program)
         valid = True
-        for _ in range(position,0,-1):
+        for i in range(position,0,-1):
             if program[len(program) - position] != output[len(output) - position]:
                 valid = False
                 break
@@ -178,7 +178,7 @@ def findA(program: list[int]) -> int:
     for i in range(1, len(program)+1):
         newCandidates = set()
         for candidate in candidates:
-            newCandidates = newCandidates | find_candidates(candidate, i, program)
+            newCandidates = newCandidates & find_candidates(candidate, i, program)
         candidates = newCandidates
 
     return min(candidates)
@@ -188,8 +188,8 @@ def find_A_value(program: list[int]):
     global register_B
     global register_C
 
-    candidate_values = set()
-    candidate_values.add(0)
+    candidate_values = deque()
+    candidate_values.append(0)
 
     for i in range(1, len(program) + 1):
         candidate_value = candidate_values.popleft() * 8
@@ -231,8 +231,8 @@ def find_value(program:list[int], regA:int=0, position:int=0) -> int:
 # Il faut qu'on prenne la plus petite des valeurs candidates possibles
 if __name__ == "__main__":
     # Expected value for register A : 117440
-    # register_A, register_B, register_C, program = extract_data("input_test.txt")
-    register_A, register_B, register_C, program = extract_data("input.txt")
+    register_A, register_B, register_C, program = extract_data("input_test.txt")
+    # register_A, register_B, register_C, program = extract_data("input.txt")
     print("Register A:", register_A)
     print("Register B:", register_B)
     print("Register C:", register_C)
