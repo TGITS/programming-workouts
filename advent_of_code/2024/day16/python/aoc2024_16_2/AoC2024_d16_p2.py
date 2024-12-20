@@ -225,22 +225,62 @@ def walk_the_maze(start_cell: Cell):
 
 def find_best_positions(end_cell:Cell,start_cell:Cell) -> set[Cell]:
     best_positions = set()
-    to_explore = deque()
+    
+    to_explore = []
     to_explore.append(end_cell)
     current_cell = None
+    current_position = None
     # current_minimal_distance = end_cell.distance
-    while to_explore:
-        current_cell = to_explore.popleft()
-        best_positions.add(current_cell.position)
+    while to_explore and current_position != start_cell.position:
+        current_cell = heapq.heappop(to_explore)
+        current_position = current_cell.position
+        best_positions.add(current_position)
         neighbours = [c for c in current_cell.neighbours.values()]
-        distances = [c.distance for c in neighbours]
-        smallest_distance = min(distances)
-        smallest_distance_neighbours = [ n for n in neighbours if n.distance == smallest_distance ]
+        # distances = [c.distance for c in neighbours]
+        # smallest_distance = min(distances)
+        # smallest_distance_neighbours = [ n for n in neighbours if n.distance == smallest_distance ]
         
-        for cell in smallest_distance_neighbours:
+        # for cell in smallest_distance_neighbours:
+        for cell in neighbours:
             if not cell.position in best_positions:
-                to_explore.append(cell)
-                best_positions.add(cell.position)
+                heapq.heappush(to_explore,cell)
+                # best_positions.add(cell.position)
+
+    to_explore = []
+    to_explore.append(start_cell)
+    current_cell = None
+    current_position = None
+    while to_explore and current_position != end_cell.position:
+        current_cell = heapq.heappop(to_explore)
+        current_position = current_cell.position
+        best_positions.add(current_position)
+        neighbours = [c for c in current_cell.neighbours.values()]
+        # distances = [c.distance for c in neighbours]
+        # smallest_distance = min(distances)
+        # smallest_distance_neighbours = [ n for n in neighbours if n.distance == smallest_distance ]
+        
+        # for cell in smallest_distance_neighbours:
+        for cell in neighbours:
+            if not cell.position in best_positions:
+                heapq.heappush(to_explore,cell)
+
+    # to_explore = deque()
+    # to_explore.append(start_cell)
+    # current_cell = None
+    # current_position = None
+    # while to_explore and current_position != end_cell.position:
+    #     current_cell = to_explore.popleft()
+    #     current_position = current_cell.position
+    #     best_positions.add(current_position)
+    #     neighbours = [c for c in current_cell.neighbours.values()]
+    #     distances = [c.distance for c in neighbours]
+    #     smallest_distance = min(distances)
+    #     smallest_distance_neighbours = [ n for n in neighbours if n.distance == smallest_distance ]
+        
+    #     for cell in smallest_distance_neighbours:
+    #         if not cell.position in best_positions:
+    #             to_explore.append(cell)
+    #             best_positions.add(cell.position)
 
     return best_positions
 
@@ -269,8 +309,8 @@ if __name__ == "__main__":
     print("end_cell:", end_cell)
     print("lowest_score:", end_cell.distance.evaluate())
     best_positions = find_best_positions(end_cell,start_cell)
-    print(sorted(best_positions))
-    print(len(best_positions))
+    # print(sorted(best_positions))
+    # print(len(best_positions))
 
-# input_test.txt => 7036
-# input_test0.txt => 11048
+# input_test.txt => 45
+# input_test1.txt => 64
