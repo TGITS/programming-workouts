@@ -115,3 +115,6 @@ for (x,y,dx,dy) in distance_from_start:
         coords.add((x,y))
 print(len(coords))
 ```
+
+* https://www.reddit.com/user/prafster/
+  * https://github.com/Praful/advent_of_code/blob/main/2024/src/day16.py

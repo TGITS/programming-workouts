@@ -54,7 +54,6 @@ class Cell:
     kind: str
     neighbours: dict[int, type["Cell"]] = field(default_factory=dict)
     distance: Distance = None
-    parents: list[type["Cell"]] = field(default_factory=list)
 
     def __str__(self):
         return "Cell(kind={}, position={}, distance={}, east={}, north={}, west={}, south={}".format(
@@ -180,13 +179,10 @@ def calculate_rotation(current_direction, neighbour_direction):
         return 2
 
 
-def breadth_first_search_traversal(start_cell: Cell, start_direction: int, start_distance: Distance):
+def compute_distances(start_cell: Cell, start_direction: int, start_distance: Distance):
     start_cell.distance = start_distance
-    start_cell.parents = []
-    to_explore = []
-    to_explore.append((start_cell, start_direction, start_distance))
+    to_explore = [(start_cell, start_direction, start_distance)]
 
-    # Until the queue to_explore is empty
     while to_explore:
         current_cell, current_direction, current_distance = heapq.heappop(to_explore)
 
@@ -197,16 +193,14 @@ def breadth_first_search_traversal(start_cell: Cell, start_direction: int, start
             if not cell_in_direction.distance is None:
                 if cell_in_direction.distance > distance:
                     cell_in_direction.distance = distance
-                    heapq.heappush(to_explore,(cell_in_direction, current_direction, distance))
-                    cell_in_direction.parents.clear()
-                    cell_in_direction.parents.append(current_cell)
-                elif cell_in_direction.distance == distance:
-                    cell_in_direction.parents.append(current_cell)
-            else: # Distance None, this has not been initialized
+                    heapq.heappush(
+                        to_explore, (cell_in_direction, current_direction, distance)
+                    )
+            else:
                 cell_in_direction.distance = distance
-                heapq.heappush(to_explore,(cell_in_direction, current_direction, distance))
-                cell_in_direction.parents.append(current_cell)
-                
+                heapq.heappush(
+                    to_explore, (cell_in_direction, current_direction, distance)
+                )
 
         for key in filter(
             lambda k: k != current_direction, current_cell.neighbours.keys()
@@ -220,19 +214,14 @@ def breadth_first_search_traversal(start_cell: Cell, start_direction: int, start
                 if not cell.distance is None:
                     if cell.distance > distance:
                         cell.distance = distance
-                        heapq.heappush(to_explore,(cell, current_direction, distance))
-                        cell.parents.clear()
-                        cell.parents.append(current_cell)
-                    elif cell.distance == distance:
-                        cell.parents.append(current_cell)
+                        heapq.heappush(to_explore, (cell, key, distance))
                 else:
                     cell.distance = distance
-                    heapq.heappush(to_explore,(cell, current_direction, distance))
-                    cell.parents.append(current_cell)
+                    heapq.heappush(to_explore, (cell, key, distance))
 
 
 def walk_the_maze(start_cell: Cell):
-    breadth_first_search_traversal(start_cell, EAST, Distance(0, 0))
+    compute_distances(start_cell, EAST, Distance(0, 0))
 
 
 def find_best_positions(end_cell: Cell, start_cell: Cell) -> set[Cell]:
@@ -320,13 +309,9 @@ if __name__ == "__main__":
     print("start_cell:", start_cell)
     print("end_cell:", end_cell)
     print("lowest_score:", end_cell.distance.evaluate())
-    # best_positions = find_best_positions(end_cell, start_cell)
+    best_positions = find_best_positions(end_cell, start_cell)
     # print(sorted(best_positions))
     # print(len(best_positions))
 
 # input_test.txt => 45
 # input_test1.txt => 64
-
-# For part 1 :
-# input_test.txt => 7036
-# input_test0.txt => 11048

@@ -5,6 +5,7 @@ def get_map(input_name: str) -> list[str]:
             map.append(line.strip())
     return map
 
+
 if __name__ == "__main__":
     map = get_map("input_test.txt")
     # map = get_map("input.txt")

@@ -377,3 +377,110 @@ if __name__ == '__main__':
   sys.exit(0)
 
 ```
+
+* [Print all shortest paths between given source and destination in an undirected graph](https://www.geeksforgeeks.org/print-all-shortest-paths-between-given-source-and-destination-in-an-undirected-graph/)
+* [Shortest path problem](https://en.wikipedia.org/wiki/Shortest_path_problem)
+* [Floyd–Warshall algorithm](https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm)
+* [Breadth First Search or BFS for a Graph](https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/)
+* [Number of Shortest Paths in a Graph](https://www.baeldung.com/cs/graph-number-of-shortest-paths)
+* [How to find Shortest Paths from Source to all Vertices using Dijkstra’s Algorithm](https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/)
+* [How to find all shortest paths](https://stackoverflow.com/questions/20257227/how-to-find-all-shortest-paths)
+  
+> You can easily do it by maintaining a list or vector of parents for each node. If two or more nodes ( say X, Y, Z) at the same distance from the starting node , leads to another node M , make all X , Y and Z as the parents of M.
+> You just have to add a check to see while adding a parent to the node whether that parent is in the same level as the previous parents.
+> By level , I mean the distance from the starting point.
+> This way you can get all the shortest paths by tracing back the parent vectors. Below is my C++ implementation.
+> I hope you know how to print the paths by starting from the destination ,tracing the parents and reach the starting point.
+
+```
+bfs (start , end)
+
+    enqueue(start)
+    visited[start] = 1
+
+    while queue is NOT empty
+
+        currentNode = queue.front()
+        dequeue()
+
+        if(currentNode == end)
+            break
+
+        for each node adjacent to currentNode
+
+            if node is unvisited
+                visited[node] = visited[curr] + 1
+                enqueue(node)
+                parent[node].add(currentNode)
+
+            else if(currentNode is in same level as node's parents)
+                parent[node].add(currentNode)
+
+return 
+```
+
+* https://www.reddit.com/user/kenlies/
+  * https://github.com/kenlies/advent_of_code_2024/blob/main/day16/day16.py
+
+* https://www.reddit.com/user/mgtezak/
+  * https://github.com/mgtezak/Advent_of_Code/blob/master/2024/16/p1.py
+  * https://github.com/mgtezak/Advent_of_Code/blob/master/2024/16/p2.py
+
+* https://www.reddit.com/user/CDawn99/
+  * https://github.com/Cdawn99/AoC2024/tree/master/Day16
+
+* https://www.reddit.com/user/Singing-In-The-Storm/
+  * https://github.com/JoanaBLate/advent-of-code-js/blob/main/2024/day16-solve2.js
+
+* https://www.reddit.com/user/OilAppropriate2827/
+  * https://github.com/hlabs-dev/aoc/blob/main/2024/16.py
+
+* https://www.reddit.com/user/nebble_longbottom/
+  * https://github.com/blm34/AoC/blob/main/src/solutions/2024/day16.py
+
+* https://www.reddit.com/user/prafster/
+  * https://github.com/Praful/advent_of_code/blob/main/2024/src/day16.py
+  * https://github.com/Praful/advent_of_code/blob/main/shared/python/utils.py
+
+```python
+def solve(input):
+    grid, start, end = input
+    def move_condition(g, x): return tile(g, x) != WALL
+
+    q = PriorityQueue()
+    q.put(Reindeer(start, 0, EAST, set()))
+
+    tile_costs = {}
+    min_cost = float('inf')
+    min_paths = set()
+
+    while not q.empty():
+        reindeer = q.get()
+
+        for adj in neighbours(reindeer.pos, grid, True, move_condition):
+
+            if reindeer.cost > min_cost:
+                continue
+
+            if tile_costs.get((reindeer.pos, reindeer.direction), float('inf')) < reindeer.cost:
+                continue
+
+            tile_costs[(reindeer.pos, reindeer.direction)] = reindeer.cost
+
+            cost = new_cost(reindeer, adj)
+            dir = direction(adj, reindeer.pos)
+
+            if adj == end:
+                if cost < min_cost:
+                    min_cost = cost
+                    min_paths = set(reindeer.visited)
+                elif cost == min_cost:
+                    min_paths |= reindeer.visited
+            elif adj not in reindeer.visited:
+                visited2 = reindeer.visited.copy()
+                visited2.add(adj)
+                if cost < min_cost:
+                    q.put(Reindeer(adj, cost, dir, visited2))
+
+    return min_cost, len(min_paths)+2  # add 2 for start and end
+```

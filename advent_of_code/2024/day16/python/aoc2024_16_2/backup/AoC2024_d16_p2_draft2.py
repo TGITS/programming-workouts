@@ -3,6 +3,9 @@ from dataclasses import dataclass, field
 from operator import itemgetter
 import heapq
 import sys
+from queue import PriorityQueue
+from enum import Enum
+import math
 
 sys.setrecursionlimit(1000000)
 
@@ -27,6 +30,163 @@ SOUTH = 270
 
 Position = namedtuple("Position", ["x", "y"])
 
+class Direction(Enum):
+    NORTH = 0
+    EAST = 1
+    SOUTH = 2
+    WEST = 3
+
+
+# Unless otherwise specified, all directions are represented by a tuple (row, col) ie y, x.
+# This to make it easier to reference lists.
+NORTH = (-1, 0)
+EAST = (0, 1)
+SOUTH = (1, 0)
+WEST = (0, -1)
+NORTHEAST = (-1, 1)
+SOUTHEAST = (1, 1)
+SOUTHWEST = (1, -1)
+NORTHWEST = (-1, -1)
+
+# Clockwise 90 degrees
+ROTATE = {
+    EAST: SOUTH, SOUTH: WEST, WEST: NORTH, NORTH: EAST
+}
+
+
+DIRECTIONS_ALL = [
+    NORTH,
+    EAST,
+    SOUTH,
+    WEST,
+    NORTHEAST,
+    SOUTHEAST,
+    SOUTHWEST,
+    NORTHWEST,
+]
+
+DIRECTION_DELTAS = {
+    # (row, col)
+    Direction.EAST: EAST,
+    Direction.NORTH: NORTH,
+    Direction.WEST: WEST,
+    Direction.SOUTH: SOUTH
+}
+
+ARROWS_TO_DIRECTION = {
+    '>': Direction.EAST,
+    'v': Direction.SOUTH,
+    '<': Direction.WEST,
+    '^': Direction.NORTH,
+}
+
+ARROWS_TO_DIRECTION2 = {
+    '>': EAST,
+    'v': SOUTH,
+    '<': WEST,
+    '^': NORTH,
+}
+
+DIRECTION2_TO_ARROWS = {
+}
+
+
+def into_range(x, n, m):
+    # for x returns value in range n-m (inclusive)
+    return ((x-n) % (m-n+1))+n
+
+
+def next_neighbour(position, direction):
+    return (position[0] + DIRECTION_DELTAS[direction][0], position[1] + DIRECTION_DELTAS[direction][1])
+
+
+def next_neighbour2(position, direction):
+    # a faster version if direction is stored as tuple instead of enum
+    return (position[0] + direction[0], position[1] + direction[1])
+
+
+def in_grid(position, grid):
+    return 0 <= position[0] < len(grid) and 0 <= position[1] < len(grid[0])
+
+
+def tile(grid, p):
+    return grid[p[0]][p[1]]
+
+
+def add_pos(p1, p2):
+    return (p1[0] + p2[0], p1[1] + p2[1])
+
+
+def subtract_pos(p1, p2):
+    return (p1[0] - p2[0], p1[1] - p2[1])
+
+
+direction = subtract_pos
+
+
+def print_grid(grid, axis=False):
+    if axis:
+        print('  ' + ''.join([str(i % 10) for i in range(len(grid[0]))]))
+
+    for r, row in enumerate(grid):
+        if axis:
+            print(r % 10, end=' ')
+        print(''.join(row))
+
+
+def make_grid(rows, cols, value=0):
+    #  return np.array([[point(x, y) for x in range(cols)] for y in range(rows)])
+    return [[value] * cols for _ in range(rows)]
+
+
+# return all positions of value in grid
+def find_in_grid(grid, value):
+    result = []
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            if grid[i][j] == value:
+                result.append((i, j))
+
+    return result
+
+
+def neighbours(position, grid, check_in_bounds=True, condition=lambda g, x: True):
+    def in_grid_bound(p):
+        if check_in_bounds:
+            return in_grid(p, grid)
+        else:
+            return True
+
+    result = []
+    for d in DIRECTION_DELTAS.keys():
+        new_position = next_neighbour(position, d)
+        if in_grid_bound(new_position) and condition(grid, new_position):
+            result.append(new_position)
+
+    return result
+
+
+def reverse_direction(direction):
+    if direction == Direction.EAST:
+        return Direction.WEST
+    if direction == Direction.WEST:
+        return Direction.EAST
+    if direction == Direction.NORTH:
+        return Direction.SOUTH
+    if direction == Direction.SOUTH:
+        return Direction.NORTH
+
+
+# rotate 90 degrees clockwise or anticlockwise
+def rotate_direction(current_direction, anticlockwise=False):
+    directions = list(Direction)
+
+    # Determine the step: +1 for clockwise, -1 for anticlockwise
+    step = -1 if anticlockwise else 1
+
+    # Calculate the next index using modular arithmetic
+    next_index = (current_direction.value + step) % len(directions)
+    return directions[next_index]
 
 @dataclass
 class Distance:
@@ -103,6 +263,23 @@ class Cell:
     def __le__(self, other):
         return self.distance <= other.distance
 
+@dataclass
+class Reindeer:
+    position: tuple
+    cost: int
+    direction: tuple
+    visited: set
+
+    def __hash__(self):
+        return hash((self.position, self.cost, self.direction))
+
+    def __repr__(self):
+        return f'Reindeer({self.position}, {self.cost}, {self.direction})'
+
+    # this allows PriorityQueue to compare two items in the queue and pick the one
+    # with the lower cost
+    def __lt__(self, other):
+        return self.cost < other.cost
 
 def get_maze(input_name: str) -> list[str]:
     maze = []
@@ -146,6 +323,12 @@ def maze_as_cells_matrix(maze: list[str]) -> tuple[list[list[Cell]], Cell, Cell]
                 end_cell = cell
         cells_matrix.append(cells_line)
     return cells_matrix, start_cell, end_cell
+
+def new_cost(reindeer, p2):
+    result = reindeer.cost
+    if direction(p2, reindeer.pos) != reindeer.direction:
+        result += 1000
+    return result+1
 
 
 def find_neighbours(maze: list[list[Cell]]):

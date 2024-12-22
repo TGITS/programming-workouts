@@ -1,0 +1,24 @@
+029A
+
+0  2  9    A
+<A ^A >^^A vvvA
+<A ^A >^^A vvvA
+
+<    A    ^  A  >  ^   ^ A  v   v v A
+v<<A >>^A <A >A vA ^<A A >A v<A A A >^A
+v<<A >>^A <A >A vA <^A A >A <vA A A >^A
+
+v<A<AA>>^AvAA^<A>Av<<A>>^AvA^Av<A>^A<Av<A>>^AAvA^Av<A<A>>^AAAvA^<A>A
+<vA<AA>>^AvAA<^A>A<v<A>>^AvA^A<vA>^A<v<A>^A>AAvA^A<v<A>A>^AAAvA<^A>A
+
+179A : <v<A>>^A<vA<A>>^AAvAA<^A>A<v<A>>^AAvA^A<vA>^AA<A>A<v<A>A>^AAAvA<^A>A
+179A : v<A<AA>>^AvA^<A>Av<A<A>>^AvAA^<A>Av<<A>>^AAvA^Av<A>^AA<A>Av<A<A>>^AAAvA^<A>A
+first sequence of commands for 179A : <^<A^^A>>AvvvA
+second sequence of commands for 179A : v<<A>^Av<A>>^A<AA>AvAA^Av<AAA>^A 32
+third sequence of commands for 179A : v<A <A A >>^A vA ^<A >A v<A <A >>^A vA A ^<A >A v<<A >>^A A vA ^A v<A >^A A <A >A v<A <A >>^A A A vA ^<A >A
+
+456A : <v<A>>^AA<vA<A>>^AAvAA<^A>A<vA>^A<A>A<vA>^A<A>A<v<A>A>^AAvA<^A>A
+456A : v<A<AA>>^AvA^<A>Av<A<A>>^AvA^<A>AvA^Av<A>^A<A>Av<A>^A<A>Av<A<A>>^AAvA^<A>A
+first sequence of commands for 456A : <^<^A>A>AvvA
+second sequence of commands for 456A : v<<A>^Av<A>^A>AvA^AvA^Av<AA>^A
+third sequence of commands for 456A : v<A<AA>>^AvA^<A>Av<A<A>>^AvA^<A>AvA^Av<A>^A<A>Av<A>^A<A>Av<A<A>>^AAvA^<A>A
