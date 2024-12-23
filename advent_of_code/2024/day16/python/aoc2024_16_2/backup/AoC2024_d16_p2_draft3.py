@@ -1,5 +1,6 @@
-from collections import namedtuple
+from collections import namedtuple, deque
 from dataclasses import dataclass, field
+from operator import itemgetter
 import heapq
 import sys
 
@@ -53,6 +54,7 @@ class Cell:
     kind: str
     neighbours: dict[int, type["Cell"]] = field(default_factory=dict)
     distance: Distance = None
+    parents: list[type["Cell"]] = field(default_factory=list)
 
     def __str__(self):
         return "Cell(kind={}, position={}, distance={}, east={}, north={}, west={}, south={}".format(
@@ -60,16 +62,19 @@ class Cell:
             self.position,
             self.distance,
             self.neighbours.get(EAST).position
-            if not self.neighbours.get(EAST) is None
+            if self.neighbours.get(EAST) is not None
             else "None",
             self.neighbours.get(NORTH).position
-            if not self.neighbours.get(NORTH) is None
+            if self.neighbours.get(NORTH) is not None
             else "None",
             self.neighbours.get(WEST).position
-            if not self.neighbours.get(WEST) is None
+            if self.neighbours.get(WEST) is not None
             else "None",
             self.neighbours.get(SOUTH).position
-            if not self.neighbours.get(SOUTH) is None
+            if self.neighbours.get(SOUTH) is not None
+            else "None",
+            [", ".join(str(parent.position) for parent in self.parents)]
+            if self.parents
             else "None",
         )
 
@@ -89,6 +94,9 @@ class Cell:
             else "None",
             self.neighbours.get(SOUTH).position
             if not self.neighbours.get(SOUTH) is None
+            else "None",
+            [", ".join(str(parent.position) for parent in self.parents)]
+            if self.parents
             else "None",
         )
 
@@ -178,17 +186,26 @@ def calculate_rotation(current_direction, neighbour_direction):
         return 2
 
 
-def compute_distances(start_cell: Cell, start_direction: int, start_distance: Distance):
+def breadth_first_search_traversal(
+    start_cell: Cell, end_cell: Cell, start_direction: int, start_distance: Distance
+):
     start_cell.distance = start_distance
-    to_explore = [(start_cell, start_direction, start_distance)]
+    start_cell.parents = []
+    to_explore = []
+    to_explore.append((start_cell, start_direction, start_distance))
+    current_position = None
 
-    while to_explore:
+    # Until the queue to_explore is empty
+    while to_explore and current_position != end_cell.position:
         current_cell, current_direction, current_distance = heapq.heappop(to_explore)
+        current_position = current_cell.position
 
         for direction, cell in current_cell.neighbours.items():
             distance = None
             if direction == current_direction:
-                distance = Distance(current_distance.step + 1, current_distance.rotation)
+                distance = Distance(
+                    current_distance.step + 1, current_distance.rotation
+                )
             else:
                 rotation = current_distance.rotation + calculate_rotation(
                     current_direction, direction
@@ -198,14 +215,81 @@ def compute_distances(start_cell: Cell, start_direction: int, start_distance: Di
                 if cell.distance is not None:
                     if cell.distance > distance:
                         cell.distance = distance
-                        heapq.heappush(to_explore, (cell,direction, distance))
+                        heapq.heappush(to_explore, (cell, current_direction, distance))
+                        cell.parents.clear()
+                        cell.parents.append(current_cell)
+                    elif cell.distance == distance:
+                        cell.parents.append(current_cell)
                 else:
                     cell.distance = distance
-                    heapq.heappush(to_explore, (cell, direction, distance))
+                    heapq.heappush(to_explore, (cell, current_direction, distance))
+                    cell.parents.append(current_cell)
 
 
-def walk_the_maze(start_cell: Cell):
-    compute_distances(start_cell, EAST, Distance(0, 0))
+def walk_the_maze(start_cell: Cell, end_cell: Cell):
+    breadth_first_search_traversal(start_cell, end_cell, EAST, Distance(0, 0))
+
+
+def find_best_positions(end_cell: Cell, start_cell: Cell) -> set[Cell]:
+    best_positions = set()
+
+    to_explore = []
+    to_explore.append(end_cell)
+    current_cell = None
+    current_position = None
+    # current_minimal_distance = end_cell.distance
+    while to_explore and current_position != start_cell.position:
+        current_cell = heapq.heappop(to_explore)
+        current_position = current_cell.position
+        best_positions.add(current_position)
+        neighbours = [c for c in current_cell.neighbours.values()]
+        # distances = [c.distance for c in neighbours]
+        # smallest_distance = min(distances)
+        # smallest_distance_neighbours = [ n for n in neighbours if n.distance == smallest_distance ]
+
+        # for cell in smallest_distance_neighbours:
+        for cell in neighbours:
+            if not cell.position in best_positions:
+                heapq.heappush(to_explore, cell)
+                # best_positions.add(cell.position)
+
+    to_explore = []
+    to_explore.append(start_cell)
+    current_cell = None
+    current_position = None
+    while to_explore and current_position != end_cell.position:
+        current_cell = heapq.heappop(to_explore)
+        current_position = current_cell.position
+        best_positions.add(current_position)
+        neighbours = [c for c in current_cell.neighbours.values()]
+        # distances = [c.distance for c in neighbours]
+        # smallest_distance = min(distances)
+        # smallest_distance_neighbours = [ n for n in neighbours if n.distance == smallest_distance ]
+
+        # for cell in smallest_distance_neighbours:
+        for cell in neighbours:
+            if not cell.position in best_positions:
+                heapq.heappush(to_explore, cell)
+
+    # to_explore = deque()
+    # to_explore.append(start_cell)
+    # current_cell = None
+    # current_position = None
+    # while to_explore and current_position != end_cell.position:
+    #     current_cell = to_explore.popleft()
+    #     current_position = current_cell.position
+    #     best_positions.add(current_position)
+    #     neighbours = [c for c in current_cell.neighbours.values()]
+    #     distances = [c.distance for c in neighbours]
+    #     smallest_distance = min(distances)
+    #     smallest_distance_neighbours = [ n for n in neighbours if n.distance == smallest_distance ]
+
+    #     for cell in smallest_distance_neighbours:
+    #         if not cell.position in best_positions:
+    #             to_explore.append(cell)
+    #             best_positions.add(cell.position)
+
+    return best_positions
 
 
 if __name__ == "__main__":
@@ -226,11 +310,18 @@ if __name__ == "__main__":
     print("end_cell:", end_cell)
     print()
 
-    walk_the_maze(start_cell)
+    walk_the_maze(start_cell, end_cell)
 
     print("start_cell:", start_cell)
     print("end_cell:", end_cell)
     print("lowest_score:", end_cell.distance.evaluate())
+    # best_positions = find_best_positions(end_cell, start_cell)
+    # print(sorted(best_positions))
+    # print(len(best_positions))
 
+# input_test.txt => 45
+# input_test1.txt => 64
+
+# For part 1 :
 # input_test.txt => 7036
 # input_test0.txt => 11048

@@ -1,5 +1,6 @@
-from collections import namedtuple
+from collections import namedtuple, deque
 from dataclasses import dataclass, field
+from operator import itemgetter
 import heapq
 import sys
 
@@ -185,23 +186,38 @@ def compute_distances(start_cell: Cell, start_direction: int, start_distance: Di
     while to_explore:
         current_cell, current_direction, current_distance = heapq.heappop(to_explore)
 
-        for direction, cell in current_cell.neighbours.items():
-            distance = None
-            if direction == current_direction:
-                distance = Distance(current_distance.step + 1, current_distance.rotation)
+        cell_in_direction = current_cell.neighbours.get(current_direction)
+
+        if not cell_in_direction is None:
+            distance = Distance(current_distance.step + 1, current_distance.rotation)
+            if not cell_in_direction.distance is None:
+                if cell_in_direction.distance > distance:
+                    cell_in_direction.distance = distance
+                    heapq.heappush(
+                        to_explore, (cell_in_direction, current_direction, distance)
+                    )
             else:
+                cell_in_direction.distance = distance
+                heapq.heappush(
+                    to_explore, (cell_in_direction, current_direction, distance)
+                )
+
+        for key in filter(
+            lambda k: k != current_direction, current_cell.neighbours.keys()
+        ):
+            cell = current_cell.neighbours.get(key)
+            if not cell is None:
                 rotation = current_distance.rotation + calculate_rotation(
-                    current_direction, direction
+                    current_direction, key
                 )
                 distance = Distance(current_distance.step + 1, rotation)
-            if cell is not None:
-                if cell.distance is not None:
+                if not cell.distance is None:
                     if cell.distance > distance:
                         cell.distance = distance
-                        heapq.heappush(to_explore, (cell,direction, distance))
+                        heapq.heappush(to_explore, (cell, key, distance))
                 else:
                     cell.distance = distance
-                    heapq.heappush(to_explore, (cell, direction, distance))
+                    heapq.heappush(to_explore, (cell, key, distance))
 
 
 def walk_the_maze(start_cell: Cell):

@@ -53,9 +53,10 @@ class Cell:
     kind: str
     neighbours: dict[int, type["Cell"]] = field(default_factory=dict)
     distance: Distance = None
+    parents: list[type["Cell"]] = field(default_factory=list)
 
     def __str__(self):
-        return "Cell(kind={}, position={}, distance={}, east={}, north={}, west={}, south={}".format(
+        return "Cell(kind={}, position={}, distance={}, east={}, north={}, west={}, south={}, parents={}".format(
             self.kind,
             self.position,
             self.distance,
@@ -70,11 +71,14 @@ class Cell:
             else "None",
             self.neighbours.get(SOUTH).position
             if not self.neighbours.get(SOUTH) is None
+            else "None",
+            [", ".join(str(parent.position) for parent in self.parents)]
+            if self.parents
             else "None",
         )
 
     def __repr__(self):
-        "Cell(kind={}, position={}, distance={}, east={}, north={}, west={}, south={}".format(
+        return "Cell(kind={}, position={}, distance={}, east={}, north={}, west={}, south={}, parents={}".format(
             self.kind,
             self.position,
             self.distance,
@@ -89,6 +93,9 @@ class Cell:
             else "None",
             self.neighbours.get(SOUTH).position
             if not self.neighbours.get(SOUTH) is None
+            else "None",
+            [", ".join(str(parent.position) for parent in self.parents)]
+            if self.parents
             else "None",
         )
 
@@ -188,7 +195,9 @@ def compute_distances(start_cell: Cell, start_direction: int, start_distance: Di
         for direction, cell in current_cell.neighbours.items():
             distance = None
             if direction == current_direction:
-                distance = Distance(current_distance.step + 1, current_distance.rotation)
+                distance = Distance(
+                    current_distance.step + 1, current_distance.rotation
+                )
             else:
                 rotation = current_distance.rotation + calculate_rotation(
                     current_direction, direction
@@ -198,10 +207,43 @@ def compute_distances(start_cell: Cell, start_direction: int, start_distance: Di
                 if cell.distance is not None:
                     if cell.distance > distance:
                         cell.distance = distance
-                        heapq.heappush(to_explore, (cell,direction, distance))
+                        heapq.heappush(to_explore, (cell, direction, distance))
+                        cell.parents.clear()
+                        cell.parents.append(current_cell)
+                    elif cell.distance == distance:
+                        cell.parents.append(current_cell)
                 else:
                     cell.distance = distance
                     heapq.heappush(to_explore, (cell, direction, distance))
+                    cell.parents.append(current_cell)
+
+
+def find_paths(
+    paths: list[list[Cell]], path: list[Cell], start_cell: Cell, end_cell: Cell
+) -> None:
+    if end_cell == start_cell:
+        copy = path[:]
+        copy.append(end_cell)
+        paths.append(copy)
+        return
+    for parent in end_cell.parents:
+        path.append(end_cell)
+        find_paths(paths, path, start_cell, parent)
+        path.pop()
+
+
+def count_best_location(start_cell: Cell, end_cell: Cell) -> int:
+    paths = []
+    path = []
+    best_locations = set()
+    find_paths(paths, path, start_cell, end_cell)
+    for p in paths:
+        print("path:")
+        for n in reversed(p):
+            best_locations.add(n.position)
+            print(n.position, end=" ")
+        print()
+    return len(best_locations)
 
 
 def walk_the_maze(start_cell: Cell):
@@ -231,6 +273,13 @@ if __name__ == "__main__":
     print("start_cell:", start_cell)
     print("end_cell:", end_cell)
     print("lowest_score:", end_cell.distance.evaluate())
+    number_of_best_location = count_best_location(start_cell, end_cell)
+    print("Number of best locations:", number_of_best_location)
 
+# For part 1 :
 # input_test.txt => 7036
 # input_test0.txt => 11048
+
+# For part 2
+# input_test.txt => 45
+# input_test1.txt => 64

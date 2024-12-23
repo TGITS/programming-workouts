@@ -30,6 +30,7 @@ SOUTH = 270
 
 Position = namedtuple("Position", ["x", "y"])
 
+
 class Direction(Enum):
     NORTH = 0
     EAST = 1
@@ -49,9 +50,7 @@ SOUTHWEST = (1, -1)
 NORTHWEST = (-1, -1)
 
 # Clockwise 90 degrees
-ROTATE = {
-    EAST: SOUTH, SOUTH: WEST, WEST: NORTH, NORTH: EAST
-}
+ROTATE = {EAST: SOUTH, SOUTH: WEST, WEST: NORTH, NORTH: EAST}
 
 
 DIRECTIONS_ALL = [
@@ -70,34 +69,36 @@ DIRECTION_DELTAS = {
     Direction.EAST: EAST,
     Direction.NORTH: NORTH,
     Direction.WEST: WEST,
-    Direction.SOUTH: SOUTH
+    Direction.SOUTH: SOUTH,
 }
 
 ARROWS_TO_DIRECTION = {
-    '>': Direction.EAST,
-    'v': Direction.SOUTH,
-    '<': Direction.WEST,
-    '^': Direction.NORTH,
+    ">": Direction.EAST,
+    "v": Direction.SOUTH,
+    "<": Direction.WEST,
+    "^": Direction.NORTH,
 }
 
 ARROWS_TO_DIRECTION2 = {
-    '>': EAST,
-    'v': SOUTH,
-    '<': WEST,
-    '^': NORTH,
+    ">": EAST,
+    "v": SOUTH,
+    "<": WEST,
+    "^": NORTH,
 }
 
-DIRECTION2_TO_ARROWS = {
-}
+DIRECTION2_TO_ARROWS = {}
 
 
 def into_range(x, n, m):
     # for x returns value in range n-m (inclusive)
-    return ((x-n) % (m-n+1))+n
+    return ((x - n) % (m - n + 1)) + n
 
 
 def next_neighbour(position, direction):
-    return (position[0] + DIRECTION_DELTAS[direction][0], position[1] + DIRECTION_DELTAS[direction][1])
+    return (
+        position[0] + DIRECTION_DELTAS[direction][0],
+        position[1] + DIRECTION_DELTAS[direction][1],
+    )
 
 
 def next_neighbour2(position, direction):
@@ -126,12 +127,12 @@ direction = subtract_pos
 
 def print_grid(grid, axis=False):
     if axis:
-        print('  ' + ''.join([str(i % 10) for i in range(len(grid[0]))]))
+        print("  " + "".join([str(i % 10) for i in range(len(grid[0]))]))
 
     for r, row in enumerate(grid):
         if axis:
-            print(r % 10, end=' ')
-        print(''.join(row))
+            print(r % 10, end=" ")
+        print("".join(row))
 
 
 def make_grid(rows, cols, value=0):
@@ -187,6 +188,7 @@ def rotate_direction(current_direction, anticlockwise=False):
     # Calculate the next index using modular arithmetic
     next_index = (current_direction.value + step) % len(directions)
     return directions[next_index]
+
 
 @dataclass
 class Distance:
@@ -263,6 +265,7 @@ class Cell:
     def __le__(self, other):
         return self.distance <= other.distance
 
+
 @dataclass
 class Reindeer:
     position: tuple
@@ -274,12 +277,13 @@ class Reindeer:
         return hash((self.position, self.cost, self.direction))
 
     def __repr__(self):
-        return f'Reindeer({self.position}, {self.cost}, {self.direction})'
+        return f"Reindeer({self.position}, {self.cost}, {self.direction})"
 
     # this allows PriorityQueue to compare two items in the queue and pick the one
     # with the lower cost
     def __lt__(self, other):
         return self.cost < other.cost
+
 
 def get_maze(input_name: str) -> list[str]:
     maze = []
@@ -324,11 +328,12 @@ def maze_as_cells_matrix(maze: list[str]) -> tuple[list[list[Cell]], Cell, Cell]
         cells_matrix.append(cells_line)
     return cells_matrix, start_cell, end_cell
 
+
 def new_cost(reindeer, p2):
     result = reindeer.cost
     if direction(p2, reindeer.pos) != reindeer.direction:
         result += 1000
-    return result+1
+    return result + 1
 
 
 def find_neighbours(maze: list[list[Cell]]):
@@ -363,7 +368,9 @@ def calculate_rotation(current_direction, neighbour_direction):
         return 2
 
 
-def breadth_first_search_traversal(start_cell: Cell, start_direction: int, start_distance: Distance):
+def breadth_first_search_traversal(
+    start_cell: Cell, start_direction: int, start_distance: Distance
+):
     start_cell.distance = start_distance
     start_cell.parents = []
     to_explore = []
@@ -380,16 +387,19 @@ def breadth_first_search_traversal(start_cell: Cell, start_direction: int, start
             if not cell_in_direction.distance is None:
                 if cell_in_direction.distance > distance:
                     cell_in_direction.distance = distance
-                    heapq.heappush(to_explore,(cell_in_direction, current_direction, distance))
+                    heapq.heappush(
+                        to_explore, (cell_in_direction, current_direction, distance)
+                    )
                     cell_in_direction.parents.clear()
                     cell_in_direction.parents.append(current_cell)
                 elif cell_in_direction.distance == distance:
                     cell_in_direction.parents.append(current_cell)
-            else: # Distance None, this has not been initialized
+            else:  # Distance None, this has not been initialized
                 cell_in_direction.distance = distance
-                heapq.heappush(to_explore,(cell_in_direction, current_direction, distance))
+                heapq.heappush(
+                    to_explore, (cell_in_direction, current_direction, distance)
+                )
                 cell_in_direction.parents.append(current_cell)
-                
 
         for key in filter(
             lambda k: k != current_direction, current_cell.neighbours.keys()
@@ -403,14 +413,14 @@ def breadth_first_search_traversal(start_cell: Cell, start_direction: int, start
                 if not cell.distance is None:
                     if cell.distance > distance:
                         cell.distance = distance
-                        heapq.heappush(to_explore,(cell, current_direction, distance))
+                        heapq.heappush(to_explore, (cell, current_direction, distance))
                         cell.parents.clear()
                         cell.parents.append(current_cell)
                     elif cell.distance == distance:
                         cell.parents.append(current_cell)
                 else:
                     cell.distance = distance
-                    heapq.heappush(to_explore,(cell, current_direction, distance))
+                    heapq.heappush(to_explore, (cell, current_direction, distance))
                     cell.parents.append(current_cell)
 
 

@@ -5,6 +5,10 @@
 * https://www.reddit.com/user/xelf/
   
 ```python
+class Complex(complex):
+    __lt__=lambda s,o: (s.imag,s.real) < (o.imag,o.real)
+    __add__=lambda s,o: Complex(complex(s)+o)
+
 grid = {Complex(x,y):c for y,r in enumerate(open(filename).read().splitlines())
                        for x,c in enumerate(r) if c!='#'}
 start = next(z for z in grid if grid[z]=='S')
@@ -29,6 +33,7 @@ print(f"part 1: {low} part2: {len(best)}")
 ```
 
 * https://www.reddit.com/user/Ok-Builder-2348/
+  * https://topaz.github.io/paste/#XQAAAQCoCgAAAAAAAAA0m0pnuFI8c9q4WY2stx6xnaXQhRJFeaDGgWVcTcMj4tBj783y+jAIWnuSgA1QjvgDaWqtBYdCPGVC9IxyXR61c0IlPORYf53sqjB6v7iNFi207pOX6HvpjcWSp70VJjbLVQhJQe6NDEMdTuOCuu/rYkyeUtua8ZayvNTI5lujdA6AlSXnkPI+TAi227LSDHG/N7IGAGeaC9UJLo1Ybb5+aehuR/0iMJINpkEU84k3erkP+SUhJbnAfBhgDDw0/VC5xL4lf84+/AfQewpBpXwhM3x/utqauxc67Bvau9KodRmmNmWjGW2xeRvbrFec0ISsPEFxqtLVKB9Si2A417cekOauT0lNqgh6a5Az6O+4n5SebPqvLhQF5Iwx5mqg+iRTcK62j+/qXTOA3RAbCEpo4mSpkkwA9niLNpmYVdzkonZOINiCdunwT7Uf5Vf92icX8idpCGYvK+f8K0RUJKE3PM9hG0gLAHw4xws7HsrAgc3loZAfcw+jU4k1cETAWfyi/6dZWWW/NFoCHi8jgIvOmTQb8OjqGXeqDmr1Esx3D3NAhXvOkWdGd0/3o1k23RFVF9+zjpAmm8jpgggjQOCQmmOqMWhWC7GUrZhOnnFJDMBzgU4oy/huBoeyqAZHutmAWJ9WKiXrJiMNnW6anQDhRiipD6AqajAsibT4XD67wzp6jgGuBjHVJYNVPYKypxhxRmAChAzmkJQavwNyENo5BcCLgjoOLBjkCR2k4d8C+tX4ONZAcDXwFlSyO9LRWaPAqoQAkUQ4u1z1r469mEAYmf1CzNYohTpqMHdnYKnng0zF3z04SHAPoR5O8sZ8v9izzpxhFzIkylQIiglQeghAYDqg9Y/BRP0Q1ONVnUblCH622cdEJtBKi1Wn10/ucgrdlwV6dIyJWUAuCiFzS7teULQBYmyGrNdVx4U71/TjL7xNo7UNnoqJ466u3euj28kvufnOsdxmrm8HTV1obvv4wqWN6mCh3mmHV/4UVi0a+zvVijtVh9haDVDArzpjn/m8GbcbuzVVKORLTYApgwp3OnDZkwb5cvf72DdRZNO2qtsPZRCkbMC/NsPUdf/3cWIk
 
 ```python
 import heapq
