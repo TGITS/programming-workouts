@@ -1,247 +1,147 @@
-from collections import namedtuple, deque
+from collections import  deque, defaultdict
+from typing import TypeAlias
 import sys
 sys.setrecursionlimit(1000000)
 
-UP = '^'
-DOWN = 'v'
-LEFT = '<'
-RIGHT = '>'
-WALL = '#'
-DOUBLE_WALL = '##'
-DOUBLE_BOX = '[]'
-BOX_LEFT_PART = '['
-BOX_RIGHT_PART = ']'
-BOX = 'O'
-ROBOT = '@'
-EMPTY_SPACE = '.'
-DOUBLE_EMPTY_SPACE = '..'
+Grid: TypeAlias = defaultdict[complex, str]
+OFFSETS: dict[str, complex] = {
+    ">": 1 + 0j, "<": -1 + 0j, "v": 1j, "^": -1j,
+}
+WIDE_TILES = {".": "..", "#": "##", "O": "[]"}
+WIDE_BOX = WIDE_TILES["O"]
 
-Position = namedtuple("Position", ["x", "y"])
-
-def extract_data(input_name: str) -> tuple[list[str],str]:
-    grid = []
-    movements = ''
+def extract_data(input_name: str) -> tuple[Grid,str, complex]:
+    grid: Grid = defaultdict(lambda: "#")
+    robot: complex | None = None
+    movements = None
     with open(input_name, "r") as input:
-        data = input.readlines()
-        i = 0
-        line = data[i].strip()
-        while len(line) != 0:
-            grid.append(line)
-            i += 1
-            line = data[i].strip()
-    
-        i += 1
-        
-        while i < len(data):
-            line = data[i].strip()
+        lines = input.readlines()
+        y = 0
+        row = lines[y].strip()
+        movements = ''
+        while row:
+            for x, tile in enumerate(row):
+                pos = x * 2 + y * 1j
+                 # If the robot was found
+                if tile == "@":
+                    # Keep track of it, and empty its starting position
+                    robot, tile = pos, "."
+                # Store the "wide tile"
+                for w, wide_tile in enumerate(WIDE_TILES.get(tile, WIDE_TILES["."])):
+                    grid[pos + w] = wide_tile
+            y += 1
+            row = lines[y].strip()
+
+        assert robot is not None
+        # The rest of the lines are the robot's movements
+        while y < len(lines):
+            line = lines[y].strip()
             movements += line
-            i += 1
+            y += 1
         
-    return grid, movements
+    return grid, movements, robot
 
-def transform_map(map: list[str]) -> list[list[str]]:
-    new_map = []
-    for line in map:
-        new_line = []
-        for c in line:
-            if c == WALL:
-                new_line.append(WALL)
-                new_line.append(WALL)
-            if c == BOX:
-                new_line.append(BOX_LEFT_PART)
-                new_line.append(BOX_RIGHT_PART)
-            if c == EMPTY_SPACE:
-                new_line.append(EMPTY_SPACE)
-                new_line.append(EMPTY_SPACE)
-            if c == ROBOT:
-                new_line.append(ROBOT)
-                new_line.append(EMPTY_SPACE)
-        new_map.append(new_line)
-    return new_map
-
-def display_grid(grid: list[str]):
-    for line in grid:
-        for c in line:
-            print(c, end='')
-        print()
-
-def robot_initial_position(grid: list[str]) -> Position:
-    for y,line in enumerate(grid):
-        for x,c in enumerate(line):
-            if c == ROBOT:
-                return Position(y=y, x=x)
-
-def next_position(current_position:Position, movement:str) -> Position:
-    if movement == UP:
-        return Position(current_position.x, current_position.y - 1)
-    if movement == DOWN:
-        return Position(current_position.x, current_position.y + 1)
-    if movement == LEFT:
-        return Position(current_position.x - 1, current_position.y)
-    if movement == RIGHT:
-        return Position(current_position.x + 1, current_position.y)
-
-def is_next_position_wall(current_position:Position, movement:str, grid:list[list[str]]) -> bool:
-    position = next_position(current_position,movement)
-    return grid[position.y][position.x] == WALL
-
-def is_next_position_empty_space(current_position:Position, movement:str, grid:list[list[str]]) -> bool:
-    position = next_position(current_position,movement)
-    return grid[position.y][position.x] == EMPTY_SPACE
-
-def is_next_position_box(current_position:Position, movement:str, grid:list[list[str]]) -> bool:
-    position = next_position(current_position,movement)
-    return grid[position.y][position.x] == BOX_LEFT_PART or grid[position.y][position.x] == BOX_RIGHT_PART
-
-def is_next_position_left_box_part(current_position:Position, movement:str, grid:list[list[str]]) -> bool:
-    position = next_position(current_position,movement)
-    return grid[position.y][position.x] == BOX_LEFT_PART
-
-def is_next_position_right_box_part(current_position:Position, movement:str, grid:list[list[str]]) -> bool:
-    position = next_position(current_position,movement)
-    return grid[position.y][position.x] == BOX_RIGHT_PART
-
-def positions_of_left_box_part(grid: list[list[str]]) -> list[Position]:
-    left_box_parts = []
-    for y,line in enumerate(grid):
-        for x, c in enumerate(line):
-            if c == BOX_LEFT_PART:
-                left_part = Position(y=y, x=x)
-                left_box_parts.append(left_part)
-    return left_box_parts
-
-def is_movement_possible(current_position:Position, movement:str, grid:list[list[str]], already_visited:set[Position]) -> bool:
-    # A box is movable, if the next spot is a movable box or an empty space
-    already_visited.add(current_position)
-    if movement == LEFT or movement == RIGHT:
-        if is_next_position_empty_space(current_position, movement, grid):
-            return True
-        if is_next_position_wall(current_position, movement, grid):
-            return False
-        return is_movement_possible(next_position(current_position, movement), movement, grid, already_visited)
-    if movement == UP or movement == DOWN:
-        if is_next_position_wall(current_position, movement, grid):
-            return False
-        
-        other_position_to_check = None
-        
-        if grid[current_position.y][current_position.x] == BOX_LEFT_PART:
-            other_position_to_check = Position(x=current_position.x+1, y=current_position.y)
-        elif grid[current_position.y][current_position.x] == BOX_RIGHT_PART:
-            other_position_to_check = Position(x=current_position.x-1, y=current_position.y)
-        
-
-        if is_next_position_empty_space(current_position, movement, grid):
-            if other_position_to_check in already_visited:
-                return True
-            else:
-                return is_movement_possible(other_position_to_check, movement, grid, already_visited)
-        
-        
-        return is_movement_possible(next_position(current_position, movement), movement, grid, already_visited) and is_movement_possible(other_position_to_check, movement, grid, already_visited)
-        
-
-def get_positions_to_update(current_position:Position, movement:str, grid:list[list[str]]) -> deque[tuple[str,Position]]:
-    positions_to_update = deque()
-    positions_to_update.append((grid[current_position.y][current_position.x], current_position))
-    
-    if is_next_position_empty_space(current_position, movement, grid):
-        return  positions_to_update
-    
-    if movement == LEFT or movement == RIGHT:
-        positions_to_update.extend(get_positions_to_update(next_position(current_position, movement), movement, grid))
-        return positions_to_update
-    
-    if movement == UP or movement == DOWN:
-        positions_to_check = deque()
-        positions_to_check.append(current_position)
-        if grid[current_position.y][current_position.x] == BOX_LEFT_PART:
-            box_other_part = Position(x=current_position+1, y=current_position.y)
-            positions_to_check.append(box_other_part)
-            positions_to_update.append((BOX_LEFT_PART, box_other_part))
-        elif grid[current_position.y][current_position.x] == BOX_RIGHT_PART:
-            box_other_part = Position(x=current_position-1, y=current_position.y)
-            positions_to_check.append(box_other_part)
-            positions_to_update.append((BOX_RIGHT_PART, box_other_part))
-        
-        for position in positions_to_check:
-            positions_to_update.extend(get_positions_to_update(next_position(position), movement, grid))
-        return positions_to_update
-
-def move_robot(robot_initial_position:Position, movements:str, grid:list[list]):
-    robot_current_position = robot_initial_position
-    already_visited = set()
+def move_robot(grid: Grid, movements:str, robot:complex)-> None:
     for movement in movements:
-        if is_next_position_wall(robot_current_position, movement, grid): # in the next direction of movement this is a wall, we cannot move
-            continue # Nothing todo
-        if is_next_position_empty_space(robot_current_position, movement, grid):
-            current_position = next_position(robot_current_position, movement)
-            grid[current_position.y][current_position.x] = ROBOT
-            grid[robot_current_position.y][robot_current_position.x] = EMPTY_SPACE
-            robot_current_position = Position(x=current_position.x,y=current_position.y)
-        if is_next_position_box(robot_current_position, movement, grid): 
-            current_position = next_position(robot_current_position, movement)
-            if is_movement_possible(current_position, movement, grid, already_visited):
-                positions_to_update = get_positions_to_update(current_position, movement, grid)
-                # update map
-                
-                dx = 0
-                dy = 0
-                grid[robot_current_position.y][robot_current_position.x] = EMPTY_SPACE
-                if movement == UP:
-                    dx = 0
-                    dy = -1
-                elif movement == DOWN:
-                    dx = 0
-                    dy = 1
-                elif movement == LEFT:
-                    dx = -1
-                    dy = 0
-                elif movement == RIGHT:
-                    dx = 1
-                    dy = 0
-                
-                positions_to_update.appendleft((ROBOT, robot_current_position))
-                for position in positions_to_update:
-                    grid[position[1].y+dy][position[1].x+dx] = position[0]
-                
-            else:
+        offset = OFFSETS.get(movement, 0j)
+        new_robot = robot + offset
+
+        new_robot_tile = grid[new_robot]
+        robot_is_pushing = new_robot_tile in WIDE_BOX
+        # If robot would run into a wall
+        if new_robot_tile == "#":
+            # Don't move the robot
+            continue
+        # If robot would run into a box from the left or right
+        elif robot_is_pushing and movement in "<>":
+            # Check space in front of all the boxes being pushed
+            box = new_robot
+            while (tile := grid[box]) in WIDE_BOX:
+                box += offset
+            # If boxes would be pushed into a wall
+            if tile == "#":
+                # Don't move the boxes or the robot
                 continue
-            
-            
 
-def compute_gps_coordinate(box:Position) -> int:
-    return 100 * box.y + box.x
+            # Push the boxes
+            while box != new_robot:
+                grid[box] = grid[box - offset]
+                box -= offset
+            grid[new_robot] = tile
+        # If robot would run into a box from the top or bottom
+        # Boxes are twice as wide, so the group of boxes
+        # that gets pushed may have a complex shape.
+        elif robot_is_pushing and movement in "^v":
+            # HACK I'm storing the positions of each box to move as the
+            # keys of a dict (where the value doesn't matter). This way,
+            # I can preserve the order, and the box positions will be
+            # unique.
+            boxes_to_push: dict[complex, None] = {}
+            # Get the leftmost position of this box
+            box = new_robot
+            while grid[box] != WIDE_BOX[0]:
+                box -= 1
+            # We will find the boxes to push with a breadth-first search
+            box_queue = deque([box])
+            while box_queue:
+                box = box_queue.popleft()
+                # This box will be pushed
+                boxes_to_push[box] = None
+                # For each position in front of this box
+                for w in range(len(WIDE_BOX)):
+                    in_front_of_box = box + w + offset
+                    # If this box would be pushed into a wall
+                    if grid[in_front_of_box] == "#":
+                        # Don't push any boxes, and stop trying to
+                        box_queue.clear()
+                        boxes_to_push.clear()
+                        break
+                    # If this box would be pushed into another box
+                    elif grid[in_front_of_box] in WIDE_BOX:
+                        # Get the leftmost position of this box
+                        while grid[in_front_of_box] != WIDE_BOX[0]:
+                            in_front_of_box -= 1
+                        # This box will be pushed
+                        boxes_to_push[in_front_of_box] = None
+                        # We will consider which boxes this box pushes
+                        box_queue.append(in_front_of_box)
+            # If no boxes would be pushed
+            if not boxes_to_push:
+                # Don't move the robot
+                continue
 
+            # Push the boxes
+            # NOTE The boxes were added in order from back to front. To
+            # ensure the boxes in front get pushed into empty space
+            # before the boxes in back, we iterate through them in order
+            # from front to back.
+            for box in reversed(boxes_to_push):
+                for w in range(len(WIDE_BOX)):
+                    grid[box + w + offset], grid[box + w] = (
+                        grid[box + w], grid[box + w + offset]
+                    )
+
+        # Move the robot
+        robot = new_robot
+
+def compute_gps_coordinate(grid: Grid) -> int:
+    return sum(
+        100 * int(pos.imag) + int(pos.real)
+        for pos, char in grid.items()
+        if char == WIDE_BOX[0]
+    )
 
 if __name__ == "__main__":
-    grid, movements = extract_data("input_test.txt")
-    # map, movements = extract_data("input_test0.txt")
-    # map, movements = extract_data("input.txt")
+    # grid, movements, robot = extract_data("input_test.txt")
+    grid, movements, robot = extract_data("input.txt")
     
-    print("grid:")
-    display_grid(grid)
-    print()
-    new_map = transform_map(grid)
-    print("new map:")
-    display_grid(new_map)
-
-    # print()
-    # print("movements:", movements)
-   
-    robot = robot_initial_position(new_map)
-    print()
+    print("grid:", grid)
+    print("movements:", movements)
     print("robot:", robot)
-    
-    move_robot(robot, movements, new_map)
+    move_robot(grid, movements, robot)
+    print(compute_gps_coordinate(grid))
 
-    print("Map after movements:")
-    display_grid(new_map)
-    print()
 
-    left_box_part_positions = positions_of_left_box_part(new_map)
-
-    print(sum([compute_gps_coordinate(left_box) for left_box in left_box_part_positions]))
 
 
 # input_test.txt   => 9021
