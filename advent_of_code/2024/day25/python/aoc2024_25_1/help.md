@@ -55,3 +55,6 @@ Rule 4. Fancy algorithms are buggier than simple ones, and they're much harder t
 Rule 5. Data dominates. If you've chosen the right data structures and organized things well, the algorithms will almost always be self-evident. Data structures, not algorithms, are central to programming.
 
 Pike's rules 1 and 2 restate Tony Hoare's famous maxim "Premature optimization is the root of all evil." Ken Thompson rephrased Pike's rules 3 and 4 as "When in doubt, use brute force.". Rules 3 and 4 are instances of the design philosophy KISS. Rule 5 was previously stated by Fred Brooks in The Mythical Man-Month. Rule 5 is often shortened to "write stupid code that uses smart objects".
+
+* [Programming Live with Larry](https://www.youtube.com/@Algorithmist)
+  * Advent of Code and Leetcode problem
