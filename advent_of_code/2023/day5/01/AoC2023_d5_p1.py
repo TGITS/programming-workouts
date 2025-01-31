@@ -12,7 +12,7 @@ def extract_data(
         ]
         # print(seeds)
         current_line_index += 1
-        map_of_maps = {}
+        ranges_by_map_name = {}
         for name in names_of_map:
             while not lines[current_line_index].startswith(name):
                 current_line_index += 1
@@ -21,52 +21,43 @@ def extract_data(
             while (
                 current_line_index < max_lines
                 and len(lines[current_line_index].strip()) != 0
-            ):  # While there is line to process et we are not on a blank line
+            ):  # While there is line to process and we are not on a blank line
                 # destination_range_start source_range_start range_length
                 values = [int(n) for n in lines[current_line_index].split(" ")]
-                current_content = map_of_maps.get(name, {})
-                map_of_maps[name] = {
-                    **current_content,
-                    **create_source_to_destination_map(values[0], values[1], values[2]),
-                }
+                current_content = ranges_by_map_name.get(name, [])
+                # destination_range_start, source_range_start, range_length
+                current_content.append((values[0], values[1], values[2]))
+                ranges_by_map_name[name] = current_content
                 current_line_index += 1
-        return (seeds, map_of_maps)
-
-
-def create_source_to_destination_map(
-    destination_range_start: int, source_range_start: int, range_length: int
-) -> dict[int, int]:
-    destination_range = range(
-        destination_range_start, destination_range_start + range_length
-    )
-    source_range = range(source_range_start, source_range_start + range_length)
-    source_to_destination = {}
-    for i in range(0, range_length):
-        source_to_destination[source_range[i]] = destination_range[i]
-    return source_to_destination
-
+        return (seeds, ranges_by_map_name)
 
 def get_destination_from_source(
-    source: int, map_name: str, map_of_maps: dict[str, dict[int, int]]
+    source: int, map_name: str, ranges_by_map_name: dict[str, list[tuple[int, int, int]]]
 ) -> int:
-    source_to_destination_map = map_of_maps[map_name]
-    return source_to_destination_map.get(source, source)
+    map_ranges = ranges_by_map_name[map_name]
+    for map_range in map_ranges:
+        destination_range_start = map_range[0]
+        source_range_start = map_range[1]
+        range_length = map_range[2]
+        if destination_range_start <= source < destination_range_start + range_length:
+            return source_range_start + (source - destination_range_start)
+    return source
 
 
 def get_location_from_seed(
-    seed: int, names_of_map: list[str], map_of_maps: dict[str, dict[int, int]]
+    seed: int, names_of_map: list[str], ranges_by_map_name: dict[str, list[tuple[int, int, int]]]
 ):
     index = seed
     for name in names_of_map:
-        index = get_destination_from_source(index, name, map_of_maps)
+        index = get_destination_from_source(index, name, ranges_by_map_name)
 
     return index
 
 
 def get_locations_from_seeds(
-    seeds: list[int], names_of_map: list[str], map_of_maps: dict[str, dict[int, int]]
+    seeds: list[int], names_of_map: list[str], ranges_by_map_name: dict[str, dict[int, int]]
 ) -> list[int]:
-    return [get_location_from_seed(seed, names_of_map, map_of_maps) for seed in seeds]
+    return [get_location_from_seed(seed, names_of_map, ranges_by_map_name) for seed in seeds]
 
 
 if __name__ == "__main__":
@@ -79,9 +70,11 @@ if __name__ == "__main__":
         "temperature-to-humidity",
         "humidity-to-location",
     ]
-    (seeds, map_of_maps) = extract_data("input.txt", names_of_map)
-    print(seeds)
+    input_file_name ="input_test.txt"
+    # input_file_name ="input.txt"
+    (seeds, ranges_by_map_name) = extract_data(input_file_name, names_of_map)
+    # print(seeds)
     # print(map_of_maps)
-    locations = get_locations_from_seeds(seeds, names_of_map, map_of_maps)
+    locations = get_locations_from_seeds(seeds, names_of_map, ranges_by_map_name)
     # print(locations)
     print(min(locations))
