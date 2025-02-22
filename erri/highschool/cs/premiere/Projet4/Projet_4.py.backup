@@ -1,0 +1,120 @@
+from tkinter import *
+from csv import *
+
+def lire_stock() -> dict[str,int]:
+    fichier_stock=open("stock.csv")
+    table_stock=list(reader(fichier_stock))
+    fichier_stock.close()
+    stock={}
+    for i in range(1,len(table_stock)):
+        stock[table_stock[i][0]]=int(table_stock[i][1])
+        
+    return stock
+
+def ecrire_stock(stock: dict[str,int]):
+    fichier_stock = open('stock.csv', 'w', newline='')
+    fichier = writer(fichier_stock, delimiter=',', lineterminator='\n')
+    fichier.writerow(["article","quantité"])
+    for cle,valeur in stock.items():
+        fichier.writerow([cle,valeur])
+    fichier_stock.close()
+
+def lire_prix()-> dict[str,float]:
+    pass
+
+def stock():
+    
+    stock = lire_stock()
+    livraison=Tk()
+    livraison.geometry("500x500")
+    livraison.title("Livraison")
+    livraison.configure(bg="white")
+    
+    Label(livraison,text="SARL Chatelet",font=('arial', 15), bg="white",anchor="w").grid(row=0,column=0,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    Label(livraison,text="357 rue Marceline",font=('arial', 15), bg="white",anchor="w").grid(row=1,column=0,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    Label(livraison,text="59500 Douai",font=('arial', 15), bg="white",anchor="w").grid(row=2,column=0,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    Label(livraison,text="Arrivage",font=('arial', 15), bg="white",anchor="w").grid(row=5,column=2,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    Label(livraison,text="Articles",font=('arial', 15), bg="white",anchor="w").grid(row=6,column=0,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    Label(livraison,text="Quantité",font=('arial', 15), bg="white",anchor="w").grid(row=6,column=2,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    
+    Label(livraison,text="gomme",font=('arial', 15), bg="white",anchor="w").grid(row=8,column=0,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    gomme=IntVar(livraison)
+    gomme.set(stock["gomme"])
+    Entry(livraison, textvariable=gomme, font=("arial", 15), bg='white', fg='black').grid(row=8,column=2,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    
+    Label(livraison,text="règle",font=('arial', 15), bg="white",anchor="w").grid(row=9,column=0,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    regle=IntVar(livraison)
+    regle.set(stock["regle"])
+    Entry(livraison, textvariable=regle, font=("arial", 15), bg='white', fg='black').grid(row=9,column=2,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    
+    Label(livraison,text="compas",font=('arial', 15), bg="white",anchor="w").grid(row=10,column=0,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    compas=IntVar(livraison)
+    compas.set(stock["compas"])
+    Entry(livraison, textvariable=compas, font=("arial", 15), bg='white', fg='black').grid(row=10,column=2,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    
+    Label(livraison,text="stylo rouge",font=('arial', 15), bg="white",anchor="w").grid(row=11,column=0,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    stylor=IntVar(livraison)
+    stylor.set(stock["stylo rouge"])
+    Entry(livraison, textvariable=stylor, font=("arial", 15), bg='white', fg='black').grid(row=11,column=2,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    
+    Label(livraison,text="stylo bleue",font=('arial', 15), bg="white",anchor="w").grid(row=12,column=0,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    stylob=IntVar(livraison)
+    stylob.set(stock["stylo bleu"])
+    Entry(livraison, textvariable=stylob, font=("arial", 15), bg='white', fg='black').grid(row=12,column=2,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    
+    Label(livraison,text="crayon",font=('arial', 15), bg="white",anchor="w").grid(row=13,column=0,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    crayon=IntVar(livraison)
+    crayon.set(stock["crayon"])
+    Entry(livraison, textvariable=crayon, font=("arial", 15), bg='white', fg='black').grid(row=13,column=2,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+    
+    def valider():
+        stock["gomme"] = gomme.get()
+        stock["regle"] = regle.get()
+        stock["compas"] = compas.get()
+        stock["stylo rouge"] = stylor.get()
+        stock["stylo bleu"] = stylob.get()
+        stock["crayon"] = crayon.get()
+        ecrire_stock(stock)
+    
+    Button(livraison, text='VALIDER', command = valider, font=("arial", 15) , relief=GROOVE, width= 8,height=2,wraplength=100,anchor="center").grid(row=14,column=3,padx=2,pady=2, sticky='w'+'e'+'n'+'s')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def commande():
+    pass
+def prix():
+    pass
+def quitter():
+    fen.destroy()
+
+
+
+
+
+
+fen=Tk()
+fen.geometry("500x700")
+fen.title("SARL Chatelet")
+fen.configure(bg="white")
+
+Label(fen,text="SARL Chatelet",font=('arial', 15), bg="white",anchor="w").grid(row=0,column=0,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+Label(fen,text="357 rue Marceline",font=('arial', 15), bg="white",anchor="w").grid(row=1,column=0,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+Label(fen,text="59500 Douai",font=('arial', 15), bg="white",anchor="w").grid(row=2,column=0,padx=1,pady=1, sticky='w'+'e'+'n'+'s')
+
+Button(fen, text='Gérer le stock', command = stock, font=("arial" , 15) , relief=GROOVE, width= 10,height=4,wraplength=100,anchor="center").grid(row=3,column=1,padx=2,pady=2, sticky='w'+'e'+'n'+'s')
+Button(fen, text='Faire une commande', command = commande, font=("arial" , 15) , relief=GROOVE, width= 10,height=4,wraplength=100,anchor="center").grid(row=4,column=1,padx=2,pady=2, sticky='w'+'e'+'n'+'s')
+Button(fen, text='Modifie les prix', command = prix, font=("arial" , 15) , relief=GROOVE, width= 10,height=4,wraplength=100,anchor="center").grid(row=5,column=1,padx=2,pady=2, sticky='w'+'e'+'n'+'s')
+Button(fen, text='Quitter', command = quitter, font=("arial" , 15) , relief=GROOVE, width= 10,height=4,wraplength=100,anchor="center").grid(row =6,column=1,padx=2,pady=2, sticky='w'+'e'+'n'+'s')
+fen.mainloop() 
