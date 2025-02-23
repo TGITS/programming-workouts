@@ -1,0 +1,15 @@
+meta {
+  name: Metrics (JSON)
+  type: http
+  seq: 8
+}
+
+get {
+  url: http://localhost:8080/observe/metrics
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

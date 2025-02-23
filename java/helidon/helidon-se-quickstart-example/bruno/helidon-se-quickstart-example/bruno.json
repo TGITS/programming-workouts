@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "helidon-se-quickstart-example",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

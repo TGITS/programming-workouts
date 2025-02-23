@@ -1,0 +1,37 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: helidon-se-quickstart-example
+  labels:
+    app: helidon-se-quickstart-example
+spec:
+  type: ClusterIP
+  selector:
+    app: helidon-se-quickstart-example
+  ports:
+    - name: tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: helidon-se-quickstart-example
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helidon-se-quickstart-example
+  template:
+    metadata:
+      labels:
+        app: helidon-se-quickstart-example
+        version: v1
+    spec:
+      containers:
+      - name: helidon-se-quickstart-example
+        image: helidon-se-quickstart-example
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
