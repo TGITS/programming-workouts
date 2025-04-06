@@ -1,0 +1,49 @@
+@charset "ut-8";
+
+html {
+  padding-top: 5px;
+  padding-left: 10px;
+  background-image: url("https://cutjhqvjma.cloudimg.io/_prod_%2Forpibackend%2F60c24df516f53_Chatellet-Douai.jpg?p=default&ci_url_encoded=1&ci_sign=cc09bc06070591ccb573bed1c1d9e3418ca4f11e");
+}
+body {
+  padding-top: 1px;
+  padding-left: 15px;
+  padding-bottom: 5px;
+  margin-left: 0px;
+  background-color: #4f9485;
+}
+
+.header {
+  width: 100%;
+  height: 100px;
+  background-color: #ffffff;
+}
+
+.sidebar {
+  width: 30%;
+  height: 500px;
+  float: left;
+  background-color: #ffffff;
+}
+
+.content {
+  width: 100%;
+  height: 500px;
+  background-color: #4f9485;
+}
+
+.footer {
+  width: 100%;
+  background-color: #ffffff;
+}
+
+header h1 {
+  text-align: center;
+}
+
+#demo {
+  color: greenyellow;
+  text-align: center;
+  font-style: italic;
+  font-weight: bold;
+}

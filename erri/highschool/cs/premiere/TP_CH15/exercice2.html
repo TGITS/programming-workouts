@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Structurer une page Web</title>
+    <link rel="stylesheet" href="Structurer.css" />
+    <script src="anim.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <h1>Mon nouveau site</h1>
+      <p>Nous sommes dans l'entête</p>
+    </header>
+    <div class="corps">
+      <section class="sidebar">
+        <h2>Ceci est le contenu de la bare larérale</h2>
+        <ul>
+          <li><a href="https://chatelet-douai.fr/">Accueil</a></li>
+          <li><a href="https://chatelet-douai.fr/">Données</a></li>
+          <li><a href="https://chatelet-douai.fr/">Contacts</a></li>
+        </ul>
+      </section>
+      <section class="content">
+        <h2>Contenu page accueil</h2>
+        <p>
+          Vous avez ici le contenu de la page d'accueil avec toutes le
+          expications sur la site.
+        </p>
+        <p id="demo">Veuillez cliquer ICI</p>
+        <script>
+          document.getElementById("demo").innerHTML = "Début avec JavaScript";
+        </script>
+        <p id="balise">Attention,le texte va changer</p>
+		<br>
+		<p id="balise1">....</p>
+		<br>
+		<button type="button" onclick="action_bouton()">Appuyer sur ce bouton</button>
+		<button type="button" onclick="bonjour()">Salutations</button>
+      </section>
+    </div>
+    <footer class="footer">
+      <p>Copyright © Lycée Albert Chatelet DOUAI</p>
+    </footer>
+  </body>
+</html>
