@@ -498,3 +498,4 @@ typings/
 /exercism/typescript/difference-of-squares/.yarn
 zig-cache
 zig-out
+vendor
