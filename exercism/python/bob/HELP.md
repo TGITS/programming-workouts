@@ -1,14 +1,5 @@
 # Help
 
-## Installing a Python Environment
-
-Creating a virtual environment with `venv` (it is bundled with Python) before installing **pytest** :
-In a shell, at the root of the directory in which you want to install mkdocs, type : `python -m venv venv --prompt="exercism"`
-A `venv` directory should be created. If necessary add this directory to the `.gitignore`
-Activate the virtual environnement : `venv\Scripts\activate`
-Install **pytest**, its plugin and **ruff** with `pip` : `pip install pytest pytest-cache pytest-subtests ruff`
-When you have finished your work session in the shell, remember to deactivate your virtual environment : `venv\Scripts\deactivate`
-
 ## Running the tests
 
 We use [pytest][pytest: Getting Started Guide] as our website test runner.
