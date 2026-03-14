@@ -1,0 +1,236 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{listings}
+
+\title{16eme TFJM - Double et Chiffre - Nombre Permutatif}
+\author{Erri Vaudry}
+\date{March 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+Elément de résolution pour l'un des problèmes du seizième Tournoi Français des Jeunes Mathématiciennes et Mathématiciens (TFJM). Le problème en question est le problème numéro 7 "Double et Chiffres" dont on redonne une partie de l'énoncé ci-après.
+
+\section{Rappel de l'énoncé}
+
+On appelle nombre permutatif un nombre de $\mathbb{N}^*$ dont le double est constitué des mêmes
+chiffres dans un ordre quelconque, sauf un unique chiffre (compris entre 0 et 4) qui est remplacé
+par son double.
+
+Par exemple, $2 × 163 = 326$ : son double est constitué des mêmes chiffres, sauf un chiffre $1$ qui
+est remplacé par un chiffre $2$. En revanche, le nombre $11$ n’est pas permutatif, car pour obtenir
+$2 × 11 = 22$ il faudrait remplacer deux de ses chiffres par leurs doubles.
+
+Parmi ceux-là, on appelle :
+\begin{itemize}
+    \item nombre rotatif un nombre tel que la permutation consiste en faire passer le premier
+chiffre en dernier, et c’est ce chiffre qui est doublé. Par exemple, $253$ serait rotatif si son
+double était $534$.
+    \item nombre fitator un nombre tel que la permutation consiste en faire passer le dernier
+chiffre en premier, et c’est ce chiffre qui est doublé. Par exemple, $253$ serait fitator si son
+double était $625$.
+\end{itemize}
+
+Le nombre $163$ n’est ni rotatif ni fitator.
+
+\section{Première partie}
+
+\subsection{Questions}
+
+\subsubsection{Question 1}
+
+Soit $n \ge 2$
+\begin{enumerate}
+    \item Existe-t-il un nombre rotatif à $n$ chiffres
+    \item Déterminer (ou encadrer aussi précisément que possible) le nombre de nombres rotatifs à $n$ chiffres.
+\end{enumerate}
+
+\subsubsection{Question 2}
+
+Soit $n \ge 2$
+\begin{enumerate}
+    \item Existe-t-il un nombre fitator à $n$ chiffres
+    \item Déterminer (ou encadrer aussi précisément que possible) le nombre de nombres fitators à $n$ chiffres.
+\end{enumerate}
+
+\subsubsection{Question 3}
+
+Soit $n \ge 2$
+\begin{enumerate}
+    \item Soit $c \in \{0,1,2,\ldots,9\}$. Existe-t-il un nombre permutatif à $n$ chiffres qui finit par le chiffre $c$ ?
+    \item Déterminer (ou encadrer aussi précisément que possible) le nombre de nombres permutatifs à $n$ chiffres. En particulier, déterminer la limite de ce nombre divisé par $9 \times 10^{n-1}$, si elle existe. ($9 \times 10^{n-1}$ étant le nombre de nombres à $n$ chiffres.)
+\end{enumerate}
+
+\subsection{Proposition de solution}
+
+\subsubsection{Proposition de solution pour la question 1}
+
+Soit le nombre $A = \overline{a_0 \ldots a_i \ldots a_{n-1}}$ que l'on peut alors écrire $\sum_{i=0}^{n-1} a_i \times 10^{n-1-i}$.
+Si $A$ est un nombre rotatif alors pour $a_0 \in [1,4]$ (Cela n'a pas de sens que $a_0$ le premier chiffre de $A$ valent $0$) alors on a le système d'équations et d'inéquations suivant :
+
+\begin{equation}
+    a_0 \ge 1
+    \label{eq:INEQ1_1}
+\end{equation}
+\begin{equation}
+    a_0 \le 4
+    \label{eq:INEQ1_2}
+\end{equation}
+\begin{equation}
+    2 \times A = 2a_0 + \sum_{i=1}^{n-1} a_i \times 10^{n-i}
+    \label{eq:EQ1_1}
+\end{equation}
+
+Avec l'équation \ref{eq:EQ1_1} on cherche à exprimer $a_0$ en fonction des autres chiffres du nombre $A$.
+Après manipulation et simplification de l'équation \ref{eq:EQ1_1} on obtient \ref{eq:SOL1_1}:
+
+\begin{equation}
+    a_0 = \frac{4\sum_{i=1}^{n-1} a_i \times 10^{n-1-i}}{10^{n-1} - 1} 
+    \label{eq:SOL1_1}
+\end{equation}
+
+Pour $n=2$ cela donne :
+
+\begin{equation}
+    a_0 = \frac{4 a_1}{9}
+    \notag
+\end{equation}
+
+Sachant que $a_0 \in [1,4]$, la seule solution dans $\mathbb{N}^*$ possible est que $a_1$ ait la valeur $9$, la valeur de $a_0$ étant alors $4$.
+
+Si on généralise pour $n \ge 2$, on remarque que pour que l'on puisse avoir $a_0 \in [1,4]$, il faut que chaque $a_i \text{ avec } i \in [1, n-1]$ ait la valeur $9$, ainsi la somme $\sum_{i=1}^{n-1} a_i \times 10^{n-1-i}$ se simplifie avec le dénominateur $10^{n-1} - 1$.
+
+Il existe donc bien au moins un nombre rotatif à n chiffres, et plus précisément pour un $n \ge 2$ donné il existe exactement $1$ seul nombre rotatif.
+Au total, pour $n=2$, il y a 1 nombre rotatif ($49$), pour $n=3$, il y a 2 nombres rotatifs (respectivement à 2 et 3 chiffres, $49$ et $499$), pour $n \ge 2$, il y a $n-1$ nombres rotatifs au total.
+
+\subsubsection{Proposition de solution pour la question 2}
+
+Soit le nombre $A = \overline{a_0 \ldots a_i \ldots a_{n-1}}$ que l'on peut alors écrire $\sum_{i=0}^{n-1} a_i \times 10^{n-1-i}$.
+Si $A$ est un nombre rotatif alors pour $a_{n-1} \in [0,4]$  alors on a le système d'équations et d'inéquations suivant :
+
+\begin{equation}
+    a_{n-1} \ge 0
+    \label{eq:INEQ2_1}
+\end{equation}
+\begin{equation}
+    a_{n-1} \le 4
+    \label{eq:INEQ2_2}
+\end{equation}
+\begin{equation}
+    2 \times A = 2a_{n-1} + \sum_{i=0}^{n-2} a_i \times 10^{n-2-i}
+    \label{eq:EQ2_1}
+\end{equation}
+
+Avec l'équation \ref{eq:EQ2_1} on cherche à exprimer $a_{n-1}$ en fonction des autres chiffres du nombre $A$.
+Après manipulation et simplification de l'équation \ref{eq:EQ2_1} on obtient \ref{eq:SOL2_1}:
+
+\begin{equation}
+    a_{n-1} = \frac{{-19}\sum_{i=0}^{n-2} a_i \times 10^{n-2-i}}{2(1-10^{n-1})} 
+    \label{eq:SOL2_1}
+\end{equation}
+
+Avec $n \ge 2$ et $A \in \mathbb{N}^*$ ce qui implique que tous les $a_i$ ne peuvent pas être nuls en même temps.
+
+On remarque que le dénominateur sera toujours de la forme $2({-9\ldots9})$ donc un nombre pair, au numérateur on a $19$ qui est un nombre premier en facteur. Il faut $a_{n-1}$ soit entier et que $a_{n-1} \in [0,4]$.
+Même en prenant à chaque fois la plus haute valeur possible pour les $a_i$ de $\sum_{i=0}^{n-2} a_i \times 10^{n-2-i}$, la somme totale sera au plus égale (au signe près) à $1-10^{n-1}$, donc il restera toujours au moins 2 au dénominateur, et il sera impossible d'avoir une valeur entière dans $[0,4]$ pour $a_{n-1}$.
+
+Cette équation ne semble pas avoir de solution entière possible dans $[0,4]$ pour $a_{n-1}$.
+
+Il n'existe donc pas de nombres fitators à $n$ chiffres, le nombre de nombres fitator à $n$ chiffres est donc $0$.
+
+\subsubsection{Proposition de solution pour la question 3}
+
+A FAIRE
+
+\section{Annexe - Programme Python de recherche de nombres permutatifs}
+
+\begin{lstlisting}[language=Python]
+def is_rotatif(n: int) -> bool:
+    if n < 10:
+        return False
+
+    double_n = 2 * n
+    str_n = str(n)
+    str_double_n = str(double_n)
+
+    if int(str_n[0]) > 4:
+        return False
+
+    # An alternative way to do it
+    # expected_str_n = str(int(str_double_n[-1]) // 2) + str_double_n[0:-1]
+    # return expected_str_n == str_n
+    expected_str_double_n = str_n[1:] + str(int(str_n[0]) * 2)
+    return expected_str_double_n == str_double_n
+
+
+def rotatif_numbers_below(limit: int) -> list[int]:
+    return [n for n in range(limit) if is_rotatif(n)]
+
+
+def is_fitator(n: int) -> bool:
+    if n < 10:
+        return False
+
+    double_n = 2 * n
+    str_n = str(n)
+    str_double_n = str(double_n)
+
+    if int(str_n[-1]) > 4:
+        return False
+
+    # An alternative way to do it
+    # expected_str_n =  str_double_n[1:] + str(int(str_double_n[0]) // 2)
+    # return expected_str_n == str_n
+    expected_str_double_n = str(int(str_n[-1]) * 2) + str_n[0:-1]
+    return expected_str_double_n == str_double_n
+
+
+def fitator_numbers_below(limit: int) -> list[int]:
+    return [n for n in range(limit) if is_fitator(n)]
+
+
+def is_permutatif(n: int) -> bool:
+    if n < 10:
+        return False
+
+    double_n = 2 * n
+    str_n = sorted(str(n))
+    str_double_n = sorted(str(double_n))
+
+    expected_str_double_n = []
+    count_below_5 = len([digit for digit in str_n if digit in "01234"])
+    i = 0
+    while i < count_below_5:
+        expected_str_double_n.append(
+            str_n[0:i] + [str(int(str_n[i]) * 2)] + str_n[i + 1 :]
+        )
+        i += 1
+
+    return any(
+        expected_str_double_n == str_double_n
+        for expected_str_double_n in expected_str_double_n
+    )
+
+
+def permutatif_numbers_below(limit: int) -> list[int]:
+    return [n for n in range(limit) if is_permutatif(n)]
+
+
+def main():
+    limit = 100_000
+    print("Rotatif numbers below", limit, ":", rotatif_numbers_below(limit))
+    print("Fitator numbers below", limit, ":", fitator_numbers_below(limit))
+    print("Permutatif numbers below", limit, ":", permutatif_numbers_below(limit))
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+
+\end{document}
